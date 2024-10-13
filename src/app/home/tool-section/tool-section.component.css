@@ -99,7 +99,6 @@
   background-color: white;
 
 
-  opacity: 0;
   translate:30%;
   transition: transform .5s ease, box-shadow .5s ease, z-index 0s;
 }
@@ -162,10 +161,8 @@
 
   display: grid;
   grid-template: auto auto/1fr 2fr;
-  display: none;
   background-color: #FFE436;
 
-  opacity: 0;
 }
 #tool-section .panel-container .panel__in-development-advice.animated{
   animation: slide__from-left 2s ease forwards, fade-in 2s ease forwards;
