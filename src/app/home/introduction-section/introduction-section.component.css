@@ -48,12 +48,6 @@
   position: relative;
   flex-grow: 1.5;
   flex-basis: 0;
-
-  transform: translateX(25%);
-  opacity: 0;
-
-}
-#introduction-section .panel__ilustration.animated{
   animation: enter-by-left ease-in-out 1s both;
 }
 
@@ -61,17 +55,15 @@
   object-fit: contain;
   object-position: center;
   height: 50%;
+  animation: appear-shadow ease both 1s;
 }
 
-#introduction-section .panel__ilustration .main.animated{
-  animation: appear-shadow var(--back-easing) both 1s;
-}
 #introduction-section .panel__ilustration .secondary{
   object-fit: contain;
   object-position: center;
   position: absolute;
   height: 10rem;
-  animation: float 2.5s var(--back-easing) infinite both;
+  animation: float 2.5s ease infinite both;
 }
 #introduction-section .panel__ilustration .secondary--first{
   animation-delay: 1s;
@@ -89,7 +81,15 @@
   bottom: 2rem;
 }
 
+@keyframes float {
+  0%,100%{
+    transform: translateY(0);
+  }
+  50%{
+    transform: translateY(-50%);
+  }
 
+}
 
 @keyframes appear-shadow {
   0% {
