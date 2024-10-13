@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-logo-section',
+  selector: 'home-logo-section',
   templateUrl: './logo-section.component.html',
   styleUrl: './logo-section.component.css'
 })
