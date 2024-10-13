@@ -1,11 +1,6 @@
 <section class="panel">
   <div class="panel__text">
-    <h2>
-      {{ title }}
-    </h2>
-    <p>
-      {{textContent}}
-    </p>
+    <ng-content></ng-content>
   </div>
   <figure class="panel__ilustration to_animate">
     <img [ngClass]="'main--'+colorClass" class="main to_animate" [src]="'/assets/home/introduction-section/section-'+sectionNumber+'/main.png'" alt="">

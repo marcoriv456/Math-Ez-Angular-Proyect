@@ -7,10 +7,6 @@ import {Component, Input} from '@angular/core';
 })
 export class IntroductionPanelComponent {
   @Input()
-  title!:string;
-  @Input()
-  textContent!:string;
-  @Input()
   sectionNumber!:number
   @Input()
   colorClass!:string
