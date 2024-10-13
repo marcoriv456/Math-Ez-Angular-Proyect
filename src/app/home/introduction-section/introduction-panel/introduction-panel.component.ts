@@ -11,10 +11,7 @@ export class IntroductionPanelComponent {
   @Input()
   textContent!:string;
   @Input()
-  mainImageUrl!:string
-  @Input()
-  secondaryImagesUrls!:string[]
-
+  sectionNumber!:number
   @Input()
   colorClass!:string
 }
