@@ -1,0 +1,244 @@
+#tool-section{
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15vh;
+}
+
+/*-----------------TITLE-----------------*/
+
+#tool-section .title{
+  font-size: 2rem;
+  background-color: #6babff;
+
+  transition: background-color .5s ease;
+}
+
+#tool-section .title span{
+  font-family: "Times New Roman", sans-serif;
+  font-weight: 100;
+}
+
+/*-----------------TITLE-----------------*/
+
+/*-----------------PANEL CONTAINER-----------------*/
+#tool-section .panel-container{
+  max-width: 1080px;
+  height: 150vh;
+  position: relative;
+}
+/*-----------------PANEL CONTAINER-----------------*/
+
+/*----------------------PANEL----------------------*/
+
+
+#tool-section .panel{
+  height: fit-content;
+  padding: 2rem;
+  position: sticky;
+  top: 12rem;
+
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 1fr auto auto;
+
+  gap: 2rem;
+
+
+}
+#tool-section .panel > img{
+  width: 100%;
+
+  grid-row: span 3;
+  object-fit: contain;
+
+  filter: drop-shadow(1rem 1rem 0 var(--panel-theme-color));
+}
+#tool-section .panel >img.animated{
+  animation: slide__from-left .5s ease;
+}
+
+
+#tool-section .panel h3,
+#tool-section .panel p{
+  text-align: center;
+}
+#tool-section .panel h3{
+  font-size: 2.5rem;
+}
+#tool-section .panel p{
+  font-size: 2rem;
+  font-family: "Times New Roman", sans-serif;
+}
+
+/*------------PANEL FEATURES------------*/
+#tool-section .panel__feature__list{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+
+}
+
+
+
+#tool-section .panel__feature{
+  width: 100%;
+
+  display: grid;
+  grid-template: auto auto/1fr 2fr;
+
+  text-decoration: none;
+  color: black;
+}
+
+#tool-section .panel__feature__list li{
+  height: fit-content;
+  border-radius: 10px;
+  background-color: white;
+
+
+  opacity: 0;
+  translate:30%;
+  transition: transform .5s ease, box-shadow .5s ease, z-index 0s;
+}
+#tool-section .panel__feature__list li:hover{
+  outline: 1px solid black;
+  transform: scale(1.1);
+  box-shadow: 5px 5px 5px #0006;
+  z-index: 10;
+}
+#tool-section .panel__feature__list li.animated{
+  animation: slide__from-right 1s ease both, fade-in 1s ease both;
+}
+#tool-section .panel__feature__list li:nth-child(1){
+  animation-delay: .2s;
+}
+#tool-section .panel__feature__list li:nth-child(2){
+  animation-delay: .4s;
+}
+#tool-section .panel__feature__list li:nth-child(3){
+  animation-delay: .6s;
+}
+
+
+
+#tool-section .panel__feature img{
+  width: 100%;
+  padding: 1rem;
+
+  grid-row: span 2;
+  place-self: center;
+  object-fit: contain;
+
+  filter: drop-shadow(0.5rem 0.5rem 0 var(--panel-theme-color));
+}
+
+#tool-section .panel__feature p,
+#tool-section .panel__feature h4{
+  font-family: "Lato", sans-serif;
+  text-align: start;
+}
+#tool-section .panel__feature h4{
+  font-size: 1.7rem;
+}
+#tool-section .panel__feature p{
+  font-size: 1.2rem;
+}
+
+/*------------PANEL FEATURES------------*/
+/*------------PANEL IN DEVELOPMENT ADVICE------------*/
+#tool-section .panel-container .panel__in-development-advice{
+
+
+  width: 30rem;
+  padding: 2rem;
+  border-radius: 20px;
+
+  position: absolute;
+  left: 0;
+  bottom: 10rem;
+
+  display: grid;
+  grid-template: auto auto/1fr 2fr;
+  display: none;
+  background-color: #FFE436;
+
+  opacity: 0;
+}
+#tool-section .panel-container .panel__in-development-advice.animated{
+  animation: slide__from-left 2s ease forwards, fade-in 2s ease forwards;
+}
+#tool-section .panel-container .panel__in-development-advice img{
+  width: 100%;
+  height: 100%;
+
+  grid-row: span 2;
+
+  object-fit: contain;
+}
+#tool-section .panel-container .panel__in-development-advice h4{
+  font-size: 2rem;
+}
+
+#tool-section .panel-container .panel__in-development-advice p{
+  font-size: 1.5rem;
+}
+/*------------PANEL IN DEVELOPMENT ADVICE------------*/
+/*----------------------PANEL----------------------*/
+
+
+/*-----------------PANEL VARIANTS-----------------*/
+#panel--algebra{
+  --panel-theme-color:#F4A04D;
+}
+#panel--calculus{
+  --panel-theme-color: #f44d4d;
+}
+#panel--logic{
+  --panel-theme-color: #4df450;
+}
+
+#panel--graphics{
+  --panel-theme-color: #4ddbf4;
+}
+#panel--measures{
+  --panel-theme-color: #4d7cf4;
+}
+#panel--stadistics{
+  --panel-theme-color: #8a4df4;
+}
+/*-----------------PANEL VARIANTS-----------------*/
+
+
+/*-----------------ANIMATIONS-----------------*/
+@keyframes fade-in {
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+}
+
+@keyframes slide__from-left {
+  from{
+    translate: -100%;
+  }
+  to{
+    translate: 0;
+  }
+}
+
+@keyframes slide__from-right {
+  from {
+    translate:40%;
+  }
+  to{
+    translate: 0;
+  }
+}
+
+
+/*-----------------ANIMATIONS-----------------*/
