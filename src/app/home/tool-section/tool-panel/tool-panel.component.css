@@ -108,3 +108,22 @@
  .panel__feature p{
   font-size: 1.2rem;
 }
+#panel--algebra{
+  --panel-theme-color:#F4A04D;
+}
+#panel--calculus{
+  --panel-theme-color: #f44d4d;
+}
+#panel--logic{
+  --panel-theme-color: #4df450;
+}
+
+#panel--graphics{
+  --panel-theme-color: #4ddbf4;
+}
+#panel--measures{
+  --panel-theme-color: #4d7cf4;
+}
+#panel--stadistics{
+  --panel-theme-color: #8a4df4;
+}
