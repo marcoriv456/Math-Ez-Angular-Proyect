@@ -5,7 +5,7 @@
   display: block;
 }
 
-.panel{
+section{
   height: fit-content;
   padding: 2rem;
   position: sticky;
@@ -18,7 +18,7 @@
   gap: 2rem;
 
 }
-.panel > img{
+img{
   width: 100%;
 
   grid-row: span 3;
@@ -26,25 +26,21 @@
 
   filter: drop-shadow(1rem 1rem 0 var(--panel-theme-color));
 }
- .panel >img.animated{
-  animation: slide__from-left .5s ease;
-}
 
 
- .panel h3,
- .panel p{
+.title,.description{
   text-align: center;
 }
- .panel h3{
+.title {
   font-size: 2.5rem;
 }
- .panel p{
+.description{
   font-size: 2rem;
   font-family: "Times New Roman", sans-serif;
 }
 
 /*------------PANEL FEATURES------------*/
- .panel__feature__list{
+.panel__feature__list{
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
@@ -113,22 +109,22 @@
  .panel__feature p{
   font-size: 1.2rem;
 }
-#panel--algebra{
+:host#panel--algebra{
   --panel-theme-color:#F4A04D;
 }
-#panel--calculus{
+:host#panel--calculus{
   --panel-theme-color: #f44d4d;
 }
-#panel--logic{
+:host#panel--logic{
   --panel-theme-color: #4df450;
 }
 
-#panel--graphics{
+:host#panel--graphics{
   --panel-theme-color: #4ddbf4;
 }
-#panel--measures{
+:host#panel--measures{
   --panel-theme-color: #4d7cf4;
 }
-#panel--stadistics{
+:host#panel--stadistics{
   --panel-theme-color: #8a4df4;
 }
