@@ -1,4 +1,4 @@
-#tool-section .panel{
+.panel{
   height: fit-content;
   padding: 2rem;
   position: sticky;
@@ -10,9 +10,8 @@
 
   gap: 2rem;
 
-
 }
-#tool-section .panel > img{
+.panel > img{
   width: 100%;
 
   grid-row: span 3;
@@ -20,25 +19,25 @@
 
   filter: drop-shadow(1rem 1rem 0 var(--panel-theme-color));
 }
-#tool-section .panel >img.animated{
+ .panel >img.animated{
   animation: slide__from-left .5s ease;
 }
 
 
-#tool-section .panel h3,
-#tool-section .panel p{
+ .panel h3,
+ .panel p{
   text-align: center;
 }
-#tool-section .panel h3{
+ .panel h3{
   font-size: 2.5rem;
 }
-#tool-section .panel p{
+ .panel p{
   font-size: 2rem;
   font-family: "Times New Roman", sans-serif;
 }
 
 /*------------PANEL FEATURES------------*/
-#tool-section .panel__feature__list{
+ .panel__feature__list{
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
@@ -47,7 +46,7 @@
 
 
 
-#tool-section .panel__feature{
+ .panel__feature{
   width: 100%;
 
   display: grid;
@@ -57,7 +56,7 @@
   color: black;
 }
 
-#tool-section .panel__feature__list li{
+ .panel__feature__list li{
   height: fit-content;
   border-radius: 10px;
   background-color: white;
@@ -66,28 +65,28 @@
   translate:30%;
   transition: transform .5s ease, box-shadow .5s ease, z-index 0s;
 }
-#tool-section .panel__feature__list li:hover{
+ .panel__feature__list li:hover{
   outline: 1px solid black;
   transform: scale(1.1);
   box-shadow: 5px 5px 5px #0006;
   z-index: 10;
 }
-#tool-section .panel__feature__list li.animated{
+ .panel__feature__list li.animated{
   animation: slide__from-right 1s ease both, fade-in 1s ease both;
 }
-#tool-section .panel__feature__list li:nth-child(1){
+ .panel__feature__list li:nth-child(1){
   animation-delay: .2s;
 }
-#tool-section .panel__feature__list li:nth-child(2){
+ .panel__feature__list li:nth-child(2){
   animation-delay: .4s;
 }
-#tool-section .panel__feature__list li:nth-child(3){
+ .panel__feature__list li:nth-child(3){
   animation-delay: .6s;
 }
 
 
 
-#tool-section .panel__feature img{
+ .panel__feature img{
   width: 100%;
   padding: 1rem;
 
@@ -98,14 +97,14 @@
   filter: drop-shadow(0.5rem 0.5rem 0 var(--panel-theme-color));
 }
 
-#tool-section .panel__feature p,
-#tool-section .panel__feature h4{
+ .panel__feature p,
+ .panel__feature h4{
   font-family: "Lato", sans-serif;
   text-align: start;
 }
-#tool-section .panel__feature h4{
+ .panel__feature h4{
   font-size: 1.7rem;
 }
-#tool-section .panel__feature p{
+ .panel__feature p{
   font-size: 1.2rem;
 }
