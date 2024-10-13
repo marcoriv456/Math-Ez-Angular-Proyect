@@ -3,24 +3,13 @@
     ¡Comprende y resuelve los problemas matemáticos en los que siempre tuviste dudas!
   </h1>
 
-  <div class="panel__container" id="introduction-section__1">
-    <section class="panel">
-      <div class="panel__text">
-        <h2>
-          Todo en un solo lugar
-        </h2>
-        <p>
-          Calculadoras para cualquier tema. Desde algebra, calculo y trigonometría hasta lógica, grafos y estadística ¡Todo en un solo lugar!
-        </p>
-      </div>
-      <figure class="panel__ilustration to_animate">
-        <img class="main main--green to_animate" src="/assets/home/introduction-section/section-1/main.png" alt="">
-        <img class="secondary secondary--first" src="/assets/home/introduction-section/section-1/secondary--first.png" alt="" >
-        <img class="secondary secondary--second" src="/assets/home/introduction-section/section-1/secondary--second.png" alt="" >
-        <img class="secondary secondary--third" src="/assets/home/introduction-section/section-1/secondary--third.png" alt="" >
-      </figure>
-    </section>
-  </div>
+  <home-introduction-section-panel
+    title="Todo en un solo lugar"
+    textContent="¡Calculadoras para cualquier tema. Desde algebra, calculo y trigonometría hasta lógica, grafos y estadística!"
+    colorClass="green"
+    [sectionNumber]="1"
+  ></home-introduction-section-panel>
+
   <div class="panel__container" id="introduction-section__2">
     <section class="panel">
       <div class="panel__text">
