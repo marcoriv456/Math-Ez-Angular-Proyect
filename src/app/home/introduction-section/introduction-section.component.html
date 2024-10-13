@@ -2,50 +2,21 @@
   <h1 class="title">
     ¡Comprende y resuelve los problemas matemáticos en los que siempre tuviste dudas!
   </h1>
-
-  <home-introduction-section-panel
-    title="Todo en un solo lugar"
-    textContent="¡Calculadoras para cualquier tema. Desde algebra, calculo y trigonometría hasta lógica, grafos y estadística!"
-    colorClass="green"
-    [sectionNumber]="1"
-  ></home-introduction-section-panel>
-
-  <div class="panel__container" id="introduction-section__2">
-    <section class="panel">
-      <div class="panel__text">
-        <h2>
-          Hecho para todos.
-        </h2>
-        <p>
-          Tanto como si eres un alumno, docente o incluso ya estas inmerso en una carrera profesional ¡MathEz será tu mejor herramienta
-        </p>
-      </div>
-      <figure class="panel__ilustration to_animate">
-        <img class="main main--blue to_animate" src="/assets/home/introduction-section/section-2/main.png" alt="">
-        <img class="secondary secondary--first" src="/assets/home/introduction-section/section-2/secondary--first.png" alt="" >
-        <img class="secondary secondary--second" src="/assets/home/introduction-section/section-2/secondary--second.png" alt="" >
-        <img class="secondary secondary--third" src="/assets/home/introduction-section/section-2/secondary--third.png" alt="" >
-      </figure>
-    </section>
-  </div>
-  <div class="panel__container" id="introduction-section__3">
-    <section class="panel">
-      <div class="panel__text">
-        <h2>
-          Sin ningún costo
-        </h2>
-        <p>
-          No te preocupes por el costo, gracias a los anuncios es que MathEz puede ayudarte sin necesidad de cobrarte en lo absoluto. Aunque de igual forma siempre se agradece el desactivar cualquier bloqueador de anuncios para ayudar a mantener el sitio. ¡Gracias!
-        </p>
-      </div>
-      <figure class="panel__ilustration to_animate">
-        <img class="main main--red to_animate" src="/assets/home/introduction-section/section-3/main.png" alt="">
-        <img class="secondary secondary--first" src="/assets/home/introduction-section/section-3/secondary--first.png" alt="" >
-        <img class="secondary secondary--second" src="/assets/home/introduction-section/section-3/secondary--second.png" alt="" >
-        <img class="secondary secondary--third" src="/assets/home/introduction-section/section-3/secondary--third.png" alt="" >
-      </figure>
-    </section>
-  </div>
-
+  <home-introduction-section-panel colorClass="green" [sectionNumber]="1">
+    <h2>Todo en un solo lugar</h2>
+    <p>¡Calculadoras para cualquier tema! Desde algebra, calculo y trigonometria hasta lógica, grafos y estadistica.</p>
+  </home-introduction-section-panel>
+  <home-introduction-section-panel colorClass="blue" [sectionNumber]="2">
+    <h2>Hecho para todos.</h2>
+    <p>
+      Tanto como si eres un alumno, docente o incluso ya estas inmerso en una carrera profesional ¡MathEz será tu mejor herramienta
+    </p>
+  </home-introduction-section-panel>
+  <home-introduction-section-panel colorClass="red" [sectionNumber]="3">
+    <h2>Sin ningún costo</h2>
+    <p>
+      No te preocupes por el costo, gracias a los anuncios es que MathEz puede ayudarte sin necesidad de cobrarte en lo absoluto. Aunque de igual forma siempre se agradece el desactivar cualquier bloqueador de anuncios para ayudar a mantener el sitio. ¡Gracias!
+    </p>
+  </home-introduction-section-panel>
 </section>
 
