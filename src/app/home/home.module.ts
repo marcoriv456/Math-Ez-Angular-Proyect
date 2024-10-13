@@ -4,6 +4,7 @@ import {HomeComponent} from "./home.component";
 import {LogoSectionComponent} from "./logo-section/logo-section.component";
 import { IntroductionSectionComponent } from './introduction-section/introduction-section.component';
 import { IntroductionPanelComponent } from './introduction-section/introduction-panel/introduction-panel.component';
+import { ToolSectionComponent } from './tool-section/tool-section.component';
 
 
 
@@ -12,7 +13,8 @@ import { IntroductionPanelComponent } from './introduction-section/introduction-
     HomeComponent,
     LogoSectionComponent,
     IntroductionSectionComponent,
-    IntroductionPanelComponent
+    IntroductionPanelComponent,
+    ToolSectionComponent
   ],
   exports: [
     HomeComponent
