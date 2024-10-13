@@ -1,1 +1,17 @@
-<p>introduction-panel works!</p>
+<section class="panel">
+  <div class="panel__text">
+    <h2>
+      {{ title }}
+    </h2>
+    <p>
+      {{textContent}}
+    </p>
+  </div>
+  <figure class="panel__ilustration to_animate">
+    <img [ngClass]="'main--'+colorClass" class="main to_animate" [src]="mainImageUrl" alt="">
+    <img class="secondary secondary--first" [src]="secondaryImagesUrls[0]" alt="" >
+    <img class="secondary secondary--second" [src]="secondaryImagesUrls[1]" alt="" >
+    <img class="secondary secondary--third" [src]="secondaryImagesUrls[2]" alt="" >
+  </figure>
+</section>
+
