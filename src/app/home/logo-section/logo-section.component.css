@@ -1,0 +1,125 @@
+#logo-section{
+  --animation-lenght:0.5s;
+
+  height: calc(100vh - 6rem);
+
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#logo-section .logo-container{
+  position: relative;
+  top: -5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* animation: fade-in both 2s ease; */
+}
+
+
+
+#logo-section .logo-container img{
+  width: 11rem;
+  height: 11rem;
+
+  position: relative;
+  object-fit: contain;
+  object-position: center;
+  left: 20rem;
+
+  animation:
+    logo__go-down var(--animation-lenght) ease both,
+    logo__go-right var(--animation-lenght) ease forwards var(--animation-lenght),
+    logo__go-left var(--animation-lenght) ease forwards calc(var(--animation-lenght)*2);
+}
+
+#logo-section .logo-container p{
+  font-size: 10rem;
+}
+
+#logo-section .logo-container span{
+  font-family: "Times New Roman", sans-serif;
+}
+
+
+#logo-section .logo-eater{
+  width: 0;
+  height: 100%;
+
+  position: absolute;
+  left: 0;
+
+  background-color: white;
+
+  animation: logo-eater__un-grow var(--animation-lenght) ease calc(var(--animation-lenght)*2) both;
+}
+
+
+#logo-section .phrase-container{
+  position: absolute;
+  bottom: 0;
+  font-size: 2rem;
+
+  text-wrap: nowrap;
+
+  animation: fade-in both ease 1s .5s;
+}
+
+#logo-section .phrase{
+  font-family: "Times New Roman", sans-serif;
+}
+
+#logo-section .phrase__autor{
+  text-align: end;
+}
+
+
+@keyframes logo__go-down {
+  from{
+    bottom: 50vh;
+  }
+  to{
+    bottom: 0;
+  }
+}
+
+@keyframes logo__go-right{
+  from{
+    left: 20rem;
+  }
+  to{
+    left: 40rem;
+  }
+}
+@keyframes logo__go-left {
+  from{
+    left: 40rem;
+  }
+  to{
+    left: 0;
+  }
+}
+
+
+@keyframes logo-eater__un-grow {
+  from{
+    width: 100%;
+  }
+  to{
+    width: 0;
+  }
+}
+
+@keyframes fade-in{
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+}
