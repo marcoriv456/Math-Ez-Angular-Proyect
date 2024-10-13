@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-tool-panel',
+  selector: 'home-tool-section-panel',
   templateUrl: './tool-panel.component.html',
   styleUrl: './tool-panel.component.css'
 })
