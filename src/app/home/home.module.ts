@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import {HomeComponent} from "./home.component";
 import {LogoSectionComponent} from "./logo-section/logo-section.component";
 import { IntroductionSectionComponent } from './introduction-section/introduction-section.component';
+import { IntroductionPanelComponent } from './introduction-section/introduction-panel/introduction-panel.component';
 
 
 
@@ -10,7 +11,8 @@ import { IntroductionSectionComponent } from './introduction-section/introductio
   declarations: [
     HomeComponent,
     LogoSectionComponent,
-    IntroductionSectionComponent
+    IntroductionSectionComponent,
+    IntroductionPanelComponent
   ],
   exports: [
     HomeComponent
