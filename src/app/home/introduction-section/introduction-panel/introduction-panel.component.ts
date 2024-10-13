@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 
 @Component({
-  selector: 'app-introduction-panel',
+  selector: 'home-introduction-section-panel',
   templateUrl: './introduction-panel.component.html',
   styleUrl: './introduction-panel.component.css'
 })
