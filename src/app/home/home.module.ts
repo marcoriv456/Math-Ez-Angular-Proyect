@@ -10,6 +10,9 @@ import {LogoSectionComponent} from "./logo-section/logo-section.component";
     HomeComponent,
     LogoSectionComponent
   ],
+  exports: [
+    HomeComponent
+  ],
   imports: [
     CommonModule
   ]
