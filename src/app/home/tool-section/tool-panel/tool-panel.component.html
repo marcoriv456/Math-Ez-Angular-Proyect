@@ -1,7 +1,11 @@
 <section class="panel" id="panel--algebra">
   <img class="to_animate" src="/assets/home/tool-section/algebra/algebra-icon.png" alt="">
-  <h3>Algebra Lineal</h3>
-  <p>Álgebra lineal estudia vectores, matrices, espacios vectoriales y transformaciones lineales, fundamentales para resolver sistemas y modelar fenómenos.</p>
+  <div class="title">
+    <ng-content select="h3"></ng-content>
+  </div>
+  <div class="description">
+    <ng-content select="p"></ng-content>
+  </div>
   <nav>
     <ul class="panel__feature__list">
       <li class="to_animate">
