@@ -39,7 +39,7 @@ img{
   font-family: "Times New Roman", sans-serif;
 }
 
-.panel__feature__list{
+nav{
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
