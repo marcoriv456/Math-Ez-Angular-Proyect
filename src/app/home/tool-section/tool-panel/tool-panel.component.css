@@ -39,12 +39,6 @@ img{
   font-family: "Times New Roman", sans-serif;
 }
 
-nav{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-
-}
 
 :host#panel--algebra{
   --panel-theme-color:#F4A04D;
@@ -62,6 +56,6 @@ nav{
 :host#panel--measures{
   --panel-theme-color: #4d7cf4;
 }
-:host#panel--stadistics{
+:host#panel--statistics{
   --panel-theme-color: #8a4df4;
 }

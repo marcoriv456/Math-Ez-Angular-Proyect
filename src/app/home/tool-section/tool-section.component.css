@@ -20,6 +20,11 @@
   font-family: "Times New Roman", sans-serif;
   font-weight: 100;
 }
+home-tool-section-panel ul{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
 
 /*-----------------TITLE-----------------*/
 
