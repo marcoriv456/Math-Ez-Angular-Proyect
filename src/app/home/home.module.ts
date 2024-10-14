@@ -6,6 +6,7 @@ import { IntroductionSectionComponent } from './introduction-section/introductio
 import { IntroductionPanelComponent } from './introduction-section/introduction-panel/introduction-panel.component';
 import { ToolSectionComponent } from './tool-section/tool-section.component';
 import { ToolPanelComponent } from './tool-section/tool-panel/tool-panel.component';
+import { ToolPanelFeatureComponent } from './tool-section/tool-panel-feature/tool-panel-feature.component';
 
 
 
@@ -16,7 +17,8 @@ import { ToolPanelComponent } from './tool-section/tool-panel/tool-panel.compone
     IntroductionSectionComponent,
     IntroductionPanelComponent,
     ToolSectionComponent,
-    ToolPanelComponent
+    ToolPanelComponent,
+    ToolPanelFeatureComponent
   ],
   exports: [
     HomeComponent
