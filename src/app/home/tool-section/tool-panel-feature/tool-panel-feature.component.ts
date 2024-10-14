@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'home-tool-section-panel-feature',
@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrl: './tool-panel-feature.component.css'
 })
 export class ToolPanelFeatureComponent {
-
+  @Input()
+  iconSrc!:string;
 }
