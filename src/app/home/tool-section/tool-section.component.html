@@ -1,221 +1,150 @@
 <section id="tool-section">
   <h2 class="title">¡Prueba <span>Math</span>Ez ahora!</h2>
   <div class="panel-section">
-    <home-tool-section-panel>
+    <home-tool-section-panel id="panel--algebra"
+      iconSrc="/assets/home/tool-section/algebra/algebra-icon.png"
+    >
       <h3>Algebra Lineal</h3>
       <p>Álgebra lineal estudia vectores, matrices, espacios vectoriales y transformaciones lineales, fundamentales para resolver sistemas y modelar fenómenos.</p>
+      <ul>
+        <li>
+          <home-tool-section-panel-feature iconSrc="/assets/home/tool-section/algebra/algebra-icon.png">
+            <h4>Calculadora de matrices</h4>
+            <p>Una calculadora que te permitira realizar una gran variedad de operaciones basicas usando matrices, tales como suma, multiplicacion, determinantes e inversas, entre otras funciones mas.</p>
+          </home-tool-section-panel-feature>
+        </li>
+        <li>
+          <home-tool-section-panel-feature iconSrc="/assets/home/tool-section/algebra/ecuation-system-icon.png">
+            <h4>Calculadora de sistemas de ecuaciones lineales</h4>
+            <p>Con esta calculadora podrás obtener soluciones para sistemas de ecuaciones lineales, sea cual sea el numero de incógnitas que este tenga.</p>
+          </home-tool-section-panel-feature>
+        </li>
+
+      </ul>
     </home-tool-section-panel>
+    <home-tool-section-panel id="panel--calculus"
+      iconSrc="/assets/home/tool-section/calculus/calculus-icon.png"
+    >
+      <h3>Cálculo</h3>
+      <p>Cálculo analiza cambios y tasas mediante derivadas e integrales, aplicando conceptos a funciones, curvas y áreas.</p>
+        <ul>
+          <li>
+            <home-tool-section-panel-feature
+              iconSrc="/assets/home/tool-section/calculus/derivative-icon.png">
+              <h4>Calculadora de derivadas</h4>
+              <p>Una calculadora que te permitira derivar funciones de todos los ordenes al instante.</p>
+            </home-tool-section-panel-feature>
+          </li>
+          <li>
+            <home-tool-section-panel-feature
+              iconSrc="/assets/home/tool-section/calculus/integral-icon.png">
+              <h4>Calculadora de integrales</h4>
+              <p>Una calculadora para resolver integrales. Tanto definidas como indefinidas, con esta calculadora podras manejarlas con facilidad.</p>
+            </home-tool-section-panel-feature>
+          </li>
+        </ul>
+    </home-tool-section-panel>
+    <home-tool-section-panel id="panel--logic"
+      iconSrc="/assets/home/tool-section/logic/logic-icon.png"
+    >
+      <h3>Logica</h3>
+      <p>Lógica estudia razonamientos válidos mediante proposiciones, operadores y pruebas, fundamentando la inferencia y la estructura de argumentos.</p>
+        <ul>
+          <li>
+            <home-tool-section-panel-feature
+            iconSrc="/assets/home/tool-section/logic/truth-table-icon.png">
+<!--              <img src="" alt="">-->
+              <h4>Calculadora de Tablas de verdad</h4>
+              <p>Una calculadora que te permitira construir tablas de verdad a partir de una preposicion logica compuesta.</p>
+            </home-tool-section-panel-feature>
+          </li>
+          <li>
+            <home-tool-section-panel-feature
+            iconSrc="/assets/home/tool-section/logic/numeric-system-icon.png">
+              <h4>Calculadora de sistemas numericos</h4>
+              <p>Una calculadora que te permitira resolver conversiones y operaciones entre todo tipo de sistemas numericos, desde binario hasta hexadecimal.</p>
+            </home-tool-section-panel-feature>
+          </li>
+          <li class="to_animate">
+            <home-tool-section-panel-feature
+            iconSrc="/assets/home/tool-section/logic/node-icon.png">
+              <h4>Interprete grafico de nodos (o grafos)</h4>
+              <p>Esta no es una calculadora como tal, sino mas bien un interprete grafico que te permitira crear mapas de nodos graficamente y, a su vez, crear matrices de incidencia y adyacencia con estos.</p>
+            </home-tool-section-panel-feature>
+          </li>
+        </ul>
+    </home-tool-section-panel>
+    <home-tool-section-panel id="panel--graphics"
+      iconSrc="/assets/home/tool-section/graphics/graphic-icon.png"
+    >
+      <h3>Graficas</h3>
+      <p>Funciones en el plano cartesiano relacionan variables mediante gráficos, mostrando cómo un valor de entrada produce un valor de salida.</p>
+        <ul>
+          <li>
+            <home-tool-section-panel-feature
+            iconSrc="/assets/home/tool-section/graphics/graphic-calculator-icon.png">
+              <h4>Calculadora grafica</h4>
+              <p>Una calculadora que te permitira dibujar graficas en el plano usando funciones matematicas.</p>
+            </home-tool-section-panel-feature>
+          </li>
+          <li>
+            <home-tool-section-panel-feature
+            iconSrc="/assets/home/tool-section/graphics/graphic-data-calculator-icon.png">
+              <h4>Calculadora grafica con datos</h4>
+              <p>Una calculadora que te permitira dibujar un graficas en el plano usando datos fijos en lugar de expresiones</p>
+            </home-tool-section-panel-feature>
+          </li>
+          <li>
+            <home-tool-section-panel-feature
+            iconSrc="/assets/home/tool-section/graphics/graphic-expression-interpreter.png">
+              <h4>Interprete grafico de expresiones</h4>
+              <p>Un interprete grafico con el que podras dibujar expresiones matematicas en formatos de imagen como JPEG o PNG.</p>
+            </home-tool-section-panel-feature>
+          </li>
+        </ul>
 
-<!--    <div class="panel-container" id="container&#45;&#45;algebra">-->
-<!--      <section class="panel" id="panel&#45;&#45;algebra">-->
-<!--        <img class="to_animate" src="/assets/home/tool-section/algebra/algebra-icon.png" alt="">-->
-<!--        <h3>Algebra Lineal</h3>-->
-<!--        <p>Álgebra lineal estudia vectores, matrices, espacios vectoriales y transformaciones lineales, fundamentales para resolver sistemas y modelar fenómenos.</p>-->
-<!--        <nav>-->
-<!--          <ul class="panel__feature__list">-->
-<!--            <li class="to_animate">-->
-<!--              <a href="#" class="panel__feature">-->
-<!--                <img src="/assets/home/tool-section/algebra/matrix-icon.png" alt="">-->
-<!--                <h4>Calculadora de matrices</h4>-->
-<!--                <p>Una calculadora que te permitira realizar una gran variedad de operaciones basicas usando matrices, tales como suma, multiplicacion, determinantes e inversas, entre otras funciones mas.</p>-->
-<!--              </a>-->
-<!--            </li>-->
-<!--            <li class="to_animate">-->
-<!--              <a class="panel__feature">-->
-<!--                <img src="/assets/home/tool-section/algebra/ecuation-system-icon.png" alt="">-->
-<!--                <h4>Calculadora de sistemas de ecuaciones lineales</h4>-->
-<!--                <p>Con esta calculadora podrás obtener soluciones para sistemas de ecuaciones lineales, sea cual sea el numero de incógnitas que este tenga.</p>-->
-<!--              </a>-->
-<!--            </li>-->
-<!--          </ul>-->
-
-<!--        </nav>-->
-<!--      </section>-->
-<!--    </div>-->
-<!--    <div class="panel-container" id="container&#45;&#45;calculus">-->
-
-<!--      <section class="panel" id="panel&#45;&#45;calculus">-->
-<!--        <img class="to_animate" src="/assets/home/tool-section/calculus/calculus-icon.png" alt="">-->
-<!--        <h3>Cálculo</h3>-->
-<!--        <p>Cálculo analiza cambios y tasas mediante derivadas e integrales, aplicando conceptos a funciones, curvas y áreas.</p>-->
-<!--        <nav>-->
-<!--          <ul class="panel__feature__list">-->
-<!--            <li class="to_animate">-->
-<!--              <a href="#" class="panel__feature">-->
-<!--                <img src="/assets/home/tool-section/calculus/derivative-icon.png" alt="">-->
-<!--                <h4>Calculadora de derivadas</h4>-->
-<!--                <p>Una calculadora que te permitira derivar funciones de todos los ordenes al instante.</p>-->
-<!--              </a>-->
-<!--            </li>-->
-<!--            <li class="to_animate">-->
-<!--              <a class="panel__feature">-->
-<!--                <img src="/assets/home/tool-section/calculus/integral-icon.png" alt="">-->
-<!--                <h4>Calculadora de integrales</h4>-->
-<!--                <p>Una calculadora para resolver integrales. Tanto definidas como indefinidas, con esta calculadora podras manejarlas con facilidad.</p>-->
-<!--              </a>-->
-<!--            </li>-->
-<!--          </ul>-->
-
-<!--        </nav>-->
-<!--      </section>-->
-
-
-<!--      <dialog class="panel__in-development-advice to_animate">-->
-<!--        <img src="/assets/home/tool-section/global/in-development-icon.png" alt="">-->
-<!--        <h4>Sigue en desarrollo</h4>-->
-<!--        <p>Con el tiempo se seguirán añadiendo calculadoras a esta sección.</p>-->
-<!--      </dialog>-->
-<!--    </div>-->
-<!--    <div class="panel-container" id="container&#45;&#45;logic">-->
-
-<!--      <section class="panel" id="panel&#45;&#45;logic">-->
-<!--        <img class="to_animate" src="/assets/home/tool-section/logic/logic-icon.png" alt="Logica">-->
-<!--        <h3>Logica</h3>-->
-<!--        <p>Lógica estudia razonamientos válidos mediante proposiciones, operadores y pruebas, fundamentando la inferencia y la estructura de argumentos.</p>-->
-<!--        <nav>-->
-<!--          <ul class="panel__feature__list">-->
-<!--            <li class="to_animate">-->
-<!--              <a href="#" class="panel__feature">-->
-<!--                <img src="/assets/home/tool-section/logic/truth-table-icon.png" alt="">-->
-<!--                <h4>Calculadora de Tablas de verdad</h4>-->
-<!--                <p>Una calculadora que te permitira construir tablas de verdad a partir de una preposicion logica compuesta.</p>-->
-<!--              </a>-->
-<!--            </li>-->
-<!--            <li class="to_animate">-->
-<!--              <a class="panel__feature">-->
-<!--                <img src="/assets/home/tool-section/logic/numeric-system-icon.png" alt="">-->
-<!--                <h4>Calculadora de sistemas numericos</h4>-->
-<!--                <p>Una calculadora que te permitira resolver conversiones y operaciones entre todo tipo de sistemas numericos, desde binario hasta hexadecimal.</p>-->
-<!--              </a>-->
-<!--            </li>-->
-<!--            <li class="to_animate">-->
-<!--              <a class="panel__feature">-->
-<!--                <img src="/assets/home/tool-section/logic/node-icon.png" alt="">-->
-<!--                <h4>Interprete grafico de nodos (o grafos)</h4>-->
-<!--                <p>Esta no es una calculadora como tal, sino mas bien un interprete grafico que te permitira crear mapas de nodos graficamente y, a su vez, crear matrices de incidencia y adyacencia con estos.</p>-->
-<!--              </a>-->
-<!--            </li>-->
-<!--          </ul>-->
-
-<!--        </nav>-->
-<!--      </section>-->
-
-
-<!--      <dialog class="panel__in-development-advice to_animate">-->
-<!--        <img src="/assets/home/tool-section/global/in-development-icon.png" alt="">-->
-<!--        <h4>Sigue en desarrollo</h4>-->
-<!--        <p>Con el tiempo se seguirán añadiendo calculadoras a esta sección.</p>-->
-<!--      </dialog>-->
-<!--    </div>-->
-<!--    <div class="panel-container" id="container&#45;&#45;graphics">-->
-
-<!--      <section class="panel" id="panel&#45;&#45;graphics">-->
-<!--        <img class="to_animate" src="/assets/home/tool-section/graphics/graphic-icon.png" alt="Grafica">-->
-<!--        <h3>Graficas</h3>-->
-<!--        <p>Funciones en el plano cartesiano relacionan variables mediante gráficos, mostrando cómo un valor de entrada produce un valor de salida.</p>-->
-<!--        <nav>-->
-<!--          <ul class="panel__feature__list">-->
-<!--            <li class="to_animate">-->
-<!--              <a href="#" class="panel__feature">-->
-<!--                <img src="/assets/home/tool-section/graphics/graphic-calculator-icon.png" alt="">-->
-<!--                <h4>Calculadora grafica</h4>-->
-<!--                <p>Una calculadora que te permitira dibujar graficas en el plano usando funciones matematicas.</p>-->
-<!--              </a>-->
-<!--            </li>-->
-<!--            <li class="to_animate">-->
-<!--              <a class="panel__feature">-->
-<!--                <img src="/assets/home/tool-section/graphics/graphic-data-calculator-icon.png" alt="">-->
-<!--                <h4>Calculadora grafica con datos</h4>-->
-<!--                <p>Una calculadora que te permitira dibujar un graficas en el plano usando datos fijos en lugar de expresiones</p>-->
-<!--              </a>-->
-<!--            </li>-->
-<!--            <li class="to_animate">-->
-<!--              <a class="panel__feature">-->
-<!--                <img src="/assets/home/tool-section/graphics/graphic-expression-interpreter.png" alt="">-->
-<!--                <h4>Interprete grafico de expresiones</h4>-->
-<!--                <p>Un interprete grafico con el que podras dibujar expresiones matematicas en formatos de imagen como JPEG o PNG.</p>-->
-<!--              </a>-->
-<!--            </li>-->
-
-
-<!--          </ul>-->
-
-<!--        </nav>-->
-<!--      </section>-->
-
-
-<!--      <dialog class="panel__in-development-advice to_animate">-->
-<!--        <img src="/assets/home/tool-section/global/in-development-icon.png" alt="">-->
-<!--        <h4>Sigue en desarrollo</h4>-->
-<!--        <p>Con el tiempo se seguirán añadiendo calculadoras a esta sección.</p>-->
-<!--      </dialog>-->
-<!--    </div>-->
-<!--    <div class="panel-container" id="container&#45;&#45;measures">-->
-<!--      <section class="panel" id="panel&#45;&#45;measures">-->
-<!--        <img class="to_animate" src="/assets/home/tool-section/measures/measures-icon.png" alt="">-->
-<!--        <h3>Medidas</h3>-->
-<!--        <p>Medidas y conversiones estandarizan cantidades mediante unidades y factores de conversión para comparar y calcular en diferentes sistemas.</p>-->
-<!--        <nav>-->
-<!--          <ul class="panel__feature__list">-->
-<!--            <li class="to_animate">-->
-<!--              <a href="#" class="panel__feature">-->
-<!--                <img src="/assets/home/tool-section/measures/measures-conversion-calculator-icon.png" alt="">-->
-<!--                <h4>Calculadora de conversion de medidas</h4>-->
-<!--                <p>Una calculadora con la que podras hacer conversiones rapidas de medidas entre los sistemas de medicion mas comunmente usado.</p>-->
-<!--              </a>-->
-<!--            </li>-->
-<!--          </ul>-->
-
-<!--        </nav>-->
-<!--      </section>-->
-
-
-<!--      <dialog class="panel__in-development-advice to_animate">-->
-<!--        <img src="/assets/home/tool-section/global/in-development-icon.png" alt="">-->
-<!--        <h4>Sigue en desarrollo</h4>-->
-<!--        <p>Con el tiempo se seguirán añadiendo calculadoras a esta sección.</p>-->
-<!--      </dialog>-->
-<!--    </div>-->
-<!--    <div class="panel-container" id="container&#45;&#45;statistics">-->
-<!--      <section class="panel" id="panel&#45;&#45;stadistics">-->
-<!--        <img class="to_animate" src="/assets/home/tool-section/statistics/statistics-icon.png" alt="">-->
-<!--        <h3>Estadistica</h3>-->
-<!--        <p>Estadística analiza y resume datos mediante técnicas de probabilidad, distribuciones y medidas de tendencia central y dispersión.</p>-->
-<!--        <nav>-->
-<!--          <ul class="panel__feature__list">-->
-<!--            <li class="to_animate">-->
-<!--              <a href="#" class="panel__feature">-->
-<!--                <img src="/assets/home/tool-section/statistics/statistics-measures-calculator-icon.png" alt="">-->
-<!--                <h4>Calculadora de medidas estadisticas con datos agrupados</h4>-->
-<!--                <p>Una calculadora que, con un conjunto de datos desordenados como entrada, te entregara todos los resultados estadisticos que puedas desear en forma de datos agrupados. Desde medidas de tendencia central hasta medidas de dispersion.</p>-->
-<!--              </a>-->
-<!--            </li>-->
-<!--            <li class="to_animate">-->
-<!--              <a href="#" class="panel__feature">-->
-<!--                <img src="/assets/home/tool-section/statistics/count-calculator.png" alt="">-->
-<!--                <h4>Calculadora de conteo</h4>-->
-<!--                <p>Una calculadora que te facilitara realizar conteos de todo tipo. Desde el principio aditivo y multiplicativo, hasta la notacion factorial con permutaciones y combinaciones.</p>-->
-<!--              </a>-->
-<!--            </li>-->
-<!--            <li class="to_animate">-->
-<!--              <a href="#" class="panel__feature">-->
-<!--                <img src="/assets/home/tool-section/statistics/probability-calculator.png" alt="">-->
-<!--                <h4>Calculadora de probabilidad</h4>-->
-<!--                <p>Una calculadora que te ayudara calcular la probabilidad de que un evento en concreto ocurra, en enfoques a priori y a posteriori.</p>-->
-<!--              </a>-->
-<!--            </li>-->
-
-<!--          </ul>-->
-
-<!--        </nav>-->
-<!--      </section>-->
-
-
-<!--      <dialog class="panel__in-development-advice to_animate">-->
-<!--        <img src="/assets/home/tool-section/global/in-development-icon.png" alt="">-->
-<!--        <h4>Sigue en desarrollo</h4>-->
-<!--        <p>Con el tiempo se seguirán añadiendo calculadoras a esta sección.</p>-->
-<!--      </dialog>-->
-<!--    </div>-->
+    </home-tool-section-panel>
+    <home-tool-section-panel id="panel--measures"
+      iconSrc="/assets/home/tool-section/measures/measures-icon.png">
+      <h3>Medidas</h3>
+      <p>Medidas y conversiones estandarizan cantidades mediante unidades y factores de conversión para comparar y calcular en diferentes sistemas.</p>
+      <ul>
+        <li>
+          <home-tool-section-panel-feature
+          iconSrc="/assets/home/tool-section/measures/measures-conversion-calculator-icon.png">
+            <h4>Calculadora de conversion de medidas</h4>
+            <p>Una calculadora con la que podras hacer conversiones rapidas de medidas entre los sistemas de medicion mas comunmente usado.</p>
+          </home-tool-section-panel-feature>
+        </li>
+      </ul>
+    </home-tool-section-panel>
+    <home-tool-section-panel id="panel--statistics"
+       iconSrc="/assets/home/tool-section/statistics/statistics-icon.png">
+      <h3>Estadistica</h3>
+      <p>Estadística analiza y resume datos mediante técnicas de probabilidad, distribuciones y medidas de tendencia central y dispersión.</p>
+      <ul>
+        <li>
+          <home-tool-section-panel-feature
+            iconSrc="/assets/home/tool-section/statistics/statistics-measures-calculator-icon.png">
+            <h4>Calculadora de medidas estadisticas con datos agrupados</h4>
+            <p>Una calculadora que, con un conjunto de datos desordenados como entrada, te entregara todos los resultados estadisticos que puedas desear en forma de datos agrupados. Desde medidas de tendencia central hasta medidas de dispersion.</p>
+          </home-tool-section-panel-feature>
+        </li>
+        <li>
+          <home-tool-section-panel-feature
+            iconSrc="/assets/home/tool-section/statistics/count-calculator.png">
+            <h4>Calculadora de conteo</h4>
+            <p>Una calculadora que te facilitara realizar conteos de todo tipo. Desde el principio aditivo y multiplicativo, hasta la notacion factorial con permutaciones y combinaciones.</p>
+          </home-tool-section-panel-feature>
+        </li>
+        <li>
+          <home-tool-section-panel-feature
+            iconSrc="/assets/home/tool-section/statistics/probability-calculator.png">
+            <h4>Calculadora de probabilidad</h4>
+            <p>Una calculadora que te ayudara calcular la probabilidad de que un evento en concreto ocurra, en enfoques a priori y a posteriori.</p>
+          </home-tool-section-panel-feature>
+        </li>
+      </ul>
+    </home-tool-section-panel>
   </div>
 </section>
