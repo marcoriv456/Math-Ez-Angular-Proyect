@@ -39,7 +39,6 @@ img{
   font-family: "Times New Roman", sans-serif;
 }
 
-/*------------PANEL FEATURES------------*/
 .panel__feature__list{
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -47,68 +46,6 @@ img{
 
 }
 
-
-
- .panel__feature{
-  width: 100%;
-
-  display: grid;
-  grid-template: auto auto/1fr 2fr;
-
-  text-decoration: none;
-  color: black;
-}
-
- .panel__feature__list li{
-  height: fit-content;
-  border-radius: 10px;
-  background-color: white;
-
-  transition: transform .5s ease, box-shadow .5s ease, z-index 0s;
-}
- .panel__feature__list li:hover{
-  outline: 1px solid black;
-  transform: scale(1.1);
-  box-shadow: 5px 5px 5px #0006;
-  z-index: 10;
-}
- .panel__feature__list li.animated{
-  animation: slide__from-right 1s ease both, fade-in 1s ease both;
-}
- .panel__feature__list li:nth-child(1){
-  animation-delay: .2s;
-}
- .panel__feature__list li:nth-child(2){
-  animation-delay: .4s;
-}
- .panel__feature__list li:nth-child(3){
-  animation-delay: .6s;
-}
-
-
-
- .panel__feature img{
-  width: 100%;
-  padding: 1rem;
-
-  grid-row: span 2;
-  place-self: center;
-  object-fit: contain;
-
-  filter: drop-shadow(0.5rem 0.5rem 0 var(--panel-theme-color));
-}
-
- .panel__feature p,
- .panel__feature h4{
-  font-family: "Lato", sans-serif;
-  text-align: start;
-}
- .panel__feature h4{
-  font-size: 1.7rem;
-}
- .panel__feature p{
-  font-size: 1.2rem;
-}
 :host#panel--algebra{
   --panel-theme-color:#F4A04D;
 }
