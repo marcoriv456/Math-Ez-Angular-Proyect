@@ -5,7 +5,7 @@
       .cls-1 {
         fill: #1d1d1b;
         font-family: TimesNewRomanPSMT, 'Times New Roman';
-        font-size: 215.95px;
+        font-size: 326.31px;
       }
 
       .cls-2 {
@@ -16,10 +16,10 @@
       }
     </style>
   </defs>
-  <text class="cls-1" transform="translate(181.53 312.62)"><tspan x="0" y="0">Math</tspan></text>
+  <text class="cls-1" transform="translate(12.66 341.56)"><tspan x="0" y="0">Math</tspan></text>
   <g>
-    <polyline class="cls-2" points="739.07 165.17 654.14 165.06 654.14 306.94 739.07 306.1"/>
-    <line class="cls-2" x1="723.14" y1="235.41" x2="654.14" y2="236"/>
+    <polyline class="cls-2" points="855.11 118.75 726.78 118.59 726.78 332.98 855.11 331.71"/>
+    <line class="cls-2" x1="831.03" y1="224.89" x2="726.78" y2="225.79"/>
   </g>
-  <polyline class="cls-2" points="842.47 306.1 757.93 306.1 832.59 211.61 752.59 211.61"/>
+  <polyline class="cls-2" points="1011.34 331.71 883.6 331.71 996.41 188.93 875.53 188.93"/>
 </svg>
