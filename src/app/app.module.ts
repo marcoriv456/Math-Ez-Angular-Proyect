@@ -7,11 +7,13 @@ import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { LogoSectionComponent } from './home/logo-section/logo-section.component';
 import {HomeModule} from "./home/home.module";
+import { HeaderNavComponent } from './header/header-nav/header-nav.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    HeaderNavComponent
   ],
   imports: [
     BrowserModule,
