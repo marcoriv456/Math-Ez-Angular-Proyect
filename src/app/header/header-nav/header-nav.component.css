@@ -1,0 +1,60 @@
+nav{
+  width: 100%;
+}
+ul{
+  width: 100%;
+
+  display: flex;
+  justify-content: space-evenly;
+}
+
+li{
+  padding: 1.5rem 0 ;
+
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+
+  background-color: white;
+
+  transition-property: background-color, flex-grow;
+  transition:.5s cubic-bezier(0,0,0,1);
+}
+a{
+  color: var(--color);
+  text-decoration: none;
+
+  transition: color .5s cubic-bezier(0,0,0,1);
+}
+
+
+li:hover{
+  flex-grow: 1.5;
+  background-color: var(--color);
+}
+
+li:hover a{
+  color: white;
+}
+.home{
+  --color: #4E80FF;
+}
+.lineal-algebra{
+  --color:#FF9334;
+}
+.calculus{
+  --color:#FF3434;
+}
+.logic{
+  --color:#34FF3A;
+}
+.graphics{
+  --color:#34D6FF;
+}
+.measures{
+  --color:#3466FF;
+}
+.statistics{
+  --color: #9747FF;
+}
+
