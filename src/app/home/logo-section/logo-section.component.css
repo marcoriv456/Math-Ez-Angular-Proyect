@@ -1,7 +1,7 @@
 #logo-section{
-  --animation-lenght:0.5s;
+  --animation-lenght:.6s;
 
-  height: calc(100vh - 6rem);
+  height: calc(100vh - 8rem);
 
   position: relative;
 
@@ -23,9 +23,9 @@
 
 
 
-#logo-section .logo-container img{
-  width: 11rem;
-  height: 11rem;
+#logo-section .logo-container .sigma{
+  width: 15rem;
+  /*height: 11rem;*/
 
   position: relative;
   object-fit: contain;
@@ -38,8 +38,9 @@
     logo__go-left var(--animation-lenght) ease forwards calc(var(--animation-lenght)*2);
 }
 
-#logo-section .logo-container p{
-  font-size: 10rem;
+#logo-section .logo-container .logo{
+  /*font-size: 10rem;*/
+  width: 40rem;
 }
 
 #logo-section .logo-container span{
@@ -89,17 +90,11 @@
 }
 
 @keyframes logo__go-right{
-  from{
-    left: 20rem;
-  }
   to{
-    left: 40rem;
+    left: 47rem;
   }
 }
 @keyframes logo__go-left {
-  from{
-    left: 40rem;
-  }
   to{
     left: 0;
   }
