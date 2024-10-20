@@ -1,12 +1,12 @@
 header{
-  /*padding: 2rem;*/
   height:8rem;
   z-index: 20;
   grid-column: span 2;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(90deg, #4E80FF 0%, #2F3499 100%);
+  background-color: #4E80FF;
+  background-image: linear-gradient(90deg, transparent 0%, #2F3499 100%);
 
 }
 header nav{
