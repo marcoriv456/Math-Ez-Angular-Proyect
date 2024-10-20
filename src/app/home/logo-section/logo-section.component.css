@@ -1,4 +1,4 @@
-#logo-section{
+section{
   --animation-lenght:.6s;
 
   height: calc(100vh - 8rem);
@@ -11,19 +11,18 @@
   justify-content: center;
 }
 
-#logo-section .logo-container{
+.logo-container{
   position: relative;
   top: -5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  /* animation: fade-in both 2s ease; */
+  
 }
 
 
 
-#logo-section .logo-container .sigma{
+.sigma{
   width: 15rem;
   /*height: 11rem;*/
 
@@ -38,17 +37,11 @@
     logo__go-left var(--animation-lenght) ease forwards calc(var(--animation-lenght)*2);
 }
 
-#logo-section .logo-container .logo{
-  /*font-size: 10rem;*/
+.logo{
   width: 40rem;
 }
 
-#logo-section .logo-container span{
-  font-family: "Times New Roman", sans-serif;
-}
-
-
-#logo-section .logo-eater{
+.logo-eater{
   width: 0;
   height: 100%;
 
@@ -61,7 +54,7 @@
 }
 
 
-#logo-section .phrase-container{
+.phrase-container{
   position: absolute;
   bottom: 0;
   font-size: 2rem;
@@ -71,11 +64,11 @@
   animation: fade-in both ease 1s .5s;
 }
 
-#logo-section .phrase{
+.phrase{
   font-family: "Times New Roman", sans-serif;
 }
 
-#logo-section .phrase__autor{
+.phrase__autor{
   text-align: end;
 }
 
