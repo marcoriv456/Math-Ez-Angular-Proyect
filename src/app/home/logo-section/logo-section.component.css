@@ -29,8 +29,8 @@ section{
   transition:1s cubic-bezier(0,0,0,1);
 }
 .logo-container.out{
-  left: 30%;
-  top: 30%;
+  left: 20%;
+  top: 20%;
   transform: scale(0.6);
 }
 
@@ -67,7 +67,7 @@ section{
 
 
 .phrase-container{
-  position: absolute;
+  position: fixed;
   bottom: 0;
   font-size: 2rem;
 
