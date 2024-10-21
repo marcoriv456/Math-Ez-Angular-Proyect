@@ -27,7 +27,7 @@ export class LogoSectionComponent implements AfterViewInit {
       children:[
         {
           ref:this.logoElement.nativeElement,
-          rootMargin:"-60% 0px 0px 0px"
+          rootMargin:"-20% 0px 0px 0px"
         },
         {
           ref: this.phraseElement.nativeElement,
