@@ -2,11 +2,11 @@
   <div #panel__text   class="panel__text">
     <ng-content></ng-content>
   </div>
-  <figure #panel__illustration class="panel__illustration">
-    <figure [ngClass]="'main--'+colorClass" class="main" [ngStyle]="{'mask-image':getImageRoute('main')}"></figure>
-    <img class="secondary secondary--first" [src]="'/assets/home/introduction-section/section-'+sectionNumber+'/secondary--first.png'" alt="">
-    <img class="secondary secondary--second" [src]="'/assets/home/introduction-section/section-'+sectionNumber+'/secondary--second.png'" alt="">
-    <img class="secondary secondary--third" [src]="'/assets/home/introduction-section/section-'+sectionNumber+'/secondary--third.png'" alt="">
+  <figure [ngClass]="'main--'+colorClass" #panel__illustration class="panel__illustration">
+    <figure class="main" [ngStyle]="{'mask-image':getImageRoute('main')}"></figure>
+    <figure class="secondary secondary--first" [ngStyle]="{'mask-image':getImageRoute('secondary--first')}"></figure>
+    <figure class="secondary secondary--second" [ngStyle]="{'mask-image':getImageRoute('secondary--second')}"></figure>
+    <figure class="secondary secondary--third" [ngStyle]="{'mask-image':getImageRoute('secondary--third')}"></figure>
   </figure>
 </section>
 
