@@ -16,7 +16,7 @@ export class SubjectIntersectionObserver {
   }
   private observers:IntersectionObserver[]=[]
 
-  getMainElementFrom(entries:IntersectionObserverEntry[]){
+  private getMainElementFrom(entries:IntersectionObserverEntry[]){
     return entries[0]
   }
 
