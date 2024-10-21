@@ -63,11 +63,13 @@
 }
 
 .main{
-  object-fit: contain;
-  object-position: center;
   height: 50%;
   width: 50%;
-  filter: drop-shadow(10px 10px 0 var(--shadow-color)) drop-shadow(5px 5px 5px #0008);
+  background-image: linear-gradient(90deg, var(--light-color) 0%, var(--dark-color) 100%);
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  background-size: contain;
+  animation: infinite 10s linear change-color;
 }
 
 .secondary{
@@ -103,12 +105,24 @@
     transform: translateY(-50%);
   }
 }
+
+@keyframes change-color {
+  0%,100%{
+    filter: hue-rotate(30deg);
+  }
+  50%{
+    filter: hue-rotate(-30deg);
+  }
+}
 .main--green{
-  --shadow-color:#80FF55;
+  --dark-color:#00d706;
+  --light-color:#80FF55;
 }
 .main--blue{
-  --shadow-color: #6655FF;
+  --dark-color: #6300e4;
+  --light-color: #6655FF;
 }
 .main--red{
-  --shadow-color: #FF6363;
+  --dark-color: #d70000;
+  --light-color: #FF6363;
 }

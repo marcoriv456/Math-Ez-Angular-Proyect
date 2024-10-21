@@ -3,7 +3,7 @@
     <ng-content></ng-content>
   </div>
   <figure #panel__illustration class="panel__illustration">
-    <img [ngClass]="'main--'+colorClass" class="main" [src]="'/assets/home/introduction-section/section-'+sectionNumber+'/main.png'" alt="">
+    <figure [ngClass]="'main--'+colorClass" class="main" [ngStyle]="{'mask-image':getImageRoute('main')}"></figure>
     <img class="secondary secondary--first" [src]="'/assets/home/introduction-section/section-'+sectionNumber+'/secondary--first.png'" alt="">
     <img class="secondary secondary--second" [src]="'/assets/home/introduction-section/section-'+sectionNumber+'/secondary--second.png'" alt="">
     <img class="secondary secondary--third" [src]="'/assets/home/introduction-section/section-'+sectionNumber+'/secondary--third.png'" alt="">

@@ -50,4 +50,8 @@ export class IntroductionPanelComponent implements AfterViewInit{
     }
   }
 
+  protected getImageRoute(imageType:'main'|'secondary--first'|'secondary--second'|'secondary--third'){
+    return `url("/assets/home/introduction-section/section-${this.sectionNumber}/${imageType}.png")`
+  }
+
 }
