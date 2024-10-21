@@ -1,5 +1,5 @@
 :host{
-  height: 150vh;
+  height: 300vh;
   max-width: 1080px;
   padding: 5rem;
 
@@ -16,35 +16,61 @@
 }
 
 .panel__text{
-  position:relative;
-  flex-grow: 1;
-  flex-basis: 0;
+  width: 30%;
+
+  position: fixed;
+  bottom: 10%;
+  left: 20%;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: fit-content;
-  align-self: center;
+
+  opacity: 1;
+
   font-size: 2rem;
   text-align: center;
+
+  translate: -50% -50%;
+
+  transition-property: opacity, translate;
+  transition: 0.5s cubic-bezier(0,0,0,1);
 }
-.panel__ilustration{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  flex-grow: 1.5;
-  flex-basis: 0;
-  animation: enter-by-left ease-in-out 1s both;
+.panel__text.out{
+  translate: -100% -50%;
+  opacity: 0;
 }
 
-.panel__ilustration .main{
+.panel__illustration{
+  width: 50%;
+  height: 80%;
+
+  position: fixed;
+  top: 50%;
+  right: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  translate: 0 -50%;
+
+  transition: translate .5s cubic-bezier(0,0,0,1);
+}
+
+.panel__illustration.out{
+  translate: 100% -50%;
+}
+
+.main{
   object-fit: contain;
   object-position: center;
   height: 50%;
-  animation: appear-shadow ease both 1s;
+  width: 50%;
+  filter: drop-shadow(10px 10px 0 var(--shadow-color)) drop-shadow(5px 5px 5px #0008);
 }
 
-.panel__ilustration .secondary{
+.secondary{
   object-fit: contain;
   object-position: center;
   position: absolute;
@@ -52,18 +78,18 @@
   animation: float 2.5s ease infinite both;
 }
 
-.panel__ilustration .secondary--first{
+.secondary--first{
   animation-delay: 1s;
   right: 3rem;
   top:7rem;
 }
 
-.panel__ilustration .secondary--second{
+.secondary--second{
   animation-delay: 0.7s;
   left: 3rem;
   top: 50%;
 }
-.panel__ilustration .secondary--third{
+.secondary--third{
   animation-delay: 0.5s;
   right: 3rem;
   bottom: 2rem;
@@ -76,34 +102,7 @@
   50%{
     transform: translateY(-50%);
   }
-
 }
-
-@keyframes appear-shadow {
-  0% {
-    filter: none;
-  }
-  50% {
-    filter: drop-shadow(30px 25px 0 var(--shadow-color)) drop-shadow(5px 5px 5px #0008);
-  }
-  100% {
-    filter: drop-shadow(10px 10px 0 var(--shadow-color)) drop-shadow(5px 5px 5px #0008);
-  }
-}
-
-
-@keyframes enter-by-left {
-  from{
-    opacity: 0;
-    transform: translateX(25%);
-  }
-  to{
-    transform: translateX(0);
-    opacity: 1;
-  }
-
-}
-
 .main--green{
   --shadow-color:#80FF55;
 }
