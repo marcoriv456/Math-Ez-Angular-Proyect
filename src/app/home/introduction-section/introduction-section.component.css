@@ -5,22 +5,3 @@
   flex-direction: column;
   align-items: center;
 }
-#introduction-section .title{
-  width: 100%;
-
-  padding: 2rem;
-
-  position: sticky;
-  top: 0;
-  z-index: 50;
-
-  font-size: 2rem;
-  text-align: center;
-
-  background-color: #8DB5FF;
-}
-
-
-
-
-
