@@ -1,4 +1,4 @@
-<header id="header">
+<header id="header" [style]="{'background-color':backgroundColor}">
   <img src="/assets/header/MathEz_FullLogo.svg" alt="">
   <nav>
     <ul>
@@ -9,3 +9,4 @@
     </ul>
   </nav>
 </header>
+<header-nav (sectionHovered)="changeBackgroundColor($event)"></header-nav>
