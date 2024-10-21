@@ -1,8 +1,7 @@
 :host{
   position: relative;
   display: block;
-  height: 200vh;
-  outline: 2px solid black;
+  height: 300vh;
 }
 section{
   --animation-lenght:.6s;
@@ -19,22 +18,25 @@ section{
 }
 
 .logo-container{
-  position: absolute;
-  /*top: -5rem;*/
+  position: fixed;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
+  translate: -50% -50%;
   display: flex;
   align-items: center;
   justify-content: center;
-
+  transition-property: left,top;
+  transition:1s cubic-bezier(0,0,0,1);
 }
-
+.logo-container.out{
+  left: 30%;
+  top: 30%;
+  transform: scale(0.6);
+}
 
 
 .sigma{
   width: 15rem;
-  /*height: 11rem;*/
 
   position: relative;
   object-fit: contain;
@@ -70,16 +72,20 @@ section{
   font-size: 2rem;
 
   text-wrap: nowrap;
-
-  animation: fade-in both ease 1s .5s;
+  transition: opacity .5s cubic-bezier(0,0,0,1);
+}
+.phrase-container.out{
+  opacity: 0;
 }
 
 .phrase{
   font-family: "Times New Roman", sans-serif;
+  animation: fade-in both ease 1s .5s;
 }
 
 .phrase__autor{
   text-align: end;
+  animation: fade-in both ease 1s 1.5s;
 }
 
 
