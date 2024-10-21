@@ -1,9 +1,16 @@
+:host{
+  position: relative;
+  display: block;
+  height: 200vh;
+  outline: 2px solid black;
+}
 section{
   --animation-lenght:.6s;
 
-  height: calc(100vh - 8rem);
+  height:100vh;
 
-  position: relative;
+  position: sticky;
+  top: 0;
 
   display: flex;
   flex-direction: column;
@@ -12,12 +19,15 @@ section{
 }
 
 .logo-container{
-  position: relative;
-  top: -5rem;
+  position: absolute;
+  /*top: -5rem;*/
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
 }
 
 
