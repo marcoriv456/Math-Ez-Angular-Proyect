@@ -32,10 +32,8 @@
   text-align: center;
 
   translate: -50% -50%;
-
-  transition-property: opacity, translate;
-  transition: 0.5s cubic-bezier(0,0,0,1);
 }
+
 .panel__text.out{
   translate: -100% -50%;
   opacity: 0;
@@ -55,17 +53,17 @@
 
   translate: 0 -50%;
 
-  transition: translate .5s cubic-bezier(0,0,0,1);
 }
-
 .panel__illustration.out{
-  translate: 100% -50%;
-}
-.panel__illustration.out .main,
-.panel__illustration.out .secondary{
-  animation: none;
+  translate:100% -50%;
+  opacity: 0;
 }
 
+.panel__text,
+.panel__illustration{
+  transition-property: opacity, translate;
+  transition: 1s cubic-bezier(0,0,0,1);
+}
 
 .main,.secondary{
   mask-size: contain;
