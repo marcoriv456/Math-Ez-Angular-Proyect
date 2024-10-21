@@ -7,7 +7,7 @@ import { IntroductionPanelComponent } from './introduction-section/introduction-
 import { ToolSectionComponent } from './tool-section/tool-section.component';
 import { ToolPanelComponent } from './tool-section/tool-panel/tool-panel.component';
 import { ToolPanelFeatureComponent } from './tool-section/tool-panel-feature/tool-panel-feature.component';
-import { BackgroundVideoComponent } from './background-video/background-video.component';
+import { BackgroundAnimationComponent } from './background-animation/background-animation.component';
 
 
 
@@ -20,7 +20,7 @@ import { BackgroundVideoComponent } from './background-video/background-video.co
     ToolSectionComponent,
     ToolPanelComponent,
     ToolPanelFeatureComponent,
-    BackgroundVideoComponent
+    BackgroundAnimationComponent
   ],
   exports: [
     HomeComponent
