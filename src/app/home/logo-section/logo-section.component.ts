@@ -1,35 +1,39 @@
-import {AfterViewInit, Component, ElementRef, inject, Renderer2, ViewChild, ViewChildren} from '@angular/core';
-import {Element} from "@angular/compiler";
-import {ViewportIntersectionService} from "../services/viewport-intersection.service";
-import { VP_INTERSECT_CONFIG_ROOT_MARGIN } from "../inject-tokens/viewport-intersection-config.token";
+import {AfterViewInit, Component, ElementRef, inject, Renderer2, ViewChild} from '@angular/core';
+import {SubjectIntersectionObserver} from "../classes/subject-intersection-observer.class";
+import {IntersectionObserverSubject} from "../models/IntersectionObserverSubject";
 
 @Component({
   selector: 'home-logo-section',
   templateUrl: './logo-section.component.html',
-  styleUrl: './logo-section.component.css',
-  providers:[
-    {
-      provide:VP_INTERSECT_CONFIG_ROOT_MARGIN,
-      useValue:"-60% 0px 0px 0px "
-    },
-    ViewportIntersectionService
-  ]
-})
+  styleUrl: './logo-section.component.css',})
 export class LogoSectionComponent implements AfterViewInit {
 
   ref = inject(ElementRef)
+  renderer=inject(Renderer2)
   @ViewChild("logo")
   logoElement!:ElementRef
   @ViewChild("phrase")
   phraseElement!:ElementRef
-  intersectionService=inject(ViewportIntersectionService)
+
+  intersectionObserver!:SubjectIntersectionObserver;
+
   ngAfterViewInit() {
-    this.intersectionService.addSubject({
+    this.intersectionObserver=new SubjectIntersectionObserver(this.thisAsSubject, this.renderer)
+  }
+
+  get thisAsSubject():IntersectionObserverSubject{
+    return {
       main:this.ref.nativeElement,
       children:[
-        this.logoElement.nativeElement,
-        this.phraseElement.nativeElement
+        {
+          ref:this.logoElement.nativeElement,
+          rootMargin:"-60% 0px 0px 0px"
+        },
+        {
+          ref: this.phraseElement.nativeElement,
+          rootMargin:"-100% 0px 0px 0px"
+        }
       ]
-    })
+    }
   }
 }
