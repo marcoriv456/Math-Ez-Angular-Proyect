@@ -8,23 +8,17 @@ export class SubjectIntersectionObserver {
     this.observers.push(...subject.children.map(
       (child)=>{
         let observer=new IntersectionObserver(
-          (entries)=>this.observersCallback(this.getMainElementFrom(entries),child.ref),
+          (entries)=>{
+            let mainElement=this.getMainElementFrom(entries)
+            this.observersCallback(mainElement,child.ref)
+            if(mainElement.isIntersecting)
+              this.pageLocationServiceRef.setPageLocation(this.subject.name)
+          },
           {rootMargin:child.rootMargin})
         observer.observe(subject.main)
         return observer
       }
     ))
-
-    this.observers.push(this.pagePositionObserver)
-  }
-
-  private get pagePositionObserver(): IntersectionObserver{
-    let pagePosObserver= new IntersectionObserver((entries)=>{
-      if(this.getMainElementFrom(entries).isIntersecting)
-        this.pageLocationServiceRef.setPageLocation(this.subject.name)
-    })
-    pagePosObserver.observe(this.subject.main)
-    return pagePosObserver
   }
 
   private observers:IntersectionObserver[]=[]
