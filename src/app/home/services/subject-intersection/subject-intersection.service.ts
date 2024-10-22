@@ -11,6 +11,8 @@ export class SubjectIntersectionService {
   pageLocationService=inject(PageLocationService)
   observer=new IntersectionObserver(
     (entries)=>{entries.forEach((entry)=>this.entryCallback(entry))
+    },{
+      rootMargin:"-20% 0px -80% 0px"
     })
   renderer!:Renderer2
   subjects:IntersectionObserverSubject[]=[]
