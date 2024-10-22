@@ -28,11 +28,6 @@ section{
   transition-property: left,top;
   transition:1s cubic-bezier(0,0,0,1);
 }
-.logo-container.out{
-  left: 20%;
-  top: 20%;
-  transform: scale(0.6);
-}
 
 
 .sigma{
