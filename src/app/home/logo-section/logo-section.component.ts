@@ -48,6 +48,9 @@ export class LogoSectionComponent implements AfterViewInit {
     'introduction-section-panel-1':this.introductionSectionLocation,
     'introduction-section-panel-2':this.introductionSectionLocation,
     'introduction-section-panel-3':this.introductionSectionLocation,
+    'tool-section-title':{
+      transform:"scale(0.6)"
+    }
 
   }
 
