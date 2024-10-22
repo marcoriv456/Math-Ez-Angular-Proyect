@@ -40,7 +40,21 @@ figure{
 
   filter: drop-shadow(0.3rem 0.3rem 0 var(--panel-theme-color));
 }
-
+video{
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 36rem;
+  z-index: -100;
+  opacity: 0.5;
+  transition: opacity var(--transition-duration) var(--in-easing);
+}
+video:hover{
+  opacity: 1;
+}
+video.out{
+  opacity: 0;
+}
 
 /*.title,.description{*/
 /*  text-align: center;*/
@@ -58,7 +72,10 @@ figure{
 }
 
 nav{
-  opacity: 0;
+  /*display: none;*/
+}
+nav.out{
+
 }
 :host#panel--algebra {
   --panel-theme-color: #FF9334;
