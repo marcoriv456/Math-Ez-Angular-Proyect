@@ -8,14 +8,14 @@ export class SubjectIntersectionService {
     this.renderer=rendererFactory.createRenderer(null,null)
   }
 
-  pageLocationService=inject(PageLocationService)
-  observer=new IntersectionObserver(
+  private pageLocationService=inject(PageLocationService)
+  private observer=new IntersectionObserver(
     (entries)=>{entries.forEach((entry)=>this.entryCallback(entry))
     },{
       rootMargin:"-20% 0px -80% 0px"
     })
-  renderer!:Renderer2
-  subjects:IntersectionObserverSubject[]=[]
+  private renderer!:Renderer2
+  private subjects:IntersectionObserverSubject[]=[]
 
 
   private entryCallback(entry:IntersectionObserverEntry){
@@ -30,18 +30,18 @@ export class SubjectIntersectionService {
 
   }
 
-  removeOutStateOfChildren(subjectChildren:HTMLElement[]){
+  private removeOutStateOfChildren(subjectChildren:HTMLElement[]){
     subjectChildren.forEach(child=>this.renderer.removeClass(child,"out"))
   }
-  addOutStateOfChildren(subjectChildren:HTMLElement[]){
+  private addOutStateOfChildren(subjectChildren:HTMLElement[]){
     subjectChildren.forEach(child=>this.renderer.addClass(child,"out"))
   }
 
+  private getSubjectFromEntry(target:HTMLElement){
+    return this.subjects.find((subject)=>subject.main==target) as IntersectionObserverSubject
+  }
   addSubject(subject:IntersectionObserverSubject){
     this.subjects.push(subject)
     this.observer.observe(subject.main)
-  }
-  getSubjectFromEntry(target:HTMLElement){
-    return this.subjects.find((subject)=>subject.main==target) as IntersectionObserverSubject
   }
 }
