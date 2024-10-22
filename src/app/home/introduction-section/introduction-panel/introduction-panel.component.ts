@@ -8,8 +8,9 @@ import {
   Renderer2,
   ViewChild
 } from '@angular/core';
-import {SubjectIntersectionObserver} from "../../classes/subject-intersection-observer.class";
+
 import {IntersectionObserverSubject} from "../../models/IntersectionObserverSubject";
+import {SubjectIntersectionObserver} from "../../classes/subject-intersection-observer.class";
 
 @Component({
   selector: 'home-introduction-section-panel',
