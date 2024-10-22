@@ -1,9 +1,9 @@
-import {IntersectionObserverSubject} from "../models/IntersectionObserverSubject";
+import {IntersectionObserverSubject_old} from "../models/IntersectionObserverSubject_old";
 import {Renderer2} from "@angular/core";
 import {PageLocationService} from "../services/page-location/page-location.service";
 
 export class SubjectIntersectionObserver {
-  constructor(private subject:IntersectionObserverSubject, private renderer:Renderer2, private pageLocationServiceRef:PageLocationService) {
+  constructor(private subject:IntersectionObserverSubject_old, private renderer:Renderer2, private pageLocationServiceRef:PageLocationService) {
 
     this.observers.push(...subject.children.map(
       (child)=>{
@@ -17,9 +17,10 @@ export class SubjectIntersectionObserver {
           {rootMargin:child.rootMargin})
         observer.observe(subject.main)
         return observer
-      }
-    ))
+      }))
+
   }
+
 
   private observers:IntersectionObserver[]=[]
 
