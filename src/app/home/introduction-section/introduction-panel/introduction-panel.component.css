@@ -59,10 +59,16 @@
   opacity: 0;
 }
 
+
+
 .panel__text,
 .panel__illustration{
-  transition-property: opacity, translate;
-  transition: 1s cubic-bezier(0,0,0,1);
+  --easing:var(--in-easing);
+  transition: translate var(--transition-duration) var(--easing), opacity var(--transition-duration)  var(--in-easing);
+}
+.panel__text.out,
+.panel__illustration.out{
+  --easing: var(--out-easing);
 }
 
 .main,.secondary{
