@@ -10,6 +10,8 @@ import {IntersectionObserverSubject} from "../../models/IntersectionObserverSubj
 export class ToolPanelComponent implements AfterViewInit{
   @Input()
   iconSrc!:string
+  @ViewChild("text_container")
+  text_container!:ElementRef;
 
   ref=inject(ElementRef)
   intersectionObserverService=inject(SubjectIntersectionService)
@@ -20,7 +22,7 @@ export class ToolPanelComponent implements AfterViewInit{
   private get thisAsSubject():IntersectionObserverSubject{
     return{
       main:this.ref.nativeElement,
-      children:[],
+      children:[this.text_container.nativeElement],
       name:"tool-section-"+this.panelName
     }
   }
