@@ -1,4 +1,6 @@
 :host{
   --in-easing:cubic-bezier(0,0,0,1);
   --out-easing:cubic-bezier(0,0,1,0);
+
+  --transition-duration:0.5s;
 }
