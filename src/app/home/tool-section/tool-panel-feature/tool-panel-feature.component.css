@@ -1,45 +1,75 @@
 a{
-  width: 100%;
-  height: fit-content;
+  width: 30rem;
+  height: 10rem;
 
-  padding: 0.5rem;
+  margin: 2rem 0;
 
-  display: grid;
-  grid-template: auto auto/1fr 2fr;
+  position: relative;
 
-  border-radius: 10px;
+  display: flex;
+  align-items: center;
 
-  background-color: white;
+  /*background-color: white;*/
   color: black;
 
   text-decoration: none;
-  transition: transform .3s ease, box-shadow .5s ease, z-index 0s;
-}
-a:hover{
-  transform: scale(1.02);
-  box-shadow: 5px 5px 5px #5555;
-  z-index: 10;
+  /*border: 1px solid black;*/
 }
 
-
-img{
-  width: 100%;
-  padding: 1rem;
-
-  grid-row: span 2;
-  place-self: center;
+figure{
+  width: 10rem;
+  height: 10rem;
   object-fit: contain;
 
-  filter: drop-shadow(0.5rem 0.5rem 0 var(--panel-theme-color));
+  position: absolute;
+  right: 0;
+  top: 50%;
+  translate: 0 -50%;
+  transition-property: translate, background-color, background-image;
+  transition: var(--in-easing) var(--transition-duration);
+  background-color: black;
+  background-image: linear-gradient(90deg, #4c4c4c,transparent);
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  background-size: contain;
+  /*filter: drop-shadow(0.5rem 0.5rem 0 var(--panel-theme-color));*/
 }
 
+.text-container{
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20rem;
+  text-align: center;
+  transition:width var(--in-easing) var(--transition-duration) ;
+}
 .title,.description{
-  font-family: "Lato", sans-serif;
-  text-align: start;
+  text-align: left;
 }
 .title{
   font-size: 1.7rem;
+  width: 20rem;
 }
 .description{
-  font-size: 1.2rem;
+  font-size: 1rem;
+  width: 20rem;
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition-property: opacity, height;
+  transition:var(--in-easing) var(--transition-duration) ;
 }
+:host:hover figure{
+  translate: 100% -50%;
+  background-color: var(--panel-theme-color);
+  background-image: linear-gradient(90deg, transparent,var(--panel-theme-color-darker));
+}
+:host:hover .text-container{
+  width: 30rem;
+}
+:host:hover .description{
+  opacity: 1;
+  height:6rem;
+}
+

@@ -8,4 +8,8 @@ import {Component, Input} from '@angular/core';
 export class ToolPanelFeatureComponent {
   @Input()
   iconSrc!:string;
+
+  get maskUrl(){
+    return `url("${this.iconSrc}")`;
+  }
 }
