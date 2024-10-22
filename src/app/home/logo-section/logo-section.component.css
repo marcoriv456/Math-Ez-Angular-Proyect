@@ -26,7 +26,7 @@ section{
   align-items: center;
   justify-content: center;
   transition-property: left,top;
-  transition:1s cubic-bezier(0,0,0,1);
+  transition:var(--transition-duration) var(--in-easing);
 }
 
 
@@ -67,7 +67,7 @@ section{
   font-size: 2rem;
 
   text-wrap: nowrap;
-  transition: opacity .5s cubic-bezier(0,0,0,1);
+  transition: opacity .5s var(--in-easing);
 }
 .phrase-container.out{
   opacity: 0;
