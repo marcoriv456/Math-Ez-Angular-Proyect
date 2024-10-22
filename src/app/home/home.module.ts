@@ -8,6 +8,7 @@ import { ToolSectionComponent } from './tool-section/tool-section.component';
 import { ToolPanelComponent } from './tool-section/tool-panel/tool-panel.component';
 import { ToolPanelFeatureComponent } from './tool-section/tool-panel-feature/tool-panel-feature.component';
 import { BackgroundAnimationComponent } from './background-animation/background-animation.component';
+import {PageLocationService} from "./services/page-location/page-location.service";
 
 
 
@@ -27,6 +28,9 @@ import { BackgroundAnimationComponent } from './background-animation/background-
   ],
   imports: [
     CommonModule
+  ],
+  providers:[
+    PageLocationService
   ]
 })
 export class HomeModule { }
