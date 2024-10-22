@@ -1,17 +1,13 @@
 import {
-  AfterContentInit,
   AfterViewInit,
   Component,
   ElementRef,
   inject,
   Input,
-  Renderer2,
   ViewChild
 } from '@angular/core';
-
+import {SubjectIntersectionService} from "../../services/subject-intersection/subject-intersection.service";
 import {IntersectionObserverSubject} from "../../models/IntersectionObserverSubject";
-import {SubjectIntersectionObserver} from "../../classes/subject-intersection-observer.class";
-import {PageLocationService} from "../../services/page-location/page-location.service";
 
 @Component({
   selector: 'home-introduction-section-panel',
@@ -30,27 +26,16 @@ export class IntroductionPanelComponent implements AfterViewInit{
   panelIllustration!:ElementRef
 
   ref=inject(ElementRef)
-  renderer=inject(Renderer2)
-  pageLocationService=inject(PageLocationService)
-  intersectionObserver!:SubjectIntersectionObserver;
+  intersectionObserverService=inject(SubjectIntersectionService)
   ngAfterViewInit() {
-    this.intersectionObserver=new SubjectIntersectionObserver(this.thisAsSubject,this.renderer,this.pageLocationService)
+    this.intersectionObserverService.addSubject(this.thisAsSubject)
   }
 
   get thisAsSubject():IntersectionObserverSubject{
     return{
       name:"introduction-section-panel-"+this.sectionNumber,
       main:this.ref.nativeElement,
-      children:[
-        {
-          ref:this.panelText.nativeElement,
-          rootMargin:"-20% 0px -80% 0px"
-        },
-        {
-          ref:this.panelIllustration.nativeElement,
-          rootMargin:"0px 0px -100% 0px"
-        }
-      ]
+      children:[this.panelText.nativeElement,this.panelIllustration.nativeElement]
     }
   }
 

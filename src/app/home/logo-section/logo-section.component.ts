@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, ElementRef, inject, Renderer2, ViewChild} from '@angular/core';
-import {SubjectIntersectionObserver} from "../classes/subject-intersection-observer.class";
-import {IntersectionObserverSubject} from "../models/IntersectionObserverSubject";
 import {PageLocationService} from "../services/page-location/page-location.service";
+import {SubjectIntersectionService} from "../services/subject-intersection/subject-intersection.service";
+import {IntersectionObserverSubject} from "../models/IntersectionObserverSubject";
 
 @Component({
   selector: 'home-logo-section',
@@ -10,28 +10,22 @@ import {PageLocationService} from "../services/page-location/page-location.servi
 export class LogoSectionComponent implements AfterViewInit {
 
   ref = inject(ElementRef)
-  renderer=inject(Renderer2)
   pageLocationService=inject(PageLocationService)
+  intersectionObserverService=inject(SubjectIntersectionService)
   @ViewChild("logo")
   logoElement!:ElementRef
   @ViewChild("phrase")
   phraseElement!:ElementRef
 
-  intersectionObserver!:SubjectIntersectionObserver;
   ngAfterViewInit() {
-    this.intersectionObserver=new SubjectIntersectionObserver(this.thisAsSubject, this.renderer,this.pageLocationService)
+    this.intersectionObserverService.addSubject(this.thisAsSubject)
     this.pageLocationService.addListener((newLocation)=>this.onPageLocationChange(newLocation))
   }
   get thisAsSubject():IntersectionObserverSubject{
     return {
       name:"logo-section",
       main:this.ref.nativeElement,
-      children:[
-        {
-          ref: this.phraseElement.nativeElement,
-          rootMargin:"-100% 0px 0px 0px"
-        }
-      ]
+      children:[this.phraseElement.nativeElement]
     }
   }
   onPageLocationChange(newLocation:string){
