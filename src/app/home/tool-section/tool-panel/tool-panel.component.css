@@ -26,9 +26,14 @@ section{
   translate: -100% 0;
 }
 
-img{
+figure{
   width: 10rem;
+  height: 10rem;
 
+  background-image: linear-gradient(90deg, var(--panel-theme-color),var(--panel-theme-color-darker) );
+  background-size: contain;
+  mask-size: contain;
+  mask-repeat:no-repeat;
   grid-row: span 2;
   place-self: center;
   object-fit: contain;
@@ -55,22 +60,39 @@ img{
 nav{
   opacity: 0;
 }
-:host#panel--algebra{
-  --panel-theme-color:#F4A04D;
-}
-:host#panel--calculus{
-  --panel-theme-color: #f44d4d;
-}
-:host#panel--logic{
-  --panel-theme-color: #4df450;
+:host#panel--algebra {
+  --panel-theme-color: #FF9334;
+  --panel-theme-color-darker: #d76500;
+  --panel-theme-color-lighter: #ffad66;
 }
 
-:host#panel--graphics{
-  --panel-theme-color: #4ddbf4;
+:host#panel--calculus {
+  --panel-theme-color: #FF3434;
+  --panel-theme-color-darker: #d70000;
+  --panel-theme-color-lighter: #ff6b6b;
 }
-:host#panel--measures{
-  --panel-theme-color: #4d7cf4;
+
+:host#panel--logic {
+  --panel-theme-color: #34FF3A;
+  --panel-theme-color-darker: #00d706;
+  --panel-theme-color-lighter: #6eff73;
 }
-:host#panel--statistics{
-  --panel-theme-color: #8a4df4;
+
+:host#panel--graphics {
+  --panel-theme-color: #34D6FF;
+  --panel-theme-color-darker: #00abd7;
+  --panel-theme-color-lighter: #6fdcff;
 }
+
+:host#panel--measures {
+  --panel-theme-color: #3466FF;
+  --panel-theme-color-darker: #0035d7;
+  --panel-theme-color-lighter: #6f8bff;
+}
+
+:host#panel--statistics {
+  --panel-theme-color: #9747FF;
+  --panel-theme-color-darker: #6300e4;
+  --panel-theme-color-lighter: #b36cff;
+}
+

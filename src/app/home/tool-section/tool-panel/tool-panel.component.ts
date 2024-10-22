@@ -29,5 +29,7 @@ export class ToolPanelComponent implements AfterViewInit{
   private get panelName(){
     return this.ref.nativeElement.id
   }
-
+  protected get maskUrl(){
+    return`url("${this.iconSrc}")`
+  }
 }

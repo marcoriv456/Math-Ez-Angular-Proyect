@@ -6,8 +6,10 @@
     <div class="description">
       <ng-content select="p"></ng-content>
     </div>
-    <img [src]="iconSrc" alt="">
+    <figure [ngStyle]="{'mask-image':maskUrl}"></figure>
   </div>
+  
+
   <nav>
     <ng-content select="ul"></ng-content>
   </nav>
