@@ -16,6 +16,9 @@ export class ToolPanelComponent implements AfterViewInit{
   @ViewChild("animation_video")
   animationVideo!:ElementRef;
 
+  @ViewChild("feature_container")
+  featureContainer!:ElementRef;
+
   @Input()
   animationSrc!:string;
 
@@ -33,7 +36,7 @@ export class ToolPanelComponent implements AfterViewInit{
   private get thisAsSubject():IntersectionObserverSubject{
     return{
       main:this.ref.nativeElement,
-      children:[this.text_container.nativeElement],
+      children:[this.text_container.nativeElement,this.featureContainer.nativeElement],
       name:"tool-section-"+this.panelName
     }
   }

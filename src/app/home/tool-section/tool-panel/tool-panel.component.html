@@ -11,7 +11,7 @@
   <video #animation_video autoplay muted loop *ngIf="animationSrc" [src]="animationSrc"></video>
 
 
-  <nav>
+  <nav #feature_container>
     <ng-content select="ul"></ng-content>
   </nav>
 </section>

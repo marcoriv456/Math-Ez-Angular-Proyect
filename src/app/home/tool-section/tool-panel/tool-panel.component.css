@@ -72,10 +72,18 @@ video.out{
 }
 
 nav{
-  /*display: none;*/
+  --easing:var(--in-easing);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  opacity: 1;
+  padding: 5rem;
+  transition: translate var(--transition-duration) 0.3s var(--easing), opacity var(--transition-duration) var(--in-easing);
 }
 nav.out{
-
+  opacity: 0;
+  translate: -120% 0;
+  --easing: var(--out-easing);
 }
 :host#panel--algebra {
   --panel-theme-color: #FF9334;
