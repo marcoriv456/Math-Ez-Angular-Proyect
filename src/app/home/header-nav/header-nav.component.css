@@ -1,9 +1,20 @@
 :host{
-  position: sticky;
+  position: fixed;
   top: 0;
+  width: 100%;
+  z-index: -10;
 }
 nav{
   width: 100%;
+  position: relative;
+
+  translate: 0 -100% ;
+  transition: translate var(--in-easing) var(--small-transition-duration);
+  transition-delay: 1s;
+}
+:host:hover nav{
+  translate: 0 0;
+  transition-delay: 0s;
 }
 
 ul{

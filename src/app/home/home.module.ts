@@ -12,6 +12,7 @@ import {PageLocationService} from "./services/page-location/page-location.servic
 import {SubjectIntersectionService} from "./services/subject-intersection/subject-intersection.service";
 import { LogInSectionComponent } from './log-in-section/log-in-section.component';
 import {TabScrollingService} from "./services/tab-scrolling/tab-scrolling.service";
+import {HeaderNavComponent} from "./header-nav/header-nav.component";
 
 
 
@@ -25,7 +26,8 @@ import {TabScrollingService} from "./services/tab-scrolling/tab-scrolling.servic
     ToolPanelComponent,
     ToolPanelFeatureComponent,
     BackgroundAnimationComponent,
-    LogInSectionComponent
+    LogInSectionComponent,
+    HeaderNavComponent
   ],
   exports: [
     HomeComponent
