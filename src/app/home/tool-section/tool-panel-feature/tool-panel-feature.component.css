@@ -64,15 +64,15 @@ figure{
   transition-property: opacity, height;
   transition:var(--in-easing) var(--transition-duration) ;
 }
-:host:hover figure{
+:host:has(:hover, :focus-visible) figure{
   translate: 100% -50%;
   background-color: var(--panel-theme-color);
   background-image: linear-gradient(90deg, transparent,var(--panel-theme-color-darker));
 }
-:host:hover .text-container{
+:host:has(:hover, :focus-visible) .text-container{
   width: 30rem;
 }
-:host:hover .description{
+:host:has(:hover, :focus-visible) .description{
   height:6rem;
 
   opacity: 1;
