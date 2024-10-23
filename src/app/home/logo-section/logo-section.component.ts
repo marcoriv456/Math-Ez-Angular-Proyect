@@ -39,9 +39,9 @@ export class LogoSectionComponent implements AfterViewInit {
     transform: 'scale(0.6)'
   }
   private toolSectionLocation={
-    left:'100%',
-    top:'100%',
-    transform:'translate(-50%, -50%) scale(0.5)'
+    left:'75%',
+    top:'75%',
+    transform:'scale(0.5)'
   }
 
   private logoLocations={
@@ -53,6 +53,7 @@ export class LogoSectionComponent implements AfterViewInit {
     'introduction-section-panel-1':this.introductionSectionLocation,
     'introduction-section-panel-2':this.introductionSectionLocation,
     'introduction-section-panel-3':this.introductionSectionLocation,
+
     'tool-section-title':{
       transform:"scale(0.6)"
     },
@@ -62,6 +63,11 @@ export class LogoSectionComponent implements AfterViewInit {
     'tool-section-panel--graphics':this.toolSectionLocation,
     'tool-section-panel--measures':this.toolSectionLocation,
     'tool-section-panel--statistics':this.toolSectionLocation,
+    'log-in-section':{
+      left:'75%',
+      top:'35%',
+      transform:'scale(0.8)'
+    }
 
   }
 
