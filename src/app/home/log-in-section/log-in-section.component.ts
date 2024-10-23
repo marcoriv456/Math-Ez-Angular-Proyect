@@ -1,15 +1,22 @@
 import {AfterViewInit, Component, ElementRef, inject, ViewChild} from '@angular/core';
 import {SubjectIntersectionService} from "../services/subject-intersection/subject-intersection.service";
 import {IntersectionObserverSubject} from "../models/IntersectionObserverSubject";
+import {AnimatedTabAccessibleElement} from "../models/AnimatedTabAccessibleElement";
+import {TabScrollingService} from "../services/tab-scrolling/tab-scrolling.service";
 
 @Component({
   selector: 'home-log-in-section',
   templateUrl: './log-in-section.component.html',
   styleUrl: './log-in-section.component.css'
 })
-export class LogInSectionComponent implements AfterViewInit{
+export class LogInSectionComponent extends AnimatedTabAccessibleElement implements AfterViewInit {
   ref=inject(ElementRef)
   intersectionObserverService=inject(SubjectIntersectionService)
+  tabScrollingService=inject(TabScrollingService)
+
+  protected override getParentSection(): HTMLElement {
+    return this.ref.nativeElement;
+  }
 
   @ViewChild("form_container")
   formContainer!:ElementRef;

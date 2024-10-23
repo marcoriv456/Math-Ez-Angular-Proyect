@@ -4,18 +4,18 @@
     <form>
       <label>
         Usuario:
-        <input type="text">
+        <input type="text" (focus)="onFocus()">
         <span class="input-edger"></span>
       </label>
       <label>
         Contraseña:
-        <input type="password">
+        <input type="password" (focus)="onFocus()">
         <span class="input-edger"></span>
       </label>
-      <button class="log-in-btn">Iniciar sesion</button>
+      <button class="log-in-btn" (focus)="onFocus()">Iniciar sesion</button>
     </form>
-    <button>Iniciar sesion con google</button>
-    <button>Registrarse en MathEz</button>
+    <button (focus)="onFocus()">Iniciar sesion con google</button>
+    <button (focus)="onFocus()">Registrarse en MathEz</button>
   </div>
   <p #paragraph>
     ¡Inicia sesión con tu cuenta o regístrate ahora para usar todas las funciones que ofrece MathEz!
