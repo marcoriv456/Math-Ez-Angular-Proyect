@@ -10,6 +10,7 @@ import { ToolPanelFeatureComponent } from './tool-section/tool-panel-feature/too
 import { BackgroundAnimationComponent } from './background-animation/background-animation.component';
 import {PageLocationService} from "./services/page-location/page-location.service";
 import {SubjectIntersectionService} from "./services/subject-intersection/subject-intersection.service";
+import { LogInSectionComponent } from './log-in-section/log-in-section.component';
 
 
 
@@ -22,7 +23,8 @@ import {SubjectIntersectionService} from "./services/subject-intersection/subjec
     ToolSectionComponent,
     ToolPanelComponent,
     ToolPanelFeatureComponent,
-    BackgroundAnimationComponent
+    BackgroundAnimationComponent,
+    LogInSectionComponent
   ],
   exports: [
     HomeComponent
