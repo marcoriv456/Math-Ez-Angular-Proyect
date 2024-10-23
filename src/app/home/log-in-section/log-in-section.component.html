@@ -14,8 +14,16 @@
       </label>
       <button class="log-in-btn" (focus)="onFocus()">Iniciar sesion</button>
     </form>
-    <button (focus)="onFocus()">Iniciar sesion con google</button>
-    <button (focus)="onFocus()">Registrarse en MathEz</button>
+    <button class="google-log-in-btn" (focus)="onFocus()">
+      Iniciar sesion con
+      <span style="--f-color:#4988f4">G</span>
+      <span style="--f-color: #ea493a">o</span>
+      <span style="--f-color: #fabf0d">o</span>
+      <span style="--f-color: #4988f4">g</span>
+      <span style="--f-color: #3bab59">l</span>
+      <span style="--f-color: #ea493a">e</span>
+    </button>
+    <button class="math-ez-register-brn" (focus)="onFocus()">Registrarse en <span style="--f-color: #0035e0">MathEz</span></button>
   </div>
   <p #paragraph>
     ¡Inicia sesión con tu cuenta o regístrate ahora para usar todas las funciones que ofrece MathEz!

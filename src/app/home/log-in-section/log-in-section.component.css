@@ -80,7 +80,6 @@ label:has(input:focus-visible) .input-edger{
   background-image: linear-gradient(90deg, #3d73ff, #0035e0);
   outline: 1px solid #0035e0;
   transition-property: color, transform;
-  transition: var(--in-easing) calc(var(--transition-duration ) * 0.5);
 }
 .log-in-btn:focus-visible{
   transform: scale(1.05);
@@ -94,12 +93,29 @@ button{
   font-size: 1.6rem;
   padding: 1rem;
   font-weight: 100;
+  transition: var(--in-easing) calc(var(--transition-duration ) * 0.5);
 }
 
 
 button:not(.log-in-btn){
   background-color: white;
   border: 1px solid #1c1c1c;
+  transition-property: outline-color,transform;
+}
+.google-log-in-btn:active,
+.google-log-in-btn:focus-visible{
+  outline-color: #f3b704;
+  transform: scale(1.05);
+}
+button:active span,
+button:focus-visible span{
+  color: var(--f-color);
+}
+
+.math-ez-register-brn:active,
+.math-ez-register-brn:focus-visible{
+  outline-color: #0035e0;
+  transform: scale(1.05);
 }
 
 p{
