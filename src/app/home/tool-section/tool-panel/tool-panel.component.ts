@@ -13,30 +13,25 @@ export class ToolPanelComponent implements AfterViewInit{
   @ViewChild("text_container")
   text_container!:ElementRef;
 
-  @ViewChild("animation_video")
-  animationVideo!:ElementRef;
-
   @ViewChild("feature_container")
   featureContainer!:ElementRef;
+
+  @ViewChild("panel_icon")
+  panelIcon!:ElementRef;
 
   @Input()
   animationSrc!:string;
 
-
   ref=inject(ElementRef)
   intersectionObserverService=inject(SubjectIntersectionService)
   ngAfterViewInit() {
-    let subject=this.thisAsSubject
-    if(this.animationVideo)
-      subject.children.push(this.animationVideo.nativeElement)
-    this.intersectionObserverService.addSubject(subject)
-
+    this.intersectionObserverService.addSubject(this.thisAsSubject)
   }
 
   private get thisAsSubject():IntersectionObserverSubject{
     return{
       main:this.ref.nativeElement,
-      children:[this.text_container.nativeElement,this.featureContainer.nativeElement],
+      children:[this.text_container.nativeElement,this.featureContainer.nativeElement,this.panelIcon.nativeElement],
       name:"tool-section-"+this.panelName
     }
   }

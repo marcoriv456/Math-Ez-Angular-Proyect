@@ -6,9 +6,8 @@
     <div class="description">
       <ng-content select="p"></ng-content>
     </div>
-    <figure [ngStyle]="{'mask-image':maskUrl}"></figure>
   </div>
-  <video #animation_video autoplay muted loop *ngIf="animationSrc" [src]="animationSrc"></video>
+  <figure #panel_icon [ngStyle]="{'mask-image':maskUrl}"></figure>
 
 
   <nav #feature_container>
