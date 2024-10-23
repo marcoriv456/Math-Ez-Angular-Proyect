@@ -9,13 +9,15 @@
   gap: 1rem;
 }
 .form-container{
-  position: fixed;
-  left: 25%;
-  top: 45%;
-  translate:-50% -50%;
   width: 40rem;
   height: 40rem;
   padding: 2rem;
+
+  position: fixed;
+  left: 25%;
+  top: 45%;
+
+  translate:-50% -50%;
 }
 
 
@@ -27,12 +29,15 @@ h2{
 
 label{
   position: relative;
+
   display: flex;
   flex-direction: column;
   align-items: start;
-  font-size: 1.3rem;
   gap: 0.6rem;
+
+  font-size: 1.3rem;
 }
+
 .input-edger{
   --width:36rem;
   --height:3rem;
@@ -42,22 +47,27 @@ label{
 
   position: absolute;
 
-  left: 50%;
-
   bottom: 1.45rem;
-  translate: -50% 50%;
+  left: 50%;
   z-index: -10;
+  translate: -50% 50%;
+
   background-image: linear-gradient(90deg, #3d73ff, #0035e0);
+
   transition-property: height,width, outline-color;
   transition: calc(var(--transition-duration) * 0.5) var(--in-easing);
 }
 
 input{
-  display: inline-block;
   width: 100%;
-  font-size: 2rem;
-  padding: .4rem;
   height: 3rem;
+
+  padding: .4rem;
+
+  display: inline-block;
+
+  font-size: 2rem;
+
   outline: #0035e0 1px solid;
 }
 input:focus-visible{
@@ -68,65 +78,88 @@ label:has(input:focus-visible) .input-edger{
   --grow-amount: 0.7rem;
 }
 
-.log-in-btn{
-  display: block;
-  width: fit-content;
-  align-self: end;
-  border-radius: 5px;
-  border: none;
-
-  background-clip: text;
-  color: transparent;
-  background-image: linear-gradient(90deg, #3d73ff, #0035e0);
-  outline: 1px solid #0035e0;
-  transition-property: color, transform;
-}
-.log-in-btn:focus-visible{
-  transform: scale(1.05);
-  background-clip: initial;
-  color: white;
-
-}
-
-
 button{
-  font-size: 1.6rem;
   padding: 1rem;
+
   font-weight: 100;
+  font-size: 1.6rem;
+
   transition: var(--in-easing) calc(var(--transition-duration ) * 0.5);
 }
 
+.log-in-btn{
+  width: fit-content;
 
-button:not(.log-in-btn){
-  background-color: white;
+  display: block;
+  align-self: end;
+
+  border: none;
+  border-radius: 5px;
+
+  color: transparent;
+
+  background-clip: text;
+  background-image: linear-gradient(90deg, #3d73ff, #0035e0);
+
+  outline: 1px solid #0035e0;
+
+  transition-property: color, transform;
+}
+
+.log-in-btn:focus-visible,
+.log-in-btn:active{
+  color: white;
+
+  background-clip: initial;
+
+  transform: scale(1.05);
+}
+
+.google-log-in-btn,
+.math-ez-register-brn{
   border: 1px solid #1c1c1c;
+  background-color: white;
   transition-property: outline-color,transform;
 }
 .google-log-in-btn:active,
-.google-log-in-btn:focus-visible{
-  outline-color: #f3b704;
+.google-log-in-btn:focus-visible,
+.math-ez-register-brn:active,
+.math-ez-register-brn:focus-visible{
   transform: scale(1.05);
 }
+
+
+.google-log-in-btn:active,
+.google-log-in-btn:focus-visible{
+  outline-color: #f3b704;
+}
+.math-ez-register-brn:active,
+.math-ez-register-brn:focus-visible{
+  outline-color: #0035e0;
+}
+
 button:active span,
 button:focus-visible span{
   color: var(--f-color);
 }
 
-.math-ez-register-brn:active,
-.math-ez-register-brn:focus-visible{
-  outline-color: #0035e0;
-  transform: scale(1.05);
-}
 
 p{
-  text-align: center;
-  font-size: 2.5rem;
+  width: 40rem;
+
   position: fixed;
   top: 65%;
   left: 75%;
   translate: -50% -50%;
-  width: 40rem;
 
+  font-size: 2.5rem;
+
+  text-align: center;
+}
+
+.form-container,p{
+  --easing: var(--in-easing);
+  transition: left var(--transition-duration) var(--easing), opacity var(--transition-duration) var(--in-easing);
 }
 
 .form-container.out{
@@ -134,11 +167,6 @@ p{
 }
 p.out{
   left: 100%;
-}
-
-.form-container,p{
-  --easing: var(--in-easing);
-  transition: left var(--transition-duration) var(--easing), opacity var(--transition-duration) var(--in-easing);
 }
 
 .form-container.out,
