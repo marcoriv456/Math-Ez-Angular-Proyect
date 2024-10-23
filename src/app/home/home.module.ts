@@ -11,6 +11,7 @@ import { BackgroundAnimationComponent } from './background-animation/background-
 import {PageLocationService} from "./services/page-location/page-location.service";
 import {SubjectIntersectionService} from "./services/subject-intersection/subject-intersection.service";
 import { LogInSectionComponent } from './log-in-section/log-in-section.component';
+import {TabScrollingService} from "./services/tab-scrolling/tab-scrolling.service";
 
 
 
@@ -34,7 +35,8 @@ import { LogInSectionComponent } from './log-in-section/log-in-section.component
   ],
   providers:[
     PageLocationService,
-    SubjectIntersectionService
+    SubjectIntersectionService,
+    TabScrollingService
   ]
 })
 export class HomeModule { }
