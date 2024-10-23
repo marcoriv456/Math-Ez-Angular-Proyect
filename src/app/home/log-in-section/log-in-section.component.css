@@ -81,6 +81,8 @@ label:has(input:focus-visible) .input-edger{
 button{
   padding: 1rem;
 
+  border: none;
+
   font-weight: 100;
   font-size: 1.6rem;
 
@@ -93,7 +95,6 @@ button{
   display: block;
   align-self: end;
 
-  border: none;
   border-radius: 5px;
 
   color: transparent;
@@ -117,7 +118,7 @@ button{
 
 .google-log-in-btn,
 .math-ez-register-brn{
-  border: 1px solid #1c1c1c;
+  outline: 1px solid #1c1c1c;
   background-color: white;
   transition-property: outline-color,transform;
 }

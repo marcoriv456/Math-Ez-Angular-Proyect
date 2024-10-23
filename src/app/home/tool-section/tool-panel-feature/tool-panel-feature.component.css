@@ -64,6 +64,9 @@ figure{
   transition-property: opacity, height;
   transition:var(--in-easing) var(--transition-duration) ;
 }
+a:focus-visible{
+  outline-color: var(--panel-theme-color-darker);
+}
 :host:has(:hover, :focus-visible) figure{
   translate: 100% -50%;
   background-color: var(--panel-theme-color);
