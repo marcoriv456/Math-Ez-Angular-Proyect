@@ -2,7 +2,7 @@
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: -10;
+  z-index: 10;
 }
 nav{
   width: 100%;
@@ -61,3 +61,16 @@ li:hover{
 li:hover a{
   color: white;
 }
+
+.progress-bar{
+  bottom: 0;
+  position: relative;
+  translate: 0 100%;
+  display: block;
+  height: 2px;
+  /*width: 100%;*/
+  background-color: red;
+
+  transition: width var(--transition-duration) var(--in-easing);
+}
+
