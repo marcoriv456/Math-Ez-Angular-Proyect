@@ -1,12 +1,42 @@
 <nav>
-  <ul>
-    <li #sectionBtn class="home" [style]="colors.home"><a href="#">Home</a></li>
-    <li #sectionBtn class="lineal-algebra" [style]="colors.algebra"><a href="#">Algebra Lineal</a></li>
-    <li #sectionBtn class="calculus" [style]="colors.calculus"><a href="#">Calculo</a></li>
-    <li #sectionBtn class="logic" [style]="colors.logic"><a href="#">Logica</a></li>
-    <li #sectionBtn class="graphics" [style]="colors.graphics"><a href="#">Graficas</a></li>
-    <li #sectionBtn class="measures" [style]="colors.measures"><a href="#">Medidas</a></li>
-    <li #sectionBtn class="statistics" [style]="colors.statistics"><a href="">Estadistica</a></li>
+  <ul class="nav-ul">
+<!--    <li #sectionBtn class="home" [style]="colors.home"><a href="#">Home</a></li>-->
+<!--    <li #sectionBtn class="lineal-algebra" [style]="colors.algebra"><a href="#">Algebra Lineal</a></li>-->
+<!--    <li #sectionBtn class="calculus" [style]="colors.calculus"><a href="#">Calculo</a></li>-->
+<!--    <li #sectionBtn class="logic" [style]="colors.logic"><a href="#">Logica</a></li>-->
+<!--    <li #sectionBtn class="graphics" [style]="colors.graphics"><a href="#">Graficas</a></li>-->
+<!--    <li #sectionBtn class="measures" [style]="colors.measures"><a href="#">Medidas</a></li>-->
+<!--    <li #sectionBtn class="statistics" [style]="colors.statistics"><a href="">Estadistica</a></li>-->
+    <li class="nav-section nav-start" [ngStyle]="homeColorThemes.start">
+      <a class="nav-section-title" href="">Inicio</a>
+    </li>
+    <li class="nav-section nav-intro">
+      <a class="nav-section-title" href="">Introduccion</a>
+      <ul class="nav-sub-section">
+        <li [ngStyle]="homeColorThemes['introduction-1']"><a href="">Todo en un solo lugar</a></li>
+        <li [ngStyle]="homeColorThemes['introduction-2']"><a href="">Hecho para todos</a></li>
+        <li [ngStyle]="homeColorThemes['introduction-3']"><a href="">Sin ningun costo</a></li>
+      </ul>
+    </li>
+    <li class="nav-section nav-tools">
+      <a class="nav-section-title" href="">Herramientas</a>
+      <ul class="nav-sub-section">
+        <li [ngStyle]="homeColorThemes.algebra" ><a href="">Algebra Lineal</a></li>
+        <li [ngStyle]="homeColorThemes.calculus"><a href="">Calculo</a></li>
+        <li [ngStyle]="homeColorThemes.logic"><a href="">Logica</a></li>
+        <li [ngStyle]="homeColorThemes.graphics"><a href="">Graficas</a></li>
+        <li [ngStyle]="homeColorThemes.measures"><a href="">Medidas</a></li>
+        <li [ngStyle]="homeColorThemes.statistics"><a href="">Estadistica</a></li>
+      </ul>
+    </li>
+    <li class="nav-section nav-join">
+      <a class="nav-section-title" href="">Unete a MathEz</a>
+      <ul class="nav-sub-section">
+        <li [ngStyle]="homeColorThemes['log-in']"><a href="">Iniciar sesion</a></li>
+        <li [ngStyle]="homeColorThemes['log-in-google']"><a href="">Iniciar sesion con Google</a></li>
+        <li [ngStyle]="homeColorThemes['log-in']"><a href="">Crear Cuenta</a></li>
+      </ul>
+    </li>
   </ul>
 <span class="progress-bar" [ngStyle]="{width:pageProgressionPercentage+'%'}"></span>
 </nav>
