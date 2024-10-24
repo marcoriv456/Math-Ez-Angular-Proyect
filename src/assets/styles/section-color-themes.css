@@ -1,0 +1,71 @@
+.--sct-start {
+  --main: #0090e9;
+  --darker: #0042e9;
+}
+
+.--sct-introduction-1 {
+  --darker: #00d706;
+  --main: #80FF55;
+}
+
+.--sct-introduction-2 {
+  --darker: #6300e4;
+  --main: #6655FF;
+}
+
+.--sct-introduction-3 {
+  --darker: #d70000;
+  --main: #FF6363;
+}
+
+.--sct-home {
+  --main: #4E80FF;
+  --darker: #0042e9;
+  --lighter: #8badff;
+}
+
+.--sct-algebra {
+  --main: #FF9334;
+  --darker: #d76500;
+  --lighter: #ffad66;
+}
+
+.--sct-calculus {
+  --main: #FF3434;
+  --darker: #d70000;
+  --lighter: #ff6b6b;
+}
+
+.--sct-logic {
+  --main: #34FF3A;
+  --darker: #00d706;
+  --lighter: #6eff73;
+}
+
+.--sct-graphics {
+  --main: #34D6FF;
+  --darker: #00abd7;
+  --lighter: #6fdcff;
+}
+
+.--sct-measures {
+  --main: #3466FF;
+  --darker: #0035d7;
+  --lighter: #6f8bff;
+}
+
+.--sct-statistics {
+  --main: #9747FF;
+  --darker: #6300e4;
+  --lighter: #b36cff;
+}
+
+.--sct-log-in {
+  --main: #0090e9;
+  --darker: #0042e9;
+}
+
+.--sct-log-in-google {
+  --main: #e9d600;
+  --darker: #e9a700;
+}
