@@ -2,7 +2,7 @@
   <div #panel__text   class="panel__text">
     <ng-content></ng-content>
   </div>
-  <figure [ngClass]="'main--'+colorClass" #panel__illustration class="panel__illustration">
+  <figure #panel__illustration class="panel__illustration" [ngClass]="'--sct-introduction-'+sectionNumber">
     <figure class="main" [ngStyle]="{'mask-image':getImageRoute('main')}"></figure>
     <figure class="secondary secondary--first" [ngStyle]="{'mask-image':getImageRoute('secondary--first')}"></figure>
     <figure class="secondary secondary--second" [ngStyle]="{'mask-image':getImageRoute('secondary--second')}"></figure>

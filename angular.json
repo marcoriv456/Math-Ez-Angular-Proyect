@@ -37,8 +37,7 @@
               }
             ],
             "styles": [
-              "src/styles.css",
-              "src/assets/styles/section-color-themes.css"
+              "src/styles.css"
             ],
             "scripts": []
           },

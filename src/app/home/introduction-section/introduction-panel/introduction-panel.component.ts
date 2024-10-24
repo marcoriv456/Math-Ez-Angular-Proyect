@@ -12,14 +12,11 @@ import {IntersectionObserverSubject} from "../../models/IntersectionObserverSubj
 @Component({
   selector: 'home-introduction-section-panel',
   templateUrl: './introduction-panel.component.html',
-  styleUrl: './introduction-panel.component.css'
+  styleUrls: ['./introduction-panel.component.css','../../../../assets/styles/section-color-themes.css']
 })
 export class IntroductionPanelComponent implements AfterViewInit{
   @Input()
   sectionNumber!:number
-  @Input()
-  colorClass!:string
-
   @ViewChild("panel__text")
   panelText!:ElementRef;
   @ViewChild("panel__illustration")

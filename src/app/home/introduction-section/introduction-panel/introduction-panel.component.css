@@ -136,15 +136,3 @@
     filter: hue-rotate(-30deg);
   }
 }
-.main--green{
-  --darker:#00d706;
-  --main:#80FF55;
-}
-.main--blue{
-  --darker: #6300e4;
-  --main: #6655FF;
-}
-.main--red{
-  --darker: #d70000;
-  --main: #FF6363;
-}
