@@ -5,7 +5,7 @@ import {IntersectionObserverSubject} from "../models/IntersectionObserverSubject
 @Component({
   selector: 'home-tool-section',
   templateUrl: './tool-section.component.html',
-  styleUrl: './tool-section.component.css'
+  styleUrls: ['./tool-section.component.css','../../../assets/styles/section-color-themes.css']
 })
 export class ToolSectionComponent implements AfterViewInit{
   @ViewChild("title_container")

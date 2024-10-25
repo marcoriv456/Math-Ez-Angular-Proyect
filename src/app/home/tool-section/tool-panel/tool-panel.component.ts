@@ -10,6 +10,9 @@ import {IntersectionObserverSubject} from "../../models/IntersectionObserverSubj
 export class ToolPanelComponent implements AfterViewInit{
   @Input()
   iconSrc!:string
+  @Input()
+  panelName!:string;
+
   @ViewChild("text_container")
   text_container!:ElementRef;
 
@@ -19,8 +22,6 @@ export class ToolPanelComponent implements AfterViewInit{
   @ViewChild("panel_icon")
   panelIcon!:ElementRef;
 
-  @Input()
-  animationSrc!:string;
 
   ref=inject(ElementRef)
   intersectionObserverService=inject(SubjectIntersectionService)
@@ -32,12 +33,12 @@ export class ToolPanelComponent implements AfterViewInit{
     return{
       main:this.ref.nativeElement,
       children:[this.text_container.nativeElement,this.featureContainer.nativeElement,this.panelIcon.nativeElement],
-      name:"tool-section-"+this.panelName
+      name:"tool-section-panel--"+this.panelName
     }
   }
-  private get panelName(){
-    return this.ref.nativeElement.id
-  }
+  // private get panelName(){
+  //   return this.ref.nativeElement.id
+  // }
   protected get maskUrl(){
     return`url("${this.iconSrc}")`
   }

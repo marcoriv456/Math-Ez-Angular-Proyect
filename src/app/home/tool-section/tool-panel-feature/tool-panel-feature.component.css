@@ -65,12 +65,12 @@ figure{
   transition:var(--in-easing) var(--transition-duration) ;
 }
 a:focus-visible{
-  outline-color: var(--panel-theme-color-darker);
+  outline-color: var(--darker);
 }
 :host:has(:hover, :focus-visible) figure{
   translate: 100% -50%;
-  background-color: var(--panel-theme-color);
-  background-image: linear-gradient(90deg, transparent,var(--panel-theme-color-darker));
+  background-color: var(--main);
+  background-image: linear-gradient(90deg, transparent,var(--darker));
 }
 :host:has(:hover, :focus-visible) .text-container{
   width: 30rem;
