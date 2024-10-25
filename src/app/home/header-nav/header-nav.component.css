@@ -3,7 +3,7 @@
   top: 0;
   width: 100%;
   z-index: 10;
-  height: 5rem;
+  height: 3rem;
 }
 
 nav{
@@ -30,20 +30,27 @@ nav{
 
 .nav-section{
   /*padding: 1.5rem 0;*/
-  display: flex;
-  flex-direction: column;
+  /*display: flex;*/
+  /*flex-direction: column;*/
   /*justify-content: center;*/
-  align-content: center;
+  /*align-content: center;*/
   flex-grow: 1;
-
+  position: relative;
   background-color: white;
+  display: flex;
+  place-items: center;
+  /*border-radius: 0 0 10px 10px;*/
+  /*overflow: hidden;*/
 }
+
+.nav-section:hover{
+  flex-grow: 1.5;
+}
+
 .nav-section,.nav-sub-section li{
   transition-property: background-color, flex-grow, background-image;
   transition:var(--small-transition-duration) var(--in-easing);
 }
-
-
 
 a{
   color: var(--main);
@@ -65,25 +72,31 @@ a{
   flex-basis: 0;
 }
 
-
 .nav-sub-section{
   /*width: 0;*/
+  width: 100%;
+
   display: flex;
   justify-content: space-evenly;
-  flex-grow: 0;
-  flex-basis: 0;
+  /*flex-grow: 0;*/
+  /*flex-basis: 0;*/
   height: 0;
   overflow: hidden;
 
+  position: absolute;
+  top: 100%;
+
+  border-radius: 0 0 10px 10px;
+  box-shadow: 5px 5px 10px #0002;
+
   transition-property: height, flex-grow;
-  transition:var(--small-transition-duration) var(--in-easing);
+  transition: var(--small-transition-duration) 0.15s var(--in-easing);
 }
 
-.nav-section:hover{
-  flex-grow: 1.5;
-}
 .nav-section:hover .nav-sub-section{
-  flex-grow: 1;
+  /*flex-grow: 1;*/
+  height: 3rem;
+
   /*height: initial;*/
 
 }
@@ -93,15 +106,22 @@ a{
   flex-grow: 1;
   display: flex;
   place-content: center;
+  background-color: white;
 }
-.nav-sub-section li:hover{
+/*.nav-section:hover{*/
+/*  z-index: 10;*/
+/*}*/
+
+.nav-sub-section li:hover,.nav-section:hover{
   background-color: var(--main);
   background-image: linear-gradient(90deg, transparent, var(--darker));
-  flex-grow: 1.5;
+  flex-grow: 2;
 }
-.nav-sub-section li:hover a{
+.nav-sub-section li:hover a, .nav-section:hover>a{
   color: white;
 }
+
+
 
 .nav-start:hover{
   background-color: var(--main);
@@ -111,10 +131,10 @@ a{
   color: white;
 }
 
-.nav-section{
-  --main: #0090e9;
-  --darker: #0042e9;
-}
+/*.nav-section{*/
+/*  --main: #0090e9;*/
+/*  --darker: #0042e9;*/
+/*}*/
 
 
 
