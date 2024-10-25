@@ -4,6 +4,7 @@
   width: 100%;
   z-index: 10;
   height: 3rem;
+  display: block;
 }
 
 nav{
@@ -11,14 +12,9 @@ nav{
   width: 100%;
   position: relative;
 
-  translate: 0 -100% ;
   transition: translate var(--in-easing) var(--small-transition-duration);
   transition-delay: 1s;
   box-shadow: 5px 5px 10px #0002;
-}
-:host:hover nav{
-  translate: 0 0;
-  transition-delay: 0s;
 }
 
 .nav-ul{
@@ -86,16 +82,21 @@ a{
   position: absolute;
   top: 100%;
 
+  opacity: 0;
+
+  z-index: 10;
+
   border-radius: 0 0 10px 10px;
   box-shadow: 5px 5px 10px #0002;
 
-  transition-property: height, flex-grow;
+  transition-property: height, flex-grow, opacity;
   transition: var(--small-transition-duration) 0.15s var(--in-easing);
 }
 
 .nav-section:hover .nav-sub-section{
   /*flex-grow: 1;*/
   height: 3rem;
+  opacity: 1;
 
   /*height: initial;*/
 
@@ -131,22 +132,13 @@ a{
   color: white;
 }
 
-/*.nav-section{*/
-/*  --main: #0090e9;*/
-/*  --darker: #0042e9;*/
-/*}*/
-
-
-
 .progress-bar{
   bottom: 0;
   position: relative;
   translate: 0 100%;
   display: block;
   height: 2px;
-  /*width: 100%;*/
-  background-color: red;
-
+  background-image: linear-gradient(90deg, var(--main), var(--darker));
   transition: width var(--transition-duration) var(--in-easing);
 }
 
