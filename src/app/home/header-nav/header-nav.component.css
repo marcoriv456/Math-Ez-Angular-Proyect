@@ -1,66 +1,59 @@
 :host{
+  width: 100%;
+  height: 3rem;
+
   position: fixed;
   top: 0;
-  width: 100%;
   z-index: 10;
-  height: 3rem;
+
   display: block;
 }
 
 nav{
   height: 100%;
   width: 100%;
+
   position: relative;
+
+  box-shadow: 5px 5px 10px #0002;
 
   transition: translate var(--in-easing) var(--small-transition-duration);
   transition-delay: 1s;
-  box-shadow: 5px 5px 10px #0002;
+}
+
+a{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: var(--main);
+
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+
+  transition: color .5s cubic-bezier(0,0,0,1);
+  text-wrap: nowrap;
 }
 
 .nav-ul{
   width: 100%;
   height: 100%;
+
   display: flex;
   justify-content: space-evenly;
 }
 
 .nav-section{
-  /*padding: 1.5rem 0;*/
-  /*display: flex;*/
-  /*flex-direction: column;*/
-  /*justify-content: center;*/
-  /*align-content: center;*/
-  flex-grow: 1;
   position: relative;
-  background-color: white;
+
   display: flex;
   place-items: center;
-  /*border-radius: 0 0 10px 10px;*/
-  /*overflow: hidden;*/
+  flex-grow: 1;
+
+  background-color: white;
 }
 
-.nav-section:hover{
-  flex-grow: 1.5;
-}
-
-.nav-section,.nav-sub-section li{
-  transition-property: background-color, flex-grow, background-image;
-  transition:var(--small-transition-duration) var(--in-easing);
-}
-
-a{
-  color: var(--main);
-  text-align: center;
-  text-decoration: none;
-  font-size: 1.2rem;
-  font-weight: bold;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: color .5s cubic-bezier(0,0,0,1);
-  text-wrap: nowrap;
-}
 
 
 .nav-section-title{
@@ -69,22 +62,18 @@ a{
 }
 
 .nav-sub-section{
-  /*width: 0;*/
   width: 100%;
-
-  display: flex;
-  justify-content: space-evenly;
-  /*flex-grow: 0;*/
-  /*flex-basis: 0;*/
   height: 0;
-  overflow: hidden;
 
   position: absolute;
   top: 100%;
+  z-index: 10;
+
+  display: flex;
+  justify-content: space-evenly;
+  overflow: hidden;
 
   opacity: 0;
-
-  z-index: 10;
 
   border-radius: 0 0 10px 10px;
   box-shadow: 5px 5px 10px #0002;
@@ -93,52 +82,67 @@ a{
   transition: var(--small-transition-duration) 0.15s var(--in-easing);
 }
 
-.nav-section:hover .nav-sub-section{
-  /*flex-grow: 1;*/
-  height: 3rem;
-  opacity: 1;
 
-  /*height: initial;*/
-
-}
 
 .nav-sub-section li{
-  flex-basis: 0;
-  flex-grow: 1;
   display: flex;
   place-content: center;
+
+  flex-basis: 0;
+  flex-grow: 1;
+
   background-color: white;
 }
-/*.nav-section:hover{*/
-/*  z-index: 10;*/
-/*}*/
 
-.nav-sub-section li:hover,.nav-section:hover{
-  background-color: var(--main);
-  background-image: linear-gradient(90deg, transparent, var(--darker));
+.nav-section,.nav-sub-section li{
+  transition-property: background-color, flex-grow, background-image;
+  transition:var(--small-transition-duration) var(--in-easing);
+}
+
+.nav-section:focus-visible,
+.nav-section:hover{
+  flex-grow: 1.5;
+}
+
+.nav-section:hover .nav-sub-section,
+.nav-section:focus-visible .nav-sub-section{
+  height: 3rem;
+
+  opacity: 1;
+}
+
+.nav-sub-section li:hover, .nav-sub-section li:hover,
+.nav-section:focus-visible, .nav-section:focus-visible{
   flex-grow: 2;
 }
-.nav-sub-section li:hover a, .nav-section:hover>a{
+
+.nav-sub-section li:hover>a, .nav-section:hover>a,
+.nav-sub-section li:focus-visible>a, .nav-section:focus-visible>a{
   color: white;
 }
 
-
-
-.nav-start:hover{
+.nav-start:hover,.nav-sub-section li:hover,.nav-section:hover,
+.nav-start:focus-visible,.nav-sub-section li:focus-visible,.nav-section:focus-visible{
   background-color: var(--main);
   background-image: linear-gradient(90deg, transparent, var(--darker));
 }
-.nav-start:hover a{
+
+.nav-start:hover a,
+.nav-start:focus-visible a{
   color: white;
 }
 
+
+
 .progress-bar{
-  bottom: 0;
-  position: relative;
-  translate: 0 100%;
-  display: block;
   height: 2px;
+
+  position: relative;
+  bottom: 0;
+  translate: 0 100%;
+
+  display: block;
+  
   background-image: linear-gradient(90deg, var(--main), var(--darker));
   transition: width var(--transition-duration) var(--in-easing);
 }
-
