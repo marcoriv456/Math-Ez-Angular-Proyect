@@ -4,22 +4,24 @@
 }
 
 .--sct-introduction-1 {
-  --darker: #00d706;
-  --main: #80FF55;
+  --darker: #00a5d7;
+  --main: #55ccff;
 }
 
 .--sct-introduction-2 {
-  --darker: #6300e4;
-  --main: #6655FF;
+  --darker: #00d76c;
+  --main: #55ffb8;
+
 }
 
 .--sct-introduction-3 {
-  --darker: #d70000;
-  --main: #FF6363;
+  --darker: #00d706;
+  --main: #80FF55;
+
 }
 
 .--sct-home {
-  --main: #4E80FF;
+  --main: #0090e9;
   --darker: #0042e9;
   --lighter: #8badff;
 }
@@ -60,7 +62,7 @@
   --lighter: #b36cff;
 }
 
-.--sct-log-in {
+.--sct-log-in ,.--sct-register{
   --main: #0090e9;
   --darker: #0042e9;
 }
