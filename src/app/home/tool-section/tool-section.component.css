@@ -8,7 +8,7 @@
 }
 
 .title-container{
-  height: 300vh;
+  height: var(--section-height);
   width: 100%;
 }
 

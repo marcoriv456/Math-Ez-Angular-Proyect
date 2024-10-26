@@ -1,6 +1,6 @@
 :host{
   display: block;
-  height: 200vh;
+  height: var(--section-height);
 }
 
 .form-container,form{

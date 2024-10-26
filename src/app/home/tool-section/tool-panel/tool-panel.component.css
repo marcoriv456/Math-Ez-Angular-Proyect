@@ -1,5 +1,5 @@
 :host{
-  height: 200vh;
+  height: var(--section-height);
   max-width: 1080px;
 
   position: relative;

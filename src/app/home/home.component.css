@@ -4,4 +4,6 @@
 
   --transition-duration:0.8s;
   --small-transition-duration:calc(var(--transition-duration)*0.5);
+
+  --section-height:200vh;
 }
