@@ -7,6 +7,10 @@
   z-index: 30;
 
   display: block;
+  transition: translate var(--transition-duration) var(--in-easing);
+}
+:host.out{
+  translate: 0 -120%;
 }
 
 nav{

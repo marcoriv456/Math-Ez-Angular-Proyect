@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject } from '@angular/core';
+import {AfterViewInit, Component, HostBinding, inject} from '@angular/core';
 import {topicsColorThemes} from "../../../assets/topics.color-themes";
 import {PageLocationService} from "../services/page-location/page-location.service";
 
@@ -8,6 +8,9 @@ import {PageLocationService} from "../services/page-location/page-location.servi
   styleUrls: ['./header-nav.component.css','../../../assets/styles/section-color-themes.css']
 })
 export class HeaderNavComponent implements AfterViewInit{
+  @HostBinding('class.out')
+  isOut = false;
+
   private pageLocationService=inject(PageLocationService)
 
   private barStyleOnEveryLocation={
@@ -65,9 +68,14 @@ export class HeaderNavComponent implements AfterViewInit{
   barStyle=this.barStyleOnEveryLocation["logo-section"]
 
   ngAfterViewInit() {
-    this.pageLocationService.addListener((location)=>{
-      //@ts-ignore
-      this.barStyle=this.barStyleOnEveryLocation[location]
+    this.pageLocationService.addListener((location)=> {
+      if(location=='footer')
+        this.isOut=true
+      else{
+        //@ts-ignore
+        this.barStyle=this.barStyleOnEveryLocation[location]
+        this.isOut=false
+      }
     })
   }
 }
