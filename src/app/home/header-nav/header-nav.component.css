@@ -22,6 +22,9 @@ nav{
 }
 
 a{
+  width: 100%;
+  height: 100%;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -32,7 +35,7 @@ a{
   font-size: 1.2rem;
   font-weight: bold;
 
-  transition: color .5s cubic-bezier(0,0,0,1);
+  transition: color .5s var(--in-easing);
   text-wrap: nowrap;
 }
 
@@ -71,7 +74,7 @@ a{
 
   display: flex;
   justify-content: space-evenly;
-  overflow: hidden;
+  /*overflow: hidden;*/
 
   opacity: 0;
 
@@ -99,40 +102,45 @@ a{
   transition:var(--small-transition-duration) var(--in-easing);
 }
 
-.nav-section:focus-visible,
+.nav-sub-section li:last-child{
+  border-radius: 0 0 10px 0;
+}
+.nav-sub-section li:first-child{
+  border-radius: 0 0 0 10px;
+}
+
+.nav-section:has(:focus-visible),
 .nav-section:hover{
   flex-grow: 1.5;
 }
 
 .nav-section:hover .nav-sub-section,
-.nav-section:focus-visible .nav-sub-section{
+.nav-section:has(:focus-visible) .nav-sub-section{
   height: 3rem;
 
   opacity: 1;
 }
 
-.nav-sub-section li:hover, .nav-sub-section li:hover,
-.nav-section:focus-visible, .nav-section:focus-visible{
+.nav-sub-section li:hover, .nav-sub-section li:has(:focus-visible),
+.nav-section:hover, .nav-section:has(:focus-visible){
   flex-grow: 2;
 }
 
 .nav-sub-section li:hover>a, .nav-section:hover>a,
-.nav-sub-section li:focus-visible>a, .nav-section:focus-visible>a{
+.nav-sub-section li:has(:focus-visible)>a, .nav-section:has(:focus-visible)>a{
   color: white;
 }
 
 .nav-start:hover,.nav-sub-section li:hover,.nav-section:hover,
-.nav-start:focus-visible,.nav-sub-section li:focus-visible,.nav-section:focus-visible{
+.nav-start:has(:focus-visible),.nav-sub-section li:has(:focus-visible),.nav-section:has(:focus-visible){
   background-color: var(--main);
   background-image: linear-gradient(90deg, transparent, var(--darker));
 }
 
 .nav-start:hover a,
-.nav-start:focus-visible a{
+.nav-start:has(:focus-visible) a{
   color: white;
 }
-
-
 
 .progress-bar{
   height: 2px;
@@ -142,7 +150,7 @@ a{
   translate: 0 100%;
 
   display: block;
-  
   background-image: linear-gradient(90deg, var(--main), var(--darker));
+  
   transition: width var(--transition-duration) var(--in-easing);
 }
