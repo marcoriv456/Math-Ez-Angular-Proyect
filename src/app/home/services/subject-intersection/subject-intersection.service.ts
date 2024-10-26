@@ -1,14 +1,17 @@
 import {inject, Injectable, Renderer2, RendererFactory2} from '@angular/core';
 import {PageLocationService} from "../page-location/page-location.service";
 import {IntersectionObserverSubject} from "../../models/IntersectionObserverSubject";
+import {FooterService} from "../../../footer/footer.service";
 
 @Injectable()
 export class SubjectIntersectionService {
   constructor(rendererFactory:RendererFactory2) {
     this.renderer=rendererFactory.createRenderer(null,null)
+    this.footerService.footerInitialized.subscribe(()=>this.observeFooter())
   }
 
   private pageLocationService=inject(PageLocationService)
+  private footerService=inject(FooterService)
   private observer=new IntersectionObserver(
     (entries)=>{entries.forEach((entry)=>this.entryCallback(entry))
     },{
@@ -43,5 +46,15 @@ export class SubjectIntersectionService {
   addSubject(subject:IntersectionObserverSubject){
     this.subjects.push(subject)
     this.observer.observe(subject.main)
+  }
+
+  observeFooter(){
+    let footer=this.footerService.footerRef.nativeElement
+    let footerObserver=new IntersectionObserver((entries)=>{
+      let footer=entries[0]
+      if(footer.isIntersecting)
+        this.pageLocationService.setPageLocation('footer')
+    })
+    footerObserver.observe(footer)
   }
 }

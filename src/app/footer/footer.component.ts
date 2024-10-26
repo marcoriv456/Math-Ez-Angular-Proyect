@@ -7,6 +7,11 @@ import {FooterService} from "./footer.service";
   styleUrl: './footer.component.css'
 })
 export class FooterComponent implements AfterViewInit{
+  ref=inject(ElementRef)
+  footerService=inject(FooterService)
+
   ngAfterViewInit() {
+    this.footerService.footerRef=this.ref
+    this.footerService.footerInitialized.emit()
   }
 }
