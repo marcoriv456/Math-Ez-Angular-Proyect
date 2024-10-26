@@ -1,7 +1,7 @@
-<section>
+<section id="login-section">
     <div #form_container class="form-container">
     <h2>Iniciar sesion</h2>
-    <form>
+    <form id="login-form">
       <label>
         Usuario:
         <input type="text" (focus)="onFocus()">
@@ -14,7 +14,7 @@
       </label>
       <button class="log-in-btn" (focus)="onFocus()">Iniciar sesion</button>
     </form>
-    <button class="google-log-in-btn" (focus)="onFocus()">
+    <button id="google-login-btn" class="google-log-in-btn" (focus)="onFocus()">
       Iniciar sesion con
       <span style="--f-color:#4988f4">G</span>
       <span style="--f-color: #ea493a">o</span>
@@ -23,7 +23,7 @@
       <span style="--f-color: #3bab59">l</span>
       <span style="--f-color: #ea493a">e</span>
     </button>
-    <button class="math-ez-register-brn" (focus)="onFocus()">Registrarse en <span style="--f-color: #0035e0">MathEz</span></button>
+    <button id="register-btn" class="math-ez-register-brn" (focus)="onFocus()">Registrarse en <span style="--f-color: #0035e0">MathEz</span></button>
   </div>
   <p #paragraph>
     ¡Inicia sesión con tu cuenta o regístrate ahora para usar todas las funciones que ofrece MathEz!
