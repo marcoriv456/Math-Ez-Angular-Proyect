@@ -12,15 +12,6 @@ export class HeaderNavComponent{
   @ViewChildren('sectionBtn')
   buttons!:QueryList<ElementRef>
 
-    // ngAfterViewInit() {
-  //   this.buttons.forEach(button=>{
-  //     let buttonElement=button.nativeElement
-  //     let buttonName=buttonElement.classList[0];
-  //     this.renderer.listen(buttonElement,"mouseenter",()=>this.sectionHovered.emit(buttonName))
-  //     this.renderer.listen(buttonElement,"mouseleave",()=>this.sectionHovered.emit("none"))
-  //   })
-  // }
-
   get pageProgressionPercentage(){
     let totalHeight=document.querySelector(":root")?.scrollHeight||0
     let actualScrollPosition=window.scrollY
