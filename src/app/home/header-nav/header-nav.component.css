@@ -95,9 +95,8 @@ a{
   flex-wrap: wrap;
 
   border-radius: 0 0 10px 10px;
-  box-shadow: 5px 5px 10px #0002;
 
-  transition-property: translate, flex-grow, opacity;
+  transition-property: translate, flex-grow, opacity, filter;
   transition: var(--small-transition-duration) 0.15s var(--in-easing);
 }
 
@@ -135,6 +134,8 @@ a{
 .nav-section:has(:focus-visible) .nav-sub-section{
   translate: 0 0;
   opacity: 1;
+  filter: drop-shadow(5px 5px 10px #0002);
+
 }
 
 .nav-sub-section li:hover, .nav-sub-section li:has(:focus-visible){
@@ -165,7 +166,8 @@ a{
   translate: 0 100%;
 
   display: block;
-  background-image: linear-gradient(90deg, var(--main), var(--darker));
+  background-color: var(--main);
 
-  transition: width var(--transition-duration) var(--in-easing);
+  transition-property: background-color, width;
+  transition: var(--transition-duration) var(--in-easing);
 }
