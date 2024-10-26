@@ -1,0 +1,122 @@
+:host{
+  position: relative;
+  z-index: 30;
+}
+footer{
+  width: 100%;
+  background-color: #243045;
+  height: 35rem;
+
+
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40rem;
+}
+
+footer *{
+  font-family: "Noto Sans",sans-serif;
+  color: white;
+}
+/*----------------------CONTACT----------------------*/
+footer .contact {
+  display: flex;
+}
+/*-----PROFILE-----*/
+footer .contact .profile{
+  width: 20rem;
+  padding: 3rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+}
+footer .contact .profile figure img{
+  width: 13rem;
+  height: 13rem;
+  border-radius: 100%;
+}
+footer .contact .profile h4{
+  font-size: 2rem;
+  font-weight: 400;
+}
+footer .contact .profile p{
+  font-size: 1.5rem;
+  font-weight: 100;
+}
+/*-----PROFILE-----*/
+/*-----CONTACT LINKS-----*/
+footer .contact .contact-links{
+  width: 25rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+footer .contact .contact-links img{
+  width: 100%;
+}
+footer .contact .contact-links p,
+footer .contact .contact-links a {
+  font-weight: 100;
+}
+footer .contact .contact-links p{
+  font-size: 2.5rem;
+}
+footer .contact .contact-links a{
+  font-size: 1.5rem;
+}
+/*-----CONTACT LINKS-----*/
+/*----------------------CONTACT----------------------*/
+
+/*----------------------ATTRIBUTION----------------------*/
+footer .attribution{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+footer .attribution img{
+  width: 25rem;
+}
+footer .attribution *{
+  font-weight: 100;
+  font-size: 1.5rem;
+}
+/*----------------------ATTRIBUTION----------------------*/
+
+/*----------------------COPYRIGHT SENTENCE----------------------*/
+footer .copyright-sentence{
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  bottom: 1rem;
+  font-size: 2rem;
+  font-weight: 100;
+}
+/*----------------------COPYRIGHT SENTENCE----------------------*/
+
+/*----------------------COPYRIGHT SENTENCE----------------------*/
+footer .logo{
+  width: 100%;
+  padding: 5rem;
+
+  position: absolute;
+  top: -25rem;
+
+  display: flex;
+  justify-content: center;
+
+  color: black;
+  font-family: "Lato", sans-serif;
+  font-size: 10rem;
+}
+
+footer .logo img{
+  width: 10rem;
+  height: 10rem;
+}
+footer .logo span{
+  font-size:11rem;
+  color: inherit;
+  font-family: "Times New Roman", sans-serif;
+}
