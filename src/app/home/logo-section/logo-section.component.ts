@@ -67,6 +67,10 @@ export class LogoSectionComponent implements AfterViewInit {
       left:'75%',
       top:'35%',
       transform:'scale(0.8)'
+    },
+    'footer':{
+      top:'25%',
+      transform:'scale(0.8)'
     }
 
   }
