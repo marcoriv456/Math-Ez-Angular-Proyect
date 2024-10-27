@@ -1,1 +1,13 @@
-<p>input works!</p>
+<char
+  *ngFor="let char of chars; let i=index"
+  [index]="i"
+  [char]="char"
+  (created)="moveCaretTo($event)"
+  (clicked)="moveCaretTo($event)"
+></char>
+<span
+  #caret
+  id="caret"
+  [style.left]="caretPosition"
+
+></span>

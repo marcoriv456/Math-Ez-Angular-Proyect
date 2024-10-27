@@ -1,0 +1,14 @@
+:host{
+  display: grid;
+  place-items: center;
+  width: fit-content;
+  height: 100%;
+  font-size: 3rem;
+  outline: 1px solid #4449;
+}
+:host:hover{
+  background-color: #0004;
+}
+pre{
+  font-family: "Times New Roman", sans-serif;
+}

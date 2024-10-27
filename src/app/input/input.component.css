@@ -1,0 +1,45 @@
+:host{
+  --height: 5rem;
+
+  width: 40rem;
+  height: var(--height);
+  outline: #4c4c4c 1px solid;
+  border-radius: 10px;
+  display: flex;
+  position: relative;
+}
+:host:focus-visible,
+:host:focus{
+  outline: 2px solid black;
+}
+
+#caret{
+  display: block;
+  width: 3px;
+  height: 0;
+  position: absolute;
+  top: 50%;
+
+  translate: 0 -50%;
+
+  background-color: black;
+
+  transition: height 0.5s ease;
+}
+:host:focus #caret{
+  height: calc(var(--height) * 0.9);
+  animation: blink 1s infinite;
+
+}
+
+
+
+
+
+
+@keyframes blink {
+  50%{
+    height: 0;
+  }
+}
+
