@@ -1,0 +1,6 @@
+:host{
+  width: 98vw;
+  height: 80vh;
+  display: grid;
+  place-items: center;
+}
