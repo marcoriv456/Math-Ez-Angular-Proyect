@@ -8,12 +8,14 @@ import { HomeComponent } from './home/home.component';
 import { LogoSectionComponent } from './home/logo-section/logo-section.component';
 import {HomeModule} from "./home/home.module";
 import { FooterComponent } from './footer/footer.component';
+import { InputComponent } from './input/input.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         HeaderComponent,
-        FooterComponent
+        FooterComponent,
+        InputComponent
     ],
     imports: [
         BrowserModule,
