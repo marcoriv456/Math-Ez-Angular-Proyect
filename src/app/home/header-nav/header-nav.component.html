@@ -1,41 +1,34 @@
 <nav>
   <ul class="nav-ul">
-<!--    <li #sectionBtn class="home" [style]="colors.home"><a href="#">Home</a></li>-->
-<!--    <li #sectionBtn class="lineal-algebra" [style]="colors.algebra"><a href="#">Algebra Lineal</a></li>-->
-<!--    <li #sectionBtn class="calculus" [style]="colors.calculus"><a href="#">Calculo</a></li>-->
-<!--    <li #sectionBtn class="logic" [style]="colors.logic"><a href="#">Logica</a></li>-->
-<!--    <li #sectionBtn class="graphics" [style]="colors.graphics"><a href="#">Graficas</a></li>-->
-<!--    <li #sectionBtn class="measures" [style]="colors.measures"><a href="#">Medidas</a></li>-->
-<!--    <li #sectionBtn class="statistics" [style]="colors.statistics"><a href="">Estadistica</a></li>-->
     <li class="nav-section nav-start --sct-home">
-      <a class="nav-section-title" href="#logo-section">Inicio</a>
+      <a class="nav-section-title" (click)="scrollTo('logo-section')">Inicio</a>
     </li>
     <li class="nav-section nav-intro --sct-home">
-      <a class="nav-section-title" href="#introduction-section">Introduccion</a>
+      <a class="nav-section-title" (click)="scrollTo('introduction-section')">Introduccion</a>
       <ul class="nav-sub-section">
-        <li class="--sct-introduction-1"><a href="#introduction-section-1">Todo en un solo lugar</a></li>
-        <li class="--sct-introduction-2"><a href="#introduction-section-2">Hecho para todos</a></li>
-        <li class="--sct-introduction-3"><a href="#introduction-section-3">Sin ningun costo</a></li>
+        <li class="--sct-introduction-1"><a (click)="scrollTo('introduction-section-1')">Todo en un solo lugar</a></li>
+        <li class="--sct-introduction-2"><a (click)="scrollTo('introduction-section-2')">Hecho para todos</a></li>
+        <li class="--sct-introduction-3"><a (click)="scrollTo('introduction-section-3')">Sin ningun costo</a></li>
       </ul>
     </li>
     <li class="nav-section nav-tools --sct-home">
-      <a class="nav-section-title" href="#tool-section">Herramientas</a>
+      <a class="nav-section-title" (click)="scrollTo('tool-section')">Herramientas</a>
       <ul class="nav-sub-section">
-        <li class="--sct-home"><a href="#tool-section-title">¡Prueba MathEz!</a></li>
-        <li class="--sct-algebra"><a href="#tool-section-algebra">Algebra Lineal</a></li>
-        <li class="--sct-calculus"><a href="#tool-section-calculus">Calculo</a></li>
-        <li class="--sct-logic"><a href="#tool-section-logic">Logica</a></li>
-        <li class="--sct-graphics"><a href="#tool-section-graphics">Graficas</a></li>
-        <li class="--sct-measures"><a href="#tool-section-measures">Medidas</a></li>
-        <li class="--sct-statistics"><a href="#tool-section-statistics">Estadistica</a></li>
+        <li class="--sct-home"><a (click)="scrollTo('tool-section-title')">¡Prueba MathEz!</a></li>
+        <li class="--sct-algebra"><a (click)="scrollTo('tool-section-algebra')">Algebra Lineal</a></li>
+        <li class="--sct-calculus"><a (click)="scrollTo('tool-section-calculus')">Calculo</a></li>
+        <li class="--sct-logic"><a (click)="scrollTo('tool-section-logic')">Logica</a></li>
+        <li class="--sct-graphics"><a (click)="scrollTo('tool-section-graphics')">Graficas</a></li>
+        <li class="--sct-measures"><a (click)="scrollTo('tool-section-measures')">Medidas</a></li>
+        <li class="--sct-statistics"><a (click)="scrollTo('tool-section-statistics')">Estadistica</a></li>
       </ul>
     </li>
     <li class="nav-section nav-join --sct-home">
-      <a class="nav-section-title" href="#login-section">Unete a MathEz</a>
+      <a class="nav-section-title" (click)="scrollTo('login-section')">Unete a MathEz</a>
       <ul class="nav-sub-section">
-        <li class="--sct-log-in"><a href="#login-section">Iniciar sesion</a></li>
-        <li class="--sct-log-in-google"><a href="#login-section">Iniciar sesion con Google</a></li>
-        <li class="--sct-register"><a href="#login-section">Crear Cuenta</a></li>
+        <li class="--sct-log-in"><a (click)="scrollTo('login-section')">Iniciar sesion</a></li>
+        <li class="--sct-log-in-google"><a (click)="scrollTo('login-section')">Iniciar sesion con Google</a></li>
+        <li class="--sct-register"><a (click)="scrollTo('login-section')">Crear Cuenta</a></li>
       </ul>
     </li>
   </ul>

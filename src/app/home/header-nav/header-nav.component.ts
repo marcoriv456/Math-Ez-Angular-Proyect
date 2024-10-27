@@ -1,6 +1,8 @@
 import {AfterViewInit, Component, HostBinding, inject} from '@angular/core';
 import {topicsColorThemes} from "../../../assets/topics.color-themes";
 import {PageLocationService} from "../services/page-location/page-location.service";
+import {HomeService} from "../services/home-service/home.service";
+import {TabScrollingService} from "../services/tab-scrolling/tab-scrolling.service";
 
 @Component({
   selector: 'header-nav',
@@ -11,7 +13,10 @@ export class HeaderNavComponent implements AfterViewInit{
   @HostBinding('class.out')
   isOut = false;
 
+  private isHomeViewInitialized = false;
+  private homeService=inject(HomeService)
   private pageLocationService=inject(PageLocationService)
+  private scrollService=inject(TabScrollingService)
 
   private barStyleOnEveryLocation={
     'logo-section': {
@@ -77,5 +82,23 @@ export class HeaderNavComponent implements AfterViewInit{
         this.isOut=false
       }
     })
+
+    this.homeService.homeInitialized.subscribe(()=>{
+      this.isHomeViewInitialized=true
+    })
   }
+
+  scrollTo(id:string){
+    if(!this.isHomeViewInitialized)
+      return;
+
+    let element=document.getElementById(id)
+    console.log('element: ', element)
+
+    if(!element)
+      return;
+
+    this.scrollService.moveScrollTo(element)
+  }
+
 }
