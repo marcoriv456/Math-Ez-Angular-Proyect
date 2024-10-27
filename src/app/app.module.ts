@@ -9,18 +9,20 @@ import { LogoSectionComponent } from './home/logo-section/logo-section.component
 import {HomeModule} from "./home/home.module";
 import { FooterComponent } from './footer/footer.component';
 import { InputComponent } from './input/input.component';
+import { InputTestingEnvironmentComponent } from './input/input-testing-environment/input-testing-environment.component';
+import {InputModule} from "./input/input.module";
 
 @NgModule({
     declarations: [
         AppComponent,
         HeaderComponent,
-        FooterComponent,
-        InputComponent
+        FooterComponent
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
-        HomeModule
+        HomeModule,
+        InputModule
     ],
     providers: [],
     bootstrap: [AppComponent]
