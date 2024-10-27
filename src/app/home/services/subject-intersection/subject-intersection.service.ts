@@ -7,7 +7,7 @@ import {FooterService} from "../../../footer/footer.service";
 export class SubjectIntersectionService {
   constructor(rendererFactory:RendererFactory2) {
     this.renderer=rendererFactory.createRenderer(null,null)
-    this.footerService.footerInitialized.subscribe(()=>this.observeFooter())
+    this.observeFooter()
   }
 
   private pageLocationService=inject(PageLocationService)
