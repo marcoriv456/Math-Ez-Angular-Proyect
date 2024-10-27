@@ -8,6 +8,7 @@ import {InputTestingEnvironmentComponent} from "./input-testing-environment/inpu
 @NgModule({
   declarations: [
     InputComponent,
+    InputTestingEnvironmentComponent
   ],
   imports: [
     CommonModule
