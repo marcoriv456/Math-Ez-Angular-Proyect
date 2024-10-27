@@ -13,6 +13,7 @@ import {SubjectIntersectionService} from "./services/subject-intersection/subjec
 import { LogInSectionComponent } from './log-in-section/log-in-section.component';
 import {TabScrollingService} from "./services/tab-scrolling/tab-scrolling.service";
 import {HeaderNavComponent} from "./header-nav/header-nav.component";
+import {HomeService} from "./services/home-service/home.service";
 
 
 
@@ -38,7 +39,8 @@ import {HeaderNavComponent} from "./header-nav/header-nav.component";
   providers:[
     PageLocationService,
     SubjectIntersectionService,
-    TabScrollingService
+    TabScrollingService,
+    HomeService
   ]
 })
 export class HomeModule { }
