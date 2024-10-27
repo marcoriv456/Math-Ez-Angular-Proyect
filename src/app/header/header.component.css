@@ -14,9 +14,7 @@ header{
   justify-content: space-between;
   align-items: center;
 
-  background-color: #4E80FF;
-  background-image: linear-gradient(90deg, transparent 0%, #2F3499 100%);
-
+  background-image: linear-gradient(90deg,var(--main),var(--darker));
   transition:background-color 0.5s cubic-bezier(0,0,0,1);
 }
 
