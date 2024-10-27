@@ -39,6 +39,8 @@ a{
   font-size: 1.2rem;
   font-weight: bold;
 
+  cursor: pointer;
+
   transition: color .5s var(--in-easing);
   text-wrap: nowrap;
 }
