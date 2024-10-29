@@ -42,7 +42,9 @@ export class CharComponent implements OnChanges{
   }
 
   @HostListener('click',['$event'])
-  onClick({offsetX}:MouseEvent){
+  onClick(event:MouseEvent){
+    event.stopPropagation()
+    let {offsetX}=event
     let wasClickOnLeftSide=this.wasClickOnLeftSide(offsetX)
     this.clicked.emit({
       index: this.index- (wasClickOnLeftSide ? 1:0),

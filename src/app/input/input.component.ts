@@ -22,6 +22,11 @@ export class InputComponent {
   @ViewChildren(CharComponent)
   renderedChars!:QueryList<CharComponent>
 
+  @HostListener('click')
+  onClick(){
+    this.moveCaretTo(this.lastCharData)
+  }
+
   cdr=inject(ChangeDetectorRef)
   renderer=inject(Renderer2)
   chars:string[]=[ 'h', 'o', 'l', 'a', '+', 'm', 'u', 'n', 'd', 'o', '+', 'x', 'd', 'd', 'd' ]
