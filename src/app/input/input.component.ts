@@ -35,8 +35,10 @@ export class InputComponent {
 
   @HostListener('keydown',['$event'])
   onKeyDown(event:KeyboardEvent){
-    event.preventDefault()
     let {key,ctrlKey}=event
+
+    if(key!=='Tab')
+      event.preventDefault()
     if(key.length==1)
       this.appendChar(key)
     else if(ctrlKey)
