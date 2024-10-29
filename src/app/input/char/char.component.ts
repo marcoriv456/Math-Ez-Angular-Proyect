@@ -15,14 +15,12 @@ import {
   templateUrl: './char.component.html',
   styleUrl: './char.component.css'
 })
-export class CharComponent implements AfterViewInit,OnChanges{
+export class CharComponent implements OnChanges{
   @Input()
   char!:string
   @Input()
   index!:number;
   ref=inject(ElementRef).nativeElement as HTMLElement
-  @Output()
-  created=new EventEmitter<InputCharData>();
   @Output()
   clicked=new EventEmitter<InputCharData>
 
@@ -31,9 +29,10 @@ export class CharComponent implements AfterViewInit,OnChanges{
 
 
 
-  ngAfterViewInit() {
-    this.created.emit(this.data)
-  }
+  // ngAfterViewInit() {
+  //   this.created.emit(this.data)
+  //   console.log("emiting from: ",this.ref)
+  // }
 
   get data(){
     return {
