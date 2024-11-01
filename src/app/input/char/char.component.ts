@@ -9,6 +9,7 @@ import {
   Output,
   SimpleChanges
 } from '@angular/core';
+import {CaretPositioningService} from "../services/caret-positioning/caret-positioning.service";
 
 @Component({
   selector: 'char',
@@ -21,9 +22,7 @@ export class CharComponent implements OnChanges{
   @Input()
   index!:number;
   ref=inject(ElementRef).nativeElement as HTMLElement
-  @Output()
-  clicked=new EventEmitter<InputCharData>
-
+  caretPositioningService=inject(CaretPositioningService)
 
 
 
@@ -46,7 +45,7 @@ export class CharComponent implements OnChanges{
     event.stopPropagation()
     let {offsetX}=event
     let wasClickOnLeftSide=this.wasClickOnLeftSide(offsetX)
-    this.clicked.emit({
+    this.caretPositioningService.charClicked.emit({
       index: this.index- (wasClickOnLeftSide ? 1:0),
       position:  wasClickOnLeftSide? this.leftPosition:this.rightPosition
     })

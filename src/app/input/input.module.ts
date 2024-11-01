@@ -4,6 +4,7 @@ import {InputComponent} from "./input.component";
 import {InputTestingEnvironmentComponent} from "./input-testing-environment/input-testing-environment.component";
 import { CharComponent } from './char/char.component';
 import { FractionComponent } from './fraction/fraction.component';
+import {CaretPositioningService} from "./services/caret-positioning/caret-positioning.service";
 
 
 
@@ -16,6 +17,9 @@ import { FractionComponent } from './fraction/fraction.component';
   ],
   imports: [
     CommonModule
+  ],
+  providers:[
+    CaretPositioningService
   ]
 })
 export class InputModule { }

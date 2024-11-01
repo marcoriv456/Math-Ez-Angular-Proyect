@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectorRef,
   Component,
   ElementRef,
@@ -8,13 +9,14 @@ import {
   Renderer2, ViewChild, ViewChildren,
 } from '@angular/core';
 import {CharComponent, InputCharData} from "./char/char.component";
+import {CaretPositioningService} from "./services/caret-positioning/caret-positioning.service";
 
 @Component({
   selector: 'app-input',
   templateUrl: './input.component.html',
   styleUrl: './input.component.css'
 })
-export class InputComponent {
+export class InputComponent implements AfterViewInit{
   @HostBinding('tabindex')
   tabIndex=0
   @ViewChild('caret')
@@ -29,6 +31,7 @@ export class InputComponent {
 
   cdr=inject(ChangeDetectorRef)
   renderer=inject(Renderer2)
+  caretPositioningService=inject(CaretPositioningService)
   terms:Term[]=[
     { char: 'h', type: 'char' },
     { char: 'o', type: 'char' },
@@ -49,6 +52,10 @@ export class InputComponent {
 
   caretPosition=0
   caretIndex=0
+
+  ngAfterViewInit() {
+    this.caretPositioningService.charClicked.subscribe((charData)=>this.moveCaretTo(charData))
+  }
 
   @HostListener('keydown',['$event'])
   onKeyDown(event:KeyboardEvent){
