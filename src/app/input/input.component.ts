@@ -154,4 +154,25 @@ export class InputComponent {
     this.chars.splice(from,deleteCount)
     this.moveCaretTo(this.getCharData(from-1)||this.noCharData)
   }
+
+
+// ------------------STRUCTURING LOGIC------------------
+
+
+// ------------------STRUCTURING LOGIC------------------
 }
+
+export interface FractionTerm extends PowerableTerm{
+  numeratorChild:Term
+  denominatorChild:Term
+}
+
+export interface  RootTerm extends PowerableTerm{
+  rootChildren:Term
+}
+
+export interface PowerableTerm{
+  powChildren?:Term
+}
+
+export type Term=string|FractionTerm|RootTerm
