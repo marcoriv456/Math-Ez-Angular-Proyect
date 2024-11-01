@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import {InputComponent} from "./input.component";
 import {InputTestingEnvironmentComponent} from "./input-testing-environment/input-testing-environment.component";
 import { CharComponent } from './char/char.component';
+import { FractionComponent } from './fraction/fraction.component';
 
 
 
@@ -10,7 +11,8 @@ import { CharComponent } from './char/char.component';
   declarations: [
     InputComponent,
     InputTestingEnvironmentComponent,
-    CharComponent
+    CharComponent,
+    FractionComponent
   ],
   imports: [
     CommonModule

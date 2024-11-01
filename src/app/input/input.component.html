@@ -1,9 +1,14 @@
-<char
-  *ngFor="let char of chars; let i=index"
-  [index]="i"
-  [char]="char"
-  (clicked)="moveCaretTo($event)"
-></char>
+<ng-container *ngFor="let term of terms; let i=index">
+  <char
+    *ngIf="term.type=='char'"
+    [index]="i"
+    [char]="term.char"
+  ></char>
+  <frac
+    *ngIf="term.type=='fraction'"
+
+  ></frac>
+</ng-container>
 <span
   #caret
   id="caret"

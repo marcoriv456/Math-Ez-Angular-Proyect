@@ -29,7 +29,24 @@ export class InputComponent {
 
   cdr=inject(ChangeDetectorRef)
   renderer=inject(Renderer2)
-  chars:string[]=[ 'h', 'o', 'l', 'a', '+', 'm', 'u', 'n', 'd', 'o', '+', 'x', 'd', 'd', 'd' ]
+  terms:Term[]=[
+    { char: 'h', type: 'char' },
+    { char: 'o', type: 'char' },
+    { char: 'l', type: 'char' },
+    { char: 'a', type: 'char' },
+    { char: '+', type: 'char' },
+    { char: 'm', type: 'char' },
+    { char: 'u', type: 'char' },
+    { char: 'n', type: 'char' },
+    { char: 'd', type: 'char' },
+    { char: 'o', type: 'char' },
+    { char: '+', type: 'char' },
+    { char: 'x', type: 'char' },
+    { char: 'd', type: 'char' },
+    { char: 'd', type: 'char' },
+    { char: 'd', type: 'char' }
+  ];
+
   caretPosition=0
   caretIndex=0
 
@@ -139,7 +156,7 @@ export class InputComponent {
   }
 
   appendChar(char:string) {
-    this.chars.splice(this.caretIndex+1,0,char)
+    this.terms.splice(this.caretIndex+1,0, {char,type:'char'})
     this.cdr.detectChanges()
     this.moveCaretTo(this.nextCharData)
   }
@@ -151,7 +168,7 @@ export class InputComponent {
   deleteChar(from=this.caretIndex, deleteCount=1){
     if(this.caretIndex==-1)
       return
-    this.chars.splice(from,deleteCount)
+    this.terms.splice(from,deleteCount)
     this.moveCaretTo(this.getCharData(from-1)||this.noCharData)
   }
 
@@ -159,20 +176,28 @@ export class InputComponent {
 // ------------------STRUCTURING LOGIC------------------
 
 
+
 // ------------------STRUCTURING LOGIC------------------
+  protected readonly console = console;
+}
+export interface CharTerm extends PowerableTerm{
+  char:string
+  type:'char'
 }
 
 export interface FractionTerm extends PowerableTerm{
   numeratorChild:Term
   denominatorChild:Term
+  type:'fraction'
 }
 
-export interface  RootTerm extends PowerableTerm{
+export interface RootTerm extends PowerableTerm{
   rootChildren:Term
+  type:'root'
 }
 
 export interface PowerableTerm{
   powChildren?:Term
 }
 
-export type Term=string|FractionTerm|RootTerm
+export type Term=CharTerm|FractionTerm|RootTerm
