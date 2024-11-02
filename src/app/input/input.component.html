@@ -6,7 +6,9 @@
   ></char>
   <frac
     *ngIf="term.type=='fraction'"
-
+    [index]="i"
+    [numeratorChildren]="term.numeratorChildren"
+    [denominatorChildren]="term.denominatorChildren"
   ></frac>
 </ng-container>
 <span

@@ -47,7 +47,8 @@ export class InputComponent implements AfterViewInit{
     { char: 'x', type: 'char' },
     { char: 'd', type: 'char' },
     { char: 'd', type: 'char' },
-    { char: 'd', type: 'char' }
+    { char: 'd', type: 'char' },
+    {numeratorChildren:[{char:'10',type:'char'}],denominatorChildren:[{char:'4',type:'char'}],type:'fraction'}
   ];
 
   caretPosition=0
@@ -163,7 +164,10 @@ export class InputComponent implements AfterViewInit{
   }
 
   appendChar(char:string) {
-    this.terms.splice(this.caretIndex+1,0, {char,type:'char'})
+    if(char=='/')
+      this.appendFraction()
+    else
+      this.terms.splice(this.caretIndex+1,0, {char,type:'char'})
     this.cdr.detectChanges()
     this.moveCaretTo(this.nextCharData)
   }
@@ -181,7 +185,13 @@ export class InputComponent implements AfterViewInit{
 
 
 // ------------------STRUCTURING LOGIC------------------
-
+  private appendFraction(){
+    let prevChars=this.terms.slice(this.prevSpecialCharData.index+1,this.caretIndex+1)
+    let nextChars=this.terms.slice(this.caretIndex+1,this.nextSpecialCharData.index+1)
+    // console.log('prev char index: ',this.prevCharData.index+1,this.caretIndex+1)
+    console.log(prevChars.map(term=>term.type=='char'?term.char:''))
+    console.log(nextChars.map(term=>term.type=='char'?term.char:''))
+  }
 
 
 // ------------------STRUCTURING LOGIC------------------
@@ -193,18 +203,18 @@ export interface CharTerm extends PowerableTerm{
 }
 
 export interface FractionTerm extends PowerableTerm{
-  numeratorChild:Term
-  denominatorChild:Term
+  numeratorChildren:Term[]
+  denominatorChildren:Term[]
   type:'fraction'
 }
 
 export interface RootTerm extends PowerableTerm{
-  rootChildren:Term
+  rootChildren:Term[]
   type:'root'
 }
 
 export interface PowerableTerm{
-  powChildren?:Term
+  powChildren?:Term[]
 }
 
 export type Term=CharTerm|FractionTerm|RootTerm
