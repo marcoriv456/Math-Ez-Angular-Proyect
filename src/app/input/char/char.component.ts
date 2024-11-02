@@ -65,7 +65,7 @@ export class CharComponent implements OnChanges{
     return this.leftPosition+this.ref.offsetWidth
   }
   private get leftPosition(){
-    return this.ref.offsetLeft
+    return this.ref.getBoundingClientRect().left-this.caretPositioningService.inputRef.ref.getBoundingClientRect().left
   }
 
 

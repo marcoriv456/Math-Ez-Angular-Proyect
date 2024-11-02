@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import {CharComponent, InputCharData} from "./char/char.component";
 import {CaretPositioningService} from "./services/caret-positioning/caret-positioning.service";
+import {FractionComponent} from "./fraction/fraction.component";
 
 @Component({
   selector: 'app-input',
@@ -53,9 +54,11 @@ export class InputComponent implements AfterViewInit{
 
   caretPosition=0
   caretIndex=0
+  ref=inject(ElementRef).nativeElement as HTMLElement
 
   ngAfterViewInit() {
     this.caretPositioningService.charClicked.subscribe((charData)=>this.moveCaretTo(charData))
+    this.caretPositioningService.inputRef=this
   }
 
   @HostListener('keydown',['$event'])
