@@ -186,8 +186,22 @@ export class InputComponent implements AfterViewInit{
 
 // ------------------STRUCTURING LOGIC------------------
   private appendFraction(){
-    let prevChars=this.terms.slice(this.prevSpecialCharData.index+1,this.caretIndex+1)
-    let nextChars=this.terms.slice(this.caretIndex+1,this.nextSpecialCharData.index+1)
+    let prevCharsFrom=this.prevSpecialCharData.index+1
+    let prevCharsTo=this.caretIndex+1
+    let prevChars=this.terms.slice(prevCharsFrom,prevCharsTo)
+    console.log("prev: ",prevCharsFrom,prevCharsTo)
+
+
+    let nextCharsTo=this.nextSpecialCharData.index+1
+    let nextCharsFrom=this.caretIndex+1
+    let nextChars=this.terms.slice(nextCharsFrom,nextCharsTo)
+    console.log("next: ",nextCharsFrom,nextCharsTo)
+
+    this.terms.splice(
+      prevCharsFrom,
+      nextCharsTo-prevCharsFrom,
+      {numeratorChildren:prevChars,denominatorChildren:nextChars,type:'fraction'})
+
     // console.log('prev char index: ',this.prevCharData.index+1,this.caretIndex+1)
     console.log(prevChars.map(term=>term.type=='char'?term.char:''))
     console.log(nextChars.map(term=>term.type=='char'?term.char:''))

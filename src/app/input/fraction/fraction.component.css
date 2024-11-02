@@ -16,6 +16,9 @@
   height: 1px;
   background-color: black;
 }
+.numerator-container,.denominator-container{
+  display: flex;
+}
 char{
   font-size: 2rem;
 }
