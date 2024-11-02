@@ -101,38 +101,36 @@ export class InputComponent implements AfterViewInit{
   private onSpecialCtrlKeyDown(key:string){
     switch (key){
       case 'Backspace':
-        this.deleteChar(this.prevSpecialCharData.index+1,this.caretIndex-this.prevSpecialCharData.index)
+        this.deleteChar(this.prevSpecialCharFixedData.index+1,this.caretIndex-this.prevSpecialCharFixedData.index)
         break;
       case 'ArrowRight':
-        this.moveCaretTo(this.nextSpecialCharData)
+        this.moveCaretTo(this.nextSpecialCharFixedData)
         break;
       case 'ArrowLeft':
-        this.moveCaretTo(this.prevSpecialCharData)
+        this.moveCaretTo(this.prevSpecialCharFixedData)
         break;
     }
   }
 
-  private get nextSpecialCharData():InputCharData{
-    let nextSpecialChar=this.findSpecialChar(
-      this.caretIndex+1,
-      this.renderedChars.length,
-      i=>i+1,
-      (from, to)=>from<to
-    )
+  private get nextSpecialCharFixedData():InputCharData{
+    let nextSpecialChar=this.nextSpecialCharData
 
     if(nextSpecialChar && nextSpecialChar.index-1!==this.caretIndex)
       nextSpecialChar=this.renderedChars.get(nextSpecialChar.index-1)?.data
 
     return nextSpecialChar||this.lastCharData
   }
+  private get nextSpecialCharData(){
+    return this.findSpecialChar(
+      this.caretIndex+1,
+      this.renderedChars.length,
+      i=>i+1,
+      (from, to)=>from<to
+    )
+  }
 
-
-  private get prevSpecialCharData(){
-    let prevSpecialChar=this.findSpecialChar(
-      this.caretIndex,
-      0,
-      i=>i-1,
-      (from,to)=>from>=to)
+  private get prevSpecialCharFixedData(){
+    let prevSpecialChar=this.prevSpecialCharData
 
     if(prevSpecialChar&&prevSpecialChar.index==this.caretIndex)
       prevSpecialChar=this.renderedChars.get(prevSpecialChar.index-1)?.data
@@ -140,6 +138,13 @@ export class InputComponent implements AfterViewInit{
     return prevSpecialChar||this.noCharData
   }
 
+  private get prevSpecialCharData(){
+    return this.findSpecialChar(
+      this.caretIndex,
+      0,
+      i=>i-1,
+      (from,to)=>from>=to);
+  }
 
   private findSpecialChar(from:number,to:number,stepF:(i:number)=>number,conditionF:(from:number,to:number)=>boolean):InputCharData|undefined{
     let renderedChars=this.renderedChars
@@ -186,13 +191,13 @@ export class InputComponent implements AfterViewInit{
 
 // ------------------STRUCTURING LOGIC------------------
   private appendFraction(){
-    let prevCharsFrom=this.prevSpecialCharData.index+1
+    let prevCharsFrom=(this.prevSpecialCharData?.index||-1)+1
     let prevCharsTo=this.caretIndex+1
     let prevChars=this.terms.slice(prevCharsFrom,prevCharsTo)
     console.log("prev: ",prevCharsFrom,prevCharsTo)
 
 
-    let nextCharsTo=this.nextSpecialCharData.index+1
+    let nextCharsTo=(this.nextSpecialCharData?.index||this.lastCharData.index+1)
     let nextCharsFrom=this.caretIndex+1
     let nextChars=this.terms.slice(nextCharsFrom,nextCharsTo)
     console.log("next: ",nextCharsFrom,nextCharsTo)
