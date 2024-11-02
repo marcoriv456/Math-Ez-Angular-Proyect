@@ -2,12 +2,12 @@
   <ng-container *ngFor="let term of numeratorChildren; let i=index">
     <char
       *ngIf="term.type=='char'"
-      [index]="i"
       [char]="term.char"
+      [inputTerm]="{char:term.char,index:i}"
     ></char>
     <frac
       *ngIf="term.type=='fraction'"
-      [index]="i"
+      [inputTerm]="{char:'/',index:i}"
       [numeratorChildren]="term.numeratorChildren"
       [denominatorChildren]="term.denominatorChildren"
     ></frac>
@@ -18,12 +18,12 @@
   <ng-container *ngFor="let term of denominatorChildren; let i=index">
     <char
       *ngIf="term.type=='char'"
-      [index]="i"
       [char]="term.char"
+      [inputTerm]="{char:term.char,index:i}"
     ></char>
     <frac
       *ngIf="term.type=='fraction'"
-      [index]="i"
+      [inputTerm]="{char:'/',index:i}"
       [numeratorChildren]="term.numeratorChildren"
       [denominatorChildren]="term.denominatorChildren"
     ></frac>

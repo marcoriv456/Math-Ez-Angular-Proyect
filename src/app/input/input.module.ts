@@ -5,6 +5,7 @@ import {InputTestingEnvironmentComponent} from "./input-testing-environment/inpu
 import { CharComponent } from './char/char.component';
 import { FractionComponent } from './fraction/fraction.component';
 import {CaretPositioningService} from "./services/caret-positioning/caret-positioning.service";
+import { InputTermDirective } from './directives/input-term.directive';
 
 
 
@@ -13,7 +14,8 @@ import {CaretPositioningService} from "./services/caret-positioning/caret-positi
     InputComponent,
     InputTestingEnvironmentComponent,
     CharComponent,
-    FractionComponent
+    FractionComponent,
+    InputTermDirective
   ],
   imports: [
     CommonModule

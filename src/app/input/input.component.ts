@@ -1,4 +1,5 @@
 import {
+  AfterViewChecked,
   AfterViewInit,
   ChangeDetectorRef,
   Component,
@@ -11,6 +12,7 @@ import {
 import {CharComponent, InputCharData} from "./char/char.component";
 import {CaretPositioningService} from "./services/caret-positioning/caret-positioning.service";
 import {FractionComponent} from "./fraction/fraction.component";
+import {InputTermDirective} from "./directives/input-term.directive";
 
 @Component({
   selector: 'app-input',
@@ -22,8 +24,8 @@ export class InputComponent implements AfterViewInit{
   tabIndex=0
   @ViewChild('caret')
   caretRef!:ElementRef
-  @ViewChildren(CharComponent)
-  renderedChars!:QueryList<CharComponent>
+  @ViewChildren(InputTermDirective)
+  renderedChars!:QueryList<InputTermDirective>
 
   @HostListener('click')
   onClick(){
@@ -49,7 +51,7 @@ export class InputComponent implements AfterViewInit{
     { char: 'd', type: 'char' },
     { char: 'd', type: 'char' },
     { char: 'd', type: 'char' },
-    {numeratorChildren:[{char:'10',type:'char'}],denominatorChildren:[{char:'4',type:'char'}],type:'fraction'}
+    {numeratorChildren:[{char:'1',type:'char'},{char:'0',type:'char'}],denominatorChildren:[{char:'4',type:'char'}],type:'fraction'}
   ];
 
   caretPosition=0
