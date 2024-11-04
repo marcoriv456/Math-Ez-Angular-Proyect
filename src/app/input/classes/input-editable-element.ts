@@ -4,7 +4,7 @@ import {InputCharData} from "../char/char.component";
 import {Term} from "../input.component";
 
 export abstract class InputEditableElement{
-  protected abstract parent?:InputEditableElement
+  protected parent?:InputEditableElement
   protected abstract renderedChars:QueryList<InputTermDirective>
   protected abstract terms:Term[]
 
