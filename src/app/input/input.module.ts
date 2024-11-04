@@ -6,6 +6,8 @@ import { CharComponent } from './char/char.component';
 import { FractionComponent } from './fraction/fraction.component';
 import {CaretPositioningService} from "./services/caret-positioning/caret-positioning.service";
 import { InputTermDirective } from './directives/input-term.directive';
+import { NumeratorComponent } from './fraction/numerator/numerator.component';
+import { DenominatorComponent } from './fraction/denominator/denominator.component';
 
 
 
@@ -15,7 +17,9 @@ import { InputTermDirective } from './directives/input-term.directive';
     InputTestingEnvironmentComponent,
     CharComponent,
     FractionComponent,
-    InputTermDirective
+    InputTermDirective,
+    NumeratorComponent,
+    DenominatorComponent
   ],
   imports: [
     CommonModule

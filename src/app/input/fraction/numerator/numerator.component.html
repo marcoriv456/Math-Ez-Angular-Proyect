@@ -1,0 +1,13 @@
+<ng-container *ngFor="let term of terms; let i=index">
+  <char
+    *ngIf="term.type=='char'"
+    [char]="term.char"
+    [inputTerm]="{char:term.char,index:i}"
+  ></char>
+  <frac
+    *ngIf="term.type=='fraction'"
+    [inputTerm]="{char:'/',index:i}"
+    [numeratorChildren]="term.numeratorChildren"
+    [denominatorChildren]="term.denominatorChildren"
+  ></frac>
+</ng-container>

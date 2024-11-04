@@ -1,32 +1,9 @@
-<div class="numerator-container">
-  <ng-container *ngFor="let term of numeratorChildren; let i=index">
-    <char
-      *ngIf="term.type=='char'"
-      [char]="term.char"
-      [inputTerm]="{char:term.char,index:i}"
-    ></char>
-    <frac
-      *ngIf="term.type=='fraction'"
-      [inputTerm]="{char:'/',index:i}"
-      [numeratorChildren]="term.numeratorChildren"
-      [denominatorChildren]="term.denominatorChildren"
-    ></frac>
-  </ng-container>
-</div>
+<frac-numerator
+  [terms]="numeratorChildren"
+></frac-numerator>
 <span class="frac-bar"></span>
-<div class="denominator-container">
-  <ng-container *ngFor="let term of denominatorChildren; let i=index">
-    <char
-      *ngIf="term.type=='char'"
-      [char]="term.char"
-      [inputTerm]="{char:term.char,index:i}"
-    ></char>
-    <frac
-      *ngIf="term.type=='fraction'"
-      [inputTerm]="{char:'/',index:i}"
-      [numeratorChildren]="term.numeratorChildren"
-      [denominatorChildren]="term.denominatorChildren"
-    ></frac>
-  </ng-container>
-</div>
+<frac-denominator
+  [terms]="denominatorChildren"
+>
+</frac-denominator>
 

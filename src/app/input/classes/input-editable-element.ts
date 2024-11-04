@@ -1,10 +1,12 @@
 import {QueryList} from "@angular/core";
 import {InputTermDirective} from "../directives/input-term.directive";
 import {InputCharData} from "../char/char.component";
+import {Term} from "../input.component";
 
 export abstract class InputEditableElement{
   protected abstract parent?:InputEditableElement
   protected abstract renderedChars:QueryList<InputTermDirective>
+  protected abstract terms:Term[]
 
 
   protected getCharData(index:number){
