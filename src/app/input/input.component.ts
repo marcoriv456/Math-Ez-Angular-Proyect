@@ -13,13 +13,14 @@ import {CharComponent, InputCharData} from "./char/char.component";
 import {CaretPositioningService} from "./services/caret-positioning/caret-positioning.service";
 import {FractionComponent} from "./fraction/fraction.component";
 import {InputTermDirective} from "./directives/input-term.directive";
+import {InputEditableElement} from "./classes/input-editable-element";
 
 @Component({
   selector: 'app-input',
   templateUrl: './input.component.html',
   styleUrl: './input.component.css'
 })
-export class InputComponent implements AfterViewInit{
+export class InputComponent extends InputEditableElement implements AfterViewInit{
   @HostBinding('tabindex')
   tabIndex=0
   @ViewChild('caret')
@@ -29,7 +30,7 @@ export class InputComponent implements AfterViewInit{
 
   @HostListener('click')
   onClick(){
-    this.moveCaretTo(this.lastCharData)
+    this.moveCaretTo(this.currentElement.lastCharData)
   }
 
   cdr=inject(ChangeDetectorRef)
@@ -54,6 +55,7 @@ export class InputComponent implements AfterViewInit{
     {numeratorChildren:[{char:'1',type:'char'},{char:'0',type:'char'}],denominatorChildren:[{char:'4',type:'char'}],type:'fraction'}
   ];
 
+  currentElement:InputEditableElement=this
   caretPosition=0
   caretIndex=0
   ref=inject(ElementRef).nativeElement as HTMLElement
@@ -84,7 +86,7 @@ export class InputComponent implements AfterViewInit{
         this.deleteChar()
         break;
       case 'ArrowRight':
-        this.moveCaretTo(this.nextCharData)
+        this.moveToNextElement()
         break;
       case 'ArrowLeft':
         this.moveCaretTo(this.prevCharData)
@@ -92,92 +94,52 @@ export class InputComponent implements AfterViewInit{
     }
   }
 
-  private get nextCharData(){
-    return this.getCharData(this.caretIndex+1)||this.lastCharData
-  }
-  private get prevCharData(){
-    return this.getCharData(this.caretIndex-1)||this.noCharData
+
+  private moveToNextElement(){
+
+    let nextElement=this.terms[this.caretIndex+1]
+    if(nextElement&&nextElement.type=='char'){
+      this.moveCaretTo(this.nextCharData)
+      return;
+    }
+    let nextRenderedElement= this.renderedChars.get(this.caretIndex+1)
+    if(!nextRenderedElement||!nextRenderedElement.classRef)
+      return;
+
+    this.currentElement=nextRenderedElement.classRef
+    this.caretIndex=-1
+    console.log(this.currentElement)
   }
 
-  private getCharData(index:number){
-    return this.renderedChars.get(index)?.data
+  private get nextCharData(){
+    return this.currentElement.getCharData(this.caretIndex+1)||this.currentElement.lastCharData
   }
+  private get prevCharData(){
+    return this.currentElement.getCharData(this.caretIndex-1)||this.currentElement.noCharData
+  }
+
 
   private onSpecialCtrlKeyDown(key:string){
     switch (key){
       case 'Backspace':
-        this.deleteChar(this.prevSpecialCharFixedData.index+1,this.caretIndex-this.prevSpecialCharFixedData.index)
+        this.deleteChar(this.getPrevSpecialCharFixedData(this.caretIndex).index+1,this.caretIndex-this.getPrevSpecialCharFixedData(this.caretIndex).index)
         break;
       case 'ArrowRight':
-        this.moveCaretTo(this.nextSpecialCharFixedData)
+        this.moveCaretTo(this.getNextSpecialCharFixedData(this.caretIndex))
         break;
       case 'ArrowLeft':
-        this.moveCaretTo(this.prevSpecialCharFixedData)
+        this.moveCaretTo(this.getPrevSpecialCharFixedData(this.caretIndex))
         break;
     }
   }
 
-  private get nextSpecialCharFixedData():InputCharData{
-    let nextSpecialChar=this.nextSpecialCharData
 
-    if(nextSpecialChar && nextSpecialChar.index-1!==this.caretIndex)
-      nextSpecialChar=this.renderedChars.get(nextSpecialChar.index-1)?.data
-
-    return nextSpecialChar||this.lastCharData
-  }
-  private get nextSpecialCharData(){
-    return this.findSpecialChar(
-      this.caretIndex+1,
-      this.renderedChars.length,
-      i=>i+1,
-      (from, to)=>from<to
-    )
-  }
-
-  private get prevSpecialCharFixedData(){
-    let prevSpecialChar=this.prevSpecialCharData
-
-    if(prevSpecialChar&&prevSpecialChar.index==this.caretIndex)
-      prevSpecialChar=this.renderedChars.get(prevSpecialChar.index-1)?.data
-
-    return prevSpecialChar||this.noCharData
-  }
-
-  private get prevSpecialCharData(){
-    return this.findSpecialChar(
-      this.caretIndex,
-      0,
-      i=>i-1,
-      (from,to)=>from>=to);
-  }
-
-  private findSpecialChar(from:number,to:number,stepF:(i:number)=>number,conditionF:(from:number,to:number)=>boolean):InputCharData|undefined{
-    let renderedChars=this.renderedChars
-    let i=from
-    while (conditionF(i,to)){
-      let char=renderedChars.get(i)
-      if(char && this.isCharIrregular(char.char))
-        return char.data
-      i=stepF(i)
-    }
-    return undefined
-  }
-  private isCharIrregular(char:string){
-    return /[^a-zA-Z\d]/.test(char)
-  }
-
-  private get lastCharData(){
-    return this.renderedChars.get(this.renderedChars.length-1)?.data||this.noCharData
-  }
-  private get noCharData(){
-    return {index:-1,position:0}
-  }
 
   appendChar(char:string) {
     if(char=='/')
       this.appendFraction()
     else
-      this.terms.splice(this.caretIndex+1,0, {char,type:'char'})
+      this.currentElement.terms.splice(this.caretIndex+1,0, {char,type:'char'})
     this.cdr.detectChanges()
     this.moveCaretTo(this.nextCharData)
   }
@@ -189,25 +151,25 @@ export class InputComponent implements AfterViewInit{
   deleteChar(from=this.caretIndex, deleteCount=1){
     if(this.caretIndex==-1)
       return
-    this.terms.splice(from,deleteCount)
-    this.moveCaretTo(this.getCharData(from-1)||this.noCharData)
+    this.currentElement.terms.splice(from,deleteCount)
+    this.moveCaretTo(this.currentElement.getCharData(from-1)||this.noCharData)
   }
 
 
 // ------------------STRUCTURING LOGIC------------------
   private appendFraction(){
-    let prevCharsFrom=(this.prevSpecialCharData?.index||-1)+1
+    let prevCharsFrom=(this.currentElement.getPrevSpecialCharData(this.caretIndex)?.index||-1)+1
     let prevCharsTo=this.caretIndex+1
-    let prevChars=this.terms.slice(prevCharsFrom,prevCharsTo)
+    let prevChars=this.currentElement.terms.slice(prevCharsFrom,prevCharsTo)
     console.log("prev: ",prevCharsFrom,prevCharsTo)
 
 
-    let nextCharsTo=(this.nextSpecialCharData?.index||this.lastCharData.index+1)
+    let nextCharsTo=(this.currentElement.getNextSpecialCharData(this.caretIndex)?.index||this.currentElement.lastCharData.index+1)
     let nextCharsFrom=this.caretIndex+1
-    let nextChars=this.terms.slice(nextCharsFrom,nextCharsTo)
+    let nextChars=this.currentElement.terms.slice(nextCharsFrom,nextCharsTo)
     console.log("next: ",nextCharsFrom,nextCharsTo)
 
-    this.terms.splice(
+    this.currentElement.terms.splice(
       prevCharsFrom,
       nextCharsTo-prevCharsFrom,
       {numeratorChildren:prevChars,denominatorChildren:nextChars,type:'fraction'})

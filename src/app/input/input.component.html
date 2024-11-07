@@ -5,9 +5,10 @@
     [inputTerm]="{char:term.char,index:i}"
   ></char>
   <frac
+    #fractionComponent
     *ngIf="term.type=='fraction'"
     [index]="i"
-    [inputTerm]="{char:'/',index:i}"
+    [inputTerm]="{char:'/',index:i,classRef:fractionComponent.numeratorComponent}"
     [numeratorChildren]="term.numeratorChildren"
     [denominatorChildren]="term.denominatorChildren"
   ></frac>
@@ -16,5 +17,4 @@
   #caret
   id="caret"
   [style.left]="caretPosition"
-
 ></span>

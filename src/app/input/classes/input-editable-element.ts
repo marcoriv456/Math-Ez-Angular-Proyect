@@ -4,16 +4,16 @@ import {InputCharData} from "../char/char.component";
 import {Term} from "../input.component";
 
 export abstract class InputEditableElement{
-  protected parent?:InputEditableElement
-  protected abstract renderedChars:QueryList<InputTermDirective>
-  protected abstract terms:Term[]
+  parent?:InputEditableElement
+  abstract renderedChars:QueryList<InputTermDirective>
+  abstract terms:Term[]
 
 
-  protected getCharData(index:number){
+  getCharData(index:number){
     return this.renderedChars.get(index)?.data
   }
 
-  protected getNextSpecialCharFixedData(caretIndex:number):InputCharData{
+  getNextSpecialCharFixedData(caretIndex:number):InputCharData{
     let nextSpecialChar=this.getNextSpecialCharData(caretIndex)
 
     if(nextSpecialChar && nextSpecialChar.index-1!==caretIndex)
@@ -22,7 +22,7 @@ export abstract class InputEditableElement{
     return nextSpecialChar||this.lastCharData
   }
 
-  protected getNextSpecialCharData(caretIndex:number){
+  getNextSpecialCharData(caretIndex:number){
     return this.findSpecialChar(
       caretIndex+1,
       this.renderedChars.length,
@@ -31,7 +31,7 @@ export abstract class InputEditableElement{
     )
   }
 
-  protected getPrevSpecialCharFixedData(caretIndex:number){
+  getPrevSpecialCharFixedData(caretIndex:number){
     let prevSpecialChar=this.getPrevSpecialCharData(caretIndex)
 
     if(prevSpecialChar&&prevSpecialChar.index==caretIndex)
@@ -40,7 +40,7 @@ export abstract class InputEditableElement{
     return prevSpecialChar||this.noCharData
   }
 
-  protected getPrevSpecialCharData(caretIndex:number){
+  getPrevSpecialCharData(caretIndex:number){
     return this.findSpecialChar(
       caretIndex,
       0,
@@ -63,10 +63,10 @@ export abstract class InputEditableElement{
     return /[^a-zA-Z\d]/.test(char)
   }
 
-  protected get lastCharData(){
+  get lastCharData(){
     return this.renderedChars.get(this.renderedChars.length-1)?.data||this.noCharData
   }
-  protected get noCharData(){
+  get noCharData(){
     return {index:-1,position:0}
   }
 

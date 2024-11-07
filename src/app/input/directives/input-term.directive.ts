@@ -8,16 +8,19 @@ import {
   SimpleChanges
 } from '@angular/core';
 import {CaretPositioningService} from "../services/caret-positioning/caret-positioning.service";
+import {InputEditableElement} from "../classes/input-editable-element";
 
 @Directive({
   selector: '[inputTerm]'
 })
 export class InputTermDirective implements OnChanges{
   @Input('inputTerm')
-  input!:{char:string, index:number}
+  input!:{char:string, index:number,classRef?:InputEditableElement}
 
   ref=inject(ElementRef).nativeElement as HTMLElement
   caretPositioningService=inject(CaretPositioningService)
+
+
 
   get data(){
     return {
@@ -31,6 +34,9 @@ export class InputTermDirective implements OnChanges{
   }
   get index(){
     return this.input.index
+  }
+  get classRef(){
+    return this.input.classRef
   }
 
   @HostListener('click',['$event'])
