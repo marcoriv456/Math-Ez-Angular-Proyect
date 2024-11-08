@@ -23,7 +23,6 @@ export class DenominatorComponent extends InputEditableElement{
 
 
   override get position(): number {
-    console.log("on position: ", this.ref.getBoundingClientRect().left-this.caretPosService.inputRef.ref.getBoundingClientRect().left)
-    return this.ref.getBoundingClientRect().left-this.caretPosService.inputRef.ref.getBoundingClientRect().left;
+    return this.ref.getBoundingClientRect().left-this.caretPosService.inputPosition;
   }
 }

@@ -65,7 +65,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   index=0
   ngAfterViewInit() {
     this.caretPositioningService.charClicked.subscribe((charData)=>this.moveCaretTo(charData))
-    this.caretPositioningService.inputRef=this
+    this.caretPositioningService.setInputRef(this)
   }
 
   override get position(): number {
@@ -161,7 +161,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     if(this.caretIndex==-1)
       return
     this.currentElement.terms.splice(from,deleteCount)
-    this.moveCaretTo(this.currentElement.getCharData(from-1)||this.noCharData)
+    this.moveCaretTo(this.currentElement.getCharData(from-1)||this.currentElement.noCharData)
   }
 
 

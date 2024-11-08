@@ -64,7 +64,7 @@ export class InputTermDirective implements OnChanges{
     return this.leftPosition+this.ref.offsetWidth
   }
   private get leftPosition(){
-    return this.ref.getBoundingClientRect().left-this.caretPositioningService.inputRef.ref.getBoundingClientRect().left
+    return this.ref.getBoundingClientRect().left-this.caretPositioningService.inputPosition
   }
 
 }

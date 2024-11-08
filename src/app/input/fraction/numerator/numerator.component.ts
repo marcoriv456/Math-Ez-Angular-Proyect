@@ -19,10 +19,9 @@ export class NumeratorComponent extends InputEditableElement{
   @Input()
   index!:number
   ref=inject(ElementRef).nativeElement as HTMLElement
-  caretPos=inject(CaretPositioningService)
+  caretPositioningService=inject(CaretPositioningService)
 
   override get position(): number {
-    console.log("on position: ", this.ref.getBoundingClientRect().left-this.caretPos.inputRef.ref.getBoundingClientRect().left)
-    return this.ref.getBoundingClientRect().left- this.caretPos.inputRef.ref.getBoundingClientRect().left
+    return this.ref.getBoundingClientRect().left- this.caretPositioningService.inputPosition
   }
 }

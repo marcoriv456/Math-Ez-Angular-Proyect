@@ -5,7 +5,13 @@ import {InputComponent} from "../../input.component";
 @Injectable()
 export class CaretPositioningService {
   charClicked=new EventEmitter<InputCharData>
-  inputRef!:InputComponent
+  private inputRef!:InputComponent
   constructor() { }
 
+  get inputPosition(){
+    return this.inputRef.position
+  }
+  setInputRef(input:InputComponent){
+    this.inputRef = input
+  }
 }
