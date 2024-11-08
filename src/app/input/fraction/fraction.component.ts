@@ -8,7 +8,7 @@ import {InputTermDirective} from "../directives/input-term.directive";
   templateUrl: './fraction.component.html',
   styleUrl: './fraction.component.css'
 })
-export class FractionComponent extends InputEditableElement{
+export class FractionComponent{
   @Input()
   index!:number
   @Input()

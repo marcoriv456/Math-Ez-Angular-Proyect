@@ -28,6 +28,8 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   @ViewChildren(InputTermDirective)
   renderedChars!:QueryList<InputTermDirective>
 
+  parent=undefined
+
   @HostListener('click')
   onClick(){
     this.moveCaretTo(this.currentElement.lastCharData)
@@ -60,9 +62,14 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   caretIndex=0
   ref=inject(ElementRef).nativeElement as HTMLElement
 
+  index=0
   ngAfterViewInit() {
     this.caretPositioningService.charClicked.subscribe((charData)=>this.moveCaretTo(charData))
     this.caretPositioningService.inputRef=this
+  }
+
+  override get position(): number {
+    return this.ref.getBoundingClientRect().left
   }
 
   @HostListener('keydown',['$event'])
@@ -97,18 +104,20 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 
   private moveToNextElement(){
 
-    let nextElement=this.terms[this.caretIndex+1]
+    let nextElement=this.currentElement.terms[this.caretIndex+1]
+    // console.log(nextElement)
     if(nextElement&&nextElement.type=='char'){
       this.moveCaretTo(this.nextCharData)
       return;
     }
-    let nextRenderedElement= this.renderedChars.get(this.caretIndex+1)
+    let nextRenderedElement= this.currentElement.renderedChars.get(this.caretIndex+1)||this.currentElement.parent?.renderedChars.get(this.currentElement.index+1)
+    console.log(nextRenderedElement)
     if(!nextRenderedElement||!nextRenderedElement.classRef)
       return;
 
     this.currentElement=nextRenderedElement.classRef
-    this.caretIndex=-1
-    console.log(this.currentElement)
+    this.moveCaretTo(this.currentElement.noCharData)
+    // this.caretIndex=-1
   }
 
   private get nextCharData(){
@@ -122,13 +131,13 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   private onSpecialCtrlKeyDown(key:string){
     switch (key){
       case 'Backspace':
-        this.deleteChar(this.getPrevSpecialCharFixedData(this.caretIndex).index+1,this.caretIndex-this.getPrevSpecialCharFixedData(this.caretIndex).index)
+        this.deleteChar(this.currentElement.getPrevSpecialCharFixedData(this.caretIndex).index+1,this.caretIndex-this.currentElement.getPrevSpecialCharFixedData(this.caretIndex).index)
         break;
       case 'ArrowRight':
-        this.moveCaretTo(this.getNextSpecialCharFixedData(this.caretIndex))
+        this.moveCaretTo(this.currentElement.getNextSpecialCharFixedData(this.caretIndex))
         break;
       case 'ArrowLeft':
-        this.moveCaretTo(this.getPrevSpecialCharFixedData(this.caretIndex))
+        this.moveCaretTo(this.currentElement.getPrevSpecialCharFixedData(this.caretIndex))
         break;
     }
   }

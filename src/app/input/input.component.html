@@ -4,17 +4,31 @@
     [char]="term.char"
     [inputTerm]="{char:term.char,index:i}"
   ></char>
-  <frac
-    #fractionComponent
+  <div
+    class="frac"
     *ngIf="term.type=='fraction'"
-    [index]="i"
-    [inputTerm]="{char:'/',index:i,classRef:fractionComponent.numeratorComponent}"
-    [numeratorChildren]="term.numeratorChildren"
-    [denominatorChildren]="term.denominatorChildren"
-  ></frac>
+  >
+    <frac-numerator
+      #fracNumerator
+      [parent]="this"
+      [index]="i"
+      [terms]="term.numeratorChildren"
+      [inputTerm]="{char:'/',index:i,classRef:fracNumerator}"
+    ></frac-numerator>
+    <div class="frac-bar"></div>
+    <frac-denominator
+      #fracDenominator
+      [parent]="this"
+      [index]="i"
+      [terms]="term.denominatorChildren"
+      [inputTerm]="{char:'/',index:i,classRef:fracDenominator}"
+    ></frac-denominator>
+  </div>
+
 </ng-container>
 <span
   #caret
   id="caret"
   [style.left]="caretPosition"
 ></span>
+
