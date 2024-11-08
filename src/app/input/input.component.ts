@@ -105,20 +105,29 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   private moveToNextElement(){
 
     let nextElement=this.currentElement.terms[this.caretIndex+1]
-    // console.log(nextElement)
     if(nextElement&&nextElement.type=='char'){
       this.moveCaretTo(this.nextCharData)
       return;
     }
-    let nextRenderedElement= this.currentElement.renderedChars.get(this.caretIndex+1)||this.currentElement.parent?.renderedChars.get(this.currentElement.index+1)
-    console.log(nextRenderedElement)
+
+    let nextRenderedElement= this.nextRenderedElement||this.nextRenderedElementInParent
     if(!nextRenderedElement||!nextRenderedElement.classRef)
       return;
 
     this.currentElement=nextRenderedElement.classRef
+    console.log(this.currentElement)
     this.moveCaretTo(this.currentElement.noCharData)
-    // this.caretIndex=-1
   }
+
+  private get nextRenderedElement(){
+    return this.currentElement.renderedChars.get(this.caretIndex+1)
+  }
+  private get nextRenderedElementInParent(){
+    return this.currentElement.parent?.renderedChars.get(this.currentElement.index+1)
+  }
+  
+
+
 
   private get nextCharData(){
     return this.currentElement.getCharData(this.caretIndex+1)||this.currentElement.lastCharData
