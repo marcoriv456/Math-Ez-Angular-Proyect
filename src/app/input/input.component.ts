@@ -108,32 +108,29 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
       this.moveCaretTo(this.nextCharData)
       return;
     }
-
-
-
     let nextRenderedElement= this.nextRenderedElement||this.nextRenderedElementInParent
     if(!nextRenderedElement || !nextRenderedElement.classRef){
-      let currentElementIndex=this.currentElement.index
-
-      let currentElementParent=this.currentElement.parent as InputEditableElement
-
-      if(currentElementParent instanceof FractionComponent){
-        currentElementIndex=currentElementParent.index
-        currentElementParent=currentElementParent.parent||this
-      }
-
-      this.setCurrentElement(currentElementParent||this)
-      this.moveCaretTo(this.currentElement.getCharData(currentElementIndex)||this.currentElement.lastCharData)
+      this.moveContextToActualParent()
       return;
     }
-
     if(nextRenderedElement.classRef instanceof FractionComponent){
       nextRenderedElement=nextRenderedElement.classRef.renderedChars.get(0)
     }
-
     this.setCurrentElement(nextRenderedElement?.classRef||this)
     this.moveCaretTo(this.currentElement.noCharData)
   }
+
+  private moveContextToActualParent(){
+    let actualIndex=this.currentElement.index
+    let actualParent=this.currentElement.parent
+    if(actualParent instanceof FractionComponent){
+      actualIndex=actualParent.index
+      actualParent=actualParent.parent||this
+    }
+    this.setCurrentElement(actualParent||this)
+    this.moveCaretTo(this.currentElement.getCharData(actualIndex)||this.currentElement.lastCharData)
+  }
+
 
   private get nextRenderedElement(){
     return this.currentElement.renderedChars.get(this.caretIndex+1)
