@@ -1,11 +1,17 @@
 <frac-numerator
   #numeratorComponent
+  [inputTerm]="{char:'/num',index:0,classRef:numeratorComponent}"
   [terms]="numeratorChildren"
+  [parent]="this"
+  [index]="0"
 ></frac-numerator>
 <span class="frac-bar"></span>
 <frac-denominator
   #denominatorComponent
+  [inputTerm]="{char:'/den',index:1,classRef:denominatorComponent}"
   [terms]="denominatorChildren"
+  [parent]="this"
+  [index]="1"
 >
 </frac-denominator>
 

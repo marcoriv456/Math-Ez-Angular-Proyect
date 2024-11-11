@@ -103,19 +103,23 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 
 
   private moveToNextElement(){
-
     let nextElement=this.currentElement.terms[this.caretIndex+1]
-    if(nextElement&&nextElement.type=='char'){
+    if( (nextElement && nextElement.type=='char') || (!nextElement && this.currentElement==this) ){
       this.moveCaretTo(this.nextCharData)
       return;
     }
 
-    let nextRenderedElement= this.nextRenderedElement||this.nextRenderedElementInParent
-    if(!nextRenderedElement||!nextRenderedElement.classRef)
-      return;
 
-    this.currentElement=nextRenderedElement.classRef
-    console.log(this.currentElement)
+
+    let nextRenderedElement= this.nextRenderedElement||this.nextRenderedElementInParent
+    if(!nextRenderedElement || !nextRenderedElement.classRef){
+      let currentElementIndex=this.currentElement.index
+      this.setCurrentElement(this.currentElement.parent||this)
+      this.moveCaretTo(this.currentElement.getCharData(currentElementIndex)||this.currentElement.lastCharData)
+      return;
+    }
+
+    this.setCurrentElement(nextRenderedElement.classRef)
     this.moveCaretTo(this.currentElement.noCharData)
   }
 
@@ -125,9 +129,14 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   private get nextRenderedElementInParent(){
     return this.currentElement.parent?.renderedChars.get(this.currentElement.index+1)
   }
-  
 
 
+  private setCurrentElement(element:InputEditableElement){
+    this.renderer.removeClass(this.currentElement.ref,'selected')
+    this.currentElement=element
+    this.renderer.addClass(this.currentElement.ref,'selected')
+
+  }
 
   private get nextCharData(){
     return this.currentElement.getCharData(this.caretIndex+1)||this.currentElement.lastCharData
@@ -151,7 +160,9 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     }
   }
 
-
+  override get noCharData(): { index: number; position: number } {
+    return {index:-1,position:0};
+  }
 
   appendChar(char:string) {
     if(char=='/')

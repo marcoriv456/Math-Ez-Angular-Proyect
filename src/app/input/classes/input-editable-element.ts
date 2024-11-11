@@ -6,6 +6,7 @@ import {Term} from "../input.component";
 export abstract class InputEditableElement{
   abstract parent?:InputEditableElement
   abstract renderedChars:QueryList<InputTermDirective>
+  abstract ref:HTMLElement
   abstract terms:Term[]
   abstract index:number
   abstract get position():number;

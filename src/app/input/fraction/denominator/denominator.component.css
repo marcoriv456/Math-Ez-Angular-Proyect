@@ -1,5 +1,7 @@
 :host{
   display: flex;
+  justify-content: center;
+  width: 100%;
 }
 char{
   font-size: 2rem;

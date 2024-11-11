@@ -4,26 +4,35 @@
     [char]="term.char"
     [inputTerm]="{char:term.char,index:i}"
   ></char>
-  <div
-    class="frac"
+  <frac
+    #fractionComponent
     *ngIf="term.type=='fraction'"
-  >
-    <frac-numerator
-      #fracNumerator
-      [parent]="this"
-      [index]="i"
-      [terms]="term.numeratorChildren"
-      [inputTerm]="{char:'/',index:i,classRef:fracNumerator}"
-    ></frac-numerator>
-    <div class="frac-bar"></div>
-    <frac-denominator
-      #fracDenominator
-      [parent]="this"
-      [index]="i"
-      [terms]="term.denominatorChildren"
-      [inputTerm]="{char:'/',index:i,classRef:fracDenominator}"
-    ></frac-denominator>
-  </div>
+    [numeratorChildren]="term.numeratorChildren"
+    [denominatorChildren]="term.denominatorChildren"
+    [index]="i"
+    [inputTerm]="{char:'/',classRef:fractionComponent,index:i}"
+  ></frac>
+<!--  <div-->
+<!--    class="frac"-->
+<!--    *ngIf="term.type=='fraction'"-->
+
+<!--  >-->
+<!--    <frac-numerator-->
+<!--      #fracNumerator-->
+<!--      [parent]="this"-->
+<!--      [index]="i"-->
+<!--      [terms]="term.numeratorChildren"-->
+<!--      [inputTerm]="{char:'/',index:i,classRef:fracNumerator}"-->
+<!--    ></frac-numerator>-->
+<!--    <div class="frac-bar"></div>-->
+<!--    <frac-denominator-->
+<!--      #fracDenominator-->
+<!--      [parent]="this"-->
+<!--      [index]="i+1"-->
+<!--      [terms]="term.denominatorChildren"-->
+<!--      [inputTerm]="{char:'/',index:i+1,classRef:fracDenominator}"-->
+<!--    ></frac-denominator>-->
+<!--  </div>-->
 
 </ng-container>
 <span
