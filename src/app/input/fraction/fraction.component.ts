@@ -34,10 +34,6 @@ export class FractionComponent extends InputEditableElement{
   parent!: InputEditableElement;
   ref=inject(ElementRef).nativeElement as HTMLElement;
   caretPositioningService=inject(CaretPositioningService)
-  get position(): number {
-    console.log('on fraction position: ',this.ref.getBoundingClientRect().left)
-    return this.ref.getBoundingClientRect().left-this.caretPositioningService.inputPosition;
-  }
 
   get numeratorComponent() {
     return this.renderedChars.get(0) as InputTermDirective

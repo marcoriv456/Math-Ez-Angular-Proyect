@@ -19,12 +19,9 @@ export class DenominatorComponent extends InputEditableElement{
   @Input()
   index!:number
   ref=inject(ElementRef).nativeElement as HTMLElement
-  caretPosService=inject(CaretPositioningService)
+  caretPositioningService=inject(CaretPositioningService)
 
 
-  override get position(): number {
-    return this.ref.getBoundingClientRect().left-this.caretPosService.inputPosition;
-  }
   override get fontSize(): number {
     return super.fontSize/2;
   }

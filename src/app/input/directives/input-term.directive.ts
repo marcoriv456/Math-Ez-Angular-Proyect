@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import {CaretPositioningService} from "../services/caret-positioning/caret-positioning.service";
 import {InputEditableElement} from "../classes/input-editable-element";
+import {InputCharData} from "../char/char.component";
 
 @Directive({
   selector: '[inputTerm]'
@@ -22,10 +23,12 @@ export class InputTermDirective implements OnChanges{
 
 
 
-  get data(){
+  get data():InputCharData{
     return {
-      position:this.rightPosition,
-      index:this.index
+      positionX:this.rightPosition,
+      positionY:this.topPosition,
+      index:this.index,
+      size:this.ref.offsetHeight
     }
   }
 
@@ -45,8 +48,10 @@ export class InputTermDirective implements OnChanges{
     let {offsetX}=event
     let wasClickOnLeftSide=this.wasClickOnLeftSide(offsetX)
     this.caretPositioningService.charClicked.emit({
+      positionX:  wasClickOnLeftSide? this.leftPosition:this.rightPosition,
+      positionY:this.topPosition,
       index: this.index- (wasClickOnLeftSide ? 1:0),
-      position:  wasClickOnLeftSide? this.leftPosition:this.rightPosition
+      size:this.size
     })
   }
 
@@ -64,7 +69,13 @@ export class InputTermDirective implements OnChanges{
     return this.leftPosition+this.ref.offsetWidth
   }
   private get leftPosition(){
-    return this.ref.getBoundingClientRect().left-this.caretPositioningService.inputPosition
+    return this.ref.getBoundingClientRect().left-this.caretPositioningService.inputPositionX
+  }
+  private get topPosition(){
+    return this.ref.getBoundingClientRect().top-this.caretPositioningService.inputPositionY
+  }
+  private get size(){
+    return this.ref.offsetHeight
   }
 
 }

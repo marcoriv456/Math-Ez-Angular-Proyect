@@ -10,6 +10,8 @@ export class CharComponent {
   char!:string
 }
 export type InputCharData={
-  position:number
+  positionX:number
+  positionY:number
   index:number
+  size:number
 }

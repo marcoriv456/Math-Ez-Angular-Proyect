@@ -8,8 +8,11 @@ export class CaretPositioningService {
   private inputRef!:InputComponent
   constructor() { }
 
-  get inputPosition(){
-    return this.inputRef.position
+  get inputPositionX(){
+    return this.inputRef.positionX
+  }
+  get inputPositionY(){
+    return this.inputRef.ref.getBoundingClientRect().top
   }
   setInputRef(input:InputComponent){
     this.inputRef = input

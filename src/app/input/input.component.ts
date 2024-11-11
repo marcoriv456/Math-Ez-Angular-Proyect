@@ -68,8 +68,11 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     this.caretPositioningService.setInputRef(this)
   }
 
-  override get position(): number {
+  override get positionX(): number {
     return this.ref.getBoundingClientRect().left
+  }
+  override get positionY():number{
+    return this.ref.getBoundingClientRect().top
   }
 
   @HostListener('keydown',['$event'])
@@ -176,8 +179,11 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     }
   }
 
-  override get noCharData(): { index: number; position: number } {
-    return {index:-1,position:0};
+  override get noCharData(): InputCharData {
+    let charData=super.noCharData
+    charData.positionX=0
+    charData.positionY=0
+    return charData;
   }
 
   appendChar(char:string) {
@@ -189,8 +195,10 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     this.moveCaretTo(this.nextCharData)
   }
 
-  moveCaretTo({position,index}:InputCharData){
-    this.renderer.setStyle(this.caretRef.nativeElement,'left',position+'px')
+  moveCaretTo({positionX,positionY,index,size}:InputCharData){
+    this.renderer.setStyle(this.caretRef.nativeElement,'left',positionX+'px')
+    this.renderer.setStyle(this.caretRef.nativeElement,'top',positionY+'px')
+    this.renderer.setStyle(this.caretRef.nativeElement,'--height',size+'px',2)
     this.caretIndex=index
   }
   deleteChar(from=this.caretIndex, deleteCount=1){

@@ -2,6 +2,7 @@ import {QueryList} from "@angular/core";
 import {InputTermDirective} from "../directives/input-term.directive";
 import {InputCharData} from "../char/char.component";
 import {Term} from "../input.component";
+import {CaretPositioningService} from "../services/caret-positioning/caret-positioning.service";
 
 export abstract class InputEditableElement{
   abstract parent?:InputEditableElement
@@ -9,8 +10,14 @@ export abstract class InputEditableElement{
   abstract ref:HTMLElement
   abstract terms:Term[]
   abstract index:number
-  abstract get position():number;
+  abstract caretPositioningService:CaretPositioningService
+  get positionX(): number {
+    return this.ref.getBoundingClientRect().left-this.caretPositioningService.inputPositionX;
+  }
 
+  get positionY(): number {
+    return this.ref.getBoundingClientRect().top-this.caretPositioningService.inputPositionY;
+  }
 
   getCharData(index:number){
     return this.renderedChars.get(index)?.data
@@ -69,14 +76,17 @@ export abstract class InputEditableElement{
   get lastCharData(){
     return this.renderedChars.get(this.renderedChars.length-1)?.data||this.noCharData
   }
-  get noCharData(){
-    return {index:-1,position:this.position}
+  get noCharData():InputCharData{
+    return {index:-1,positionX:this.positionX,positionY:this.positionY,size:this.size}
   }
   get fontSize():number{
     return this.parent?.fontSize||3
   }
   get fontSizeToBind(){
     return this.fontSize+'rem'
+  }
+  get size():number{
+    return this.ref.offsetHeight
   }
 
 }

@@ -21,10 +21,6 @@ export class NumeratorComponent extends InputEditableElement{
   ref=inject(ElementRef).nativeElement as HTMLElement
   caretPositioningService=inject(CaretPositioningService)
 
-  override get position(): number {
-    return this.ref.getBoundingClientRect().left- this.caretPositioningService.inputPosition
-  }
-
   override get fontSize(){
     return super.fontSize/2;
   }
