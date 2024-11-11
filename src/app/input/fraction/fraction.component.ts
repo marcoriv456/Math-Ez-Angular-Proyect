@@ -26,10 +26,6 @@ export class FractionComponent extends InputEditableElement{
   numeratorChildren!:Term[]
   @Input()
   denominatorChildren!:Term[]
-  @ViewChild('numeratorComponent')
-  numeratorComponent!:InputEditableElement
-  @ViewChild('denominatorComponent')
-  denominatorComponent!:InputEditableElement
   @Input()
   terms:Term[]=[]
   @ViewChildren(InputTermDirective)
@@ -43,7 +39,10 @@ export class FractionComponent extends InputEditableElement{
     return this.ref.getBoundingClientRect().left-this.caretPositioningService.inputPosition;
   }
 
-  // ngAfterViewInit() {
-  //
-  // }
+  get numeratorComponent() {
+    return this.renderedChars.get(0) as InputTermDirective
+  }
+  get denominatorComponent() {
+    return this.renderedChars.get(1) as InputTermDirective
+  }
 }

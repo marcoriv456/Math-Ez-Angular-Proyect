@@ -104,20 +104,22 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 
   private moveToNextElement(){
     let nextElement=this.currentElement.terms[this.caretIndex+1]
-    if( (nextElement && nextElement.type=='char') || (!nextElement && this.currentElement==this) ){
+    let isNextElementChar=nextElement && nextElement.type=='char'
+    let isCaretInTheLastPosition=!nextElement && this.currentElement==this
+
+    if( isNextElementChar || isCaretInTheLastPosition)
       this.moveCaretTo(this.nextCharData)
-      return;
-    }
+    else
+      this.moveCaretContext()
+  }
+
+  private moveCaretContext(){
     let nextRenderedElement= this.nextRenderedElement||this.nextRenderedElementInParent
     if(!nextRenderedElement || !nextRenderedElement.classRef){
       this.moveContextToActualParent()
       return;
     }
-    if(nextRenderedElement.classRef instanceof FractionComponent){
-      nextRenderedElement=nextRenderedElement.classRef.renderedChars.get(0)
-    }
-    this.setCurrentElement(nextRenderedElement?.classRef||this)
-    this.moveCaretTo(this.currentElement.noCharData)
+    this.moveContextToNextRenderedElement(nextRenderedElement)
   }
 
   private moveContextToActualParent(){
@@ -125,12 +127,18 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     let actualParent=this.currentElement.parent
     if(actualParent instanceof FractionComponent){
       actualIndex=actualParent.index
-      actualParent=actualParent.parent||this
+      actualParent=actualParent.parent
     }
     this.setCurrentElement(actualParent||this)
     this.moveCaretTo(this.currentElement.getCharData(actualIndex)||this.currentElement.lastCharData)
   }
 
+  private moveContextToNextRenderedElement(nextRenderedElement:InputTermDirective){
+    if(nextRenderedElement.classRef instanceof FractionComponent)
+      nextRenderedElement=nextRenderedElement.classRef.numeratorComponent
+    this.setCurrentElement(nextRenderedElement?.classRef||this)
+    this.moveCaretTo(this.currentElement.noCharData)
+  }
 
   private get nextRenderedElement(){
     return this.currentElement.renderedChars.get(this.caretIndex+1)
@@ -144,7 +152,6 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     this.renderer.removeClass(this.currentElement.ref,'selected')
     this.currentElement=element
     this.renderer.addClass(this.currentElement.ref,'selected')
-
   }
 
   private get nextCharData(){
