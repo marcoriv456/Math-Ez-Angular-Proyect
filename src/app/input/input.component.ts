@@ -6,7 +6,7 @@ import {
   ElementRef,
   HostBinding,
   HostListener,
-  inject, QueryList,
+  inject, Input, QueryList,
   Renderer2, ViewChild, ViewChildren,
 } from '@angular/core';
 import {CharComponent, InputCharData} from "./char/char.component";
@@ -114,12 +114,24 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     let nextRenderedElement= this.nextRenderedElement||this.nextRenderedElementInParent
     if(!nextRenderedElement || !nextRenderedElement.classRef){
       let currentElementIndex=this.currentElement.index
-      this.setCurrentElement(this.currentElement.parent||this)
+
+      let currentElementParent=this.currentElement.parent as InputEditableElement
+
+      if(currentElementParent instanceof FractionComponent){
+        currentElementIndex=currentElementParent.index
+        currentElementParent=currentElementParent.parent||this
+      }
+
+      this.setCurrentElement(currentElementParent||this)
       this.moveCaretTo(this.currentElement.getCharData(currentElementIndex)||this.currentElement.lastCharData)
       return;
     }
 
-    this.setCurrentElement(nextRenderedElement.classRef)
+    if(nextRenderedElement.classRef instanceof FractionComponent){
+      nextRenderedElement=nextRenderedElement.classRef.renderedChars.get(0)
+    }
+
+    this.setCurrentElement(nextRenderedElement?.classRef||this)
     this.moveCaretTo(this.currentElement.noCharData)
   }
 
