@@ -11,6 +11,7 @@ export abstract class InputEditableElement{
   abstract index:number
   abstract get position():number;
 
+
   getCharData(index:number){
     return this.renderedChars.get(index)?.data
   }
@@ -70,6 +71,12 @@ export abstract class InputEditableElement{
   }
   get noCharData(){
     return {index:-1,position:this.position}
+  }
+  get fontSize():number{
+    return this.parent?.fontSize||3
+  }
+  get fontSizeToBind(){
+    return this.fontSize+'rem'
   }
 
 }

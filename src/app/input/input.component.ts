@@ -223,7 +223,10 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     console.log(prevChars.map(term=>term.type=='char'?term.char:''))
     console.log(nextChars.map(term=>term.type=='char'?term.char:''))
   }
-
+  @HostBinding('style.--font-size')
+  override get fontSizeToBind(){
+    return super.fontSizeToBind
+  }
 
 // ------------------STRUCTURING LOGIC------------------
   protected readonly console = console;

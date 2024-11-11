@@ -1,6 +1,7 @@
 :host{
   display: flex;
-}
-char{
-  font-size: 2rem;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }

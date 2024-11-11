@@ -1,4 +1,4 @@
-import {Component, ElementRef, inject, Input, QueryList, ViewChildren} from '@angular/core';
+import {Component, ElementRef, HostBinding, inject, Input, QueryList, ViewChildren} from '@angular/core';
 import {InputEditableElement} from "../../classes/input-editable-element";
 import {InputTermDirective} from "../../directives/input-term.directive";
 import {Term} from "../../input.component";
@@ -24,5 +24,14 @@ export class DenominatorComponent extends InputEditableElement{
 
   override get position(): number {
     return this.ref.getBoundingClientRect().left-this.caretPosService.inputPosition;
+  }
+  override get fontSize(): number {
+    return super.fontSize/2;
+  }
+
+
+  @HostBinding('style.--font-size')
+  override get fontSizeToBind(){
+    return super.fontSizeToBind
   }
 }
