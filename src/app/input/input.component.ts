@@ -115,11 +115,11 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 
   private moveCaretContext(){
     let nextRenderedElement= this.nextRenderedElement||this.nextRenderedElementInParent
-    if(!nextRenderedElement || !nextRenderedElement.classRef){
+    let nextRenderedElementClassRef=nextRenderedElement?.classRef
+    if(!nextRenderedElement || !nextRenderedElementClassRef)
       this.moveContextToActualParent()
-      return;
-    }
-    this.moveContextToNextRenderedElement(nextRenderedElement)
+    else
+      this.moveContextToNextRenderedElement(nextRenderedElement)
   }
 
   private moveContextToActualParent(){
