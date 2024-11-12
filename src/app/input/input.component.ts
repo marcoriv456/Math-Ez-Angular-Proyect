@@ -20,78 +20,84 @@ import {InputEditableElement} from "./classes/input-editable-element";
   templateUrl: './input.component.html',
   styleUrl: './input.component.css'
 })
-export class InputComponent extends InputEditableElement implements AfterViewInit{
+export class InputComponent extends InputEditableElement implements AfterViewInit {
   @HostBinding('tabindex')
-  tabIndex=0
+  tabIndex = 0
   @ViewChild('caret')
-  caretRef!:ElementRef
+  caretRef!: ElementRef
   @ViewChildren(InputTermDirective)
-  renderedChars!:QueryList<InputTermDirective>
+  renderedChars!: QueryList<InputTermDirective>
 
-  parent=undefined
+  parent = undefined
 
   @HostListener('click')
-  onClick(){
+  onClick() {
     this.moveCaretTo(this.currentElement.lastCharData)
   }
 
-  cdr=inject(ChangeDetectorRef)
-  renderer=inject(Renderer2)
-  caretPositioningService=inject(CaretPositioningService)
-  terms:Term[]=[
-    { char: 'h', type: 'char' },
-    { char: 'o', type: 'char' },
-    { char: 'l', type: 'char' },
-    { char: 'a', type: 'char' },
-    { char: '+', type: 'char' },
-    { char: 'm', type: 'char' },
-    { char: 'u', type: 'char' },
-    { char: 'n', type: 'char' },
-    { char: 'd', type: 'char' },
-    { char: 'o', type: 'char' },
-    { char: '+', type: 'char' },
-    { char: 'x', type: 'char' },
-    { char: 'd', type: 'char' },
-    { char: 'd', type: 'char' },
-    { char: 'd', type: 'char' },
-    {numeratorChildren:[{char:'1',type:'char'},{char:'0',type:'char'}],denominatorChildren:[{char:'4',type:'char'}],type:'fraction'}
+  cdr = inject(ChangeDetectorRef)
+  renderer = inject(Renderer2)
+  caretPositioningService = inject(CaretPositioningService)
+  terms: Term[] = [
+    {char: 'h', type: 'char'},
+    {char: 'o', type: 'char'},
+    {char: 'l', type: 'char'},
+    {char: 'a', type: 'char'},
+    {char: '+', type: 'char'},
+    {char: 'm', type: 'char'},
+    {char: 'u', type: 'char'},
+    {char: 'n', type: 'char'},
+    {char: 'd', type: 'char'},
+    {char: 'o', type: 'char'},
+    {char: '+', type: 'char'},
+    {char: 'x', type: 'char'},
+    {char: 'd', type: 'char'},
+    {char: 'd', type: 'char'},
+    {char: 'd', type: 'char'},
+    {
+      numeratorChildren: [{char: '1', type: 'char'}, {char: '0', type: 'char'}],
+      denominatorChildren: [{char: '4', type: 'char'}],
+      type: 'fraction'
+    }
   ];
 
-  currentElement:InputEditableElement=this
-  caretPosition=0
-  caretIndex=0
-  ref=inject(ElementRef).nativeElement as HTMLElement
+  currentElement: InputEditableElement = this
+  caretPosition = 0
+  caretIndex = 0
+  ref = inject(ElementRef).nativeElement as HTMLElement
 
-  index=0
+  index = 0
+
   ngAfterViewInit() {
-    this.caretPositioningService.charClicked.subscribe((charData)=>this.moveCaretTo(charData))
+    this.caretPositioningService.charClicked.subscribe((charData) => this.moveCaretTo(charData))
     this.caretPositioningService.setInputRef(this)
   }
 
   override get positionX(): number {
     return this.ref.getBoundingClientRect().left
   }
-  override get positionY():number{
+
+  override get positionY(): number {
     return this.ref.getBoundingClientRect().top
   }
 
-  @HostListener('keydown',['$event'])
-  onKeyDown(event:KeyboardEvent){
-    let {key,ctrlKey}=event
+  @HostListener('keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent) {
+    let {key, ctrlKey} = event
 
-    if(key!=='Tab')
+    if (key !== 'Tab')
       event.preventDefault()
-    if(key.length==1)
+    if (key.length == 1)
       this.appendChar(key)
-    else if(ctrlKey)
+    else if (ctrlKey)
       this.onSpecialCtrlKeyDown(key)
     else
       this.onSpecialKeyDown(key)
     console.log("key: ", key)
   }
 
-  private onSpecialKeyDown(key:string){
-    switch (key){
+  private onSpecialKeyDown(key: string) {
+    switch (key) {
       case 'Backspace':
         this.deleteChar()
         break;
@@ -99,33 +105,86 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
         this.moveToNextElement()
         break;
       case 'ArrowLeft':
-        this.moveCaretTo(this.prevCharData)
+        this.moveToPreviousElement()
         break;
     }
   }
 
+  private moveToNextElement() {
+    let nextElement = this.currentElement.terms[this.caretIndex + 1]
+    let isNextElementChar = nextElement && nextElement.type == 'char'
+    let isCaretInTheLastPosition = !nextElement && this.currentElement == this
 
-  private moveToNextElement(){
-    let nextElement=this.currentElement.terms[this.caretIndex+1]
-    let isNextElementChar=nextElement && nextElement.type=='char'
-    let isCaretInTheLastPosition=!nextElement && this.currentElement==this
-
-    if( isNextElementChar || isCaretInTheLastPosition)
+    if (isNextElementChar || isCaretInTheLastPosition)
       this.moveCaretTo(this.nextCharData)
     else
-      this.moveCaretContext()
+      this.moveCaretContextForward()
   }
 
-  private moveCaretContext(){
-    let nextRenderedElement= this.nextRenderedElement||this.nextRenderedElementInParent
-    let nextRenderedElementClassRef=nextRenderedElement?.classRef
-    if(!nextRenderedElement || !nextRenderedElementClassRef)
-      this.moveContextToActualParent()
+  private moveCaretContextForward() {
+    let nextRenderedElement = this.nextRenderedElement || this.nextRenderedElementInParent
+    let nextRenderedElementClassRef = nextRenderedElement?.classRef
+    if (!nextRenderedElement || !nextRenderedElementClassRef)
+      this.moveContextToActualParent((prevContextIndex)=>
+        this.moveCaretTo(this.currentElement.getCharData(prevContextIndex)||this.currentElement.lastCharData)
+      )
     else
       this.moveContextToNextRenderedElement(nextRenderedElement)
   }
 
-  private moveContextToActualParent(){
+  private get nextRenderedElement() {
+    return this.getRenderedElementAt(this.caretIndex + 1)
+  }
+
+  private get nextRenderedElementInParent() {
+    return this.getRenderedElementInParentAt(this.currentElement.index + 1)
+  }
+
+  private moveContextToNextRenderedElement(nextRenderedElement: InputTermDirective) {
+    if (nextRenderedElement.classRef instanceof FractionComponent)
+      nextRenderedElement = nextRenderedElement.classRef.numeratorComponent
+    this.setCurrentElement(nextRenderedElement?.classRef || this)
+    this.moveCaretTo(this.currentElement.noCharData)
+  }
+
+  private moveToPreviousElement() {
+    let prevElement = this.currentElement.terms[this.caretIndex]
+    let isPrevElementChar = prevElement && prevElement.type == 'char'
+    let isCaretInFirstChar = !prevElement && this.caretIndex == 0
+    let isCaretInTheFirstPosition = !prevElement && this.currentElement == this
+
+    if (isPrevElementChar || isCaretInTheFirstPosition || isCaretInFirstChar)
+      this.moveCaretTo(this.prevCharData)
+    else
+      this.moveCaretContextBackwards()
+  }
+
+  private moveCaretContextBackwards() {
+    let prevRenderedElement = this.prevRenderedElement || this.prevRenderedElementInParent
+    if (!prevRenderedElement || !prevRenderedElement.classRef)
+      this.moveContextToActualParent(
+        (prevContextIndex)=>
+          this.moveCaretTo(this.currentElement.getCharData(prevContextIndex-1) || this.currentElement.noCharData))
+    else
+      this.moveContextToPrevRenderedElement(prevRenderedElement)
+  }
+
+  private moveContextToPrevRenderedElement(prevRenderedElement:InputTermDirective){
+    if (prevRenderedElement.classRef instanceof FractionComponent)
+      prevRenderedElement = prevRenderedElement.classRef.denominatorComponent
+    this.setCurrentElement(prevRenderedElement?.classRef || this)
+    this.moveCaretTo(this.currentElement.lastCharData)
+  }
+
+  private get prevRenderedElement(){
+    return this.getRenderedElementAt(this.caretIndex)
+  }
+
+  private get prevRenderedElementInParent(){
+    return this.getRenderedElementInParentAt(this.currentElement.index-1)
+  }
+
+  private moveContextToActualParent(onContextChangeFinished:(prevContextIndex:number)=>void){
     let actualIndex=this.currentElement.index
     let actualParent=this.currentElement.parent
     if(actualParent instanceof FractionComponent){
@@ -133,21 +192,17 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
       actualParent=actualParent.parent
     }
     this.setCurrentElement(actualParent||this)
-    this.moveCaretTo(this.currentElement.getCharData(actualIndex)||this.currentElement.lastCharData)
+    onContextChangeFinished(actualIndex)
   }
 
-  private moveContextToNextRenderedElement(nextRenderedElement:InputTermDirective){
-    if(nextRenderedElement.classRef instanceof FractionComponent)
-      nextRenderedElement=nextRenderedElement.classRef.numeratorComponent
-    this.setCurrentElement(nextRenderedElement?.classRef||this)
-    this.moveCaretTo(this.currentElement.noCharData)
-  }
 
-  private get nextRenderedElement(){
-    return this.currentElement.renderedChars.get(this.caretIndex+1)
+
+
+  private getRenderedElementAt(index:number){
+    return this.currentElement.renderedChars.get(index)
   }
-  private get nextRenderedElementInParent(){
-    return this.currentElement.parent?.renderedChars.get(this.currentElement.index+1)
+  private getRenderedElementInParentAt(index:number){
+    return this.currentElement.parent?.renderedChars.get(index)
   }
 
 
