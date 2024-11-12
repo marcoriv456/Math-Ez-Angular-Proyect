@@ -195,10 +195,12 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     this.moveCaretTo(this.nextCharData)
   }
 
-  moveCaretTo({positionX,positionY,index,size}:InputCharData){
+  moveCaretTo({positionX,positionY,index,size,parent}:InputCharData){
     this.renderer.setStyle(this.caretRef.nativeElement,'left',positionX+'px')
     this.renderer.setStyle(this.caretRef.nativeElement,'top',positionY+'px')
     this.renderer.setStyle(this.caretRef.nativeElement,'--height',size+'px',2)
+    if(parent)
+      this.setCurrentElement(parent)
     this.caretIndex=index
   }
   deleteChar(from=this.caretIndex, deleteCount=1){

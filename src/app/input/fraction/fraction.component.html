@@ -1,6 +1,6 @@
 <frac-numerator
   #numeratorComponent
-  [inputTerm]="{char:'/num',index:0,classRef:numeratorComponent}"
+  [inputTerm]="{char:'/num',index:0,classRef:numeratorComponent,parent:this}"
   [terms]="numeratorChildren"
   [parent]="this"
   [index]="0"
@@ -8,7 +8,7 @@
 <span class="frac-bar"></span>
 <frac-denominator
   #denominatorComponent
-  [inputTerm]="{char:'/den',index:1,classRef:denominatorComponent}"
+  [inputTerm]="{char:'/den',index:1,classRef:denominatorComponent,parent:this}"
   [terms]="denominatorChildren"
   [parent]="this"
   [index]="1"

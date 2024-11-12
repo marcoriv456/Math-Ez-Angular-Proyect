@@ -16,7 +16,7 @@ import {InputCharData} from "../char/char.component";
 })
 export class InputTermDirective implements OnChanges{
   @Input('inputTerm')
-  input!:{char:string, index:number,classRef?:InputEditableElement}
+  input!:{char:string, index:number,classRef?:InputEditableElement,parent:InputEditableElement}
 
   ref=inject(ElementRef).nativeElement as HTMLElement
   caretPositioningService=inject(CaretPositioningService)
@@ -28,7 +28,7 @@ export class InputTermDirective implements OnChanges{
       positionX:this.rightPosition,
       positionY:this.topPosition,
       index:this.index,
-      size:this.ref.offsetHeight
+      size:this.size
     }
   }
 
@@ -41,18 +41,22 @@ export class InputTermDirective implements OnChanges{
   get classRef(){
     return this.input.classRef
   }
+  get parent(){
+    return this.input.parent
+  }
 
   @HostListener('click',['$event'])
   onClick(event:MouseEvent){
     event.stopPropagation()
     let {offsetX}=event
     let wasClickOnLeftSide=this.wasClickOnLeftSide(offsetX)
-    this.caretPositioningService.charClicked.emit({
-      positionX:  wasClickOnLeftSide? this.leftPosition:this.rightPosition,
-      positionY:this.topPosition,
-      index: this.index- (wasClickOnLeftSide ? 1:0),
-      size:this.size
-    })
+    let dataToSend=this.data
+    if(wasClickOnLeftSide){
+      dataToSend.positionX=this.leftPosition
+      dataToSend.index-=1
+    }
+    dataToSend.parent=this.parent
+    this.caretPositioningService.charClicked.emit(dataToSend)
   }
 
   private wasClickOnLeftSide(clickOffset:number){

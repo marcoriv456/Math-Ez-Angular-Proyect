@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import {InputEditableElement} from "../classes/input-editable-element";
 
 @Component({
   selector: 'char',
@@ -14,4 +15,5 @@ export type InputCharData={
   positionY:number
   index:number
   size:number
+  parent?:InputEditableElement
 }
