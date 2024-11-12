@@ -271,23 +271,28 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     let prevCharsFrom=(this.currentElement.getPrevSpecialCharData(this.caretIndex)?.index||-1)+1
     let prevCharsTo=this.caretIndex+1
     let prevChars=this.currentElement.terms.slice(prevCharsFrom,prevCharsTo)
-    console.log("prev: ",prevCharsFrom,prevCharsTo)
-
-
     let nextCharsTo=(this.currentElement.getNextSpecialCharData(this.caretIndex)?.index||this.currentElement.lastCharData.index+1)
     let nextCharsFrom=this.caretIndex+1
     let nextChars=this.currentElement.terms.slice(nextCharsFrom,nextCharsTo)
-    console.log("next: ",nextCharsFrom,nextCharsTo)
-
-    this.currentElement.terms.splice(
-      prevCharsFrom,
-      nextCharsTo-prevCharsFrom,
-      {numeratorChildren:prevChars,denominatorChildren:nextChars,type:'fraction'})
-
-    // console.log('prev char index: ',this.prevCharData.index+1,this.caretIndex+1)
-    console.log(prevChars.map(term=>term.type=='char'?term.char:''))
-    console.log(nextChars.map(term=>term.type=='char'?term.char:''))
+    this.currentElement.terms.splice(prevCharsFrom, nextCharsTo-prevCharsFrom, {
+      numeratorChildren:prevChars,
+      denominatorChildren:nextChars,
+      type:'fraction'
+    })
+    if(nextChars.length && prevChars.length)
+      return;
+    this.cdr.detectChanges()
+    let appendedFrac=this.currentElement.renderedChars.get(prevCharsFrom)?.classRef as FractionComponent
+    if(!nextChars.length){
+      this.setCurrentElement(appendedFrac.denominatorComponent?.classRef||this)
+      this.moveCaretTo(this.currentElement.noCharData)
+    }
+    if(!prevChars.length){
+      this.setCurrentElement(appendedFrac.numeratorComponent?.classRef||this)
+      this.moveCaretTo(this.currentElement.noCharData)
+    }
   }
+
   @HostBinding('style.--font-size')
   override get fontSizeToBind(){
     return super.fontSizeToBind
