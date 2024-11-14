@@ -70,6 +70,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 
   ngAfterViewInit() {
     this.caretPositioningService.charClicked.subscribe((charData) => this.moveCaretTo(charData))
+    this.caretPositioningService.fractionDeleted.subscribe(({fractionIndex,residualData})=>this.deleteFraction(fractionIndex,residualData))
     this.caretPositioningService.setInputRef(this)
   }
 
@@ -259,10 +260,11 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     this.caretIndex=index
   }
   deleteChar(from=this.caretIndex, deleteCount=1){
-    if(this.caretIndex==-1)
+    if(this.caretIndex==-1&&this.currentElement==this)
       return
-    this.currentElement.terms.splice(from,deleteCount)
-    this.moveCaretTo(this.currentElement.getCharData(from-1)||this.currentElement.noCharData)
+    let prevCharData=this.currentElement.removeChar(from,deleteCount)
+    if(prevCharData)
+      this.moveCaretTo(prevCharData)
   }
 
 
@@ -291,6 +293,12 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
       this.setCurrentElement(appendedFrac.numeratorComponent?.classRef||this)
       this.moveCaretTo(this.currentElement.noCharData)
     }
+  }
+  private deleteFraction(fractionIndex:number,residualData:Term[]){
+    this.moveContextToActualParent(()=>{});
+    this.currentElement.terms.splice(fractionIndex,1,...residualData)
+    this.cdr.detectChanges()
+    this.moveCaretTo(this.currentElement.getCharData(fractionIndex+residualData.length-1) as InputCharData)
   }
 
   @HostBinding('style.--font-size')

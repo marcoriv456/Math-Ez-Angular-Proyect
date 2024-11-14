@@ -4,6 +4,7 @@
   [terms]="numeratorChildren"
   [parent]="this"
   [index]="0"
+  (termDeleted)="this.caretPositioningService.fractionDeleted.emit({fractionIndex:index,residualData:denominatorChildren})"
 ></frac-numerator>
 <span class="frac-bar"></span>
 <frac-denominator
