@@ -8,7 +8,7 @@ import {
   SimpleChanges
 } from '@angular/core';
 import {InputUtilitiesService} from "../services/caret-positioning/input-utilities.service";
-import {InputEditableElement} from "../classes/input-editable-element";
+import {InputEditableElement} from "../models/input-editable-element.class";
 import {InputCharData} from "../char/char.component";
 
 @Directive({

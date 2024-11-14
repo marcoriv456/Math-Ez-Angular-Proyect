@@ -13,7 +13,11 @@ import {CharComponent, InputCharData} from "./char/char.component";
 import {InputUtilitiesService} from "./services/caret-positioning/input-utilities.service";
 import {FractionComponent} from "./fraction/fraction.component";
 import {InputTermDirective} from "./directives/input-term.directive";
-import {InputEditableElement} from "./classes/input-editable-element";
+import {InputEditableElement} from "./models/input-editable-element.class";
+import {CharTerm} from "./models/char-term.model";
+import {FractionTerm} from "./models/fraction-term.model";
+import {RootTerm} from "./models/root-term.model";
+import {Term} from "./models/term.model";
 
 @Component({
   selector: 'app-input',
@@ -309,24 +313,4 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 // ------------------STRUCTURING LOGIC------------------
   protected readonly console = console;
 }
-export interface CharTerm extends PowerableTerm{
-  char:string
-  type:'char'
-}
 
-export interface FractionTerm extends PowerableTerm{
-  numeratorChildren:Term[]
-  denominatorChildren:Term[]
-  type:'fraction'
-}
-
-export interface RootTerm extends PowerableTerm{
-  rootChildren:Term[]
-  type:'root'
-}
-
-export interface PowerableTerm{
-  powChildren?:Term[]
-}
-
-export type Term=CharTerm|FractionTerm|RootTerm

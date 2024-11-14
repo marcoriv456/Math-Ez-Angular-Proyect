@@ -9,10 +9,10 @@ import {
   ViewChild,
   ViewChildren
 } from '@angular/core';
-import {FractionTerm, Term} from "../input.component";
-import {InputEditableElement} from "../classes/input-editable-element";
+import {InputEditableElement} from "../models/input-editable-element.class";
 import {InputTermDirective} from "../directives/input-term.directive";
 import {InputUtilitiesService} from "../services/caret-positioning/input-utilities.service";
+import {Term} from "../models/term.model";
 
 @Component({
   selector: 'frac',

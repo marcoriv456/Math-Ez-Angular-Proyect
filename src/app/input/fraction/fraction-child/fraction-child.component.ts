@@ -9,11 +9,11 @@ import {
   QueryList,
   ViewChildren
 } from '@angular/core';
-import {InputEditableElement} from "../../classes/input-editable-element";
+import {InputEditableElement} from "../../models/input-editable-element.class";
 import {InputTermDirective} from "../../directives/input-term.directive";
-import {Term} from "../../input.component";
 import {InputUtilitiesService} from "../../services/caret-positioning/input-utilities.service";
 import {InputCharData} from "../../char/char.component";
+import {Term} from "../../models/term.model";
 
 @Component({
   selector: 'frac-child',
