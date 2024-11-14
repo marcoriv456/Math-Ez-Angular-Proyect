@@ -124,7 +124,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 
   private moveCaretContextForward() {
     let nextRenderedElement = this.nextRenderedElement || this.nextRenderedElementInParent
-    let nextRenderedElementClassRef = nextRenderedElement?.classRef
+    let nextRenderedElementClassRef = nextRenderedElement?.asEditableElement
     if (!nextRenderedElement || !nextRenderedElementClassRef)
       this.moveContextToActualParent((prevContextIndex)=>
         this.moveCaretTo(this.currentElement.getCharData(prevContextIndex)||this.currentElement.lastCharData)
@@ -142,9 +142,9 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   }
 
   private moveContextToNextRenderedElement(nextRenderedElement: InputTermDirective) {
-    if (nextRenderedElement.classRef instanceof FractionComponent)
-      nextRenderedElement = nextRenderedElement.classRef.numeratorComponent
-    this.setCurrentElement(nextRenderedElement?.classRef || this)
+    if (nextRenderedElement.asEditableElement instanceof FractionComponent)
+      nextRenderedElement = nextRenderedElement.asEditableElement.numeratorComponent
+    this.setCurrentElement(nextRenderedElement?.asEditableElement || this)
     this.moveCaretTo(this.currentElement.noCharData)
   }
 
@@ -162,7 +162,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 
   private moveCaretContextBackwards() {
     let prevRenderedElement = this.prevRenderedElement || this.prevRenderedElementInParent
-    if (!prevRenderedElement || !prevRenderedElement.classRef)
+    if (!prevRenderedElement || !prevRenderedElement.asEditableElement)
       this.moveContextToActualParent(
         (prevContextIndex)=>
           this.moveCaretTo(this.currentElement.getCharData(prevContextIndex-1) || this.currentElement.noCharData))
@@ -171,9 +171,9 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   }
 
   private moveContextToPrevRenderedElement(prevRenderedElement:InputTermDirective){
-    if (prevRenderedElement.classRef instanceof FractionComponent)
-      prevRenderedElement = prevRenderedElement.classRef.denominatorComponent
-    this.setCurrentElement(prevRenderedElement?.classRef || this)
+    if (prevRenderedElement.asEditableElement instanceof FractionComponent)
+      prevRenderedElement = prevRenderedElement.asEditableElement.denominatorComponent
+    this.setCurrentElement(prevRenderedElement?.asEditableElement || this)
     this.moveCaretTo(this.currentElement.lastCharData)
   }
 
@@ -284,13 +284,13 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     if(nextChars.length && prevChars.length)
       return;
     this.cdr.detectChanges()
-    let appendedFrac=this.currentElement.renderedChars.get(prevCharsFrom)?.classRef as FractionComponent
+    let appendedFrac=this.currentElement.renderedChars.get(prevCharsFrom)?.asEditableElement as FractionComponent
     if(!nextChars.length){
-      this.setCurrentElement(appendedFrac.denominatorComponent?.classRef||this)
+      this.setCurrentElement(appendedFrac.denominatorComponent?.asEditableElement||this)
       this.moveCaretTo(this.currentElement.noCharData)
     }
     if(!prevChars.length){
-      this.setCurrentElement(appendedFrac.numeratorComponent?.classRef||this)
+      this.setCurrentElement(appendedFrac.numeratorComponent?.asEditableElement||this)
       this.moveCaretTo(this.currentElement.noCharData)
     }
   }

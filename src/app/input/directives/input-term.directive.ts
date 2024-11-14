@@ -16,7 +16,7 @@ import {InputCharData} from "../char/char.component";
 })
 export class InputTermDirective implements OnChanges{
   @Input('inputTerm')
-  input!:{char:string, index:number,classRef?:InputEditableElement,parent:InputEditableElement}
+  input!:{char:string, index:number,editableElementRef?:InputEditableElement,parent:InputEditableElement}
 
   ref=inject(ElementRef).nativeElement as HTMLElement
   caretPositioningService=inject(InputUtilitiesService)
@@ -38,8 +38,8 @@ export class InputTermDirective implements OnChanges{
   get index(){
     return this.input.index
   }
-  get classRef(){
-    return this.input.classRef
+  get asEditableElement(){
+    return this.input.editableElementRef
   }
   get parent(){
     return this.input.parent
