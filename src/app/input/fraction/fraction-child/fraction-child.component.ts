@@ -16,11 +16,11 @@ import {CaretPositioningService} from "../../services/caret-positioning/caret-po
 import {InputCharData} from "../../char/char.component";
 
 @Component({
-  selector: 'frac-denominator',
-  templateUrl: './denominator.component.html',
-  styleUrl: './denominator.component.css'
+  selector: 'frac-child',
+  templateUrl: './fraction-child.component.html',
+  styleUrl: './fraction-child.component.css'
 })
-export class DenominatorComponent extends InputEditableElement{
+export class FractionChildComponent extends InputEditableElement{
   @Input()
   terms!:Term[]
   @ViewChildren(InputTermDirective)
@@ -35,11 +35,9 @@ export class DenominatorComponent extends InputEditableElement{
   @Output()
   termDeleted=new EventEmitter<void>
 
-  override get fontSize(): number {
+  override get fontSize(){
     return super.fontSize/2;
   }
-
-
   @HostBinding('style.--font-size')
   override get fontSizeToBind(){
     return super.fontSizeToBind
@@ -51,4 +49,5 @@ export class DenominatorComponent extends InputEditableElement{
     this.termDeleted.emit()
     return;
   }
+
 }

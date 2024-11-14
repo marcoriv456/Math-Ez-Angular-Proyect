@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DenominatorComponent } from './denominator.component';
+import { FractionChildComponent } from './fraction-child.component';
 
-describe('DenominatorComponent', () => {
-  let component: DenominatorComponent;
-  let fixture: ComponentFixture<DenominatorComponent>;
+describe('NumeratorComponent', () => {
+  let component: FractionChildComponent;
+  let fixture: ComponentFixture<FractionChildComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [DenominatorComponent]
+      declarations: [FractionChildComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DenominatorComponent);
+    fixture = TestBed.createComponent(FractionChildComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
