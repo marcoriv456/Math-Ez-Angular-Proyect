@@ -13,6 +13,7 @@
   [terms]="denominatorChildren"
   [parent]="this"
   [index]="1"
+  (termDeleted)="this.caretPositioningService.fractionDeleted.emit({fractionIndex:index,residualData:numeratorChildren})"
 >
 </frac-denominator>
 
