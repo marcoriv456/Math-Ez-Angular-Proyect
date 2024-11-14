@@ -12,7 +12,7 @@ import {
 import {FractionTerm, Term} from "../input.component";
 import {InputEditableElement} from "../classes/input-editable-element";
 import {InputTermDirective} from "../directives/input-term.directive";
-import {CaretPositioningService} from "../services/caret-positioning/caret-positioning.service";
+import {InputUtilitiesService} from "../services/caret-positioning/input-utilities.service";
 
 @Component({
   selector: 'frac',
@@ -33,7 +33,7 @@ export class FractionComponent extends InputEditableElement{
   @Input()
   parent!: InputEditableElement;
   ref=inject(ElementRef).nativeElement as HTMLElement;
-  caretPositioningService=inject(CaretPositioningService)
+  caretPositioningService=inject(InputUtilitiesService)
 
   get numeratorComponent() {
     return this.renderedChars.get(0) as InputTermDirective

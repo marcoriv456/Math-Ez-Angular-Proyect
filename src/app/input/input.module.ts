@@ -4,7 +4,7 @@ import {InputComponent} from "./input.component";
 import {InputTestingEnvironmentComponent} from "./input-testing-environment/input-testing-environment.component";
 import { CharComponent } from './char/char.component';
 import { FractionComponent } from './fraction/fraction.component';
-import {CaretPositioningService} from "./services/caret-positioning/caret-positioning.service";
+import {InputUtilitiesService} from "./services/caret-positioning/input-utilities.service";
 import { InputTermDirective } from './directives/input-term.directive';
 import { FractionChildComponent } from './fraction/fraction-child/fraction-child.component';
 
@@ -21,7 +21,7 @@ import { FractionChildComponent } from './fraction/fraction-child/fraction-child
     CommonModule
   ],
   providers:[
-    CaretPositioningService
+    InputUtilitiesService
   ]
 })
 export class InputModule { }

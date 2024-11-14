@@ -12,7 +12,7 @@ import {
 import {InputEditableElement} from "../../classes/input-editable-element";
 import {InputTermDirective} from "../../directives/input-term.directive";
 import {Term} from "../../input.component";
-import {CaretPositioningService} from "../../services/caret-positioning/caret-positioning.service";
+import {InputUtilitiesService} from "../../services/caret-positioning/input-utilities.service";
 import {InputCharData} from "../../char/char.component";
 
 @Component({
@@ -30,7 +30,7 @@ export class FractionChildComponent extends InputEditableElement{
   @Input()
   index!:number
   ref=inject(ElementRef).nativeElement as HTMLElement
-  caretPositioningService=inject(CaretPositioningService)
+  caretPositioningService=inject(InputUtilitiesService)
 
   @Output()
   termDeleted=new EventEmitter<void>

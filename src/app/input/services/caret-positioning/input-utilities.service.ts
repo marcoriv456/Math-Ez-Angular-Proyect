@@ -4,7 +4,7 @@ import {InputComponent, Term} from "../../input.component";
 import {InputEditableElement} from "../../classes/input-editable-element";
 
 @Injectable()
-export class CaretPositioningService {
+export class InputUtilitiesService {
   charClicked=new EventEmitter<InputCharData>
   fractionDeleted=new EventEmitter<{ fractionIndex:number,residualData:Term[] }>();
   private inputRef!:InputComponent

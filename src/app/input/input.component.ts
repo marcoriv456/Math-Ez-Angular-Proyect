@@ -10,7 +10,7 @@ import {
   Renderer2, ViewChild, ViewChildren,
 } from '@angular/core';
 import {CharComponent, InputCharData} from "./char/char.component";
-import {CaretPositioningService} from "./services/caret-positioning/caret-positioning.service";
+import {InputUtilitiesService} from "./services/caret-positioning/input-utilities.service";
 import {FractionComponent} from "./fraction/fraction.component";
 import {InputTermDirective} from "./directives/input-term.directive";
 import {InputEditableElement} from "./classes/input-editable-element";
@@ -37,7 +37,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 
   cdr = inject(ChangeDetectorRef)
   renderer = inject(Renderer2)
-  caretPositioningService = inject(CaretPositioningService)
+  caretPositioningService = inject(InputUtilitiesService)
   terms: Term[] = [
     {char: 'h', type: 'char'},
     {char: 'o', type: 'char'},

@@ -7,7 +7,7 @@ import {
   OnChanges,
   SimpleChanges
 } from '@angular/core';
-import {CaretPositioningService} from "../services/caret-positioning/caret-positioning.service";
+import {InputUtilitiesService} from "../services/caret-positioning/input-utilities.service";
 import {InputEditableElement} from "../classes/input-editable-element";
 import {InputCharData} from "../char/char.component";
 
@@ -19,7 +19,7 @@ export class InputTermDirective implements OnChanges{
   input!:{char:string, index:number,classRef?:InputEditableElement,parent:InputEditableElement}
 
   ref=inject(ElementRef).nativeElement as HTMLElement
-  caretPositioningService=inject(CaretPositioningService)
+  caretPositioningService=inject(InputUtilitiesService)
 
 
 

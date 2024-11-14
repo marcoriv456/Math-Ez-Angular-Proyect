@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CaretPositioningService } from './caret-positioning.service';
+import { InputUtilitiesService } from './input-utilities.service';
 
 describe('CaretPositioningService', () => {
-  let service: CaretPositioningService;
+  let service: InputUtilitiesService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(CaretPositioningService);
+    service = TestBed.inject(InputUtilitiesService);
   });
 
   it('should be created', () => {
