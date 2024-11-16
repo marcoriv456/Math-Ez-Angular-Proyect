@@ -18,7 +18,8 @@
 
   position: absolute;
 
-  transition: left 0.1s ease;
+  transition-property: height,left;
+  transition: 0.1s ease;
 }
 #caret-container span{
   width: 3px;

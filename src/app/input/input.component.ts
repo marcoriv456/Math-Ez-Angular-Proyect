@@ -215,6 +215,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     this.renderer.removeClass(this.currentElement.ref,'selected')
     this.currentElement=element
     this.renderer.addClass(this.currentElement.ref,'selected')
+    this.renderer.setStyle(this.caretRef.nativeElement,'--height',element.size+'px',2)
   }
 
   private get nextCharData(){
@@ -260,7 +261,6 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   moveCaretTo({positionX,positionY,index,size,parent}:InputCharData){
     this.renderer.setStyle(this.caretRef.nativeElement,'left',positionX+'px')
     this.renderer.setStyle(this.caretRef.nativeElement,'top',positionY+'px')
-    this.renderer.setStyle(this.caretRef.nativeElement,'--height',size+'px',2)
     if(parent)
       this.setCurrentElement(parent)
     this.caretIndex=index
