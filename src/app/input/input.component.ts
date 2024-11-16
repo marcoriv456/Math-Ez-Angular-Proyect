@@ -88,12 +88,12 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 
   @HostListener('keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
-    let {key, ctrlKey} = event
+    let {key, ctrlKey, altKey} = event
 
     if (key !== 'Tab')
       event.preventDefault()
     if (key.length == 1)
-      this.appendChar(key)
+      this.appendChar(key,ctrlKey,altKey)
     else if (ctrlKey)
       this.onSpecialCtrlKeyDown(key)
     else
@@ -246,9 +246,11 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     return charData;
   }
 
-  appendChar(char:string) {
+  appendChar(char:string,ctrlKey?:boolean,altKey?:boolean) {
     if(char=='/')
       this.appendFraction()
+    else if(char=='{' && ctrlKey && altKey)
+      this.appendExponent()
     else
       this.currentElement.terms.splice(this.caretIndex+1,0, {char,type:'char'})
     this.cdr.detectChanges()
@@ -304,6 +306,19 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     this.cdr.detectChanges()
     this.moveCaretTo(this.currentElement.getCharData(fractionIndex+residualData.length-1) as InputCharData)
   }
+
+  private appendExponent(){
+    this.terms.splice(this.caretIndex+1,0,{type:'exponent', exponentChildren:[]})
+    this.cdr.detectChanges()
+    let appendedExponent=this.renderedChars.get(this.caretIndex+1)?.asEditableElement
+    if(appendedExponent)
+      this.setCurrentElement(appendedExponent)
+
+    console.log('appended exponent: ',appendedExponent)
+
+    // this.setCurrentElement()
+  }
+
 
   @HostBinding('style.--font-size')
   override get fontSizeToBind(){

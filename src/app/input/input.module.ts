@@ -7,6 +7,7 @@ import { FractionComponent } from './fraction/fraction.component';
 import {InputUtilitiesService} from "./services/caret-positioning/input-utilities.service";
 import { InputTermDirective } from './directives/input-term.directive';
 import { FractionChildComponent } from './fraction/fraction-child/fraction-child.component';
+import { ExponentComponent } from './power/exponent.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { FractionChildComponent } from './fraction/fraction-child/fraction-child
     CharComponent,
     FractionComponent,
     InputTermDirective,
-    FractionChildComponent
+    FractionChildComponent,
+    ExponentComponent
   ],
   imports: [
     CommonModule
