@@ -13,5 +13,12 @@
     [inputTerm]="{char:'/',editableElementRef:fractionComponent,index:i,parent:this}"
     [parent]="this"
   ></frac>
-<!--    *ngIf="term.type='"-->
+  <exp
+    #exponentComponent
+    *ngIf="term.type=='exponent'"
+    [inputTerm]="{char:'^',index:i,editableElementRef:exponentComponent,parent:this}"
+    [index]="i"
+    [terms]="term.exponentChildren"
+    [parent]="this"
+  ></exp>
 </ng-container>

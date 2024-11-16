@@ -308,9 +308,9 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   }
 
   private appendExponent(){
-    this.terms.splice(this.caretIndex+1,0,{type:'exponent', exponentChildren:[]})
+    this.currentElement.terms.splice(this.caretIndex+1,0,{type:'exponent', exponentChildren:[]})
     this.cdr.detectChanges()
-    let appendedExponent=this.renderedChars.get(this.caretIndex+1)?.asEditableElement
+    let appendedExponent=this.currentElement.renderedChars.get(this.caretIndex+1)?.asEditableElement
     if(appendedExponent)
       this.setCurrentElement(appendedExponent)
 
