@@ -30,7 +30,7 @@ export class FractionChildComponent extends InputEditableElement{
   @Input()
   index!:number
   ref=inject(ElementRef).nativeElement as HTMLElement
-  caretPositioningService=inject(InputUtilitiesService)
+  inputUtilitiesService=inject(InputUtilitiesService)
 
   @Output()
   termDeleted=new EventEmitter<void>

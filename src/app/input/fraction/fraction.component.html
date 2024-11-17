@@ -4,7 +4,7 @@
   [terms]="numeratorChildren"
   [parent]="this"
   [index]="0"
-  (termDeleted)="this.caretPositioningService.fractionDeleted.emit({fractionIndex:index,residualData:denominatorChildren})"
+  (termDeleted)="this.inputUtilitiesService.elementDeletedEmitter.emit({elementIndex:index,residualData:denominatorChildren})"
 ></frac-child>
 <span class="frac-bar"></span>
 <frac-child
@@ -13,7 +13,7 @@
   [terms]="denominatorChildren"
   [parent]="this"
   [index]="1"
-  (termDeleted)="this.caretPositioningService.fractionDeleted.emit({fractionIndex:index,residualData:numeratorChildren})"
+  (termDeleted)="this.inputUtilitiesService.elementDeletedEmitter.emit({elementIndex:index,residualData:numeratorChildren})"
 >
 </frac-child>
 

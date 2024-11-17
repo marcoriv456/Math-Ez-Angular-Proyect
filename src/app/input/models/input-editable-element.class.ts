@@ -10,13 +10,13 @@ export abstract class InputEditableElement{
   abstract ref:HTMLElement
   abstract terms:Term[]
   abstract index:number
-  abstract caretPositioningService:InputUtilitiesService
+  abstract inputUtilitiesService:InputUtilitiesService
   get positionX(): number {
-    return this.ref.getBoundingClientRect().left-this.caretPositioningService.inputPositionX;
+    return this.ref.getBoundingClientRect().left-this.inputUtilitiesService.inputPositionX;
   }
 
   get positionY(): number {
-    return this.ref.getBoundingClientRect().top-this.caretPositioningService.inputPositionY;
+    return this.ref.getBoundingClientRect().top-this.inputUtilitiesService.inputPositionY;
   }
 
   getCharData(index:number){

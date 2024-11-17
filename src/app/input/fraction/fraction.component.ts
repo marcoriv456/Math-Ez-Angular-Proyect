@@ -33,7 +33,7 @@ export class FractionComponent extends InputEditableElement{
   @Input()
   parent!: InputEditableElement;
   ref=inject(ElementRef).nativeElement as HTMLElement;
-  caretPositioningService=inject(InputUtilitiesService)
+  inputUtilitiesService=inject(InputUtilitiesService)
 
   get numeratorComponent() {
     return this.renderedChars.get(0) as InputTermDirective

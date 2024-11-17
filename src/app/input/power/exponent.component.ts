@@ -21,7 +21,7 @@ export class ExponentComponent extends InputEditableElement{
   @Input()
   index!:number
   ref=inject(ElementRef).nativeElement as HTMLElement
-  caretPositioningService=inject(InputUtilitiesService)
+  inputUtilitiesService=inject(InputUtilitiesService)
   @HostBinding('style.--height')
   get heightToBind(){
     return this.fontSize+'rem'
@@ -39,7 +39,7 @@ export class ExponentComponent extends InputEditableElement{
   override removeChar(from: number, deleteCount: number = 1): InputCharData|undefined {
     if(this.terms.length)
       return super.removeChar(from, deleteCount);
-    this.caretPositioningService.fractionDeleted.emit({fractionIndex:this.index,residualData:[]})
+    this.inputUtilitiesService.elementDeletedEmitter.emit({elementIndex:this.index,residualData:[]})
     return;
   }
 }

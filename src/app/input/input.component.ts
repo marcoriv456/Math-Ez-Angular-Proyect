@@ -41,7 +41,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 
   cdr = inject(ChangeDetectorRef)
   renderer = inject(Renderer2)
-  caretPositioningService = inject(InputUtilitiesService)
+  inputUtilitiesService = inject(InputUtilitiesService)
   terms: Term[] = [
     {char: 'h', type: 'char'},
     {char: 'o', type: 'char'},
@@ -73,9 +73,9 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   index = 0
 
   ngAfterViewInit() {
-    this.caretPositioningService.charClicked.subscribe((charData) => this.moveCaretTo(charData))
-    this.caretPositioningService.fractionDeleted.subscribe(({fractionIndex,residualData})=>this.deleteFraction(fractionIndex,residualData))
-    this.caretPositioningService.setInputRef(this)
+    this.inputUtilitiesService.charClicked.subscribe((charData) => this.moveCaretTo(charData))
+    this.inputUtilitiesService.elementDeletedEmitter.subscribe(({elementIndex,residualData})=>this.deleteElement(elementIndex,residualData))
+    this.inputUtilitiesService.setInputRef(this)
   }
 
   override get positionX(): number {
@@ -300,11 +300,11 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
       this.moveCaretTo(this.currentElement.noCharData)
     }
   }
-  private deleteFraction(fractionIndex:number,residualData:Term[]){
+  private deleteElement(elementIndex:number,residualData:Term[]){
     this.moveContextToActualParent(()=>{});
-    this.currentElement.terms.splice(fractionIndex,1,...residualData)
+    this.currentElement.terms.splice(elementIndex,1,...residualData)
     this.cdr.detectChanges()
-    this.moveCaretTo(this.currentElement.getCharData(fractionIndex+residualData.length-1) as InputCharData)
+    this.moveCaretTo(this.currentElement.getCharData(elementIndex+residualData.length-1) as InputCharData)
   }
 
   private appendExponent(){

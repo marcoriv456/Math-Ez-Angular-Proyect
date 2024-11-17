@@ -7,7 +7,7 @@ import {Term} from "../../models/term.model";
 @Injectable()
 export class InputUtilitiesService {
   charClicked=new EventEmitter<InputCharData>
-  fractionDeleted=new EventEmitter<{ fractionIndex:number,residualData:Term[] }>();
+  elementDeletedEmitter=new EventEmitter<{ elementIndex:number,residualData:Term[] }>();
   private inputRef!:InputComponent
   constructor() { }
 
