@@ -3,6 +3,8 @@ import {InputEditableElement} from "../models/input-editable-element.class";
 import {Term} from "../models/term.model";
 import {InputTermDirective} from "../directives/input-term.directive";
 import {InputUtilitiesService} from "../services/caret-positioning/input-utilities.service";
+import {InputCharData} from "../char/char.component";
+import {from} from "rxjs";
 
 @Component({
   selector: 'exp',
@@ -32,5 +34,12 @@ export class ExponentComponent extends InputEditableElement{
   @HostBinding('style.--font-size')
   override get fontSizeToBind(){
     return super.fontSizeToBind
+  }
+
+  override removeChar(from: number, deleteCount: number = 1): InputCharData|undefined {
+    if(this.terms.length)
+      return super.removeChar(from, deleteCount);
+    this.caretPositioningService.fractionDeleted.emit({fractionIndex:this.index,residualData:[]})
+    return;
   }
 }
