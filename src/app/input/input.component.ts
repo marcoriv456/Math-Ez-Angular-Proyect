@@ -18,6 +18,7 @@ import {CharTerm} from "./models/char-term.model";
 import {FractionTerm} from "./models/fraction-term.model";
 import {RootTerm} from "./models/root-term.model";
 import {Term} from "./models/term.model";
+import {FractionChildComponent} from "./fraction/fraction-child/fraction-child.component";
 
 @Component({
   selector: 'app-input',
@@ -127,7 +128,9 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   }
 
   private moveCaretContextForward() {
-    let nextRenderedElement = this.nextRenderedElement || this.nextRenderedElementInParent
+    let nextRenderedElement = this.nextRenderedElement
+    if(this.currentElement instanceof FractionChildComponent)
+      nextRenderedElement=this.nextRenderedElementInParent
     let nextRenderedElementClassRef = nextRenderedElement?.asEditableElement
     if (!nextRenderedElement || !nextRenderedElementClassRef)
       this.moveContextToActualParent((prevContextIndex)=>
@@ -165,7 +168,9 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   }
 
   private moveCaretContextBackwards() {
-    let prevRenderedElement = this.prevRenderedElement || this.prevRenderedElementInParent
+    let prevRenderedElement = this.prevRenderedElement
+    if(this.currentElement instanceof FractionChildComponent)
+      prevRenderedElement=this.prevRenderedElementInParent
     if (!prevRenderedElement || !prevRenderedElement.asEditableElement)
       this.moveContextToActualParent(
         (prevContextIndex)=>
