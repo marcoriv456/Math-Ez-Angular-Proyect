@@ -1,5 +1,9 @@
 :host{
   display: flex;
-  height: fit-content;
+  min-height: var(--height);
+  min-width: 1ch;
   align-self: start;
+}
+:host:not(:has(*)){
+  border: 1px dashed gray;
 }

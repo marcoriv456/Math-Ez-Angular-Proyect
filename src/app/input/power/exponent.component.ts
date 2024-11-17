@@ -20,6 +20,10 @@ export class ExponentComponent extends InputEditableElement{
   index!:number
   ref=inject(ElementRef).nativeElement as HTMLElement
   caretPositioningService=inject(InputUtilitiesService)
+  @HostBinding('style.--height')
+  get heightToBind(){
+    return this.fontSize+'rem'
+  }
 
   override get fontSize(): number {
     return super.fontSize/2;
