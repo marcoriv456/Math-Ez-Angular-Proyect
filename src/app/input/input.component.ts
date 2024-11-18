@@ -321,10 +321,6 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     let appendedExponent=this.currentElement.renderedChars.get(this.caretIndex+1)?.asEditableElement
     if(appendedExponent)
       this.setCurrentElement(appendedExponent)
-
-    console.log('appended exponent: ',appendedExponent)
-
-    // this.setCurrentElement()
   }
 
   private appendRoot(){
@@ -336,8 +332,6 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     setTimeout(()=>
       this.moveCaretTo(this.currentElement.noCharData)
     ,1)
-    console.log('on append root: ',this.currentElement.ref)
-
   }
 
 
