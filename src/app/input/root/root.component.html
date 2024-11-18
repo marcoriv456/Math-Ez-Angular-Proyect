@@ -1,0 +1,22 @@
+<img #rootSymbol src="/assets/input/root/root-icon.svg" alt="">
+<div class="element-container">
+
+<ng-container *ngFor="let term of terms; let i=index">
+  <char
+    *ngIf="term.type=='char'"
+    [char]="term.char"
+    [inputTerm]="{char:term.char,index:i,parent:this}"
+  ></char>
+  <frac
+    #fractionComponent
+    *ngIf="term.type=='fraction'"
+    [numeratorChildren]="term.numeratorChildren"
+    [denominatorChildren]="term.denominatorChildren"
+    [index]="i"
+    [inputTerm]="{char:'/',editableElementRef:fractionComponent,index:i,parent:this}"
+    [parent]="this"
+  ></frac>
+</ng-container>
+</div>
+
+
