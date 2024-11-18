@@ -1,6 +1,6 @@
 :host{
   display: flex;
-  height: 100%;
+  margin-top: 2px;
 }
 
 img{
@@ -9,5 +9,9 @@ img{
 .element-container{
   display: flex;
   border-top: 2px solid #1d1d1b;
+  min-width:1ch;
 }
-
+.element-container:not(:has(*)){
+  border: dashed 1px gray;
+  border-top: 2px solid #1d1d1b;
+}
