@@ -19,6 +19,7 @@ import {FractionTerm} from "./models/fraction-term.model";
 import {RootTerm} from "./models/root-term.model";
 import {Term} from "./models/term.model";
 import {FractionChildComponent} from "./fraction/fraction-child/fraction-child.component";
+import {RootComponent} from "./root/root.component";
 
 @Component({
   selector: 'app-input',
@@ -257,6 +258,8 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
       this.appendFraction()
     else if(char=='{' && ctrlKey && altKey)
       this.appendExponent()
+    else if(char=='r' && ctrlKey)
+      this.appendRoot()
     else
       this.currentElement.terms.splice(this.caretIndex+1,0, {char,type:'char'})
     this.cdr.detectChanges()
@@ -322,6 +325,19 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     console.log('appended exponent: ',appendedExponent)
 
     // this.setCurrentElement()
+  }
+
+  private appendRoot(){
+    this.currentElement.terms.splice(this.caretIndex+1,0,{type:'root',rootChildren:[]})
+    this.cdr.detectChanges()
+    let appendedRoot=this.currentElement.renderedChars.get(this.caretIndex+1)?.asEditableElement
+    if(appendedRoot)
+      this.setCurrentElement(appendedRoot)
+    setTimeout(()=>
+      this.moveCaretTo(this.currentElement.noCharData)
+    ,1)
+    console.log('on append root: ',this.currentElement.ref)
+
   }
 
 
