@@ -18,9 +18,9 @@ import {VariableProviderService} from "../services/variable-provider/variable-pr
 @Directive({
   selector: '[inputTerm]'
 })
-export class InputTermDirective implements OnChanges, AfterViewChecked,OnDestroy{
+export class InputTermDirective implements OnChanges,OnDestroy{
   @Input('inputTerm')
-  input!:{char:string, index:number,editableElementRef?:InputEditableElement,parent:InputEditableElement, variableProvider?:VariableProvider}
+  input!:{char:string, index:number,editableElementRef?:InputEditableElement,parent:InputEditableElement}
 
   ref=inject(ElementRef).nativeElement as HTMLElement
   caretPositioningService=inject(InputUtilitiesService)
@@ -67,8 +67,8 @@ export class InputTermDirective implements OnChanges, AfterViewChecked,OnDestroy
     return this.ref.offsetWidth/2>clickOffset
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    console.log(changes)
+  ngOnChanges() {
+    this.validate();
   }
 
 
@@ -88,24 +88,22 @@ export class InputTermDirective implements OnChanges, AfterViewChecked,OnDestroy
 
   // ------------------VARIABLE CHECKING LOGIC------------------
   warningsService=inject(WarningsService)
+  warningMessages:WarningMessageData[]=[]
   variableProvider=inject(VariableProviderService)
-  @HostBinding('class.invalid')
-  invalid=false
-
+  valid=true
+  @HostBinding('class')
+  invalidType:'partially-invalid'|'fully-invalid'|undefined=undefined;
   isMouseOver=false
-  setValid(valid:boolean){
-    this.invalid=!valid
-  }
   @HostListener('mouseover')
   onMouseOver(){
-    if(!this.invalid)
+    if(this.valid)
       return;
-    this.warningsService.showWarning.emit({messages:[`No se encontro a la variable: "${this.char}"`],position:this.data})
+    this.warningsService.showWarning.emit({messages:this.warningMessages,position:this.data})
     this.isMouseOver=true
   }
   @HostListener('mouseleave')
   onMouseLeave(){
-    if(!this.invalid)
+    if(this.valid)
       return;
     this.warningsService.hideWarning.emit()
     this.isMouseOver=false
@@ -115,15 +113,41 @@ export class InputTermDirective implements OnChanges, AfterViewChecked,OnDestroy
       this.warningsService.hideWarning.emit()
   }
 
-  ngAfterViewChecked() {
-    this.validate();
+  private validate(){
+    let validationData:ValidationData={isValid:true}
+    if(this.isCharALetter())
+      validationData=this.validateChar()
+    else if(this.asEditableElement)
+      validationData=this.asEditableElement.validate()
+    this.setValidationData(validationData)
   }
 
-  private validate(){
-    let isCharALetter=/[a-zA-z]/.test(this.char)
+  private isCharALetter(){
+    return /[a-zA-z]/.test(this.char)
+  }
 
-    if(isCharALetter)
-      this.setValid(this.variableProvider.variableNames.includes(this.char))
+  private validateChar():ValidationData{
+    let isValid:boolean=this.variableProvider.variableNames.includes(this.char);
+    return{
+      isValid:isValid,
+      type:isValid?undefined:"fully-invalid",
+      messages:[{message:`No se encontro a la variable: "${this.char}"`,type:'fully-invalid'}]
+    }
+  }
+  private setValidationData({isValid,type,messages}:ValidationData){
+    this.valid=isValid
+    this.warningMessages=messages||[]
+    this.invalidType=type
   }
   // ------------------VARIABLE CHECKING LOGIC------------------
+}
+
+export interface ValidationData{
+  isValid:boolean
+  type?:'partially-invalid'|'fully-invalid'
+  messages?:WarningMessageData[]
+}
+export interface WarningMessageData{
+  message:string
+  type?:'partially-invalid'|'fully-invalid'
 }

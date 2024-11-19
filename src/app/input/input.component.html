@@ -41,5 +41,11 @@
   [@warning-animations]
   *ngIf="showingWarning"
   class="warning-container">
-  <span *ngFor="let warning of warningMessages">{{warning}}</span>
+  <span
+    *ngFor="let warning of warningMessages"
+    [ngClass]="warning.type"
+    class="warning-message"
+  >
+    {{warning.message}}
+  </span>
 </div>

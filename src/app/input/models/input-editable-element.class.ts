@@ -1,5 +1,5 @@
 import {QueryList} from "@angular/core";
-import {InputTermDirective} from "../directives/input-term.directive";
+import {InputTermDirective, ValidationData} from "../directives/input-term.directive";
 import {InputCharData} from "../char/char.component";
 import {InputUtilitiesService} from "../services/caret-positioning/input-utilities.service";
 import {Term} from "./term.model";
@@ -94,5 +94,10 @@ export abstract class InputEditableElement{
     this.terms.splice(from,deleteCount)
     return this.getCharData(from-1)||this.noCharData
   }
+  // ------------------VARIABLE CHECKING LOGIC------------------
+  validate():ValidationData{
+    return {isValid:true}
+  }
+  // ------------------VARIABLE CHECKING LOGIC------------------
 
 }

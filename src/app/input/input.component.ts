@@ -12,7 +12,7 @@ import {
 import {CharComponent, InputCharData} from "./char/char.component";
 import {InputUtilitiesService} from "./services/caret-positioning/input-utilities.service";
 import {FractionComponent} from "./fraction/fraction.component";
-import {InputTermDirective} from "./directives/input-term.directive";
+import {InputTermDirective, WarningMessageData} from "./directives/input-term.directive";
 import {InputEditableElement} from "./models/input-editable-element.class";
 import {CharTerm} from "./models/char-term.model";
 import {FractionTerm} from "./models/fraction-term.model";
@@ -393,9 +393,9 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   warningContainer!:ElementRef
 
   showingWarning=false
-  warningMessages:string[]=['No se encontro a la variable "R"']
+  warningMessages:WarningMessageData[]=[]
 
-  private showWarning({messages,position}:{messages:string[],position:InputCharData}){
+  private showWarning({messages,position}:{messages:WarningMessageData[],position:InputCharData}){
     this.showingWarning=true
     this.cdr.detectChanges()
     let warningContainer=this.warningContainer.nativeElement as HTMLElement

@@ -46,7 +46,6 @@
 
   background-color: white;
 
-  color: #f00;
   font-size: 1.2rem;
 
   filter: drop-shadow(4px 4px 10px #999);
@@ -71,7 +70,9 @@
 
   filter: drop-shadow(4px 4px 10px #999);
 }
-
+.warning-message.fully-invalid{
+  color: #f00;
+}
 
 @keyframes blink {
   50%{
