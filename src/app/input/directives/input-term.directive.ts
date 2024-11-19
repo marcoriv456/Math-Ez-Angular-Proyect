@@ -10,7 +10,6 @@ import {
 } from '@angular/core';
 import {InputUtilitiesService} from "../services/caret-positioning/input-utilities.service";
 import {InputEditableElement} from "../models/input-editable-element.class";
-import {InputCharData} from "../char/char.component";
 import {WarningsService} from "../services/warnings/warnings.service";
 import {VariableProvider} from "../models/variable-provider.model";
 import {VariableProviderService} from "../services/variable-provider/variable-provider.service";
@@ -19,6 +18,7 @@ import {FractionChildComponent} from "../fraction/fraction-child/fraction-child.
 import {ExponentComponent} from "../power/exponent.component";
 import {ValidationData} from "../models/char-validation/validation-data.model";
 import {WarningMessageData} from "../models/char-validation/warning-message-data.model";
+import {InputCharData} from "../models/input-char-data.model";
 
 @Directive({
   selector: '[inputTerm]'

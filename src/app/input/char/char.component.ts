@@ -10,10 +10,4 @@ export class CharComponent {
   @Input()
   char!:string
 }
-export type InputCharData={
-  positionX:number
-  positionY:number
-  index:number
-  size:number
-  parent?:InputEditableElement
-}
+

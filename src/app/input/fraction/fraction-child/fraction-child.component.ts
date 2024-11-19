@@ -12,8 +12,8 @@ import {
 import {InputEditableElement} from "../../models/input-editable-element.class";
 import {InputTermDirective} from "../../directives/input-term.directive";
 import {InputUtilitiesService} from "../../services/caret-positioning/input-utilities.service";
-import {InputCharData} from "../../char/char.component";
 import {Term} from "../../models/term.model";
+import {InputCharData} from "../../models/input-char-data.model";
 
 @Component({
   selector: 'frac-child',

@@ -9,7 +9,6 @@ import {
   inject, Input, OnInit, QueryList,
   Renderer2, ViewChild, ViewChildren,
 } from '@angular/core';
-import {CharComponent, InputCharData} from "./char/char.component";
 import {InputUtilitiesService} from "./services/caret-positioning/input-utilities.service";
 import {FractionComponent} from "./fraction/fraction.component";
 import {InputTermDirective} from "./directives/input-term.directive";
@@ -25,6 +24,7 @@ import {WarningsService} from "./services/warnings/warnings.service";
 import {animate, style, transition, trigger} from "@angular/animations";
 import {VariableProviderService} from "./services/variable-provider/variable-provider.service";
 import {WarningMessageData} from "./models/char-validation/warning-message-data.model";
+import {InputCharData} from "./models/input-char-data.model";
 
 @Component({
   selector: 'app-input',

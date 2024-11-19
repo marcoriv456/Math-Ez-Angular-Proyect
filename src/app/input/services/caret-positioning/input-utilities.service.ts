@@ -1,8 +1,8 @@
 import {EventEmitter, Injectable} from '@angular/core';
-import {InputCharData} from "../../char/char.component";
 import {InputComponent} from "../../input.component";
 import {InputEditableElement} from "../../models/input-editable-element.class";
 import {Term} from "../../models/term.model";
+import {InputCharData} from "../../models/input-char-data.model";
 
 @Injectable()
 export class InputUtilitiesService {

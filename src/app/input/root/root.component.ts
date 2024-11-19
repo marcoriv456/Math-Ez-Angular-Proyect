@@ -3,7 +3,7 @@ import {InputEditableElement} from "../models/input-editable-element.class";
 import {InputUtilitiesService} from "../services/caret-positioning/input-utilities.service";
 import {InputTermDirective} from "../directives/input-term.directive";
 import {Term} from "../models/term.model";
-import {InputCharData} from "../char/char.component";
+import {InputCharData} from "../models/input-char-data.model";
 
 @Component({
   selector: 'root',

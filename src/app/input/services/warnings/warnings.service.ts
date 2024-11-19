@@ -1,6 +1,6 @@
 import {EventEmitter, Injectable} from '@angular/core';
-import {InputCharData} from "../../char/char.component";
 import {WarningMessageData} from "../../models/char-validation/warning-message-data.model";
+import {InputCharData} from "../../models/input-char-data.model";
 
 @Injectable()
 export class WarningsService {

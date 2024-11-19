@@ -1,8 +1,8 @@
 import {QueryList} from "@angular/core";
 import {InputTermDirective} from "../directives/input-term.directive";
-import {InputCharData} from "../char/char.component";
 import {InputUtilitiesService} from "../services/caret-positioning/input-utilities.service";
 import {Term} from "./term.model";
+import {InputCharData} from "./input-char-data.model";
 
 export abstract class InputEditableElement{
   abstract parent?:InputEditableElement
