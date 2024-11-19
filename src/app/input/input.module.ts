@@ -10,6 +10,7 @@ import { FractionChildComponent } from './fraction/fraction-child/fraction-child
 import { ExponentComponent } from './power/exponent.component';
 import { RootComponent } from './root/root.component';
 import {WarningsService} from "./services/warnings/warnings.service";
+import {VariableProviderService} from "./services/variable-provider/variable-provider.service";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {WarningsService} from "./services/warnings/warnings.service";
   ],
   providers:[
     InputUtilitiesService,
-    WarningsService
+    WarningsService,
+    VariableProviderService
   ]
 })
 export class InputModule { }

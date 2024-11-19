@@ -6,7 +6,7 @@ import {
   ElementRef,
   HostBinding,
   HostListener,
-  inject, Input, QueryList,
+  inject, Input, OnInit, QueryList,
   Renderer2, ViewChild, ViewChildren,
 } from '@angular/core';
 import {CharComponent, InputCharData} from "./char/char.component";
@@ -23,6 +23,7 @@ import {RootComponent} from "./root/root.component";
 import {VariableProvider} from "./models/variable-provider.model";
 import {WarningsService} from "./services/warnings/warnings.service";
 import {animate, style, transition, trigger} from "@angular/animations";
+import {VariableProviderService} from "./services/variable-provider/variable-provider.service";
 
 @Component({
   selector: 'app-input',
@@ -41,7 +42,7 @@ import {animate, style, transition, trigger} from "@angular/animations";
     ])
   ]
 })
-export class InputComponent extends InputEditableElement implements AfterViewInit {
+export class InputComponent extends InputEditableElement implements AfterViewInit,OnInit {
   @HostBinding('tabindex')
   tabIndex = 0
   @ViewChild('caret')
@@ -96,6 +97,9 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     this.warningsService.showWarning.subscribe((data)=>this.showWarning(data))
     this.warningsService.hideWarning.subscribe(()=>this.hideWarning())
     this.inputUtilitiesService.setInputRef(this)
+  }
+  ngOnInit() {
+    this.variableProviderService.setVariableProvider(this.variableProvider)
   }
 
   override get positionX(): number {
@@ -356,15 +360,6 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 
   private appendSingleChar(char:string){
     this.currentElement.terms.splice(this.caretIndex+1,0, {char,type:'char'})
-    let isCharNotALetter=/[^\w]|\d/.test(char)
-
-    if(isCharNotALetter)
-      return;
-    this.cdr.detectChanges()
-    let renderedChar=this.currentElement.renderedChars.get(this.caretIndex+1)
-    if(!renderedChar)
-      return
-    this.checkCharValidity(renderedChar)
   }
 // ------------------STRUCTURING LOGIC------------------
 // ------------------SIZING LOGIC------------------
@@ -392,19 +387,13 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 // ------------------VARIABLE CHECKING LOGIC------------------
   @Input()
   variableProvider!:VariableProvider
-
-  private checkCharValidity(renderedChar:InputTermDirective){
-    renderedChar.setValid(this.variableProvider.variableNames.includes(renderedChar.char))
-  }
-
+  variableProviderService=inject(VariableProviderService)
 
   @ViewChild('warningContainer')
   warningContainer!:ElementRef
 
   showingWarning=false
   warningMessages:string[]=['No se encontro a la variable "R"']
-
-  // warningPosition={top:0, left:0}
 
   private showWarning({messages,position}:{messages:string[],position:InputCharData}){
     this.showingWarning=true
@@ -413,7 +402,6 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     this.renderer.setStyle(warningContainer,'left',position.positionX+'px')
     this.renderer.setStyle(warningContainer,'top',position.positionY+'px')
     this.warningMessages=messages
-    console.log('from show warning')
   }
   private hideWarning(){
     this.showingWarning=false

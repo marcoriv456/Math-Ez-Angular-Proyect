@@ -1,23 +1,26 @@
 import {
+  AfterViewChecked,
   Directive,
   ElementRef, HostBinding,
   HostListener,
   inject,
   Input,
-  OnChanges,
+  OnChanges, OnDestroy,
   SimpleChanges
 } from '@angular/core';
 import {InputUtilitiesService} from "../services/caret-positioning/input-utilities.service";
 import {InputEditableElement} from "../models/input-editable-element.class";
 import {InputCharData} from "../char/char.component";
 import {WarningsService} from "../services/warnings/warnings.service";
+import {VariableProvider} from "../models/variable-provider.model";
+import {VariableProviderService} from "../services/variable-provider/variable-provider.service";
 
 @Directive({
   selector: '[inputTerm]'
 })
-export class InputTermDirective implements OnChanges{
+export class InputTermDirective implements OnChanges, AfterViewChecked,OnDestroy{
   @Input('inputTerm')
-  input!:{char:string, index:number,editableElementRef?:InputEditableElement,parent:InputEditableElement}
+  input!:{char:string, index:number,editableElementRef?:InputEditableElement,parent:InputEditableElement, variableProvider?:VariableProvider}
 
   ref=inject(ElementRef).nativeElement as HTMLElement
   caretPositioningService=inject(InputUtilitiesService)
@@ -85,8 +88,11 @@ export class InputTermDirective implements OnChanges{
 
   // ------------------VARIABLE CHECKING LOGIC------------------
   warningsService=inject(WarningsService)
+  variableProvider=inject(VariableProviderService)
   @HostBinding('class.invalid')
   invalid=false
+
+  isMouseOver=false
   setValid(valid:boolean){
     this.invalid=!valid
   }
@@ -95,12 +101,29 @@ export class InputTermDirective implements OnChanges{
     if(!this.invalid)
       return;
     this.warningsService.showWarning.emit({messages:[`No se encontro a la variable: "${this.char}"`],position:this.data})
+    this.isMouseOver=true
   }
   @HostListener('mouseleave')
   onMouseLeave(){
     if(!this.invalid)
       return;
     this.warningsService.hideWarning.emit()
+    this.isMouseOver=false
+  }
+  ngOnDestroy() {
+    if(this.isMouseOver)
+      this.warningsService.hideWarning.emit()
+  }
+
+  ngAfterViewChecked() {
+    this.validate();
+  }
+
+  private validate(){
+    let isCharALetter=/[a-zA-z]/.test(this.char)
+
+    if(isCharALetter)
+      this.setValid(this.variableProvider.variableNames.includes(this.char))
   }
   // ------------------VARIABLE CHECKING LOGIC------------------
 }
