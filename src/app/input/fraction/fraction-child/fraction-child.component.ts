@@ -12,7 +12,7 @@ import {
 import {InputEditableElement} from "../../models/input-editable-element.class";
 import {InputTermDirective} from "../../directives/input-term.directive";
 import {InputUtilitiesService} from "../../services/caret-positioning/input-utilities.service";
-import {Term} from "../../models/term.model";
+import {Term} from "../../models/terms/term.model";
 import {InputCharData} from "../../models/input-char-data.model";
 
 @Component({

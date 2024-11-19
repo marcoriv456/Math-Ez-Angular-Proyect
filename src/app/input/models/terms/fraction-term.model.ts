@@ -1,7 +1,6 @@
-import {PowerableTerm} from "./powerable-term.model";
 import {Term} from "./term.model";
 
-export interface FractionTerm extends PowerableTerm{
+export interface FractionTerm{
   numeratorChildren:Term[]
   denominatorChildren:Term[]
   type:'fraction'
