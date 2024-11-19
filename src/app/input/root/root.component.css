@@ -1,16 +1,20 @@
 :host{
+  width: fit-content;
+  height: 90%;
   display: flex;
   margin-top: 2px;
 }
-
 img{
   height: 100%;
 }
 .element-container{
+  position: relative;
   display: flex;
   border-top: 2px solid #1d1d1b;
   min-width:1ch;
+  height: 100%;
 }
+
 .element-container:not(:has(*)){
   border: dashed 1px gray;
   border-top: 2px solid #1d1d1b;

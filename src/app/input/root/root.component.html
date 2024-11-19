@@ -16,6 +16,22 @@
     [inputTerm]="{char:'/',editableElementRef:fractionComponent,index:i,parent:this}"
     [parent]="this"
   ></frac>
+  <exp
+    #exponentComponent
+    *ngIf="term.type=='exponent'"
+    [inputTerm]="{char:'^',index:i,editableElementRef:exponentComponent,parent:this}"
+    [index]="i"
+    [terms]="term.exponentChildren"
+    [parent]="this"
+  ></exp>
+  <root
+    #rootComponent
+    *ngIf="term.type=='root'"
+    [terms]="term.rootChildren"
+    [index]="i"
+    [parent]="this"
+    [inputTerm]="{char:'root',editableElementRef:rootComponent,index:i,parent:this}"
+  ></root>
 </ng-container>
 </div>
 

@@ -1,6 +1,7 @@
 :host{
   display: flex;
-  min-height: var(--height);
+
+  height: var(--height);
   min-width: 1ch;
   align-self: start;
 }

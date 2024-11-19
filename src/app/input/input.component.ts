@@ -256,7 +256,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   appendChar(char:string,ctrlKey?:boolean,altKey?:boolean) {
     if(char=='/')
       this.appendFraction()
-    else if(char=='{' && ctrlKey && altKey)
+    else if(char=='e' && ctrlKey)
       this.appendExponent()
     else if(char=='r' && ctrlKey)
       this.appendRoot()
