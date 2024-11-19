@@ -336,13 +336,31 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     ,1)
   }
 
+// ------------------STRUCTURING LOGIC------------------
+// ------------------SIZING LOGIC------------------
+  @Input()
+  inputFontSize!:number;
+  @Input()
+  dimensions!:{width:number,height:number};
+  @HostBinding('style.--height')
+  get heightToBind(){
+    return this.dimensions.height+'rem'
+  }
+  @HostBinding('style.--width')
+  get widthToBind(){
+    return this.dimensions.width+'rem'
+  }
+
 
   @HostBinding('style.--font-size')
   override get fontSizeToBind(){
     return super.fontSizeToBind
   }
+  override get fontSize(){
+    return this.inputFontSize
+  }
 
-// ------------------STRUCTURING LOGIC------------------
+// ------------------SIZING LOGIC------------------
   protected readonly console = console;
 }
 
