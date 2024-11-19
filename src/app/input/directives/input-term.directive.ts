@@ -18,6 +18,7 @@ import {FractionComponent} from "../fraction/fraction.component";
 import {FractionChildComponent} from "../fraction/fraction-child/fraction-child.component";
 import {ExponentComponent} from "../power/exponent.component";
 import {ValidationData} from "../models/char-validation/validation-data.model";
+import {WarningMessageData} from "../models/char-validation/warning-message-data.model";
 
 @Directive({
   selector: '[inputTerm]'
@@ -185,10 +186,4 @@ export class InputTermDirective implements OnChanges,OnDestroy{
     this.invalidType=type
   }
   // ------------------VARIABLE CHECKING LOGIC------------------
-}
-
-
-export interface WarningMessageData{
-  message:string
-  type?:'partially-invalid'|'fully-invalid'
 }

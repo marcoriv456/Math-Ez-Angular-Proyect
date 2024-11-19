@@ -10,7 +10,7 @@ import {
   ViewChildren
 } from '@angular/core';
 import {InputEditableElement} from "../../models/input-editable-element.class";
-import {InputTermDirective, WarningMessageData} from "../../directives/input-term.directive";
+import {InputTermDirective} from "../../directives/input-term.directive";
 import {InputUtilitiesService} from "../../services/caret-positioning/input-utilities.service";
 import {InputCharData} from "../../char/char.component";
 import {Term} from "../../models/term.model";

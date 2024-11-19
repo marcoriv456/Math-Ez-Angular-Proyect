@@ -12,7 +12,7 @@ import {
 import {CharComponent, InputCharData} from "./char/char.component";
 import {InputUtilitiesService} from "./services/caret-positioning/input-utilities.service";
 import {FractionComponent} from "./fraction/fraction.component";
-import {InputTermDirective, WarningMessageData} from "./directives/input-term.directive";
+import {InputTermDirective} from "./directives/input-term.directive";
 import {InputEditableElement} from "./models/input-editable-element.class";
 import {CharTerm} from "./models/char-term.model";
 import {FractionTerm} from "./models/fraction-term.model";
@@ -24,6 +24,7 @@ import {VariableProvider} from "./models/variable-provider.model";
 import {WarningsService} from "./services/warnings/warnings.service";
 import {animate, style, transition, trigger} from "@angular/animations";
 import {VariableProviderService} from "./services/variable-provider/variable-provider.service";
+import {WarningMessageData} from "./models/char-validation/warning-message-data.model";
 
 @Component({
   selector: 'app-input',

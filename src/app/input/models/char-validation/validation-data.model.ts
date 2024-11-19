@@ -1,4 +1,4 @@
-import {WarningMessageData} from "../../directives/input-term.directive";
+import {WarningMessageData} from "./warning-message-data.model";
 
 export interface ValidationData{
   isValid:boolean
