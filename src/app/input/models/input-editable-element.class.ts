@@ -95,9 +95,6 @@ export abstract class InputEditableElement{
     return this.getCharData(from-1)||this.noCharData
   }
   // ------------------VARIABLE CHECKING LOGIC------------------
-  validate():ValidationData{
-    return {isValid:true}
-  }
   // ------------------VARIABLE CHECKING LOGIC------------------
 
 }

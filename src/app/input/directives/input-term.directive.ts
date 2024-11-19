@@ -14,6 +14,8 @@ import {InputCharData} from "../char/char.component";
 import {WarningsService} from "../services/warnings/warnings.service";
 import {VariableProvider} from "../models/variable-provider.model";
 import {VariableProviderService} from "../services/variable-provider/variable-provider.service";
+import {FractionComponent} from "../fraction/fraction.component";
+import {FractionChildComponent} from "../fraction/fraction-child/fraction-child.component";
 
 @Directive({
   selector: '[inputTerm]'
@@ -72,7 +74,6 @@ export class InputTermDirective implements OnChanges,OnDestroy{
   }
 
 
-
   private get rightPosition(){
     return this.leftPosition+this.ref.offsetWidth
   }
@@ -114,26 +115,54 @@ export class InputTermDirective implements OnChanges,OnDestroy{
   }
 
   private validate(){
-    let validationData:ValidationData={isValid:true}
-    if(this.isCharALetter())
-      validationData=this.validateChar()
-    else if(this.asEditableElement)
-      validationData=this.asEditableElement.validate()
+    let messages:WarningMessageData[]=[]
+    if(this.isCharALetter){
+      let varRefValidation=this.validateVariableReference()
+      if(varRefValidation)
+        messages.push(varRefValidation)
+    }
+    if(this.isParentAFraction){
+      console.log('parent is fraction in: ', this.char)
+      let fracCharValidation=this.validateFractionChar()
+      if(fracCharValidation)
+        messages.push(fracCharValidation)
+    }
+
+    let isValid=messages.length==0
+    let validationData:ValidationData={
+      isValid,
+      messages,
+      type:isValid?
+        undefined:messages.find((message)=>message.type=='fully-invalid') ?
+          'fully-invalid':'partially-invalid'
+    }
+
     this.setValidationData(validationData)
   }
 
-  private isCharALetter(){
-    return /[a-zA-z]/.test(this.char)
+  private get isCharALetter():boolean{
+    return /^[a-zA-z]$/.test(this.char)
+  }
+  private get isParentAFraction(){
+    return this.parent instanceof FractionChildComponent
   }
 
-  private validateChar():ValidationData{
-    let isValid:boolean=this.variableProvider.variableNames.includes(this.char);
-    return{
-      isValid:isValid,
-      type:isValid?undefined:"fully-invalid",
-      messages:[{message:`No se encontro a la variable: "${this.char}"`,type:'fully-invalid'}]
-    }
+  private validateVariableReference():WarningMessageData|undefined{
+    let isInvalid:boolean=!this.variableProvider.variableNames.includes(this.char);
+    if (isInvalid)
+      return{ message:`No se encontro a la variable: "${this.char}"`,type:'fully-invalid'}
+    return;
   }
+  private validateFractionChar():WarningMessageData|undefined{
+    let parentValue=(this.parent as FractionChildComponent).value
+    let isInvalid=/^0+$/.test(parentValue)
+    console.log('in fraction validation of char: ', this.char, isInvalid)
+    if(isInvalid)
+      return {message:'No se puede dividir por 0.', type:'partially-invalid'}
+    return;
+  }
+
+
   private setValidationData({isValid,type,messages}:ValidationData){
     this.valid=isValid
     this.warningMessages=messages||[]

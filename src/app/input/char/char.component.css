@@ -17,6 +17,9 @@
 :host.fully-invalid:hover{
   background-color: #faa;
 }
+:host.partially-invalid{
+  --color: #777;
+}
 pre{
   font-family: "Times New Roman", sans-serif;
   color: var(--color);
