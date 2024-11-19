@@ -38,7 +38,8 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 
   @HostListener('click')
   onClick() {
-    this.moveCaretTo(this.currentElement.lastCharData)
+    this.setCurrentElement(this)
+    this.moveCaretTo(this.lastCharData)
   }
 
   cdr = inject(ChangeDetectorRef)
