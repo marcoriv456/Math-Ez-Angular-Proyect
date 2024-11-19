@@ -339,9 +339,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 // ------------------STRUCTURING LOGIC------------------
 // ------------------SIZING LOGIC------------------
   @Input()
-  inputFontSize!:number;
-  @Input()
-  dimensions!:{width:number,height:number};
+  dimensions!:{fontSize: number,width:number,height:number};
   @HostBinding('style.--height')
   get heightToBind(){
     return this.dimensions.height+'rem'
@@ -357,7 +355,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     return super.fontSizeToBind
   }
   override get fontSize(){
-    return this.inputFontSize
+    return this.dimensions.fontSize
   }
 
 // ------------------SIZING LOGIC------------------
