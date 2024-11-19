@@ -3,6 +3,7 @@
   height: 90%;
   display: flex;
   margin-top: 2px;
+  --line-height:calc(var(--font-size)  *0.05);
 }
 img{
   height: 100%;
@@ -10,12 +11,12 @@ img{
 .element-container{
   position: relative;
   display: flex;
-  border-top: 2px solid #1d1d1b;
+  border-top: var(--line-height) solid #1d1d1b;
   min-width:2ch;
   height: 100%;
 }
 
 .element-container:not(:has(*)){
-  border: dashed 1px gray;
-  border-top: 2px solid #1d1d1b;
+  border: dashed var(--line-height) gray;
+  border-top: var(--line-height) solid #1d1d1b;
 }

@@ -8,12 +8,14 @@
 }
 
 .frac-bar{
+  --line-height:calc(var(--font-size)  *0.05);
+
   position: absolute;
   top: 50%;
   left: 50%;
   translate: -50% -50%;
 
   width: 90%;
-  height: 1px;
+  height: var(--line-height);
   background-color: black;
 }
