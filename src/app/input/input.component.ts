@@ -68,7 +68,6 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   ];
 
   currentElement: InputEditableElement = this
-  caretPosition = 0
   caretIndex = 0
   ref = inject(ElementRef).nativeElement as HTMLElement
 
