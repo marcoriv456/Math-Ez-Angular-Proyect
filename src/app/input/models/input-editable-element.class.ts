@@ -1,5 +1,5 @@
 import {QueryList} from "@angular/core";
-import {InputTermDirective, ValidationData} from "../directives/input-term.directive";
+import {InputTermDirective} from "../directives/input-term.directive";
 import {InputCharData} from "../char/char.component";
 import {InputUtilitiesService} from "../services/caret-positioning/input-utilities.service";
 import {Term} from "./term.model";

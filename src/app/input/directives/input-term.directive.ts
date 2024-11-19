@@ -17,6 +17,7 @@ import {VariableProviderService} from "../services/variable-provider/variable-pr
 import {FractionComponent} from "../fraction/fraction.component";
 import {FractionChildComponent} from "../fraction/fraction-child/fraction-child.component";
 import {ExponentComponent} from "../power/exponent.component";
+import {ValidationData} from "../models/char-validation/validation-data.model";
 
 @Directive({
   selector: '[inputTerm]'
@@ -186,11 +187,7 @@ export class InputTermDirective implements OnChanges,OnDestroy{
   // ------------------VARIABLE CHECKING LOGIC------------------
 }
 
-export interface ValidationData{
-  isValid:boolean
-  type?:'partially-invalid'|'fully-invalid'
-  messages?:WarningMessageData[]
-}
+
 export interface WarningMessageData{
   message:string
   type?:'partially-invalid'|'fully-invalid'
