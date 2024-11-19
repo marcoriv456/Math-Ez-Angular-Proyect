@@ -16,6 +16,7 @@ import {VariableProvider} from "../models/variable-provider.model";
 import {VariableProviderService} from "../services/variable-provider/variable-provider.service";
 import {FractionComponent} from "../fraction/fraction.component";
 import {FractionChildComponent} from "../fraction/fraction-child/fraction-child.component";
+import {ExponentComponent} from "../power/exponent.component";
 
 @Directive({
   selector: '[inputTerm]'
@@ -122,10 +123,14 @@ export class InputTermDirective implements OnChanges,OnDestroy{
         messages.push(varRefValidation)
     }
     if(this.isParentAFraction){
-      console.log('parent is fraction in: ', this.char)
       let fracCharValidation=this.validateFractionChar()
       if(fracCharValidation)
         messages.push(fracCharValidation)
+    }
+    if(this.isParentAnExponent){
+      let expCharValidation=this.validateExponentChar()
+      if(expCharValidation)
+        messages.push(expCharValidation)
     }
 
     let isValid=messages.length==0
@@ -146,6 +151,9 @@ export class InputTermDirective implements OnChanges,OnDestroy{
   private get isParentAFraction(){
     return this.parent instanceof FractionChildComponent
   }
+  private get isParentAnExponent(){
+    return this.parent instanceof ExponentComponent
+  }
 
   private validateVariableReference():WarningMessageData|undefined{
     let isInvalid:boolean=!this.variableProvider.variableNames.includes(this.char);
@@ -154,11 +162,18 @@ export class InputTermDirective implements OnChanges,OnDestroy{
     return;
   }
   private validateFractionChar():WarningMessageData|undefined{
-    let parentValue=(this.parent as FractionChildComponent).value
+    let parentValue=this.parent.value
     let isInvalid=/^0+$/.test(parentValue)
-    console.log('in fraction validation of char: ', this.char, isInvalid)
     if(isInvalid)
       return {message:'No se puede dividir por 0.', type:'partially-invalid'}
+    return;
+  }
+  private validateExponentChar():WarningMessageData|undefined{
+    let parentValue=this.parent.value
+    if(/^0+$/.test(parentValue))
+      return {message:'Cualquier valor elevado a 0 es igual a 1.', type:'partially-invalid'}
+    if(parentValue=='1')
+      return {message:'Elevar a la potencia 1 es redundante.', type:'partially-invalid'}
     return;
   }
 

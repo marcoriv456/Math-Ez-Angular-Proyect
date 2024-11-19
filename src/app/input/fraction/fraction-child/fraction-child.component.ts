@@ -49,12 +49,4 @@ export class FractionChildComponent extends InputEditableElement{
     this.termDeleted.emit()
     return;
   }
-
-  get value(){
-    return this.terms.map(child=>{
-      if(child.type=='char')
-        return child.char
-      return '/'+child.type+'/'
-    }).join('')
-  }
 }

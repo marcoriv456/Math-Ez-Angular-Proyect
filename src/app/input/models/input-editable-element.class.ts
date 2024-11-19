@@ -95,6 +95,13 @@ export abstract class InputEditableElement{
     return this.getCharData(from-1)||this.noCharData
   }
   // ------------------VARIABLE CHECKING LOGIC------------------
+  get value(){
+    return this.terms.map(child=>{
+      if(child.type=='char')
+        return child.char
+      return '/'+child.type+'/'
+    }).join('')
+  }
   // ------------------VARIABLE CHECKING LOGIC------------------
 
 }
