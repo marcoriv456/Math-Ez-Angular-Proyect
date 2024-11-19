@@ -37,28 +37,31 @@
   height: calc(var(--height) * 0.9);
   animation: blink 1s infinite;
 }
-
-
-.frac{
-  position: relative;
+.warning-container{
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.frac-bar{
   position: absolute;
-  top: 50%;
-  left: 50%;
-  translate: -50% -50%;
-
-  width: 90%;
-  height: 1px;
-  background-color: black;
+  translate: -50% calc(-100% - 1rem);
+  background-color: white;
+  filter: drop-shadow(4px 4px 10px #999);
+  font-size: 1.2rem;
+  color: #f00;
+  transition-property: left,top;
+  transition: 500ms cubic-bezier(0,0,0,1);
 }
-
-
+.warning-container:after{
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  translate: calc(-50% - 0.5rem) 0;
+  width: 1rem;
+  height:0;
+  border-left: 1rem solid transparent;
+  border-right: 1rem solid transparent;
+  border-top: 1rem solid white;
+  filter: drop-shadow(4px 4px 10px #999);
+}
 
 
 @keyframes blink {

@@ -21,11 +21,25 @@ import {Term} from "./models/term.model";
 import {FractionChildComponent} from "./fraction/fraction-child/fraction-child.component";
 import {RootComponent} from "./root/root.component";
 import {VariableProvider} from "./models/variable-provider.model";
+import {WarningsService} from "./services/warnings/warnings.service";
+import {animate, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'app-input',
   templateUrl: './input.component.html',
-  styleUrl: './input.component.css'
+  styleUrl: './input.component.css',
+  animations:[
+    trigger('warning-animations',[
+      transition(':enter',[
+        style({transform:'translateY(-100%)',opacity:0}),
+        animate('500ms cubic-bezier(0,0,0,1)',style({transform:'translateY(0)',opacity:1}))
+      ]),
+      transition(':leave',[
+        animate('500ms cubic-bezier(0,0,0,1)',style({transform:'translateY(-100%)',opacity:0}))
+      ]),
+
+    ])
+  ]
 })
 export class InputComponent extends InputEditableElement implements AfterViewInit {
   @HostBinding('tabindex')
@@ -46,6 +60,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   cdr = inject(ChangeDetectorRef)
   renderer = inject(Renderer2)
   inputUtilitiesService = inject(InputUtilitiesService)
+  warningsService=inject(WarningsService)
   terms: Term[] = [
     {char: 'h', type: 'char'},
     {char: 'o', type: 'char'},
@@ -78,6 +93,8 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   ngAfterViewInit() {
     this.inputUtilitiesService.charClicked.subscribe((charData) => this.moveCaretTo(charData))
     this.inputUtilitiesService.elementDeletedEmitter.subscribe(({elementIndex,residualData})=>this.deleteElement(elementIndex,residualData))
+    this.warningsService.showWarning.subscribe((data)=>this.showWarning(data))
+    this.warningsService.hideWarning.subscribe(()=>this.hideWarning())
     this.inputUtilitiesService.setInputRef(this)
   }
 
@@ -379,6 +396,29 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   private checkCharValidity(renderedChar:InputTermDirective){
     renderedChar.setValid(this.variableProvider.variableNames.includes(renderedChar.char))
   }
+
+
+  @ViewChild('warningContainer')
+  warningContainer!:ElementRef
+
+  showingWarning=false
+  warningMessages:string[]=['No se encontro a la variable "R"']
+
+  // warningPosition={top:0, left:0}
+
+  private showWarning({messages,position}:{messages:string[],position:InputCharData}){
+    this.showingWarning=true
+    this.cdr.detectChanges()
+    let warningContainer=this.warningContainer.nativeElement as HTMLElement
+    this.renderer.setStyle(warningContainer,'left',position.positionX+'px')
+    this.renderer.setStyle(warningContainer,'top',position.positionY+'px')
+    this.warningMessages=messages
+    console.log('from show warning')
+  }
+  private hideWarning(){
+    this.showingWarning=false
+  }
+
 // ------------------VARIABLE CHECKING LOGIC------------------
   protected readonly console = console;
 }

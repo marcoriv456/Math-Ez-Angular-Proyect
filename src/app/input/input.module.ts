@@ -9,6 +9,7 @@ import { InputTermDirective } from './directives/input-term.directive';
 import { FractionChildComponent } from './fraction/fraction-child/fraction-child.component';
 import { ExponentComponent } from './power/exponent.component';
 import { RootComponent } from './root/root.component';
+import {WarningsService} from "./services/warnings/warnings.service";
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { RootComponent } from './root/root.component';
     CommonModule
   ],
   providers:[
-    InputUtilitiesService
+    InputUtilitiesService,
+    WarningsService
   ]
 })
 export class InputModule { }

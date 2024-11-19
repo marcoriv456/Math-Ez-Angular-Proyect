@@ -11,6 +11,7 @@ import { FooterComponent } from './footer/footer.component';
 import { InputComponent } from './input/input.component';
 import { InputTestingEnvironmentComponent } from './input/input-testing-environment/input-testing-environment.component';
 import {InputModule} from "./input/input.module";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
     declarations: [
@@ -22,7 +23,8 @@ import {InputModule} from "./input/input.module";
         BrowserModule,
         AppRoutingModule,
         HomeModule,
-        InputModule
+        InputModule,
+        BrowserAnimationsModule
     ],
     providers: [],
     bootstrap: [AppComponent]

@@ -10,6 +10,7 @@ import {
 import {InputUtilitiesService} from "../services/caret-positioning/input-utilities.service";
 import {InputEditableElement} from "../models/input-editable-element.class";
 import {InputCharData} from "../char/char.component";
+import {WarningsService} from "../services/warnings/warnings.service";
 
 @Directive({
   selector: '[inputTerm]'
@@ -83,10 +84,23 @@ export class InputTermDirective implements OnChanges{
   }
 
   // ------------------VARIABLE CHECKING LOGIC------------------
+  warningsService=inject(WarningsService)
   @HostBinding('class.invalid')
   invalid=false
   setValid(valid:boolean){
     this.invalid=!valid
+  }
+  @HostListener('mouseover')
+  onMouseOver(){
+    if(!this.invalid)
+      return;
+    this.warningsService.showWarning.emit({messages:[`No se encontro a la variable: "${this.char}"`],position:this.data})
+  }
+  @HostListener('mouseleave')
+  onMouseLeave(){
+    if(!this.invalid)
+      return;
+    this.warningsService.hideWarning.emit()
   }
   // ------------------VARIABLE CHECKING LOGIC------------------
 }
