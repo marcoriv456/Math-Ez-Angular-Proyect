@@ -2,15 +2,18 @@
   display: grid;
   place-items: center;
   width: fit-content;
-  height: 100%;
+
   font-size: var(--font-size);
   animation: new-char 0.5s ease;
+  border-radius: 2px;
 }
 :host:hover{
   background-color: #0004;
 }
 :host.invalid{
-  --color:#f00
+  --color:#f00;
+  outline: 2px solid var(--color);
+  margin: 4px 0;
 }
 pre{
   font-family: "Times New Roman", sans-serif;
