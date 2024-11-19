@@ -130,7 +130,8 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 
   private moveCaretContextForward() {
     let nextRenderedElement = this.nextRenderedElement
-    if(this.currentElement instanceof FractionChildComponent)
+    let isCaretInTheLastPosition=this.caretIndex==this.currentElement.lastCharData.index
+    if(this.currentElement instanceof FractionChildComponent && isCaretInTheLastPosition)
       nextRenderedElement=this.nextRenderedElementInParent
     let nextRenderedElementClassRef = nextRenderedElement?.asEditableElement
     if (!nextRenderedElement || !nextRenderedElementClassRef)
@@ -170,7 +171,8 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 
   private moveCaretContextBackwards() {
     let prevRenderedElement = this.prevRenderedElement
-    if(this.currentElement instanceof FractionChildComponent)
+    let isCaretInTheFirstPosition=this.caretIndex==-1
+    if(this.currentElement instanceof FractionChildComponent && isCaretInTheFirstPosition)
       prevRenderedElement=this.prevRenderedElementInParent
     if (!prevRenderedElement || !prevRenderedElement.asEditableElement)
       this.moveContextToActualParent(
