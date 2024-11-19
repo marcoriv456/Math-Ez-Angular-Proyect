@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
+import {ExperimentalVariableProviderService} from "./experimental-variable-provider.service";
 
 @Component({
   selector: 'app-input-testing-environment',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './input-testing-environment.component.css'
 })
 export class InputTestingEnvironmentComponent {
-
+  expVariableProvider=inject(ExperimentalVariableProviderService)
 }

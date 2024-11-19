@@ -20,6 +20,7 @@ import {RootTerm} from "./models/root-term.model";
 import {Term} from "./models/term.model";
 import {FractionChildComponent} from "./fraction/fraction-child/fraction-child.component";
 import {RootComponent} from "./root/root.component";
+import {VariableProvider} from "./models/variable-provider.model";
 
 @Component({
   selector: 'app-input',
@@ -263,7 +264,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     else if(char=='r' && ctrlKey)
       this.appendRoot()
     else
-      this.currentElement.terms.splice(this.caretIndex+1,0, {char,type:'char'})
+      this.appendSingleChar(char)
     this.cdr.detectChanges()
     this.moveCaretTo(this.nextCharData)
   }
@@ -336,6 +337,18 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     ,1)
   }
 
+  private appendSingleChar(char:string){
+    this.currentElement.terms.splice(this.caretIndex+1,0, {char,type:'char'})
+    let isCharNotALetter=/[^\w]|\d/.test(char)
+
+    if(isCharNotALetter)
+      return;
+    this.cdr.detectChanges()
+    let renderedChar=this.currentElement.renderedChars.get(this.caretIndex+1)
+    if(!renderedChar)
+      return
+    this.checkCharValidity(renderedChar)
+  }
 // ------------------STRUCTURING LOGIC------------------
 // ------------------SIZING LOGIC------------------
   @Input()
@@ -359,6 +372,14 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   }
 
 // ------------------SIZING LOGIC------------------
+// ------------------VARIABLE CHECKING LOGIC------------------
+  @Input()
+  variableProvider!:VariableProvider
+
+  private checkCharValidity(renderedChar:InputTermDirective){
+    renderedChar.setValid(this.variableProvider.variableNames.includes(renderedChar.char))
+  }
+// ------------------VARIABLE CHECKING LOGIC------------------
   protected readonly console = console;
 }
 

@@ -9,8 +9,12 @@
 :host:hover{
   background-color: #0004;
 }
+:host.invalid{
+  --color:#f00
+}
 pre{
   font-family: "Times New Roman", sans-serif;
+  color: var(--color);
 }
 @keyframes new-char {
   from{

@@ -1,6 +1,6 @@
 import {
   Directive,
-  ElementRef,
+  ElementRef, HostBinding,
   HostListener,
   inject,
   Input,
@@ -82,4 +82,11 @@ export class InputTermDirective implements OnChanges{
     return this.ref.offsetHeight
   }
 
+  // ------------------VARIABLE CHECKING LOGIC------------------
+  @HostBinding('class.invalid')
+  invalid=false
+  setValid(valid:boolean){
+    this.invalid=!valid
+  }
+  // ------------------VARIABLE CHECKING LOGIC------------------
 }
