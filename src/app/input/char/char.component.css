@@ -4,7 +4,6 @@
   width: fit-content;
   height: 100%;
   font-size: var(--font-size);
-  outline: 1px solid #4449;
   animation: new-char 0.5s ease;
 }
 :host:hover{
