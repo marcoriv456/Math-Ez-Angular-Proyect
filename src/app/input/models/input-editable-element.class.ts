@@ -3,6 +3,7 @@ import {InputTermDirective} from "../directives/input-term.directive";
 import {InputUtilitiesService} from "../services/caret-positioning/input-utilities.service";
 import {Term} from "./terms/term.model";
 import {InputCharData} from "./input-char-data.model";
+import {InputComponent} from "../input.component";
 
 export abstract class InputEditableElement{
   abstract parent?:InputEditableElement
@@ -12,7 +13,13 @@ export abstract class InputEditableElement{
   abstract index:number
   abstract inputUtilitiesService:InputUtilitiesService
   get positionX(): number {
-    return this.ref.getBoundingClientRect().left-this.inputUtilitiesService.inputPositionX;
+    let parent:InputEditableElement|undefined=this.parent
+    let leftPosition=this.ref.offsetLeft
+    while(!(parent instanceof InputComponent)){
+      leftPosition+=parent?.ref.offsetLeft||0
+      parent=parent?.parent
+    }
+    return leftPosition
   }
 
   get positionY(): number {

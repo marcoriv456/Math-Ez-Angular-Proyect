@@ -502,7 +502,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     let scrollBarTo=scrollBarFrom+overlay.clientWidth
     let isCharVisible=positionX > scrollBarFrom && positionX < scrollBarTo
     if(!isCharVisible)
-      overlay.scroll({left:positionX > scrollBarTo ? scrollBarFrom+size: scrollBarFrom-size})
+      overlay.scroll({left:positionX > scrollBarFrom ? scrollBarFrom+size: scrollBarFrom-size})
   }
 }
 
