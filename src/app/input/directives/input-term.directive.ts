@@ -19,6 +19,7 @@ import {ExponentComponent} from "../power/exponent.component";
 import {ValidationData} from "../models/char-validation/validation-data.model";
 import {WarningMessageData} from "../models/char-validation/warning-message-data.model";
 import {InputCharData} from "../models/input-char-data.model";
+import {InputComponent} from "../input.component";
 
 @Directive({
   selector: '[inputTerm]'
@@ -81,7 +82,13 @@ export class InputTermDirective implements OnChanges,OnDestroy{
     return this.leftPosition+this.ref.offsetWidth
   }
   private get leftPosition(){
-    return this.ref.getBoundingClientRect().left-this.caretPositioningService.inputPositionX
+    let parent:InputEditableElement|undefined=this.parent
+    let leftPosition=this.ref.offsetLeft
+    while(!(parent instanceof InputComponent)){
+      leftPosition+=parent?.ref.offsetLeft||0
+      parent=parent?.parent
+    }
+    return leftPosition
   }
   private get topPosition(){
     return this.ref.getBoundingClientRect().top-this.caretPositioningService.inputPositionY

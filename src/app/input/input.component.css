@@ -73,7 +73,13 @@
 .warning-message.fully-invalid{
   color: #f00;
 }
-
+.char-container{
+  width: 100%;
+  height: 100%;
+  overflow-x: auto;
+  display: flex;
+  scrollbar-width: thin;
+}
 @keyframes blink {
   50%{
     height: 0;
