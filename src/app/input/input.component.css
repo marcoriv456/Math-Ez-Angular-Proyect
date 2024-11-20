@@ -13,11 +13,30 @@
 :host:focus{
   outline: 2px solid black;
 }
+.main-overlay{
+  width: 100%;
+  height: 100%;
 
-#caret-container{
-  height: var(--height);
+  position: relative;
+
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.caret-overlay{
+  width: 100%;
+  height: 100%;
 
   position: absolute;
+  top: 0;
+  left: 0;
+
+  pointer-events: none;
+}
+#caret-container{
+  height: var(--height);
+  width: fit-content;
+
+  position: relative;
 
   transition-property: height,left;
   transition: 0.1s ease;
@@ -26,7 +45,7 @@
   width: 3px;
   height: 0;
 
-  position: absolute;
+  position: relative;
   top: 50%;
   translate: 0 -50%;
 
@@ -36,6 +55,11 @@
 :host:focus #caret-container span{
   height: calc(var(--height) * 0.9);
   animation: blink 1s infinite;
+}
+.char-container{
+  width: 100%;
+  height: 100%;
+  display: flex;
 }
 .warning-container{
   position: absolute;
@@ -72,13 +96,6 @@
 }
 .warning-message.fully-invalid{
   color: #f00;
-}
-.char-container{
-  width: 100%;
-  height: 100%;
-  overflow-x: auto;
-  display: flex;
-  scrollbar-width: thin;
 }
 @keyframes blink {
   50%{
