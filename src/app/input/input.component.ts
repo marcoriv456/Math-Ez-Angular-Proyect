@@ -285,12 +285,11 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
       this.appendExponent()
     else if(char=='r' && ctrlKey)
       this.appendRoot()
-    else if(char=='f' && ctrlKey)
-      this.appendFunction()
     else
       this.appendSingleChar(char)
     this.cdr.detectChanges()
     this.moveCaretTo(this.nextCharData)
+    this.searchFunctionWrittenReferences()
   }
 
   moveCaretTo({positionX,positionY,index,size,parent}:InputCharData){
@@ -412,12 +411,32 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 
 // ------------------VARIABLE CHECKING LOGIC------------------
   // ------------------FUNCTION CHECKING LOGIC------------------
-  private appendFunction(){
-    this.currentElement.terms.splice(this.caretIndex+1,0,{type:'function', functionChildren:[],functionName:'sen'})
+  recognizableFunctions=['sen','cos','tan','log','ln']
+  private searchFunctionWrittenReferences(){
+    let actualValue=this.currentElement.toString
+    let coincidence:RegExpExecArray|null=null
+    let foundFunction=''
+    for(let functionName of this.recognizableFunctions){
+      let functionRegexp=new RegExp(functionName,'id')
+      coincidence=functionRegexp.exec(actualValue)
+      foundFunction=functionName
+      if(coincidence)
+        break;
+    }
+    let indices=coincidence?.indices
+    if(!indices)
+      return;
+    let from=indices[0][0]
+    let to=indices[0][1]-1
+    this.appendFunction(from,to,foundFunction)
+  }
+  private appendFunction(from:number,to:number,functionName:string){
+    this.currentElement.terms.splice(from,from+to,{type:'function', functionChildren:[],functionName:functionName})
     this.cdr.detectChanges()
-    let appendedFunction=this.currentElement.renderedChars.get(this.caretIndex+1)?.asEditableElement
-    if(appendedFunction)
-      this.setCurrentElement(appendedFunction)
+    let renderedFunction=this.currentElement.renderedChars.get(this.caretIndex+1-functionName.length)?.asEditableElement
+    if(renderedFunction)
+      this.setCurrentElement(renderedFunction)
+    this.moveCaretTo(this.currentElement.noCharData)
   }
 
 

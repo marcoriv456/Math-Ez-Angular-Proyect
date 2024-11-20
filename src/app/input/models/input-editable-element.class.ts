@@ -102,6 +102,13 @@ export abstract class InputEditableElement{
       return '/'+child.type+'/'
     }).join('')
   }
+  get toString(){
+    return this.terms.map(child=>{
+      if(child.type=='char')
+        return child.char
+      return '~'
+    }).join('')
+  }
   // ------------------VARIABLE CHECKING LOGIC------------------
 
 }

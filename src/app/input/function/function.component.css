@@ -1,11 +1,14 @@
 :host{
   display: flex;
   align-items: center;
-  height: fit-content;
+  height: 100%;
   align-self: center;
 }
 span{
   font-family: "Times New Roman";
   font-size: var(--parent-font-size);
+}
+char{
+  height: 100%;
 }
 
