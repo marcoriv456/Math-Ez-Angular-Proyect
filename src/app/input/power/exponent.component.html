@@ -29,4 +29,13 @@
     [parent]="this"
     [inputTerm]="{char:'\\root',editableElementRef:rootComponent,index:i,parent:this}"
   ></root>
+  <function
+    #functionComponent
+    *ngIf="term.type=='function'"
+    [terms]="term.functionChildren"
+    [index]="i"
+    [parent]="this"
+    [inputTerm]="{char:'\\function',editableElementRef:functionComponent,index:i,parent:this}"
+    [functionName]="term.functionName"
+  ></function>
 </ng-container>
