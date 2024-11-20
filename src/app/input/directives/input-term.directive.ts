@@ -97,6 +97,9 @@ export class InputTermDirective implements OnChanges,OnDestroy{
     return this.ref.offsetHeight
   }
 
+  private get absoluteLeftPosition(){
+    return this.ref.getBoundingClientRect().left-this.caretPositioningService.inputPositionX
+  }
   // ------------------VARIABLE CHECKING LOGIC------------------
   warningsService=inject(WarningsService)
   warningMessages:WarningMessageData[]=[]
@@ -109,7 +112,9 @@ export class InputTermDirective implements OnChanges,OnDestroy{
   onMouseOver(){
     if(this.valid)
       return;
-    this.warningsService.showWarning.emit({messages:this.warningMessages,position:this.data})
+    let dataToSend=this.data
+    dataToSend.positionX=this.absoluteLeftPosition
+    this.warningsService.showWarning.emit({messages:this.warningMessages,position:dataToSend})
     this.isMouseOver=true
   }
   @HostListener('mouseleave')
