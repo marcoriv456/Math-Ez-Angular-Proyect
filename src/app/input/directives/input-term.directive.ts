@@ -82,11 +82,11 @@ export class InputTermDirective implements OnChanges,OnDestroy{
     return this.leftPosition+this.ref.offsetWidth
   }
   private get leftPosition(){
-    let parent:InputEditableElement|undefined=this.parent
+    let parent:HTMLElement|null=this.ref.parentElement
     let leftPosition=this.ref.offsetLeft
-    while(!(parent instanceof InputComponent)){
-      leftPosition+=parent?.ref.offsetLeft||0
-      parent=parent?.parent
+    while(parent && !(parent.tagName=='APP-INPUT')){
+      leftPosition+=parent.offsetLeft||0
+      parent=parent.parentElement
     }
     return leftPosition
   }
