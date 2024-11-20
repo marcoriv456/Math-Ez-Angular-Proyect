@@ -48,6 +48,8 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   tabIndex = 0
   @ViewChild('caret')
   caretRef!: ElementRef
+  @ViewChild('overlay')
+  overlay!:ElementRef
   @ViewChildren(InputTermDirective)
   renderedChars!: QueryList<InputTermDirective>
 
@@ -349,6 +351,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     if(parent)
       this.setCurrentElement(parent)
     this.caretIndex=index
+    this.makeCharVisible(positionX,size)
   }
   deleteChar(from=this.caretIndex, deleteCount=1){
     if(this.caretIndex==-1&&this.currentElement==this)
@@ -492,5 +495,14 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 
 
   // ------------------FUNCTION CHECKING LOGIC------------------
+
+  private makeCharVisible(positionX:number, size:number){
+    let overlay=this.overlay.nativeElement as HTMLElement
+    let scrollBarFrom=overlay.scrollLeft
+    let scrollBarTo=scrollBarFrom+overlay.clientWidth
+    let isCharVisible=positionX > scrollBarFrom && positionX < scrollBarTo
+    if(!isCharVisible)
+      overlay.scroll({left:positionX > scrollBarTo ? scrollBarFrom+size: scrollBarFrom-size})
+  }
 }
 
