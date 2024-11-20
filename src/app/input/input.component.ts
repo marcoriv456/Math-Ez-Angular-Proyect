@@ -285,6 +285,8 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
       this.appendExponent()
     else if(char=='r' && ctrlKey)
       this.appendRoot()
+    else if(char=='f' && ctrlKey)
+      this.appendFunction()
     else
       this.appendSingleChar(char)
     this.cdr.detectChanges()
@@ -409,6 +411,16 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   }
 
 // ------------------VARIABLE CHECKING LOGIC------------------
-  protected readonly console = console;
+  // ------------------FUNCTION CHECKING LOGIC------------------
+  private appendFunction(){
+    this.currentElement.terms.splice(this.caretIndex+1,0,{type:'function', functionChildren:[],functionName:'sen'})
+    this.cdr.detectChanges()
+    let appendedFunction=this.currentElement.renderedChars.get(this.caretIndex+1)?.asEditableElement
+    if(appendedFunction)
+      this.setCurrentElement(appendedFunction)
+  }
+
+
+  // ------------------FUNCTION CHECKING LOGIC------------------
 }
 

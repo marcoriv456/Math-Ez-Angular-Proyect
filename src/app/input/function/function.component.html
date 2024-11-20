@@ -1,3 +1,4 @@
+<span #functionNameLabel>{{functionName}}(</span>
 <ng-container *ngFor="let term of terms; let i=index">
   <char
     *ngIf="term.type=='char'"
@@ -29,33 +30,5 @@
     [parent]="this"
     [inputTerm]="{char:'\\root',editableElementRef:rootComponent,index:i,parent:this}"
   ></root>
-  <function
-    #functionComponent
-    *ngIf="term.type=='function'"
-    [terms]="term.functionChildren"
-    [index]="i"
-    [parent]="this"
-    [inputTerm]="{char:'\\function',editableElementRef:functionComponent,index:i,parent:this}"
-    [functionName]="term.functionName"
-  ></function>
-
 </ng-container>
-<div
-  #caret
-  id="caret-container"
->
-  <span></span>
-</div>
-<div
-  #warningContainer
-  [@warning-animations]
-  *ngIf="showingWarning"
-  class="warning-container">
-  <span
-    *ngFor="let warning of warningMessages"
-    [ngClass]="warning.type"
-    class="warning-message"
-  >
-    {{warning.message}}
-  </span>
-</div>
+<span>)</span>

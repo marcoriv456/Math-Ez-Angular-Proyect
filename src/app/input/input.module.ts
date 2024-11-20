@@ -11,6 +11,7 @@ import { ExponentComponent } from './power/exponent.component';
 import { RootComponent } from './root/root.component';
 import {WarningsService} from "./services/warnings/warnings.service";
 import {VariableProviderService} from "./services/variable-provider/variable-provider.service";
+import { FunctionComponent } from './function/function.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {VariableProviderService} from "./services/variable-provider/variable-pro
     InputTermDirective,
     FractionChildComponent,
     ExponentComponent,
-    RootComponent
+    RootComponent,
+    FunctionComponent
   ],
   imports: [
     CommonModule
