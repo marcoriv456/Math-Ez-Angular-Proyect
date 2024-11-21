@@ -392,31 +392,27 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     this.moveContextToActualParent(()=>{});
     this.currentElement.terms.splice(elementIndex,1,...residualData)
     this.cdr.detectChanges()
-    this.moveCaretTo(this.currentElement.getCharData(elementIndex+residualData.length-1) as InputCharData)
+    this.moveCaretTo(this.currentElement.getCharData(elementIndex+residualData.length-1) ||this.currentElement.lastCharData)
   }
 
   private appendExponent(){
-    this.currentElement.terms.splice(this.caretIndex+1,0,{type:'exponent', exponentChildren:[]})
-    this.cdr.detectChanges()
-    let appendedExponent=this.currentElement.renderedChars.get(this.caretIndex+1)?.asEditableElement
-    if(appendedExponent)
-      this.setCurrentElement(appendedExponent)
+    this.appendTerm({type:'exponent',exponentChildren:[]})
   }
-
   private appendRoot(){
-    this.currentElement.terms.splice(this.caretIndex+1,0,{type:'root',rootChildren:[]})
-    this.cdr.detectChanges()
-    let appendedRoot=this.currentElement.renderedChars.get(this.caretIndex+1)?.asEditableElement
-    if(appendedRoot)
-      this.setCurrentElement(appendedRoot)
-    setTimeout(()=>
-      this.moveCaretTo(this.currentElement.noCharData)
-    ,1)
+    this.appendTerm({type:'root', rootChildren:[]})
+  }
+  private appendSingleChar(char:string){
+    this.appendTerm({char,type:'char'})
   }
 
-  private appendSingleChar(char:string){
-    this.currentElement.terms.splice(this.caretIndex+1,0, {char,type:'char'})
+  private appendTerm(term:Term,replaceFrom=this.caretIndex+1,deleteCount=0){
+    this.currentElement.terms.splice(replaceFrom,deleteCount,term)
+    this.cdr.detectChanges()
+    let appendedTerm=this.currentElement.renderedChars.get(this.caretIndex+1)?.asEditableElement
+    if(appendedTerm)
+      this.setCurrentElement(appendedTerm)
   }
+
 // ------------------STRUCTURING LOGIC------------------
 // ------------------SIZING LOGIC------------------
   @Input()
@@ -485,8 +481,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     this.appendFunction(from,to,foundFunction)
   }
   private appendFunction(from:number,to:number,functionName:string){
-    this.currentElement.terms.splice(from,from+to,{type:'function', functionChildren:[],functionName:functionName})
-    this.cdr.detectChanges()
+    this.appendTerm({type:'function',functionChildren:[],functionName},from,to-from+1)
     let renderedFunction=this.currentElement.renderedChars.get(this.caretIndex+1-functionName.length)?.asEditableElement
     if(renderedFunction)
       this.setCurrentElement(renderedFunction)
