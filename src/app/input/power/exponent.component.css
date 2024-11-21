@@ -1,10 +1,16 @@
 :host{
-  display: flex;
-
   height: var(--height);
-  min-width: 1ch;
+
+  position: relative;
+
+  display: flex;
   align-self: start;
 }
-:host:not(:has(*)){
+.element-container:not(:has(*)){
   border: 1px dashed gray;
+}
+.element-container{
+  min-width: 1ch;
+  display: flex;
+  position: relative;
 }
