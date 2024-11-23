@@ -1,41 +1,4 @@
-<ng-container *ngFor="let term of terms; let i=index">
-  <char
-    *ngIf="term.type=='char'"
-    [char]="term.char"
-    [inputTerm]="{char:term.char,index:i,parent:this}"
-  ></char>
-  <frac
-    #fractionComponent
-    *ngIf="term.type=='fraction'"
-    [numeratorChildren]="term.numeratorChildren"
-    [denominatorChildren]="term.denominatorChildren"
-    [index]="i"
-    [inputTerm]="{char:'\\frac',editableElementRef:fractionComponent,index:i,parent:this}"
-    [parent]="this"
-  ></frac>
-  <exp
-    #exponentComponent
-    *ngIf="term.type=='exponent'"
-    [inputTerm]="{char:'\\exp',index:i,editableElementRef:exponentComponent,parent:this}"
-    [index]="i"
-    [terms]="term.exponentChildren"
-    [parent]="this"
-  ></exp>
-  <root
-    #rootComponent
-    *ngIf="term.type=='root'"
-    [terms]="term.rootChildren"
-    [index]="i"
-    [parent]="this"
-    [inputTerm]="{char:'\\root',editableElementRef:rootComponent,index:i,parent:this}"
-  ></root>
-  <function
-    #functionComponent
-    *ngIf="term.type=='function'"
-    [terms]="term.functionChildren"
-    [index]="i"
-    [parent]="this"
-    [inputTerm]="{char:'\\function',editableElementRef:functionComponent,index:i,parent:this}"
-    [functionName]="term.functionName"
-  ></function>
-</ng-container>
+<term-container
+  [parent]="this"
+  [terms]="terms"
+></term-container>

@@ -7,7 +7,7 @@ import {
   inject,
   Input,
   Output,
-  QueryList,
+  QueryList, ViewChild,
   ViewChildren
 } from '@angular/core';
 import {InputEditableElement} from "../../../models/input-editable-element.class";
@@ -15,6 +15,7 @@ import {InputTermDirective} from "../../../directives/input-term.directive";
 import {InputUtilitiesService} from "../../../services/caret-positioning/input-utilities.service";
 import {Term} from "../../../models/terms/term.model";
 import {InputCharData} from "../../../models/input-char-data.model";
+import {TermContainerComponent} from "../../term-container/term-container.component";
 
 @Component({
   selector: 'frac-child',
@@ -24,8 +25,8 @@ import {InputCharData} from "../../../models/input-char-data.model";
 export class FractionChildComponent extends InputEditableElement implements AfterViewInit{
   @Input()
   terms!:Term[]
-  @ViewChildren(InputTermDirective)
-  renderedChars!:QueryList<InputTermDirective>
+  @ViewChild(TermContainerComponent)
+  termContainer!: TermContainerComponent
   @Input()
   parent!:InputEditableElement
   @Input()
@@ -36,6 +37,9 @@ export class FractionChildComponent extends InputEditableElement implements Afte
   @Output()
   termDeleted=new EventEmitter<void>
 
+  get renderedChars(){
+    return this.termContainer.renderedChars
+  }
   override get fontSize(){
     return super.fontSize/2;
   }
