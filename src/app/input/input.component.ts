@@ -25,6 +25,7 @@ import {animate, style, transition, trigger} from "@angular/animations";
 import {VariableProviderService} from "./services/variable-provider/variable-provider.service";
 import {WarningMessageData} from "./models/char-validation/warning-message-data.model";
 import {InputCharData} from "./models/input-char-data.model";
+import {TermContainerComponent} from "./components/term-container/term-container.component";
 
 @Component({
   selector: 'app-input',
@@ -50,9 +51,11 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   caretRef!: ElementRef
   @ViewChild('overlay')
   overlay!:ElementRef
-  @ViewChildren(InputTermDirective)
-  renderedChars!: QueryList<InputTermDirective>
-
+  @ViewChild(TermContainerComponent)
+  termContainerComponent!:TermContainerComponent;
+  get renderedChars(){
+    return this.termContainerComponent.renderedChars
+  }
   parent = undefined
 
   @HostListener('click')

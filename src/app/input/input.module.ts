@@ -12,6 +12,7 @@ import { RootComponent } from './components/root/root.component';
 import {WarningsService} from "./services/warnings/warnings.service";
 import {VariableProviderService} from "./services/variable-provider/variable-provider.service";
 import { FunctionComponent } from './components/function/function.component';
+import { TermContainerComponent } from './components/term-container/term-container.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { FunctionComponent } from './components/function/function.component';
     FractionChildComponent,
     ExponentComponent,
     RootComponent,
-    FunctionComponent
+    FunctionComponent,
+    TermContainerComponent
   ],
   imports: [
     CommonModule
