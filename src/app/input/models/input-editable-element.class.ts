@@ -123,5 +123,12 @@ export abstract class InputEditableElement{
     }).join('')
   }
   // ------------------VARIABLE CHECKING LOGIC------------------
-
+  // ---------------------CHAR UPDATES LOGIC---------------------
+  updateRenderedChars(){
+    this.renderedChars.forEach(char=>char.validate())
+  }
+  ignoreCharsValidation(){
+    this.renderedChars.forEach(char=>char.ignoreValidation())
+  }
+  // ---------------------CHAR UPDATES LOGIC---------------------
 }

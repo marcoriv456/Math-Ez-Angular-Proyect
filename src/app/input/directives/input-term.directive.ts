@@ -24,7 +24,7 @@ import {InputComponent} from "../input.component";
 @Directive({
   selector: '[inputTerm]'
 })
-export class InputTermDirective implements OnChanges,OnDestroy{
+export class InputTermDirective implements OnDestroy{
   @Input('inputTerm')
   input!:{char:string, index:number,editableElementRef?:InputEditableElement,parent:InputEditableElement}
 
@@ -72,11 +72,6 @@ export class InputTermDirective implements OnChanges,OnDestroy{
   private wasClickOnLeftSide(clickOffset:number){
     return this.ref.offsetWidth/2>clickOffset
   }
-
-  ngOnChanges() {
-    this.validate();
-  }
-
 
   private get rightPosition(){
     return this.leftPosition+this.ref.offsetWidth
@@ -129,7 +124,7 @@ export class InputTermDirective implements OnChanges,OnDestroy{
       this.warningsService.hideWarning.emit()
   }
 
-  private validate(){
+  validate(){
     let messages:WarningMessageData[]=[]
     if(this.isCharALetter){
       let varRefValidation=this.validateVariableReference()
@@ -196,6 +191,10 @@ export class InputTermDirective implements OnChanges,OnDestroy{
     this.valid=isValid
     this.warningMessages=messages||[]
     this.invalidType=type
+  }
+
+  ignoreValidation(){
+    this.setValidationData({isValid:true,type:undefined,messages:undefined})
   }
   // ------------------VARIABLE CHECKING LOGIC------------------
 }

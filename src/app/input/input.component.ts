@@ -297,7 +297,9 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 
   private setCurrentElement(element:InputEditableElement){
     this.renderer.removeClass(this.currentElement.ref,'selected')
+    this.currentElement.updateRenderedChars()
     this.currentElement=element
+    this.currentElement.ignoreCharsValidation()
     this.renderer.addClass(this.currentElement.ref,'selected')
     this.renderer.setStyle(this.caretRef.nativeElement,'--height',element.size+'px',2)
   }
