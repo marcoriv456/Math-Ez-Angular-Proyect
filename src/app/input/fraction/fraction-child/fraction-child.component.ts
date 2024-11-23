@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   EventEmitter,
@@ -20,7 +21,7 @@ import {InputCharData} from "../../models/input-char-data.model";
   templateUrl: './fraction-child.component.html',
   styleUrl: './fraction-child.component.css'
 })
-export class FractionChildComponent extends InputEditableElement{
+export class FractionChildComponent extends InputEditableElement implements AfterViewInit{
   @Input()
   terms!:Term[]
   @ViewChildren(InputTermDirective)
@@ -50,4 +51,7 @@ export class FractionChildComponent extends InputEditableElement{
     return;
   }
 
+  ngAfterViewInit() {
+    this.updateRenderedChars()
+  }
 }
