@@ -6,10 +6,10 @@
   display: flex;
   align-self: start;
 }
-.element-container:not(:has(*)){
+term-container:not(:has(*)){
   border: 1px dashed gray;
 }
-.element-container{
+term-container{
   min-width: 1ch;
   display: flex;
   position: relative;

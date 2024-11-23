@@ -1,10 +1,11 @@
-import {Component, ElementRef, HostBinding, inject, Input, QueryList, ViewChildren} from '@angular/core';
+import {Component, ElementRef, HostBinding, inject, Input, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {InputEditableElement} from "../../models/input-editable-element.class";
 import {Term} from "../../models/terms/term.model";
 import {InputTermDirective} from "../../directives/input-term.directive";
 import {InputUtilitiesService} from "../../services/caret-positioning/input-utilities.service";
 import {from} from "rxjs";
 import {InputCharData} from "../../models/input-char-data.model";
+import {TermContainerComponent} from "../term-container/term-container.component";
 
 @Component({
   selector: 'exp',
@@ -14,14 +15,18 @@ import {InputCharData} from "../../models/input-char-data.model";
 export class ExponentComponent extends InputEditableElement{
   @Input()
   terms!:Term[]
-  @ViewChildren(InputTermDirective)
-  renderedChars!:QueryList<InputTermDirective>
+  @ViewChild(TermContainerComponent)
+  termContainer!: TermContainerComponent;
   @Input()
   parent!:InputEditableElement
   @Input()
   index!:number
   ref=inject(ElementRef).nativeElement as HTMLElement
   inputUtilitiesService=inject(InputUtilitiesService)
+
+  get renderedChars(){
+    return this.termContainer.renderedChars
+  }
   @HostBinding('style.--height')
   get heightToBind(){
     return this.fontSize+'rem'
