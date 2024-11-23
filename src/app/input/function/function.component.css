@@ -1,10 +1,12 @@
 :host{
+  position: relative;
   display: flex;
   align-items: center;
   height: 100%;
   align-self: center;
 }
 span{
+  position: relative;
   font-family: "Times New Roman";
   font-size: var(--parent-font-size);
 }

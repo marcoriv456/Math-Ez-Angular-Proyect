@@ -13,11 +13,11 @@ export abstract class InputEditableElement{
   abstract index:number
   abstract inputUtilitiesService:InputUtilitiesService
   get positionX(): number {
-    let parent:InputEditableElement|undefined=this.parent
+    let parent:HTMLElement|null=this.ref.parentElement
     let leftPosition=this.ref.offsetLeft
-    while(!(parent instanceof InputComponent)){
-      leftPosition+=parent?.ref.offsetLeft||0
-      parent=parent?.parent
+    while(parent && !(parent.tagName=='APP-INPUT')){
+      leftPosition+=parent.offsetLeft||0
+      parent=parent.parentElement
     }
     return leftPosition
   }
