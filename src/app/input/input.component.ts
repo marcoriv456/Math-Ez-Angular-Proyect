@@ -10,15 +10,15 @@ import {
   Renderer2, ViewChild, ViewChildren,
 } from '@angular/core';
 import {InputUtilitiesService} from "./services/caret-positioning/input-utilities.service";
-import {FractionComponent} from "./fraction/fraction.component";
+import {FractionComponent} from "./components/fraction/fraction.component";
 import {InputTermDirective} from "./directives/input-term.directive";
 import {InputEditableElement} from "./models/input-editable-element.class";
 import {CharTerm} from "./models/terms/char-term.model";
 import {FractionTerm} from "./models/terms/fraction-term.model";
 import {RootTerm} from "./models/terms/root-term.model";
 import {Term} from "./models/terms/term.model";
-import {FractionChildComponent} from "./fraction/fraction-child/fraction-child.component";
-import {RootComponent} from "./root/root.component";
+import {FractionChildComponent} from "./components/fraction/fraction-child/fraction-child.component";
+import {RootComponent} from "./components/root/root.component";
 import {VariableProvider} from "./models/variable-provider.model";
 import {WarningsService} from "./services/warnings/warnings.service";
 import {animate, style, transition, trigger} from "@angular/animations";

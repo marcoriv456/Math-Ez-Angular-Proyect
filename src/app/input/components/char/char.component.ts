@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import {InputEditableElement} from "../models/input-editable-element.class";
+import {InputEditableElement} from "../../models/input-editable-element.class";
 
 @Component({
   selector: 'char',

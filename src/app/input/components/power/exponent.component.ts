@@ -1,10 +1,10 @@
 import {Component, ElementRef, HostBinding, inject, Input, QueryList, ViewChildren} from '@angular/core';
-import {InputEditableElement} from "../models/input-editable-element.class";
-import {Term} from "../models/terms/term.model";
-import {InputTermDirective} from "../directives/input-term.directive";
-import {InputUtilitiesService} from "../services/caret-positioning/input-utilities.service";
+import {InputEditableElement} from "../../models/input-editable-element.class";
+import {Term} from "../../models/terms/term.model";
+import {InputTermDirective} from "../../directives/input-term.directive";
+import {InputUtilitiesService} from "../../services/caret-positioning/input-utilities.service";
 import {from} from "rxjs";
-import {InputCharData} from "../models/input-char-data.model";
+import {InputCharData} from "../../models/input-char-data.model";
 
 @Component({
   selector: 'exp',
