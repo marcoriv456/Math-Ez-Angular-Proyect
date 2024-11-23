@@ -4,6 +4,7 @@ import {InputUtilitiesService} from "../../services/caret-positioning/input-util
 import {InputTermDirective} from "../../directives/input-term.directive";
 import {Term} from "../../models/terms/term.model";
 import {InputCharData} from "../../models/input-char-data.model";
+import {TermContainerComponent} from "../term-container/term-container.component";
 
 @Component({
   selector: 'root',
@@ -17,11 +18,13 @@ export class RootComponent extends InputEditableElement{
   index!:number;
   @Input()
   terms!:Term[];
-  @ViewChildren(InputTermDirective)
-  renderedChars!: QueryList<InputTermDirective>;
+  @ViewChild(TermContainerComponent)
+  termContainer!: TermContainerComponent;
   ref=inject(ElementRef).nativeElement as HTMLElement;
   inputUtilitiesService=inject(InputUtilitiesService);
-
+  get renderedChars(){
+    return this.termContainer.renderedChars
+  }
   @ViewChild('rootSymbol')
   rootSymbol!:ElementRef;
 
