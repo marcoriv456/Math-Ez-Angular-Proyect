@@ -9,3 +9,7 @@
 :host:not(:has(*)){
   border: dashed 1px gray;
 }
+term-container{
+  justify-content: center;
+  align-items: center;
+}
