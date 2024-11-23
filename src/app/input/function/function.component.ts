@@ -27,13 +27,6 @@ export class FunctionComponent extends InputEditableElement{
   @ViewChild('functionNameLabel')
   functionNameLabel!:ElementRef
 
-  override removeChar(from: number, deleteCount: number = 1): InputCharData|undefined {
-    if(this.terms.length)
-      return super.removeChar(from, deleteCount);
-    this.inputUtilitiesService.elementDeletedEmitter.emit({elementIndex:this.index,residualData:[]})
-    return;
-  }
-
   override get fontSize(): number {
     return super.fontSize*0.8;
   }

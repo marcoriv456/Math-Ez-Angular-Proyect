@@ -356,11 +356,14 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   deleteChar(from=this.caretIndex, deleteCount=1){
     if(this.caretIndex==-1&&this.currentElement==this)
       return
-    let prevCharData=this.currentElement.removeChar(from,deleteCount)
+    let prevCharData=this.currentElement.removeChars(from,deleteCount)
     if(prevCharData)
       this.moveCaretTo(prevCharData)
   }
 
+  override removeChars(from: number, deleteCount: number = 1): InputCharData | undefined {
+    return this.removeSimpleChar(from,deleteCount)
+  }
 
 // ------------------STRUCTURING LOGIC------------------
   private appendFraction(){

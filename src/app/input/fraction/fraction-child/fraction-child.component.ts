@@ -43,10 +43,11 @@ export class FractionChildComponent extends InputEditableElement{
     return super.fontSizeToBind
   }
 
-  override removeChar(from: number, deleteCount: number = 1): InputCharData|undefined {
+  override removeChars(from: number, deleteCount: number = 1): InputCharData|undefined {
     if(this.terms.length)
-      return super.removeChar(from, deleteCount);
+      return this.removeSimpleChar(from, deleteCount);
     this.termDeleted.emit()
     return;
   }
+
 }

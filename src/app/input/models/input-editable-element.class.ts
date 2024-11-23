@@ -95,11 +95,17 @@ export abstract class InputEditableElement{
   get size():number{
     return this.ref.offsetHeight
   }
-  removeChar(from:number, deleteCount=1):InputCharData|undefined{
+  removeSimpleChar(from:number, deleteCount=1):InputCharData|undefined{
     if(from==-1)
       return
     this.terms.splice(from,deleteCount)
     return this.getCharData(from-1)||this.noCharData
+  }
+  removeChars(from:number, deleteCount=1):InputCharData|undefined {
+    if(this.terms.length)
+      return this.removeSimpleChar(from, deleteCount);
+    this.inputUtilitiesService.elementDeletedEmitter.emit({elementIndex:this.index,residualData:[]})
+    return;
   }
   // ------------------VARIABLE CHECKING LOGIC------------------
   get value(){

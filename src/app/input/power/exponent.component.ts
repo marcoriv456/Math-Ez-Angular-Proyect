@@ -36,10 +36,4 @@ export class ExponentComponent extends InputEditableElement{
     return super.fontSizeToBind
   }
 
-  override removeChar(from: number, deleteCount: number = 1): InputCharData|undefined {
-    if(this.terms.length)
-      return super.removeChar(from, deleteCount);
-    this.inputUtilitiesService.elementDeletedEmitter.emit({elementIndex:this.index,residualData:[]})
-    return;
-  }
 }
