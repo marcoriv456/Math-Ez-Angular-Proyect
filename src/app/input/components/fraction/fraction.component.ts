@@ -13,6 +13,7 @@ import {InputEditableElement} from "../../models/input-editable-element.class";
 import {InputTermDirective} from "../../directives/input-term.directive";
 import {InputUtilitiesService} from "../../services/caret-positioning/input-utilities.service";
 import {Term} from "../../models/terms/term.model";
+import {TermContainerComponent} from "../term-container/term-container.component";
 
 @Component({
   selector: 'frac',
@@ -29,7 +30,11 @@ export class FractionComponent extends InputEditableElement{
   @Input()
   terms:Term[]=[]
   @ViewChildren(InputTermDirective)
-  renderedChars!:QueryList<InputTermDirective>
+  _renderedChars!:QueryList<InputTermDirective>
+  termContainer!:TermContainerComponent;
+  override get renderedChars(){
+    return this._renderedChars
+  }
   @Input()
   parent!: InputEditableElement;
   ref=inject(ElementRef).nativeElement as HTMLElement;

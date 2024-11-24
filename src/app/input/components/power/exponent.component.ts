@@ -24,9 +24,6 @@ export class ExponentComponent extends InputEditableElement{
   ref=inject(ElementRef).nativeElement as HTMLElement
   inputUtilitiesService=inject(InputUtilitiesService)
 
-  get renderedChars(){
-    return this.termContainer.renderedChars
-  }
   @HostBinding('style.--height')
   get heightToBind(){
     return this.fontSize+'rem'

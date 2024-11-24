@@ -22,10 +22,6 @@ export class FunctionComponent extends InputEditableElement{
   terms!: Term[];
   @Input()
   parent!:InputEditableElement
-  get renderedChars(){
-    return this.termContainer.renderedChars
-  }
-
 
   @Input()
   functionName!:string

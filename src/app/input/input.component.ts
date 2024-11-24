@@ -52,10 +52,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   @ViewChild('overlay')
   overlay!:ElementRef
   @ViewChild(TermContainerComponent)
-  termContainerComponent!:TermContainerComponent;
-  get renderedChars(){
-    return this.termContainerComponent.renderedChars
-  }
+  termContainer!:TermContainerComponent;
   parent = undefined
 
   @HostListener('click')

@@ -22,9 +22,6 @@ export class RootComponent extends InputEditableElement{
   termContainer!: TermContainerComponent;
   ref=inject(ElementRef).nativeElement as HTMLElement;
   inputUtilitiesService=inject(InputUtilitiesService);
-  get renderedChars(){
-    return this.termContainer.renderedChars
-  }
   @ViewChild('rootSymbol')
   rootSymbol!:ElementRef;
 

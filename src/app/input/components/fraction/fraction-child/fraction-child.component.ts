@@ -37,9 +37,6 @@ export class FractionChildComponent extends InputEditableElement implements Afte
   @Output()
   termDeleted=new EventEmitter<void>
 
-  get renderedChars(){
-    return this.termContainer.renderedChars
-  }
   override get fontSize(){
     return super.fontSize/2;
   }

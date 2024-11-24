@@ -4,14 +4,18 @@ import {InputUtilitiesService} from "../services/caret-positioning/input-utiliti
 import {Term} from "./terms/term.model";
 import {InputCharData} from "./input-char-data.model";
 import {InputComponent} from "../input.component";
+import {TermContainerComponent} from "../components/term-container/term-container.component";
 
 export abstract class InputEditableElement{
   abstract parent?:InputEditableElement
-  abstract renderedChars:QueryList<InputTermDirective>
+  abstract termContainer:TermContainerComponent
   abstract ref:HTMLElement
   abstract terms:Term[]
   abstract index:number
   abstract inputUtilitiesService:InputUtilitiesService
+  get renderedChars(){
+    return this.termContainer.renderedChars
+  }
   get positionX(): number {
     let parent:HTMLElement|null=this.ref.parentElement
     let leftPosition=this.ref.offsetLeft
