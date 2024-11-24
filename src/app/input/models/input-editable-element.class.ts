@@ -112,13 +112,6 @@ export abstract class InputEditableElement{
     return;
   }
   // ------------------VARIABLE CHECKING LOGIC------------------
-  get value(){
-    return this.terms.map(child=>{
-      if(child.type=='char')
-        return child.char
-      return '/'+child.type+'/'
-    }).join('')
-  }
   get toString(){
     return this.terms.map(child=>{
       if(child.type=='char')

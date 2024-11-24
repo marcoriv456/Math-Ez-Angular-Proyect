@@ -162,14 +162,14 @@ export class InputTermDirective implements OnDestroy{
     return;
   }
   private validateFractionChar():WarningMessageData|undefined{
-    let parentValue=this.parent.value
+    let parentValue=this.parent.toString
     let isInvalid=/^0+$/.test(parentValue)
     if(isInvalid)
       return {message:'No se puede dividir por 0.', type:'partially-invalid'}
     return;
   }
   private validateExponentChar():WarningMessageData|undefined{
-    let parentValue=this.parent.value
+    let parentValue=this.parent.toString
     if(/^0+$/.test(parentValue))
       return {message:'Cualquier valor elevado a 0 es igual a 1.', type:'partially-invalid'}
     if(parentValue=='1')
