@@ -125,29 +125,20 @@ export class InputTermDirective implements OnDestroy{
   }
 
   validate(){
-    let messages:WarningMessageData[]=[]
-    if(this.isCharALetter){
-      let varRefValidation=this.validateVariableReference()
-      if(varRefValidation)
-        messages.push(varRefValidation)
-    }
-    if(this.isParentAFraction){
-      let fracCharValidation=this.validateFractionChar()
-      if(fracCharValidation)
-        messages.push(fracCharValidation)
-    }
-    if(this.isParentAnExponent){
-      let expCharValidation=this.validateExponentChar()
-      if(expCharValidation)
-        messages.push(expCharValidation)
-    }
-
+    let messagesList:(WarningMessageData|undefined)[]=[]
+    if(this.isCharALetter)
+      messagesList.push(this.validateVariableReference())
+    if(this.isParentAFraction)
+      messagesList.push(this.validateFractionChar())
+    if(this.isParentAnExponent)
+      messagesList.push(this.validateExponentChar())
+    let messages:WarningMessageData[]=messagesList.filter(m=>m!==undefined)
     let isValid=messages.length==0
     let validationData:ValidationData={
       isValid,
       messages,
       type:isValid?
-        undefined:messages.find((message)=>message.type=='fully-invalid') ?
+        undefined:messagesList.find((message)=>message&&message.type=='fully-invalid') ?
           'fully-invalid':'partially-invalid'
     }
 
