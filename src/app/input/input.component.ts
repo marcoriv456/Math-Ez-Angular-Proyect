@@ -273,7 +273,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     return this.getRenderedElementInParentAt(this.currentElement.index-1)
   }
 
-  private moveContextToActualParent(onContextChangeFinished:(prevContextIndex:number)=>void){
+  private moveContextToActualParent(onContextChangeFinished?:(prevContextIndex:number)=>void){
     let actualIndex=this.currentElement.index
     let actualParent=this.currentElement.parent
     if(actualParent instanceof FractionComponent){
@@ -281,7 +281,8 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
       actualParent=actualParent.parent
     }
     this.setCurrentElement(actualParent||this)
-    onContextChangeFinished(actualIndex)
+    if(onContextChangeFinished)
+      onContextChangeFinished(actualIndex)
   }
 
 
@@ -395,7 +396,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     }
   }
   private deleteElement(elementIndex:number,residualData:Term[]){
-    this.moveContextToActualParent(()=>{});
+    this.moveContextToActualParent();
     this.currentElement.terms.splice(elementIndex,1,...residualData)
     this.cdr.detectChanges()
     this.moveCaretTo(this.currentElement.getCharData(elementIndex+residualData.length-1) ||this.currentElement.lastCharData)
