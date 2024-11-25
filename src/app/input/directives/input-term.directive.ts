@@ -77,7 +77,7 @@ export class InputTermDirective implements OnDestroy{
   private get rightPosition(){
     return this.leftPosition+this.ref.offsetWidth
   }
-  private get leftPosition(){
+  get leftPosition(){
     let parent:HTMLElement|null=this.ref.parentElement
     let leftPosition=this.ref.offsetLeft
     while(parent && !(parent.tagName=='APP-INPUT')){

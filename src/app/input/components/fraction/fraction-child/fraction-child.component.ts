@@ -58,10 +58,9 @@ export class FractionChildComponent extends InputEditableElement implements Afte
   }
   override get noCharData(): InputCharData {
     let data=super.noCharData
-    if(this.terms.length==0){
-      this.cdr.detectChanges()
-      data.positionX+=this.ref.offsetWidth/2
-    }
+    this.cdr.detectChanges()
+    data.positionX = this.terms.length==0 ?
+      data.positionX+this.ref.offsetWidth/2 : (this.renderedChars.get(0)?.leftPosition||0)
     return data
   }
 }
