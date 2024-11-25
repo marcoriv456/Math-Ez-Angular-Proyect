@@ -134,9 +134,5 @@ export class InputTermDirective implements OnDestroy{
     this.warningMessages=messages||[]
     this.invalidType=type
   }
-
-  ignoreValidation(){
-    this.setValidationData({isValid:true,type:undefined,messages:undefined})
-  }
   // ------------------VARIABLE CHECKING LOGIC------------------
 }

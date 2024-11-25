@@ -121,11 +121,8 @@ export abstract class InputEditableElement{
   }
   // ------------------VARIABLE CHECKING LOGIC------------------
   // ---------------------CHAR UPDATES LOGIC---------------------
-  updateRenderedChars(){
+  updateTermsValidation(){
     this.renderedChars.forEach(char=>char.validate())
-  }
-  ignoreCharsValidation(){
-    this.renderedChars.forEach(char=>char.ignoreValidation())
   }
   // ---------------------CHAR UPDATES LOGIC---------------------
 }

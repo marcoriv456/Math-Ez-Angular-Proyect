@@ -53,6 +53,6 @@ export class FractionChildComponent extends InputEditableElement implements Afte
   }
 
   ngAfterViewInit() {
-    this.updateRenderedChars()
+    this.updateTermsValidation()
   }
 }

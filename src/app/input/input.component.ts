@@ -298,9 +298,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 
   private setCurrentElement(element:InputEditableElement){
     this.renderer.removeClass(this.currentElement.ref,'selected')
-    this.currentElement.updateRenderedChars()
     this.currentElement=element
-    this.currentElement.ignoreCharsValidation()
     this.renderer.addClass(this.currentElement.ref,'selected')
     this.renderer.setStyle(this.caretRef.nativeElement,'--height',element.size+'px',2)
   }
@@ -346,6 +344,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     this.cdr.detectChanges()
     this.moveCaretTo(this.nextCharData)
     this.searchFunctionWrittenReferences()
+    this.currentElement.updateTermsValidation()
   }
 
   moveCaretTo({positionX,positionY,index,size,parent}:InputCharData){
@@ -362,6 +361,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     let prevCharData=this.currentElement.removeChars(from,deleteCount)
     if(prevCharData)
       this.moveCaretTo(prevCharData)
+    this.currentElement.updateTermsValidation()
   }
 
   override removeChars(from: number, deleteCount: number = 1): InputCharData | undefined {
