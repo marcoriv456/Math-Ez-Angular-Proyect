@@ -108,25 +108,35 @@ export class InputTermDirective implements OnDestroy{
   onMouseOver(){
     if(this.valid)
       return;
-    let dataToSend=this.data
-    dataToSend.positionX=this.absoluteLeftPosition
-    this.warningsService.showWarning.emit({messages:this.warningMessages,position:dataToSend})
+    this.emitWarning()
     this.isMouseOver=true
   }
   @HostListener('mouseleave')
   onMouseLeave(){
     if(this.valid)
       return;
-    this.warningsService.hideWarning.emit()
+    this.hideWarning()
     this.isMouseOver=false
   }
   ngOnDestroy() {
     if(this.isMouseOver)
-      this.warningsService.hideWarning.emit()
+      this.hideWarning()
   }
 
   validate(){
     this.setValidationData(this.termValidationService.validateTerm(this))
+    if(this.isMouseOver)
+      this.valid ? this.hideWarning() : this.emitWarning()
+  }
+
+  private emitWarning(){
+    let dataToSend=this.data
+    dataToSend.positionX=this.absoluteLeftPosition
+    this.warningsService.showWarning.emit({messages:this.warningMessages,position:dataToSend})
+  }
+
+  private hideWarning(){
+    this.warningsService.hideWarning.emit()
   }
 
   private setValidationData({isValid,type,messages}:ValidationData){
