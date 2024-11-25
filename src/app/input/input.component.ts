@@ -359,7 +359,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     if(parent)
       this.setCurrentElement(parent)
     this.caretIndex=index
-    this.makeCharVisible(positionX,size)
+    this.makeCharVisible(positionX)
   }
   deleteChar(from=this.caretIndex, deleteCount=1){
     if(this.caretIndex==-1&&this.currentElement==this)
@@ -504,18 +504,15 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 
   // ------------------FUNCTION CHECKING LOGIC------------------
 
-  private makeCharVisible(positionX:number, size:number){
+  private makeCharVisible(positionX:number){
     let overlay=this.overlay.nativeElement as HTMLElement
+    let overlayViewWidth=overlay.clientWidth
     let scrollBarFrom=overlay.scrollLeft
-    let scrollBarTo=scrollBarFrom+overlay.clientWidth
+    let scrollBarTo=scrollBarFrom+overlayViewWidth
     let isCharVisible=positionX > scrollBarFrom && positionX < scrollBarTo
-    while(!isCharVisible){
-      overlay.scrollTo({left:positionX > scrollBarFrom ? scrollBarFrom+size: scrollBarFrom-size})
-      scrollBarFrom=overlay.scrollLeft
-      scrollBarTo=scrollBarFrom+overlay.clientWidth
-      isCharVisible=positionX >= scrollBarFrom && positionX <= scrollBarTo
-      if(isCharVisible)
-        break;
+    if(!isCharVisible){
+      let isCaretOnRightSide=positionX > scrollBarFrom
+      overlay.scrollTo({left : isCaretOnRightSide ? positionX-overlayViewWidth+2 : positionX})
     }
   }
 }
