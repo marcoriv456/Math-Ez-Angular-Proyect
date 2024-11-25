@@ -190,6 +190,12 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
       case 'ArrowLeft':
         this.moveToPreviousElement()
         break;
+      case 'Home':
+        this.moveCaretTo(this.currentElement.noCharData)
+        break;
+      case 'End':
+        this.moveCaretTo(this.currentElement.lastCharData)
+        break;
     }
   }
 
