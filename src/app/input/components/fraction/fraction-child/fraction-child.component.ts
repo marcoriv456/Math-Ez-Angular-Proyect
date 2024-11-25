@@ -1,5 +1,5 @@
 import {
-  AfterViewInit,
+  AfterViewInit, ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -37,6 +37,7 @@ export class FractionChildComponent extends InputEditableElement implements Afte
   @Output()
   termDeleted=new EventEmitter<void>
 
+  cdr=inject(ChangeDetectorRef)
   override get fontSize(){
     return super.fontSize/2;
   }
@@ -54,5 +55,13 @@ export class FractionChildComponent extends InputEditableElement implements Afte
 
   ngAfterViewInit() {
     this.updateTermsValidation()
+  }
+  override get noCharData(): InputCharData {
+    let data=super.noCharData
+    if(this.terms.length==0){
+      this.cdr.detectChanges()
+      data.positionX+=this.ref.offsetWidth/2
+    }
+    return data
   }
 }
