@@ -387,7 +387,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
       denominatorChildren:nextChars,
       type:'fraction'
     })
-    this.moveCaretTo(this.getCharData(prevCharsFrom-1)||this.lastCharData)
+    this.moveCaretTo(this.currentElement.getCharData(prevCharsFrom-1)||this.currentElement.lastCharData)
     if(nextChars.length && prevChars.length)
       return;
     this.cdr.detectChanges()
