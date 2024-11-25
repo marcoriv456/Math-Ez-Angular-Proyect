@@ -376,31 +376,38 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 
 // ------------------STRUCTURING LOGIC------------------
   private appendFraction(){
+    let {from,to,prevChars,nextChars}=this.getFractionCharsData()
+    this.currentElement.terms.splice(from, to-from, {
+      numeratorChildren:prevChars,
+      denominatorChildren:nextChars,
+      type:'fraction'
+    })
+    this.moveCaretTo(this.currentElement.getCharData(from-1)||this.currentElement.lastCharData)
+    let isFractionFilled=prevChars.length && nextChars.length
+    if(!isFractionFilled)
+      this.moveCaretToEmptyFractionChild(from,nextChars,prevChars)
+  }
+
+  private getFractionCharsData(){
     let prevCharsFrom=(this.currentElement.getPrevSpecialCharData(this.caretIndex)?.index||-1)+1
     let prevCharsTo=this.caretIndex+1
     let prevChars=this.currentElement.terms.slice(prevCharsFrom,prevCharsTo)
     let nextCharsTo=(this.currentElement.getNextSpecialCharData(this.caretIndex)?.index||this.currentElement.lastCharData.index+1)
     let nextCharsFrom=this.caretIndex+1
     let nextChars=this.currentElement.terms.slice(nextCharsFrom,nextCharsTo)
-    this.currentElement.terms.splice(prevCharsFrom, nextCharsTo-prevCharsFrom, {
-      numeratorChildren:prevChars,
-      denominatorChildren:nextChars,
-      type:'fraction'
-    })
-    this.moveCaretTo(this.currentElement.getCharData(prevCharsFrom-1)||this.currentElement.lastCharData)
-    if(nextChars.length && prevChars.length)
-      return;
-    this.cdr.detectChanges()
-    let appendedFrac=this.currentElement.renderedChars.get(prevCharsFrom)?.asEditableElement as FractionComponent
-    if(!nextChars.length){
-      this.setCurrentElement(appendedFrac.denominatorComponent?.asEditableElement||this)
-      this.moveCaretTo(this.currentElement.noCharData)
-    }
-    if(!prevChars.length){
-      this.setCurrentElement(appendedFrac.numeratorComponent?.asEditableElement||this)
-      this.moveCaretTo(this.currentElement.noCharData)
-    }
+    return{from:prevCharsFrom,to:nextCharsTo,prevChars,nextChars}
   }
+
+  private moveCaretToEmptyFractionChild(from:number,nextChars:Term[],prevChars:Term[]){
+    this.cdr.detectChanges()
+    let appendedFrac=this.currentElement.renderedChars.get(from)?.asEditableElement as FractionComponent
+    if(!nextChars.length)
+      this.setCurrentElement(appendedFrac.denominatorComponent?.asEditableElement||this)
+    if(!prevChars.length)
+      this.setCurrentElement(appendedFrac.numeratorComponent?.asEditableElement||this)
+    this.moveCaretTo(this.currentElement.noCharData)
+  }
+
   private deleteElement(elementIndex:number,residualData:Term[]){
     this.moveContextToActualParent();
     this.currentElement.terms.splice(elementIndex,1,...residualData)
@@ -474,25 +481,28 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 
 // ------------------VARIABLE CHECKING LOGIC------------------
   // ------------------FUNCTION CHECKING LOGIC------------------
-  recognizableFunctions=['sen','cos','tan','log','ln']
+  private recognizableFunctions=['sen','cos','tan','log','ln']
   private searchFunctionWrittenReferences(){
-    let actualValue=this.currentElement.toString
-    let coincidence:RegExpExecArray|null=null
-    let foundFunction=''
-    for(let functionName of this.recognizableFunctions){
-      let functionRegexp=new RegExp(functionName,'id')
-      coincidence=functionRegexp.exec(actualValue)
-      foundFunction=functionName
-      if(coincidence)
-        break;
-    }
-    let indices=coincidence?.indices
+    let {indices,foundFunction}=this.evaluateRecognizableFunctions()
     if(!indices)
       return;
     let from=indices[0][0]
     let to=indices[0][1]-1
     this.appendFunction(from,to,foundFunction)
   }
+
+  private evaluateRecognizableFunctions(){
+    let coincidence:RegExpExecArray|null=null,foundFunction='',currentElementValue=this.currentElement.toString
+    for(let functionName of this.recognizableFunctions){
+      let functionRegexp=new RegExp(functionName,'id')
+      coincidence=functionRegexp.exec(currentElementValue)
+      foundFunction=functionName
+      if(coincidence)
+        break;
+    }
+    return{indices:coincidence?.indices, foundFunction}
+  }
+
   private appendFunction(from:number,to:number,functionName:string){
     this.appendTerm({type:'function',functionChildren:[],functionName},from,to-from+1)
     let renderedFunction=this.currentElement.renderedChars.get(this.caretIndex+1-functionName.length)?.asEditableElement
