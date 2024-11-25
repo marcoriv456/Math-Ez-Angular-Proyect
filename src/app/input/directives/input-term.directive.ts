@@ -20,6 +20,7 @@ import {ValidationData} from "../models/char-validation/validation-data.model";
 import {WarningMessageData} from "../models/char-validation/warning-message-data.model";
 import {InputCharData} from "../models/input-char-data.model";
 import {InputComponent} from "../input.component";
+import {TermValidationService} from "../services/term-validation/term-validation.service";
 
 @Directive({
   selector: '[inputTerm]'
@@ -98,7 +99,7 @@ export class InputTermDirective implements OnDestroy{
   // ------------------VARIABLE CHECKING LOGIC------------------
   warningsService=inject(WarningsService)
   warningMessages:WarningMessageData[]=[]
-  variableProvider=inject(VariableProviderService)
+  termValidationService=inject(TermValidationService)
   valid=true
   @HostBinding('class')
   invalidType:'partially-invalid'|'fully-invalid'|undefined=undefined;
@@ -125,58 +126,8 @@ export class InputTermDirective implements OnDestroy{
   }
 
   validate(){
-    let messagesList:(WarningMessageData|undefined)[]=[]
-    if(this.isCharALetter)
-      messagesList.push(this.validateVariableReference())
-    if(this.isParentAFraction)
-      messagesList.push(this.validateFractionChar())
-    if(this.isParentAnExponent)
-      messagesList.push(this.validateExponentChar())
-    let messages:WarningMessageData[]=messagesList.filter(m=>m!==undefined)
-    let isValid=messages.length==0
-    let validationData:ValidationData={
-      isValid,
-      messages,
-      type:isValid?
-        undefined:messagesList.find((message)=>message&&message.type=='fully-invalid') ?
-          'fully-invalid':'partially-invalid'
-    }
-
-    this.setValidationData(validationData)
+    this.setValidationData(this.termValidationService.validateTerm(this))
   }
-
-  private get isCharALetter():boolean{
-    return /^[a-zA-z]$/.test(this.char)
-  }
-  private get isParentAFraction(){
-    return this.parent instanceof FractionChildComponent
-  }
-  private get isParentAnExponent(){
-    return this.parent instanceof ExponentComponent
-  }
-
-  private validateVariableReference():WarningMessageData|undefined{
-    let isInvalid:boolean=!this.variableProvider.variableNames.includes(this.char);
-    if (isInvalid)
-      return{ message:`No se encontro a la variable: "${this.char}"`,type:'fully-invalid'}
-    return;
-  }
-  private validateFractionChar():WarningMessageData|undefined{
-    let parentValue=this.parent.toString
-    let isInvalid=/^0+$/.test(parentValue)
-    if(isInvalid)
-      return {message:'No se puede dividir por 0.', type:'partially-invalid'}
-    return;
-  }
-  private validateExponentChar():WarningMessageData|undefined{
-    let parentValue=this.parent.toString
-    if(/^0+$/.test(parentValue))
-      return {message:'Cualquier valor elevado a 0 es igual a 1.', type:'partially-invalid'}
-    if(parentValue=='1')
-      return {message:'Elevar a la potencia 1 es redundante.', type:'partially-invalid'}
-    return;
-  }
-
 
   private setValidationData({isValid,type,messages}:ValidationData){
     this.valid=isValid

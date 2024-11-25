@@ -13,6 +13,7 @@ import {WarningsService} from "./services/warnings/warnings.service";
 import {VariableProviderService} from "./services/variable-provider/variable-provider.service";
 import { FunctionComponent } from './components/function/function.component';
 import { TermContainerComponent } from './components/term-container/term-container.component';
+import {TermValidationService} from "./services/term-validation/term-validation.service";
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { TermContainerComponent } from './components/term-container/term-contain
   providers:[
     InputUtilitiesService,
     WarningsService,
-    VariableProviderService
+    VariableProviderService,
+    TermValidationService
   ]
 })
 export class InputModule { }
