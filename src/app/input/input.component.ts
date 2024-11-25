@@ -486,13 +486,15 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     let {indices,foundFunction}=this.evaluateRecognizableFunctions()
     if(!indices)
       return;
-    let from=indices[0][0]
-    let to=indices[0][1]-1
+    let from=indices[0][0],
+        to=indices[0][1]-1
     this.appendFunction(from,to,foundFunction)
   }
 
   private evaluateRecognizableFunctions(){
-    let coincidence:RegExpExecArray|null=null,foundFunction='',currentElementValue=this.currentElement.toString
+    let coincidence:RegExpExecArray|null=null,
+        foundFunction='',
+        currentElementValue=this.currentElement.toString
     for(let functionName of this.recognizableFunctions){
       let functionRegexp=new RegExp(functionName,'id')
       coincidence=functionRegexp.exec(currentElementValue)
@@ -515,11 +517,11 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   // ------------------FUNCTION CHECKING LOGIC------------------
 
   private makeCharVisible(positionX:number){
-    let overlay=this.overlay.nativeElement as HTMLElement
-    let overlayViewWidth=overlay.clientWidth
-    let scrollBarFrom=overlay.scrollLeft
-    let scrollBarTo=scrollBarFrom+overlayViewWidth
-    let isCharVisible=positionX > scrollBarFrom && positionX < scrollBarTo
+    let overlay=this.overlay.nativeElement as HTMLElement,
+        overlayViewWidth=overlay.clientWidth,
+        scrollBarFrom=overlay.scrollLeft,
+        scrollBarTo=scrollBarFrom+overlayViewWidth,
+        isCharVisible=positionX > scrollBarFrom && positionX < scrollBarTo
     if(!isCharVisible){
       let isCaretOnRightSide=positionX > scrollBarFrom
       overlay.scrollTo({left : isCaretOnRightSide ? positionX-overlayViewWidth+2 : positionX})
