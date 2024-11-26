@@ -35,6 +35,7 @@ export class FractionComponent extends InputEditableElement{
   override get renderedChars(){
     return this._renderedChars
   }
+  override editable=false
   @Input()
   parent!: InputEditableElement;
   ref=inject(ElementRef).nativeElement as HTMLElement;

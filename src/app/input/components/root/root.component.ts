@@ -32,6 +32,7 @@ export class RootComponent extends InputEditableElement{
   @Input()
   radicalTerms?:Term[]
 
+  override editable=false
   override get fontSize(): number {
     return super.fontSize*0.8;
   }

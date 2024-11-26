@@ -13,6 +13,9 @@ export abstract class InputEditableElement{
   abstract terms:Term[]
   abstract index:number
   abstract inputUtilitiesService:InputUtilitiesService
+
+  editable=true
+
   get renderedChars(){
     return this.termContainer.renderedChars
   }

@@ -213,8 +213,9 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 
   private moveCaretContextForward() {
     let nextRenderedElement = this.nextRenderedElement
+    let parent=this.currentElement.parent
     let isCaretInTheLastPosition=this.caretIndex==this.currentElement.lastCharData.index
-    if(this.currentElement instanceof FractionChildComponent && isCaretInTheLastPosition)
+    if(parent && !parent.editable  && isCaretInTheLastPosition)
       nextRenderedElement=this.nextRenderedElementInParent
     let nextRenderedElementClassRef = nextRenderedElement?.asEditableElement
     if (!nextRenderedElement || !nextRenderedElementClassRef)
@@ -235,10 +236,8 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 
   private moveContextToNextRenderedElement(nextRenderedElement: InputTermDirective) {
     let nextEditableEl=nextRenderedElement.asEditableElement
-    if (nextEditableEl instanceof FractionComponent)
-      nextEditableEl = nextEditableEl.numeratorComponent.asEditableElement
-    else if(nextEditableEl instanceof RootComponent)
-      nextEditableEl = nextEditableEl.radicalTerms ? nextEditableEl.radicalComponent : nextEditableEl.mainComponent
+    if(nextEditableEl && !nextEditableEl.editable)
+      nextEditableEl=nextEditableEl.renderedChars.get(0)?.asEditableElement
     this.setCurrentElement(nextEditableEl || this)
     this.moveCaretTo(this.currentElement.noCharData)
   }
@@ -257,8 +256,9 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 
   private moveCaretContextBackwards() {
     let prevRenderedElement = this.prevRenderedElement
+    let parent=this.currentElement.parent
     let isCaretInTheFirstPosition=this.caretIndex==-1
-    if(this.currentElement instanceof FractionChildComponent && isCaretInTheFirstPosition)
+    if(parent && !parent.editable && isCaretInTheFirstPosition)
       prevRenderedElement=this.prevRenderedElementInParent
     if (!prevRenderedElement || !prevRenderedElement.asEditableElement)
       this.moveContextToActualParent(
@@ -270,10 +270,8 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 
   private moveContextToPrevRenderedElement(prevRenderedElement:InputTermDirective){
     let prevEditableEl=prevRenderedElement.asEditableElement
-    if (prevEditableEl instanceof FractionComponent)
-      prevEditableEl = prevEditableEl.denominatorComponent.asEditableElement
-    else if(prevEditableEl instanceof RootComponent)
-      prevEditableEl = prevEditableEl.mainComponent
+    if(prevEditableEl&&!prevEditableEl.editable)
+      prevEditableEl=prevEditableEl.renderedChars.get(prevEditableEl.lastCharData.index)?.asEditableElement
     this.setCurrentElement(prevEditableEl || this)
     this.moveCaretTo(this.currentElement.lastCharData)
   }
@@ -287,13 +285,9 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   }
 
   private moveContextToActualParent(onContextChangeFinished?:(prevContextIndex:number)=>void){
-    if(this.currentElement instanceof TermArgumentComponent && this.nextRenderedElementInParent){
-      this.moveContextToNextRenderedElement(this.nextRenderedElementInParent)
-      return;
-    }
     let actualIndex=this.currentElement.index
     let actualParent=this.currentElement.parent
-    if(actualParent instanceof FractionComponent || actualParent instanceof RootComponent){
+    if(actualParent && !actualParent.editable){
       actualIndex=actualParent.index
       actualParent=actualParent.parent
     }

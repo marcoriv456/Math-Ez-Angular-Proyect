@@ -1,9 +1,12 @@
 :host{
   --font-size:calc(var(--font-size)*0.5);
   width: fit-content;
-  min-width: 2ch;
+  min-width: 1ch;
   position: relative;
   height: 50%;
+}
+term-container{
+  justify-content: center;
 }
 term-container:not(:has(*)){
   border: 1px dashed gray;
