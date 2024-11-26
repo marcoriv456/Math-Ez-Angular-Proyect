@@ -8,12 +8,12 @@
   [inputTerm]="{char:'\\arg\\',index:0,editableElementRef:functionArgument,parent:this}"
 ></argument>
 <span>(</span>
-<function-main-container
+<editable-term-container
   #functionMainContainer
   [index]="argumentTerms ? 1:0"
   [terms]="terms"
   [parent]="this"
   [inputTerm]="{char:'\\f-main\\',index:argumentTerms? 1:0,editableElementRef:functionMainContainer,parent:this}"
   (termDeleted)="inputUtilitiesService.elementDeletedEmitter.emit({elementIndex:index,residualData:[]})"
-></function-main-container>
+></editable-term-container>
 <span>)</span>

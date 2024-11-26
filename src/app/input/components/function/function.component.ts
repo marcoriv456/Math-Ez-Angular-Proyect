@@ -6,6 +6,7 @@ import {Term} from "../../models/terms/term.model";
 import {InputCharData} from "../../models/input-char-data.model";
 import {TermContainerComponent} from "../term-container/term-container.component";
 import {FunctionMainContainerComponent} from "./function-main-container/function-main-container.component";
+import {EditableTermContainerComponent} from "../editable-term-container/editable-term-container.component";
 
 @Component({
   selector: 'function',
@@ -52,6 +53,6 @@ export class FunctionComponent extends InputEditableElement{
     return this._renderedChars
   }
   @ViewChild('functionMainContainer')
-  mainContainer!:FunctionMainContainerComponent
+  mainContainer!:EditableTermContainerComponent
 }
 
