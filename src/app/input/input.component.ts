@@ -258,7 +258,8 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     let prevRenderedElement = this.prevRenderedElement
     let parent=this.currentElement.parent
     let isCaretInTheFirstPosition=this.caretIndex==-1
-    if(parent && !parent.editable && isCaretInTheFirstPosition)
+    let parentHasMoreThanOneChild=parent && parent.renderedChars.length > 1
+    if(parent && !parent.editable && isCaretInTheFirstPosition && parentHasMoreThanOneChild)
       prevRenderedElement=this.prevRenderedElementInParent
     if (!prevRenderedElement || !prevRenderedElement.asEditableElement)
       this.moveContextToActualParent(
