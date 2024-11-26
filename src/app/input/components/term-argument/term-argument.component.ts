@@ -3,6 +3,7 @@ import {InputEditableElement} from "../../models/input-editable-element.class";
 import {Term} from "../../models/terms/term.model";
 import {TermContainerComponent} from "../term-container/term-container.component";
 import {InputUtilitiesService} from "../../services/caret-positioning/input-utilities.service";
+import {InputCharData} from "../../models/input-char-data.model";
 
 @Component({
   selector: 'argument',
@@ -21,4 +22,7 @@ export class TermArgumentComponent extends InputEditableElement{
   ref=inject(ElementRef).nativeElement as HTMLElement;
   inputUtilitiesService=inject(InputUtilitiesService);
 
+  override removeChars(from: number, deleteCount: number = 1): InputCharData | undefined {
+    return this.removeSimpleChar(from, deleteCount);
+  }
 }
