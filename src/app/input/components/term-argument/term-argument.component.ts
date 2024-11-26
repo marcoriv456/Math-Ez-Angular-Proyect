@@ -1,0 +1,24 @@
+import {Component, ElementRef, inject, Input, ViewChild} from '@angular/core';
+import {InputEditableElement} from "../../models/input-editable-element.class";
+import {Term} from "../../models/terms/term.model";
+import {TermContainerComponent} from "../term-container/term-container.component";
+import {InputUtilitiesService} from "../../services/caret-positioning/input-utilities.service";
+
+@Component({
+  selector: 'argument',
+  templateUrl: './term-argument.component.html',
+  styleUrl: './term-argument.component.css'
+})
+export class TermArgumentComponent extends InputEditableElement{
+  @Input()
+  parent!: InputEditableElement;
+  @Input()
+  index!:number;
+  @Input()
+  terms!:Term[];
+  @ViewChild(TermContainerComponent)
+  termContainer!: TermContainerComponent;
+  ref=inject(ElementRef).nativeElement as HTMLElement;
+  inputUtilitiesService=inject(InputUtilitiesService);
+
+}

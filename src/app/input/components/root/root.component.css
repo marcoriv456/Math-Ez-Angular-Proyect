@@ -9,15 +9,11 @@
 img{
   height: 100%;
 }
-term-container{
-  position: relative;
-  display: flex;
-  border-top: var(--line-height) solid #1d1d1b;
-  min-width:2ch;
-  height: 100%;
+argument{
+  align-self: start;
+  height: 50%
 }
-
-term-container:not(:has(*)){
-  border: dashed var(--line-height) gray;
-  border-top: var(--line-height) solid #1d1d1b;
-}
+/*term-container:not(:has(*)){*/
+/*  border: dashed var(--line-height) gray;*/
+/*  border-top: var(--line-height) solid #1d1d1b;*/
+/*}*/

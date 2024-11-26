@@ -1,0 +1,10 @@
+:host{
+  --font-size:calc(var(--font-size)*0.5);
+  width: fit-content;
+  min-width: 2ch;
+  position: relative;
+  height: 50%;
+}
+term-container:not(:has(*)){
+  border: 1px dashed gray;
+}

@@ -26,6 +26,7 @@ import {VariableProviderService} from "./services/variable-provider/variable-pro
 import {WarningMessageData} from "./models/char-validation/warning-message-data.model";
 import {InputCharData} from "./models/input-char-data.model";
 import {TermContainerComponent} from "./components/term-container/term-container.component";
+import {TermArgumentComponent} from "./components/term-argument/term-argument.component";
 
 @Component({
   selector: 'app-input',
@@ -233,9 +234,12 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   }
 
   private moveContextToNextRenderedElement(nextRenderedElement: InputTermDirective) {
-    if (nextRenderedElement.asEditableElement instanceof FractionComponent)
-      nextRenderedElement = nextRenderedElement.asEditableElement.numeratorComponent
-    this.setCurrentElement(nextRenderedElement?.asEditableElement || this)
+    let nextEditableEl=nextRenderedElement.asEditableElement
+    if (nextEditableEl instanceof FractionComponent)
+      nextEditableEl = nextEditableEl.numeratorComponent.asEditableElement
+    else if(nextEditableEl instanceof RootComponent)
+      nextEditableEl = nextEditableEl.radicalTerms ? nextEditableEl.radicalComponent : nextEditableEl.mainComponent
+    this.setCurrentElement(nextEditableEl || this)
     this.moveCaretTo(this.currentElement.noCharData)
   }
 
@@ -265,9 +269,12 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   }
 
   private moveContextToPrevRenderedElement(prevRenderedElement:InputTermDirective){
-    if (prevRenderedElement.asEditableElement instanceof FractionComponent)
-      prevRenderedElement = prevRenderedElement.asEditableElement.denominatorComponent
-    this.setCurrentElement(prevRenderedElement?.asEditableElement || this)
+    let prevEditableEl=prevRenderedElement.asEditableElement
+    if (prevEditableEl instanceof FractionComponent)
+      prevEditableEl = prevEditableEl.denominatorComponent.asEditableElement
+    else if(prevEditableEl instanceof RootComponent)
+      prevEditableEl = prevEditableEl.mainComponent
+    this.setCurrentElement(prevEditableEl || this)
     this.moveCaretTo(this.currentElement.lastCharData)
   }
 
@@ -280,9 +287,13 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   }
 
   private moveContextToActualParent(onContextChangeFinished?:(prevContextIndex:number)=>void){
+    if(this.currentElement instanceof TermArgumentComponent && this.nextRenderedElementInParent){
+      this.moveContextToNextRenderedElement(this.nextRenderedElementInParent)
+      return;
+    }
     let actualIndex=this.currentElement.index
     let actualParent=this.currentElement.parent
-    if(actualParent instanceof FractionComponent){
+    if(actualParent instanceof FractionComponent || actualParent instanceof RootComponent){
       actualIndex=actualParent.index
       actualParent=actualParent.parent
     }
@@ -344,7 +355,9 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     else if(char=='e' && ctrlKey)
       this.appendExponent()
     else if(char=='r' && ctrlKey)
-      this.appendRoot()
+      this.appendSimpleRoot()
+    else if(char=='r' && altKey)
+      this.appendEditableRadicalRoot()
     else
       this.appendSingleChar(char)
     this.cdr.detectChanges()
@@ -418,8 +431,18 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   private appendExponent(){
     this.appendTerm({type:'exponent',exponentChildren:[]})
   }
-  private appendRoot(){
-    this.appendTerm({type:'root', rootChildren:[]})
+
+  private appendEditableRadicalRoot(){
+    this.appendRoot({type:"root",rootChildren:[],radicalTerms:[]})
+  }
+  private appendSimpleRoot(){
+    this.appendRoot({type:"root",rootChildren:[]})
+  }
+
+  private appendRoot(root:Term){
+    this.appendTerm(root)
+    this.setCurrentElement((this.currentElement as RootComponent).mainComponent||this)
+    this.moveCaretTo(this.currentElement.noCharData)
   }
   private appendSingleChar(char:string){
     this.appendTerm({char,type:'char'})

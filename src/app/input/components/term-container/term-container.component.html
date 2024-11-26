@@ -25,6 +25,7 @@
     #rootComponent
     *ngIf="term.type=='root'"
     [terms]="term.rootChildren"
+    [radicalTerms]="term.radicalTerms"
     [index]="i"
     [parent]="parent"
     [inputTerm]="{char:'\\root',editableElementRef:rootComponent,index:i,parent}"

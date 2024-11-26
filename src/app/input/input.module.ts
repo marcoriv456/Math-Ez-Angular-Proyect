@@ -14,6 +14,8 @@ import {VariableProviderService} from "./services/variable-provider/variable-pro
 import { FunctionComponent } from './components/function/function.component';
 import { TermContainerComponent } from './components/term-container/term-container.component';
 import {TermValidationService} from "./services/term-validation/term-validation.service";
+import { TermArgumentComponent } from './components/term-argument/term-argument.component';
+import { RootMainContainerComponent } from './components/root/root-main-container/root-main-container.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import {TermValidationService} from "./services/term-validation/term-validation.
     ExponentComponent,
     RootComponent,
     FunctionComponent,
-    TermContainerComponent
+    TermContainerComponent,
+    TermArgumentComponent,
+    RootMainContainerComponent
   ],
   imports: [
     CommonModule
