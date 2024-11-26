@@ -83,8 +83,9 @@ export abstract class InputEditableElement{
     }
     return undefined
   }
+  private readonly irregularCharRegexp=/[^a-zA-Z\d]/
   protected isCharIrregular(char:string){
-    return /[^a-zA-Z\d]/.test(char)
+    return this.irregularCharRegexp.test(char)
   }
 
   get lastCharData(){
