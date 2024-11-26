@@ -48,26 +48,26 @@ import {FunctionComponent} from "./components/function/function.component";
 })
 export class InputComponent extends InputEditableElement implements AfterViewInit,OnInit {
   @HostBinding('tabindex')
-  tabIndex = 0
+  protected tabIndex = 0
   @ViewChild('caret')
-  caretRef!: ElementRef
+  private caretRef!: ElementRef
   @ViewChild('overlay')
-  overlay!:ElementRef
+  private overlay!:ElementRef
   @ViewChild(TermContainerComponent)
-  termContainer!:TermContainerComponent;
-  parent = undefined
+  readonly termContainer!:TermContainerComponent;
+  readonly parent = undefined
 
   @HostListener('click')
-  onClick() {
+  protected onClick() {
     this.setCurrentElement(this)
     this.moveCaretTo(this.lastCharData)
   }
 
-  cdr = inject(ChangeDetectorRef)
-  renderer = inject(Renderer2)
-  inputUtilitiesService = inject(InputUtilitiesService)
-  warningsService=inject(WarningsService)
-  terms: Term[] = [
+  private cdr = inject(ChangeDetectorRef)
+  private renderer = inject(Renderer2)
+  readonly inputUtilitiesService = inject(InputUtilitiesService)
+  private warningsService=inject(WarningsService)
+  readonly terms: Term[] = [
     {char: '1', type: 'char'},
     {char: ' ', type: 'char'},
     {char: '2', type: 'char'},
@@ -141,11 +141,11 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     }
   ];
 
-  currentElement: InputEditableElement = this
-  caretIndex = 0
-  ref = inject(ElementRef).nativeElement as HTMLElement
+  private currentElement: InputEditableElement = this
+  private caretIndex = 0
+  readonly ref = inject(ElementRef).nativeElement as HTMLElement
 
-  index = 0
+  readonly index = 0
 
   ngAfterViewInit() {
     this.inputUtilitiesService.charClicked.subscribe((charData) => this.moveCaretTo(charData))
@@ -167,7 +167,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   }
 
   @HostListener('keydown', ['$event'])
-  onKeyDown(event: KeyboardEvent) {
+  protected onKeyDown(event: KeyboardEvent) {
     let {key, ctrlKey, altKey} = event
 
     if (key !== 'Tab')
@@ -345,7 +345,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     return charData;
   }
 
-  appendChar(char:string,ctrlKey?:boolean,altKey?:boolean) {
+  private appendChar(char:string,ctrlKey?:boolean,altKey?:boolean) {
     if(char=='/')
       this.appendFraction()
     else if(char=='e' && ctrlKey)
@@ -364,7 +364,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     this.currentElement.updateTermsValidation()
   }
 
-  moveCaretTo({positionX,positionY,index,size,parent}:InputCharData){
+  private moveCaretTo({positionX,positionY,index,size,parent}:InputCharData){
     this.renderer.setStyle(this.caretRef.nativeElement,'left',positionX+'px')
     this.renderer.setStyle(this.caretRef.nativeElement,'top',positionY+'px')
     if(parent)
@@ -372,7 +372,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     this.caretIndex=index
     this.makeCharVisible(positionX)
   }
-  deleteChar(from=this.caretIndex, deleteCount=1){
+  private deleteChar(from=this.caretIndex, deleteCount=1){
     if(this.caretIndex==-1&&this.currentElement==this)
       return
     let prevCharData=this.currentElement.removeChars(from,deleteCount)
@@ -459,20 +459,20 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   @Input()
   dimensions!:{fontSize: number,width:number,height:number};
   @HostBinding('style.--height')
-  get heightToBind(){
+  protected get heightToBind(){
     return this.dimensions.height+'rem'
   }
   @HostBinding('style.--width')
-  get widthToBind(){
+  protected get widthToBind(){
     return this.dimensions.width+'rem'
   }
 
 
   @HostBinding('style.--font-size')
-  override get fontSizeToBind(){
+  protected override get fontSizeToBind(){
     return super.fontSizeToBind
   }
-  override get fontSize(){
+  protected override get fontSize(){
     return this.dimensions.fontSize
   }
 
@@ -480,13 +480,13 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 // ------------------VARIABLE CHECKING LOGIC------------------
   @Input()
   variableProvider!:VariableProvider
-  variableProviderService=inject(VariableProviderService)
+  private variableProviderService=inject(VariableProviderService)
 
   @ViewChild('warningContainer')
-  warningContainer!:ElementRef
+  private warningContainer!:ElementRef
 
-  showingWarning=false
-  warningMessages:WarningMessageData[]=[]
+  protected showingWarning=false
+  protected warningMessages:WarningMessageData[]=[]
 
   private showWarning({messages,position}:{messages:WarningMessageData[],position:InputCharData}){
     this.showingWarning=true

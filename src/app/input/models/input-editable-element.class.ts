@@ -7,19 +7,19 @@ import {InputComponent} from "../input.component";
 import {TermContainerComponent} from "../components/term-container/term-container.component";
 
 export abstract class InputEditableElement{
-  abstract parent?:InputEditableElement
-  abstract termContainer:TermContainerComponent
-  abstract ref:HTMLElement
-  abstract terms:Term[]
-  abstract index:number
-  abstract inputUtilitiesService:InputUtilitiesService
+  abstract readonly parent?:InputEditableElement
+  protected abstract readonly termContainer:TermContainerComponent
+  abstract readonly ref:HTMLElement
+  abstract readonly terms:Term[]
+  abstract readonly index:number
+  abstract readonly inputUtilitiesService:InputUtilitiesService
 
   editable=true
 
   get renderedChars(){
     return this.termContainer.renderedChars
   }
-  get positionX(): number {
+  protected get positionX(): number {
     let parent:HTMLElement|null=this.ref.parentElement
     let leftPosition=this.ref.offsetLeft
     while(parent && !(parent.tagName=='APP-INPUT')){
@@ -29,7 +29,7 @@ export abstract class InputEditableElement{
     return leftPosition
   }
 
-  get positionY(): number {
+  protected get positionY(): number {
     return this.ref.getBoundingClientRect().top-this.inputUtilitiesService.inputPositionY;
   }
 
@@ -72,7 +72,7 @@ export abstract class InputEditableElement{
       (from,to)=>from>=to);
   }
 
-  protected findSpecialChar(from:number,to:number,stepF:(i:number)=>number,conditionF:(from:number,to:number)=>boolean):InputCharData|undefined{
+  private findSpecialChar(from:number,to:number,stepF:(i:number)=>number,conditionF:(from:number,to:number)=>boolean):InputCharData|undefined{
     let renderedChars=this.renderedChars
     let i=from
     while (conditionF(i,to)){
@@ -84,7 +84,7 @@ export abstract class InputEditableElement{
     return undefined
   }
   private readonly irregularCharRegexp=/[^a-zA-Z\d]/
-  protected isCharIrregular(char:string){
+  private isCharIrregular(char:string){
     return this.irregularCharRegexp.test(char)
   }
 
@@ -94,16 +94,16 @@ export abstract class InputEditableElement{
   get noCharData():InputCharData{
     return {index:-1,positionX:this.positionX,positionY:this.positionY,size:this.size}
   }
-  get fontSize():number{
+  protected get fontSize():number{
     return this.parent?.fontSize||3
   }
-  get fontSizeToBind(){
+  protected get fontSizeToBind(){
     return this.fontSize+'rem'
   }
   get size():number{
     return this.ref.offsetHeight
   }
-  removeSimpleChar(from:number, deleteCount=1):InputCharData|undefined{
+  protected removeSimpleChar(from:number, deleteCount=1):InputCharData|undefined{
     if(from==-1)
       return
     this.terms.splice(from,deleteCount)
