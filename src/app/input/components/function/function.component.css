@@ -13,4 +13,7 @@ span{
 char{
   height: 100%;
 }
+argument{
+  align-self: end;
+}
 

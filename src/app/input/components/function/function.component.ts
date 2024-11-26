@@ -5,6 +5,7 @@ import {InputTermDirective} from "../../directives/input-term.directive";
 import {Term} from "../../models/terms/term.model";
 import {InputCharData} from "../../models/input-char-data.model";
 import {TermContainerComponent} from "../term-container/term-container.component";
+import {FunctionMainContainerComponent} from "./function-main-container/function-main-container.component";
 
 @Component({
   selector: 'function',
@@ -28,6 +29,10 @@ export class FunctionComponent extends InputEditableElement{
   @ViewChild('functionNameLabel')
   functionNameLabel!:ElementRef
 
+  @Input()
+  argumentTerms?:Term[]
+
+  override editable=false
   override get fontSize(): number {
     return super.fontSize*0.8;
   }
@@ -37,15 +42,16 @@ export class FunctionComponent extends InputEditableElement{
     return super.fontSizeToBind;
   }
 
-  override get noCharData(): InputCharData {
-    let noCharData= super.noCharData;
-    noCharData.positionX+=this.functionNameLabel.nativeElement.offsetWidth
-    return noCharData
-  }
-
   @HostBinding('style.--parent-font-size')
   get parentFontSize(){
     return super.fontSize+'rem'
   }
+  @ViewChildren(InputTermDirective)
+  _renderedChars!:QueryList<InputTermDirective>;
+  override get renderedChars(): QueryList<InputTermDirective> {
+    return this._renderedChars
+  }
+  @ViewChild('functionMainContainer')
+  mainContainer!:FunctionMainContainerComponent
 }
 

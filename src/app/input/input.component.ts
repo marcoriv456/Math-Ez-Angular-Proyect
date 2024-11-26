@@ -27,6 +27,7 @@ import {WarningMessageData} from "./models/char-validation/warning-message-data.
 import {InputCharData} from "./models/input-char-data.model";
 import {TermContainerComponent} from "./components/term-container/term-container.component";
 import {TermArgumentComponent} from "./components/term-argument/term-argument.component";
+import {FunctionComponent} from "./components/function/function.component";
 
 @Component({
   selector: 'app-input',
@@ -524,10 +525,16 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   }
 
   private appendFunction(from:number,to:number,functionName:string){
-    this.appendTerm({type:'function',functionChildren:[],functionName},from,to-from+1)
-    let renderedFunction=this.currentElement.renderedChars.get(this.caretIndex+1-functionName.length)?.asEditableElement
+    let functionTerm:Term={
+      type:'function',
+      functionName,
+      functionChildren:[],
+      argumentTerms:functionName=='log'?[]:undefined
+    }
+    this.appendTerm(functionTerm,from,to-from+1)
+    let renderedFunction=this.currentElement.renderedChars.get(this.caretIndex+1-functionName.length)?.asEditableElement as FunctionComponent
     if(renderedFunction)
-      this.setCurrentElement(renderedFunction)
+      this.setCurrentElement(renderedFunction.mainContainer)
     this.moveCaretTo(this.currentElement.noCharData)
   }
 
