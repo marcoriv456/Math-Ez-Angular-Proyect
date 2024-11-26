@@ -354,6 +354,8 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
       this.appendSimpleRoot()
     else if(char=='r' && altKey)
       this.appendEditableRadicalRoot()
+    else if(char=='p' && ctrlKey)
+      this.appendSingleChar('π')
     else
       this.appendSingleChar(char)
     this.cdr.detectChanges()
