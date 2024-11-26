@@ -15,8 +15,6 @@ import { FunctionComponent } from './components/function/function.component';
 import { TermContainerComponent } from './components/term-container/term-container.component';
 import {TermValidationService} from "./services/term-validation/term-validation.service";
 import { TermArgumentComponent } from './components/term-argument/term-argument.component';
-import { RootMainContainerComponent } from './components/root/root-main-container/root-main-container.component';
-import { FunctionMainContainerComponent } from './components/function/function-main-container/function-main-container.component';
 import { EditableTermContainerComponent } from './components/editable-term-container/editable-term-container.component';
 
 @NgModule({
@@ -32,8 +30,6 @@ import { EditableTermContainerComponent } from './components/editable-term-conta
     FunctionComponent,
     TermContainerComponent,
     TermArgumentComponent,
-    RootMainContainerComponent,
-    FunctionMainContainerComponent,
     EditableTermContainerComponent
   ],
   imports: [

@@ -5,8 +5,6 @@ import {InputTermDirective} from "../../directives/input-term.directive";
 import {Term} from "../../models/terms/term.model";
 import {InputCharData} from "../../models/input-char-data.model";
 import {TermContainerComponent} from "../term-container/term-container.component";
-import {RootMainContainerComponent} from "./root-main-container/root-main-container.component";
-import {TermArgumentComponent} from "../term-argument/term-argument.component";
 import {EditableTermContainerComponent} from "../editable-term-container/editable-term-container.component";
 
 @Component({
