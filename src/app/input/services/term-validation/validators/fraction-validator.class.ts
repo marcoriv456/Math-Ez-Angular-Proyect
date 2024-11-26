@@ -11,6 +11,7 @@ export class FractionValidator implements TermValidator{
     if(!this.isTermParentAFractionChild(term.parent))
       return;
     this.validateDivisionByZero(term.parent.toString,messageList)
+    this.validateOneAsDenominator(term.parent as FractionChildComponent, term.parent.toString,messageList)
   }
 
   private isTermParentAFractionChild(termParent:InputEditableElement){
@@ -20,5 +21,9 @@ export class FractionValidator implements TermValidator{
   private validateDivisionByZero(parentValue:string,messageList:WarningMessageData[]){
     if(this.zeroTermRegexp.test(parentValue))
       messageList.push({message:'No se puede dividir por 0.', type:'partially-invalid'})
+  }
+  private validateOneAsDenominator(parent:FractionChildComponent,parentValue:string, messageList:WarningMessageData[]){
+    if(parent.type=='denominator' && parentValue=='1')
+      messageList.push({message:'Tener "1" como denominador es redundante.', type:'partially-invalid'})
   }
 }

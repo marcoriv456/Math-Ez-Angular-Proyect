@@ -5,6 +5,7 @@
   [parent]="this"
   [index]="0"
   (termDeleted)="this.inputUtilitiesService.elementDeletedEmitter.emit({elementIndex:index,residualData:denominatorChildren})"
+  type="numerator"
 ></frac-child>
 <span class="frac-bar"></span>
 <frac-child
@@ -14,6 +15,7 @@
   [parent]="this"
   [index]="1"
   (termDeleted)="this.inputUtilitiesService.elementDeletedEmitter.emit({elementIndex:index,residualData:numeratorChildren})"
+  type="denominator"
 >
 </frac-child>
 

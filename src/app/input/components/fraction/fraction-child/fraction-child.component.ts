@@ -36,6 +36,8 @@ export class FractionChildComponent extends InputEditableElement implements Afte
 
   @Output()
   termDeleted=new EventEmitter<void>
+  @Input()
+  type!:'numerator'|'denominator'
 
   cdr=inject(ChangeDetectorRef)
   override get fontSize(){
