@@ -15,7 +15,7 @@ import {VariableProvider} from "../models/variable-provider.model";
 import {VariableProviderService} from "../services/variable-provider/variable-provider.service";
 import {FractionComponent} from "../components/fraction/fraction.component";
 import {FractionChildComponent} from "../components/fraction/fraction-child/fraction-child.component";
-import {ExponentComponent} from "../components/power/exponent.component";
+import {ExponentComponent} from "../components/exponent/exponent.component";
 import {ValidationData} from "../models/char-validation/validation-data.model";
 import {WarningMessageData} from "../models/char-validation/warning-message-data.model";
 import {InputCharData} from "../models/input-char-data.model";

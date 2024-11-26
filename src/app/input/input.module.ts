@@ -7,7 +7,7 @@ import { FractionComponent } from './components/fraction/fraction.component';
 import {InputUtilitiesService} from "./services/caret-positioning/input-utilities.service";
 import { InputTermDirective } from './directives/input-term.directive';
 import { FractionChildComponent } from './components/fraction/fraction-child/fraction-child.component';
-import { ExponentComponent } from './components/power/exponent.component';
+import { ExponentComponent } from './components/exponent/exponent.component';
 import { RootComponent } from './components/root/root.component';
 import {WarningsService} from "./services/warnings/warnings.service";
 import {VariableProviderService} from "./services/variable-provider/variable-provider.service";

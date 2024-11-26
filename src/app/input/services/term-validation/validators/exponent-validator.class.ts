@@ -2,7 +2,7 @@ import {TermValidator} from "./term-validator.model";
 import {InputTermDirective} from "../../../directives/input-term.directive";
 import {WarningMessageData} from "../../../models/char-validation/warning-message-data.model";
 import {InputEditableElement} from "../../../models/input-editable-element.class";
-import {ExponentComponent} from "../../../components/power/exponent.component";
+import {ExponentComponent} from "../../../components/exponent/exponent.component";
 
 export class ExponentValidator implements TermValidator{
   private zeroExponentRegexp=/^0+$/
