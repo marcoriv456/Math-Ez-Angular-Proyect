@@ -219,10 +219,10 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     if(parent && !parent.editable  && isCaretInTheLastPosition)
       nextRenderedElement=this.nextRenderedElementInParent
     let nextRenderedElementClassRef = nextRenderedElement?.asEditableElement
-    if (!nextRenderedElement || !nextRenderedElementClassRef)
-      this.moveContextToActualParent((prevContextIndex)=>
-        this.moveCaretTo(this.currentElement.getCharData(prevContextIndex)||this.currentElement.lastCharData)
-      )
+    if (!nextRenderedElement || !nextRenderedElementClassRef){
+      let prevContextIndex=this.moveContextToActualParent()
+      this.moveCaretTo(this.currentElement.getCharData(prevContextIndex)||this.currentElement.lastCharData)
+    }
     else
       this.moveContextToNextRenderedElement(nextRenderedElement)
   }
@@ -262,10 +262,10 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     let parentHasMoreThanOneChild=parent && parent.renderedChars.length > 1
     if(parent && !parent.editable && isCaretInTheFirstPosition && parentHasMoreThanOneChild)
       prevRenderedElement=this.prevRenderedElementInParent
-    if (!prevRenderedElement || !prevRenderedElement.asEditableElement)
-      this.moveContextToActualParent(
-        (prevContextIndex)=>
-          this.moveCaretTo(this.currentElement.getCharData(prevContextIndex-1) || this.currentElement.noCharData))
+    if (!prevRenderedElement || !prevRenderedElement.asEditableElement){
+      let prevContextIndex=this.moveContextToActualParent()
+      this.moveCaretTo(this.currentElement.getCharData(prevContextIndex-1) || this.currentElement.noCharData)
+    }
     else
       this.moveContextToPrevRenderedElement(prevRenderedElement)
   }
@@ -286,16 +286,15 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     return this.getRenderedElementInParentAt(this.currentElement.index-1)
   }
 
-  private moveContextToActualParent(onContextChangeFinished?:(prevContextIndex:number)=>void){
-    let actualIndex=this.currentElement.index
+  private moveContextToActualParent(){
+    let prevCurrentElementIndex=this.currentElement.index
     let actualParent=this.currentElement.parent
     if(actualParent && !actualParent.editable){
-      actualIndex=actualParent.index
+      prevCurrentElementIndex=actualParent.index
       actualParent=actualParent.parent
     }
     this.setCurrentElement(actualParent||this)
-    if(onContextChangeFinished)
-      onContextChangeFinished(actualIndex)
+    return prevCurrentElementIndex
   }
 
 
