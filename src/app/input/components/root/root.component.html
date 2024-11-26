@@ -8,7 +8,7 @@
 >
 </argument>
 <img #rootSymbol src="/assets/input/root/root-icon.svg" alt="">
-<root-main-container
+<editable-term-container
   #rootMainContainer
   [parent]="this"
   [terms]="terms"
@@ -16,6 +16,6 @@
   [inputTerm]="{char:'\\r-main\\',index: radicalTerms ? 1:0,editableElementRef:rootMainContainer,parent:this}"
   (termDeleted)="this.inputUtilitiesService.elementDeletedEmitter.emit({elementIndex:index,residualData:[]})"
 >
-</root-main-container>
+</editable-term-container>
 
 

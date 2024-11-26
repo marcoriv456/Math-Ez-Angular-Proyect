@@ -7,6 +7,7 @@ import {InputCharData} from "../../models/input-char-data.model";
 import {TermContainerComponent} from "../term-container/term-container.component";
 import {RootMainContainerComponent} from "./root-main-container/root-main-container.component";
 import {TermArgumentComponent} from "../term-argument/term-argument.component";
+import {EditableTermContainerComponent} from "../editable-term-container/editable-term-container.component";
 
 @Component({
   selector: 'root',
@@ -26,8 +27,6 @@ export class RootComponent extends InputEditableElement{
   termContainer!: TermContainerComponent;
   ref=inject(ElementRef).nativeElement as HTMLElement;
   inputUtilitiesService=inject(InputUtilitiesService);
-  @ViewChild('rootSymbol')
-  rootSymbol!:ElementRef;
 
   @Input()
   radicalTerms?:Term[]
@@ -42,7 +41,7 @@ export class RootComponent extends InputEditableElement{
   }
 
   @ViewChild('rootMainContainer')
-  mainComponent!:RootMainContainerComponent
+  mainComponent!:EditableTermContainerComponent
 
   override get renderedChars(): QueryList<InputTermDirective> {
     return this._renderedChars;
