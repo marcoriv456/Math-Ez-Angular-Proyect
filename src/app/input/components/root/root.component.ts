@@ -41,16 +41,8 @@ export class RootComponent extends InputEditableElement{
     return super.fontSizeToBind;
   }
 
-  override get noCharData(): InputCharData {
-    let noCharData= super.noCharData;
-    noCharData.positionX+=this.rootSymbol.nativeElement.offsetWidth
-    return noCharData
-  }
-
   @ViewChild('rootMainContainer')
   mainComponent!:RootMainContainerComponent
-  @ViewChild('rootArgument')
-  radicalComponent!:TermArgumentComponent
 
   override get renderedChars(): QueryList<InputTermDirective> {
     return this._renderedChars;
