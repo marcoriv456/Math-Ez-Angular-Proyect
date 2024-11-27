@@ -33,19 +33,7 @@ export class FunctionComponent extends InputEditableElement{
   argumentTerms?:Term[]
 
   override editable=false
-  override get fontSize(): number {
-    return super.fontSize*0.8;
-  }
 
-  @HostBinding('style.--font-size')
-  override get fontSizeToBind(): string {
-    return super.fontSizeToBind;
-  }
-
-  @HostBinding('style.--parent-font-size')
-  get parentFontSize(){
-    return super.fontSize+'rem'
-  }
   @ViewChildren(InputTermDirective)
   _renderedChars!:QueryList<InputTermDirective>;
   override get renderedChars(): QueryList<InputTermDirective> {

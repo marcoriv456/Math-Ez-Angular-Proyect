@@ -1,8 +1,8 @@
 :host{
-  --height: 5rem;
-  --width: 40rem;
-  width: var(--width);
-  height: var(--height);
+  font-size: 3rem;
+
+  width: 50rem;
+  height: 5rem;
   outline: #4c4c4c 1px solid;
   border-radius: 10px;
   display: flex;

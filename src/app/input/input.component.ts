@@ -69,75 +69,56 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   private warningsService=inject(WarningsService)
   readonly terms: Term[] = [
     {char: '1', type: 'char'},
-    {char: ' ', type: 'char'},
     {char: '2', type: 'char'},
-    {char: ' ', type: 'char'},
     {char: '3', type: 'char'},
-    {char: ' ', type: 'char'},
     {char: '4', type: 'char'},
-    {char: ' ', type: 'char'},
     {char: '5', type: 'char'},
-    {char: ' ', type: 'char'},
     {char: '6', type: 'char'},
-    {char: ' ', type: 'char'},
     {char: '7', type: 'char'},
-    {char: ' ', type: 'char'},
     {char: '8', type: 'char'},
-    {char: ' ', type: 'char'},
     {char: '9', type: 'char'},
     {char: ' ', type: 'char'},
-    {char: '1', type: 'char'},
-    {char: '0', type: 'char'},
-    {char: ' ', type: 'char'},
-    {char: '1', type: 'char'},
-    {char: '1', type: 'char'},
-    {char: ' ', type: 'char'},
-    {char: '1', type: 'char'},
-    {char: '2', type: 'char'},
-    {char: ' ', type: 'char'},
-    {char: '1', type: 'char'},
-    {char: '3', type: 'char'},
-    {char: ' ', type: 'char'},
-    {char: '1', type: 'char'},
-    {char: '4', type: 'char'},
-    {char: ' ', type: 'char'},
-    {char: '1', type: 'char'},
-    {char: '5', type: 'char'},
-    {char: ' ', type: 'char'},
-    {char: '1', type: 'char'},
-    {char: '6', type: 'char'},
-    {char: ' ', type: 'char'},
-    {char: '1', type: 'char'},
-    {char: '7', type: 'char'},
-    {char: ' ', type: 'char'},
-    {char: '1', type: 'char'},
-    {char: '8', type: 'char'},
-    {char: ' ', type: 'char'},
-    {char: '1', type: 'char'},
-    {char: '9', type: 'char'},
-    {char: ' ', type: 'char'},
-    {char: '2', type: 'char'},
-    {char: '0', type: 'char'},
-    {char: ' ', type: 'char'},
-    {char: '2', type: 'char'},
-    {char: '1', type: 'char'},
-    {char: ' ', type: 'char'},
-    {char: '2', type: 'char'},
-    {char: '2', type: 'char'},
-    {char: ' ', type: 'char'},
-    {char: '2', type: 'char'},
-    {char: '3', type: 'char'},
-    {char: ' ', type: 'char'},
-    {char: '2', type: 'char'},
-    {char: '4', type: 'char'},
-    {char: ' ', type: 'char'},
-    {char: '2', type: 'char'},
-    {char: '5', type: 'char'},
-
     {
       numeratorChildren: [{char: '1', type: 'char'}, {char: '0', type: 'char'}],
       denominatorChildren: [{char: '4', type: 'char'}],
       type: 'fraction'
+    },
+    {char: ' ', type: 'char'},
+    {
+      functionName:'log',
+      functionChildren:[
+        {char: '8', type: 'char'},
+        {char: '1', type: 'char'},
+      ],
+      argumentTerms:[{char: '9', type: 'char'}],
+      type:'function'
+    },
+    {char: ' ', type: 'char'},
+    {
+      rootChildren:[
+        {char: '8', type: 'char'},
+        {char: '1', type: 'char'},
+      ],
+      radicalTerms:[{char:'9',type:'char'}],
+      type:'root'
+    },
+    {char: ' ', type: 'char'},
+    {
+      type:'fraction',
+      numeratorChildren:[
+        {char: '1', type: 'char'}
+      ],
+      denominatorChildren:[
+        {char: '8', type: 'char'},
+      ]
+    },
+    {char: ' ', type: 'char'},
+    {char: '8', type: 'char'},
+    {
+      exponentChildren:[
+        {char: '2', type: 'char'},
+      ],
+      type:'exponent'
     }
   ];
 
@@ -455,25 +436,6 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 
 // ------------------STRUCTURING LOGIC------------------
 // ------------------SIZING LOGIC------------------
-  @Input()
-  dimensions!:{fontSize: number,width:number,height:number};
-  @HostBinding('style.--height')
-  protected get heightToBind(){
-    return this.dimensions.height+'rem'
-  }
-  @HostBinding('style.--width')
-  protected get widthToBind(){
-    return this.dimensions.width+'rem'
-  }
-
-
-  @HostBinding('style.--font-size')
-  protected override get fontSizeToBind(){
-    return super.fontSizeToBind
-  }
-  protected override get fontSize(){
-    return this.dimensions.fontSize
-  }
 
 // ------------------SIZING LOGIC------------------
 // ------------------VARIABLE CHECKING LOGIC------------------

@@ -5,6 +5,7 @@
   width: 100%;
   min-width: 2ch;
   height: 50%;
+  font-size: 0.5em;
 }
 term-container:not(:has(*)){
   border: dashed 1px gray;

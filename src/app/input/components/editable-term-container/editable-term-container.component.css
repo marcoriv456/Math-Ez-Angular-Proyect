@@ -1,7 +1,6 @@
 :host{
   position: relative;
-  border-top: var(--line-height) solid #1d1d1b;
-  min-width:2ch;
+  min-width:1ch;
   height: 100%;
 }
 term-container:not(:has(*)){

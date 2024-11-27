@@ -30,13 +30,6 @@ export class RootComponent extends InputEditableElement{
   radicalTerms?:Term[]
 
   override editable=false
-  override get fontSize(): number {
-    return super.fontSize*0.8;
-  }
-  @HostBinding('style.--font-size')
-  override get fontSizeToBind(): string {
-    return super.fontSizeToBind;
-  }
 
   @ViewChild('rootMainContainer')
   mainComponent!:EditableTermContainerComponent

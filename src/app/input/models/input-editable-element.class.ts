@@ -94,12 +94,6 @@ export abstract class InputEditableElement{
   get noCharData():InputCharData{
     return {index:-1,positionX:this.positionX,positionY:this.positionY,size:this.size}
   }
-  protected get fontSize():number{
-    return this.parent?.fontSize||3
-  }
-  protected get fontSizeToBind(){
-    return this.fontSize+'rem'
-  }
   get size():number{
     return this.ref.offsetHeight
   }

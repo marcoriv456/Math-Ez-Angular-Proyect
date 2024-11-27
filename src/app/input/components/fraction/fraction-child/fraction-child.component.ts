@@ -40,13 +40,6 @@ export class FractionChildComponent extends InputEditableElement implements Afte
   type!:'numerator'|'denominator'
 
   cdr=inject(ChangeDetectorRef)
-  override get fontSize(){
-    return super.fontSize/2;
-  }
-  @HostBinding('style.--font-size')
-  override get fontSizeToBind(){
-    return super.fontSizeToBind
-  }
 
   override removeChars(from: number, deleteCount: number = 1): InputCharData|undefined {
     if(this.terms.length)

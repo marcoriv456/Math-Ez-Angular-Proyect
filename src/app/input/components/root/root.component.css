@@ -1,10 +1,11 @@
 :host{
+  font-size: 0.8em;
+
   position: relative;
   width: fit-content;
   height: 90%;
   display: flex;
   margin-top: 2px;
-  --line-height:calc(var(--font-size)  *0.05);
 }
 img{
   height: 100%;
@@ -12,7 +13,6 @@ img{
 argument{
   align-self: start;
 }
-/*term-container:not(:has(*)){*/
-/*  border: dashed var(--line-height) gray;*/
-/*  border-top: var(--line-height) solid #1d1d1b;*/
-/*}*/
+editable-term-container{
+  border-top: calc(1em *0.1) solid #1d1d1b;
+}
