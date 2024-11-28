@@ -1,13 +1,9 @@
 :host{
   font-size: 0.5em;
   width: fit-content;
-  min-width: 1ch;
   position: relative;
   height: 1em;
 }
 term-container{
   justify-content: center;
-}
-term-container:not(:has(*)){
-  border: 1px dashed gray;
 }

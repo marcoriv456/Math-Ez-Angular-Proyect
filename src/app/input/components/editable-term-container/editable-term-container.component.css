@@ -1,8 +1,4 @@
 :host{
   position: relative;
-  min-width:1ch;
   height: 100%;
-}
-term-container:not(:has(*)){
-  border: 1px dashed gray;
 }

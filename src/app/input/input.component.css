@@ -101,6 +101,10 @@
 .warning-message.fully-invalid{
   color: #f00;
 }
+
+term-container:not(:has(*)){
+  border: none;
+}
 @keyframes blink {
   50%{
     height: 0;

@@ -6,11 +6,6 @@
   display: flex;
   align-self: start;
 }
-term-container:not(:has(*)){
-  border: 1px dashed gray;
-}
 term-container{
   min-width: 1ch;
-  display: flex;
-  position: relative;
 }
