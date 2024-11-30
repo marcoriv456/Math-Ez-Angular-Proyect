@@ -7,6 +7,7 @@ import {TermValidator} from "./validators/term-validator.model";
 import {FractionValidator} from "./validators/fraction-validator.class";
 import {ExponentValidator} from "./validators/exponent-validator.class";
 import {RootValidator} from "./validators/root-validator.class";
+import {FunctionValidator} from "./validators/function-validator.class";
 
 @Injectable()
 export class TermValidationService{
@@ -15,7 +16,8 @@ export class TermValidationService{
     new CharValidator(),
     new FractionValidator(),
     new ExponentValidator(),
-    new RootValidator()
+    new RootValidator(),
+    new FunctionValidator()
   ]
 
   validateTerm(term:InputTermDirective):ValidationData{
