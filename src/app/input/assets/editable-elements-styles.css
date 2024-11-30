@@ -1,11 +1,12 @@
 @keyframes selection-blink {
   from{
-    background-color: #999;
+    outline: 1px solid #000;
   }
   to{
-    background-color: #fff;
-  }
+    outline: 1px solid #0004;
+    border-radius: 0.1em;
+    }
 }
 :host.selected{
-  animation: selection-blink 1s cubic-bezier(0,0,0,1);
+  animation: selection-blink 1s cubic-bezier(0,0,0,1) forwards;
 }
