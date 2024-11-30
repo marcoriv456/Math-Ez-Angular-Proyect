@@ -20,7 +20,7 @@ import {TermContainerComponent} from "../../term-container/term-container.compon
 @Component({
   selector: 'frac-child',
   templateUrl: './fraction-child.component.html',
-  styleUrl: './fraction-child.component.css'
+  styleUrls: ['./fraction-child.component.css','../../../assets/editable-elements-styles.css']
 })
 export class FractionChildComponent extends InputEditableElement implements AfterViewInit{
   @Input()

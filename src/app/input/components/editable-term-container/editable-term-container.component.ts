@@ -8,7 +8,7 @@ import {InputCharData} from "../../models/input-char-data.model";
 @Component({
   selector: 'editable-term-container',
   templateUrl: './editable-term-container.component.html',
-  styleUrl: './editable-term-container.component.css'
+  styleUrls: ['./editable-term-container.component.css','../../assets/editable-elements-styles.css']
 })
 export class EditableTermContainerComponent extends InputEditableElement{
   @Input()

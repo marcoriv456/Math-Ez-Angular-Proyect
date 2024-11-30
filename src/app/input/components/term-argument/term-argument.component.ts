@@ -8,7 +8,7 @@ import {InputCharData} from "../../models/input-char-data.model";
 @Component({
   selector: 'argument',
   templateUrl: './term-argument.component.html',
-  styleUrl: './term-argument.component.css'
+  styleUrls: ['./term-argument.component.css','../../assets/editable-elements-styles.css']
 })
 export class TermArgumentComponent extends InputEditableElement{
   @Input()

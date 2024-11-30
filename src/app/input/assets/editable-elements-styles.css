@@ -1,0 +1,11 @@
+@keyframes selection-blink {
+  from{
+    background-color: #999;
+  }
+  to{
+    background-color: #fff;
+  }
+}
+:host.selected{
+  animation: selection-blink 1s cubic-bezier(0,0,0,1);
+}

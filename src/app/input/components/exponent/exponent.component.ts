@@ -10,7 +10,7 @@ import {TermContainerComponent} from "../term-container/term-container.component
 @Component({
   selector: 'exp',
   templateUrl: './exponent.component.html',
-  styleUrl: './exponent.component.css'
+  styleUrls: ['./exponent.component.css','../../assets/editable-elements-styles.css']
 })
 export class ExponentComponent extends InputEditableElement{
   @Input()
