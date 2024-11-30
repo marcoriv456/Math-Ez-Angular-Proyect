@@ -5,7 +5,7 @@
   width: fit-content;
 
   font-size: 1em;
-  animation: new-char 0.5s ease;
+  animation: new-char 0.5s cubic-bezier(0,0,0,1);
   border-radius: 2px;
   transition: background-color 300ms cubic-bezier(0,0,0,1);
 }
@@ -27,9 +27,7 @@ pre{
 }
 @keyframes new-char {
   from{
-    background-color: #f004;
-  }
-  to{
-    background-color: transparent;
+    translate: 0 -10%;
+    opacity: 0.3;
   }
 }
