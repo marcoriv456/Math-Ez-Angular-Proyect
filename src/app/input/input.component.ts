@@ -159,7 +159,6 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
       this.onSpecialCtrlKeyDown(key)
     else
       this.onSpecialKeyDown(key)
-    console.log("key: ", key)
   }
 
   private onSpecialKeyDown(key: string) {
