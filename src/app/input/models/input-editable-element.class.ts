@@ -29,7 +29,7 @@ export abstract class InputEditableElement{
     return leftPosition
   }
 
-  protected get positionY(): number {
+  get positionY(): number {
     return this.ref.getBoundingClientRect().top-this.inputUtilitiesService.inputPositionY;
   }
 

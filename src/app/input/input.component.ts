@@ -144,7 +144,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   }
 
   override get positionY(): number {
-    return this.ref.getBoundingClientRect().top
+    return 0
   }
 
   @HostListener('keydown', ['$event'])
@@ -293,6 +293,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     this.currentElement=element
     this.renderer.addClass(this.currentElement.ref,'selected')
     this.renderer.setStyle(this.caretRef.nativeElement,'--height',element.size+'px',2)
+    this.renderer.setStyle(this.caretRef.nativeElement,'top',element.positionY+'px')
   }
 
   private get nextCharData(){
@@ -345,7 +346,6 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 
   private moveCaretTo({positionX,positionY,index,size,parent}:InputCharData){
     this.renderer.setStyle(this.caretRef.nativeElement,'left',positionX+'px')
-    this.renderer.setStyle(this.caretRef.nativeElement,'top',positionY+'px')
     if(parent)
       this.setCurrentElement(parent)
     this.caretIndex=index
