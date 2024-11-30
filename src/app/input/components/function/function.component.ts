@@ -41,5 +41,7 @@ export class FunctionComponent extends InputEditableElement{
   }
   @ViewChild('functionMainContainer')
   mainContainer!:EditableTermContainerComponent
+  @ViewChild('functionArgument')
+  argumentComponent!:EditableTermContainerComponent
 }
 

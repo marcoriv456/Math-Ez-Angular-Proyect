@@ -498,7 +498,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     this.appendTerm(functionTerm,from,to-from+1)
     let renderedFunction=this.currentElement.renderedChars.get(this.caretIndex+1-functionName.length)?.asEditableElement as FunctionComponent
     if(renderedFunction)
-      this.setCurrentElement(renderedFunction.mainContainer)
+      this.setCurrentElement(renderedFunction.argumentComponent||renderedFunction.mainContainer)
     this.moveCaretTo(this.currentElement.noCharData)
   }
 
