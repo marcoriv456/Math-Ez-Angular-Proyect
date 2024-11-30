@@ -419,7 +419,8 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 
   private appendRoot(root:Term){
     this.appendTerm(root)
-    this.setCurrentElement((this.currentElement as RootComponent).mainComponent||this)
+    let renderedRoot=(this.currentElement as RootComponent)
+    this.setCurrentElement(renderedRoot.argumentComponent||renderedRoot.mainComponent)
     this.moveCaretTo(this.currentElement.noCharData)
   }
   private appendSingleChar(char:string){

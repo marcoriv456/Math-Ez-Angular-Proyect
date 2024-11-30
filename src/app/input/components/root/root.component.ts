@@ -6,6 +6,7 @@ import {Term} from "../../models/terms/term.model";
 import {InputCharData} from "../../models/input-char-data.model";
 import {TermContainerComponent} from "../term-container/term-container.component";
 import {EditableTermContainerComponent} from "../editable-term-container/editable-term-container.component";
+import {TermArgumentComponent} from "../term-argument/term-argument.component";
 
 @Component({
   selector: 'root',
@@ -33,6 +34,8 @@ export class RootComponent extends InputEditableElement{
 
   @ViewChild('rootMainContainer')
   mainComponent!:EditableTermContainerComponent
+  @ViewChild('rootArgument')
+  argumentComponent!:TermArgumentComponent
 
   override get renderedChars(): QueryList<InputTermDirective> {
     return this._renderedChars;
