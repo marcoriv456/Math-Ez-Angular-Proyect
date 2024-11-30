@@ -1,9 +1,9 @@
 @keyframes selection-blink {
   from{
-    outline: 1px solid #000;
+    outline: 0.01em solid #000;
   }
   to{
-    outline: 1px solid #0004;
+    outline: 0.01em solid #0004;
     border-radius: 0.1em;
     }
 }
