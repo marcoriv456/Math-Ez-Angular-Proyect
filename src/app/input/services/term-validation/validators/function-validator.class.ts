@@ -20,13 +20,23 @@ export class FunctionValidator implements TermValidator{
   }
 
   private pushArgumentValidationMessages(term:InputTermDirective, messageList: WarningMessageData[]) {
-    this.validateTenAsLogarithmArgument(term,messageList)
+    this.validateTenAsLogarithmArgument(term.parent,messageList)
+    this.validateLogarithmArgumentGreaterThanOne(term.parent,messageList)
   }
 
-  private validateTenAsLogarithmArgument(term:InputTermDirective,messageList:WarningMessageData[]){
-    if(term.parent.toString=='10' && (term.parent.parent as FunctionComponent).functionName=='log')
-      messageList.push({type:'partially-invalid',message:'10 es el valor por defecto del argumento de un logaritmo.'})
+  private validateTenAsLogarithmArgument(termParent:InputEditableElement,messageList:WarningMessageData[]){
+    if(termParent.toString=='10' && (termParent.parent as FunctionComponent).functionName=='log')
+      messageList.push({type:'partially-invalid',message:'Aun si no se especifica, 10 es el valor por defecto de la base de un logaritmo.'})
   }
+
+  private validateLogarithmArgumentGreaterThanOne(termParent:InputEditableElement,messageList:WarningMessageData[]){
+    if((termParent.parent as FunctionComponent).functionName!=='log')
+      return;
+    let numberParentValue=Number(termParent.toString)
+    if(!isNaN(numberParentValue) && !(numberParentValue>1))
+      messageList.push({type:'fully-invalid', message:'La base de un logaritmo debe de ser un numero positivo diferente de 1.'})
+  }
+
 
 
 }
