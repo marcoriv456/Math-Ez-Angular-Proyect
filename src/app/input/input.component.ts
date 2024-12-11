@@ -345,6 +345,8 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
       this.appendEditableRadicalRoot()
     else if(char=='p' && ctrlKey)
       this.appendSingleChar('π')
+    else if(char=='(')
+      this.appendParenthesis()
     else
       this.appendSingleChar(char)
     this.cdr.detectChanges()
@@ -430,6 +432,17 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     let renderedRoot=(this.currentElement as RootComponent)
     this.setCurrentElement(renderedRoot.argumentComponent||renderedRoot.mainComponent)
     this.moveCaretTo(this.currentElement.noCharData)
+  }
+
+  private appendParenthesis(){
+    let {from,to,terms}=this.getTermsFromCurrentIndexToNextIrregularChar()
+    this.appendTerm({type:'parenthesis',parenthesisChildren:terms},from,to-from)
+  }
+
+  private getTermsFromCurrentIndexToNextIrregularChar(){
+    let from=this.caretIndex+1
+    let to=(this.currentElement.getNextSpecialCharData(this.caretIndex)?.index||this.currentElement.lastCharData.index+1)
+    return {from,to,terms:this.currentElement.terms.slice(from, to)}
   }
   private appendSingleChar(char:string){
     this.appendTerm({char,type:'char'})

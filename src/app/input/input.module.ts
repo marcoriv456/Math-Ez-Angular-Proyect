@@ -16,6 +16,7 @@ import { TermContainerComponent } from './components/term-container/term-contain
 import {TermValidationService} from "./services/term-validation/term-validation.service";
 import { TermArgumentComponent } from './components/term-argument/term-argument.component';
 import { EditableTermContainerComponent } from './components/editable-term-container/editable-term-container.component';
+import { ParenthesisComponent } from './components/parenthesis/parenthesis.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { EditableTermContainerComponent } from './components/editable-term-conta
     FunctionComponent,
     TermContainerComponent,
     TermArgumentComponent,
-    EditableTermContainerComponent
+    EditableTermContainerComponent,
+    ParenthesisComponent
   ],
   imports: [
     CommonModule

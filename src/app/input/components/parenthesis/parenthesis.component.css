@@ -1,0 +1,14 @@
+:host{
+  position: relative;
+  display: flex;
+  height: 100%;
+}
+span{
+  position: relative;
+  display: grid;
+  place-items: center;
+  font-family: "Times New Roman";
+}
+:host.selected>span{
+  color: blue;
+}

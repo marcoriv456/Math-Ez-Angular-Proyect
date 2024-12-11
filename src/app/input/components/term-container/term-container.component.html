@@ -40,4 +40,12 @@
     [inputTerm]="{char:'\\function',editableElementRef:functionComponent,index:i,parent}"
     [functionName]="term.functionName"
   ></function>
+  <parenthesis
+    #parenthesisComponent
+    *ngIf="term.type=='parenthesis'"
+    [terms]="term.parenthesisChildren"
+    [index]="i"
+    [parent]="parent"
+    [inputTerm]="{char:'\\function',editableElementRef:parenthesisComponent,index:i,parent}"
+  ></parenthesis>
 </ng-container>
