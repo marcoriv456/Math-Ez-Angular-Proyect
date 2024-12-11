@@ -3,6 +3,7 @@ import {InputEditableElement} from "../../models/input-editable-element.class";
 import {Term} from "../../models/terms/term.model";
 import {TermContainerComponent} from "../term-container/term-container.component";
 import {InputUtilitiesService} from "../../services/caret-positioning/input-utilities.service";
+import {InputCharData} from "../../models/input-char-data.model";
 
 @Component({
   selector: 'parenthesis',
@@ -25,5 +26,11 @@ export class ParenthesisComponent extends InputEditableElement{
   leftParenthesis!:ElementRef
   protected override get positionX(): number {
     return super.positionX+this.leftParenthesis.nativeElement.offsetWidth;
+  }
+  
+  override removeChars(from: number, deleteCount: number = 1): InputCharData | undefined {
+    if(this.inputUtilitiesService.caretIndex==-1)
+      this.inputUtilitiesService.elementDeletedEmitter.emit({elementIndex:this.index, residualData:[...this.terms,{type:'char',char:')'}]})
+    return super.removeChars(from, deleteCount);
   }
 }

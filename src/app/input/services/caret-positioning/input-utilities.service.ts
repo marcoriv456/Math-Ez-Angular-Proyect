@@ -20,5 +20,8 @@ export class InputUtilitiesService {
   setInputRef(input:InputComponent){
     this.inputRef = input
   }
+  get caretIndex(){
+    return this.inputRef.caretIndex
+  }
 
 }
