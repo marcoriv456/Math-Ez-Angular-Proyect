@@ -345,8 +345,8 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
       this.appendEditableRadicalRoot()
     else if(char=='p' && ctrlKey)
       this.appendSingleChar('π')
-    else if(char=='(')
-      this.appendParenthesis()
+    else if(char=='(' || char==')')
+      this.appendParenthesis(char)
     else
       this.appendSingleChar(char)
     this.cdr.detectChanges()
@@ -434,16 +434,52 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     this.moveCaretTo(this.currentElement.noCharData)
   }
 
-  private appendParenthesis(){
-    let {from,to,terms}=this.getTermsFromCurrentIndexToNextIrregularChar()
+  private appendParenthesis(parenthesis:string){
+    let data=parenthesis=='(' ? this.getForwardParenthesisData():this.getPrevParenthesisData();
+    if(!data){
+      this.appendSingleChar(parenthesis)
+      return;
+    }
+    let {from,to,terms}=data
     this.appendTerm({type:'parenthesis',parenthesisChildren:terms},from,to-from)
   }
 
-  private getTermsFromCurrentIndexToNextIrregularChar(){
-    let from=this.caretIndex+1
-    let to=(this.currentElement.getNextSpecialCharData(this.caretIndex)?.index||this.currentElement.lastCharData.index+1)
-    return {from,to,terms:this.currentElement.terms.slice(from, to)}
+  private getForwardParenthesisData(){
+    let nextParenthesis=this.findNextParenthesisChar()
+    if(!nextParenthesis)
+      return;
+    let from=this.caretIndex+1,
+        to=nextParenthesis.index+1;
+    return {from,to,terms:this.currentElement.terms.slice(from,to-1)}
   }
+
+  private findNextParenthesisChar(){
+    for(let i=this.caretIndex; i<this.currentElement.terms.length; i++){
+      let term=this.getRenderedElementAt(i)
+      if(term&&term.char==')')
+        return term
+    }
+    return;
+  }
+
+  private getPrevParenthesisData(){
+    let prevParenthesis=this.findPrevParenthesisChar()
+    if(!prevParenthesis)
+      return;
+    let from=prevParenthesis.index,
+        to=this.caretIndex+1;
+    return{from,to,terms:this.currentElement.terms.slice(from+1,to)}
+  }
+
+  private findPrevParenthesisChar(){
+    for(let i=this.caretIndex; i>=0; i--){
+      let term=this.getRenderedElementAt(i)
+      if(term&&term.char=='(')
+        return term
+    }
+    return;
+  }
+
   private appendSingleChar(char:string){
     this.appendTerm({char,type:'char'})
   }
