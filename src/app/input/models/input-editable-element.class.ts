@@ -1,19 +1,21 @@
-import {QueryList} from "@angular/core";
-import {InputTermDirective} from "../directives/input-term.directive";
+import {Component, Directive, ElementRef, inject, Input, ViewChild} from "@angular/core";
 import {InputUtilitiesService} from "../services/caret-positioning/input-utilities.service";
 import {Term} from "./terms/term.model";
 import {InputCharData} from "./input-char-data.model";
-import {InputComponent} from "../input.component";
 import {TermContainerComponent} from "../components/term-container/term-container.component";
 
-export abstract class InputEditableElement{
-  abstract readonly parent?:InputEditableElement
-  protected abstract readonly termContainer:TermContainerComponent
-  abstract readonly ref:HTMLElement
-  abstract readonly terms:Term[]
-  abstract readonly index:number
-  abstract readonly inputUtilitiesService:InputUtilitiesService
 
+@Directive()
+export abstract class InputEditableElement{
+  abstract termContainer: TermContainerComponent
+  @Input()
+  terms!:Term[]
+  @Input()
+  parent!:InputEditableElement|undefined
+  @Input()
+  index!:number
+  ref=inject(ElementRef).nativeElement as HTMLElement
+  inputUtilitiesService=inject(InputUtilitiesService)
   editable=true
 
   get renderedChars(){

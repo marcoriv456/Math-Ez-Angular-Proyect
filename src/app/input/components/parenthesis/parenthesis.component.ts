@@ -1,9 +1,9 @@
 import {AfterViewInit, Component, ElementRef, inject, Input, ViewChild} from '@angular/core';
-import {InputEditableElement} from "../../models/input-editable-element.class";
 import {Term} from "../../models/terms/term.model";
 import {TermContainerComponent} from "../term-container/term-container.component";
 import {InputUtilitiesService} from "../../services/caret-positioning/input-utilities.service";
 import {InputCharData} from "../../models/input-char-data.model";
+import {InputEditableElement} from "../../models/input-editable-element.class";
 
 @Component({
   selector: 'parenthesis',
@@ -11,16 +11,8 @@ import {InputCharData} from "../../models/input-char-data.model";
   styleUrls: ['./parenthesis.component.css','../../assets/editable-elements-styles.css']
 })
 export class ParenthesisComponent extends InputEditableElement implements AfterViewInit{
-  @Input()
-  terms!:Term[]
   @ViewChild(TermContainerComponent)
   termContainer!: TermContainerComponent;
-  @Input()
-  parent!:InputEditableElement
-  @Input()
-  index!:number
-  ref=inject(ElementRef).nativeElement as HTMLElement
-  inputUtilitiesService=inject(InputUtilitiesService)
 
   @ViewChild('leftParenthesis')
   leftParenthesis!:ElementRef

@@ -13,14 +13,6 @@ import {TermContainerComponent} from "../term-container/term-container.component
   styleUrls: ['./exponent.component.css','../../assets/editable-elements-styles.css']
 })
 export class ExponentComponent extends InputEditableElement{
-  @Input()
-  terms!:Term[]
   @ViewChild(TermContainerComponent)
   termContainer!: TermContainerComponent;
-  @Input()
-  parent!:InputEditableElement
-  @Input()
-  index!:number
-  ref=inject(ElementRef).nativeElement as HTMLElement
-  inputUtilitiesService=inject(InputUtilitiesService)
 }

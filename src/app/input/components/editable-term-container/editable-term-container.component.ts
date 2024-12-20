@@ -11,16 +11,8 @@ import {InputCharData} from "../../models/input-char-data.model";
   styleUrls: ['./editable-term-container.component.css','../../assets/editable-elements-styles.css']
 })
 export class EditableTermContainerComponent extends InputEditableElement{
-  @Input()
-  parent!: InputEditableElement;
-  @Input()
-  index!:number;
-  @Input()
-  terms!:Term[];
   @ViewChild(TermContainerComponent)
   termContainer!: TermContainerComponent;
-  ref=inject(ElementRef).nativeElement as HTMLElement;
-  inputUtilitiesService=inject(InputUtilitiesService);
   @Output()
   termDeleted=new EventEmitter<void>()
   override removeChars(from: number, deleteCount: number = 1): InputCharData|undefined {

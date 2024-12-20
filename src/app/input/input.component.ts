@@ -9,15 +9,10 @@ import {
   inject, Input, OnInit, QueryList,
   Renderer2, ViewChild, ViewChildren,
 } from '@angular/core';
-import {InputUtilitiesService} from "./services/caret-positioning/input-utilities.service";
 import {FractionComponent} from "./components/fraction/fraction.component";
 import {InputTermDirective} from "./directives/input-term.directive";
 import {InputEditableElement} from "./models/input-editable-element.class";
-import {CharTerm} from "./models/terms/char-term.model";
-import {FractionTerm} from "./models/terms/fraction-term.model";
-import {RootTerm} from "./models/terms/root-term.model";
 import {Term} from "./models/terms/term.model";
-import {FractionChildComponent} from "./components/fraction/fraction-child/fraction-child.component";
 import {RootComponent} from "./components/root/root.component";
 import {VariableProvider} from "./models/variable-provider.model";
 import {WarningsService} from "./services/warnings/warnings.service";
@@ -25,9 +20,8 @@ import {animate, style, transition, trigger} from "@angular/animations";
 import {VariableProviderService} from "./services/variable-provider/variable-provider.service";
 import {WarningMessageData} from "./models/char-validation/warning-message-data.model";
 import {InputCharData} from "./models/input-char-data.model";
-import {TermContainerComponent} from "./components/term-container/term-container.component";
-import {TermArgumentComponent} from "./components/term-argument/term-argument.component";
 import {FunctionComponent} from "./components/function/function.component";
+import {TermContainerComponent} from "./components/term-container/term-container.component";
 
 @Component({
   selector: 'app-input',
@@ -56,15 +50,16 @@ import {FunctionComponent} from "./components/function/function.component";
   ]
 })
 export class InputComponent extends InputEditableElement implements AfterViewInit,OnInit {
+  @ViewChild(TermContainerComponent)
+  termContainer!: TermContainerComponent;
   @HostBinding('tabindex')
   protected tabIndex = 0
   @ViewChild('caret')
   private caretRef!: ElementRef
   @ViewChild('overlay')
   private overlay!:ElementRef
-  @ViewChild(TermContainerComponent)
-  readonly termContainer!:TermContainerComponent;
-  readonly parent = undefined
+
+  override parent = undefined
 
   @HostListener('click')
   protected onClick() {
@@ -74,9 +69,8 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 
   private cdr = inject(ChangeDetectorRef)
   private renderer = inject(Renderer2)
-  readonly inputUtilitiesService = inject(InputUtilitiesService)
   private warningsService=inject(WarningsService)
-  readonly terms: Term[] = [
+  override terms: Term[] = [
     {char: '1', type: 'char'},
     {char: '2', type: 'char'},
     {char: '3', type: 'char'},
@@ -133,9 +127,9 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 
   private currentElement: InputEditableElement = this
   caretIndex = 0
-  readonly ref = inject(ElementRef).nativeElement as HTMLElement
 
-  readonly index = 0
+
+  override index = 0
 
   ngAfterViewInit() {
     this.inputUtilitiesService.charClicked.subscribe((charData) => this.moveCaretTo(charData))

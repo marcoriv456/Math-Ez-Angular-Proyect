@@ -10,11 +10,8 @@ import {
   QueryList, ViewChild,
   ViewChildren
 } from '@angular/core';
-import {InputEditableElement} from "../../../models/input-editable-element.class";
-import {InputTermDirective} from "../../../directives/input-term.directive";
-import {InputUtilitiesService} from "../../../services/caret-positioning/input-utilities.service";
-import {Term} from "../../../models/terms/term.model";
 import {InputCharData} from "../../../models/input-char-data.model";
+import {InputEditableElement} from "../../../models/input-editable-element.class";
 import {TermContainerComponent} from "../../term-container/term-container.component";
 
 @Component({
@@ -23,21 +20,14 @@ import {TermContainerComponent} from "../../term-container/term-container.compon
   styleUrls: ['./fraction-child.component.css','../../../assets/editable-elements-styles.css']
 })
 export class FractionChildComponent extends InputEditableElement implements AfterViewInit{
-  @Input()
-  terms!:Term[]
   @ViewChild(TermContainerComponent)
-  termContainer!: TermContainerComponent
-  @Input()
-  parent!:InputEditableElement
-  @Input()
-  index!:number
-  ref=inject(ElementRef).nativeElement as HTMLElement
-  inputUtilitiesService=inject(InputUtilitiesService)
+  termContainer!: TermContainerComponent;
 
   @Output()
   termDeleted=new EventEmitter<void>
   @Input()
   type!:'numerator'|'denominator'
+
 
   cdr=inject(ChangeDetectorRef)
 

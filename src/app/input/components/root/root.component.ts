@@ -14,18 +14,11 @@ import {TermArgumentComponent} from "../term-argument/term-argument.component";
   styleUrl: './root.component.css'
 })
 export class RootComponent extends InputEditableElement{
-  @Input()
-  parent!: InputEditableElement;
-  @Input()
-  index!:number;
-  @Input()
-  terms!:Term[];
+  @ViewChild(TermContainerComponent)
+  termContainer!: TermContainerComponent;
+
   @ViewChildren(InputTermDirective)
   _renderedChars!:QueryList<InputTermDirective>
-
-  termContainer!: TermContainerComponent;
-  ref=inject(ElementRef).nativeElement as HTMLElement;
-  inputUtilitiesService=inject(InputUtilitiesService);
 
   @Input()
   radicalTerms?:Term[]

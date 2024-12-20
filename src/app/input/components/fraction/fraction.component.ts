@@ -21,26 +21,18 @@ import {TermContainerComponent} from "../term-container/term-container.component
   styleUrl: './fraction.component.css'
 })
 export class FractionComponent extends InputEditableElement{
-  @Input()
-  index!:number
+  termContainer!: TermContainerComponent;
+
   @Input()
   numeratorChildren!:Term[]
   @Input()
   denominatorChildren!:Term[]
-  @Input()
-  terms:Term[]=[]
   @ViewChildren(InputTermDirective)
   _renderedChars!:QueryList<InputTermDirective>
-  termContainer!:TermContainerComponent;
   override get renderedChars(){
     return this._renderedChars
   }
   override editable=false
-  @Input()
-  parent!: InputEditableElement;
-  ref=inject(ElementRef).nativeElement as HTMLElement;
-  inputUtilitiesService=inject(InputUtilitiesService)
-
   get numeratorComponent() {
     return this.renderedChars.get(0) as InputTermDirective
   }

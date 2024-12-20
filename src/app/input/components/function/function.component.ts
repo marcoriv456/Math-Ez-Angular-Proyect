@@ -13,16 +13,8 @@ import {EditableTermContainerComponent} from "../editable-term-container/editabl
   styleUrl: './function.component.css'
 })
 export class FunctionComponent extends InputEditableElement{
-  @Input()
-  index!: number;
-  inputUtilitiesService=inject(InputUtilitiesService);
-  ref=inject(ElementRef).nativeElement as HTMLElement
   @ViewChild(TermContainerComponent)
   termContainer!: TermContainerComponent;
-  @Input()
-  terms!: Term[];
-  @Input()
-  parent!:InputEditableElement
 
   @Input()
   functionName!:string
