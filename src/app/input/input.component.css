@@ -101,6 +101,9 @@
 .warning-message.fully-invalid{
   color: #f00;
 }
+.warning-message.partially-invalid{
+  color: #ffb700;
+}
 
 .insert-something-advice{
   position: absolute;

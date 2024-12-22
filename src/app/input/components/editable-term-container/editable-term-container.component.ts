@@ -21,4 +21,12 @@ export class EditableTermContainerComponent extends InputEditableElement{
     this.termDeleted.emit()
     return;
   }
+
+  @Output()
+  change=new EventEmitter();
+
+  override updateValidation() {
+    super.updateValidation();
+    this.change.emit()
+  }
 }

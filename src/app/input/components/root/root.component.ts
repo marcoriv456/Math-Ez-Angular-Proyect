@@ -7,11 +7,13 @@ import {InputCharData} from "../../models/input-char-data.model";
 import {TermContainerComponent} from "../term-container/term-container.component";
 import {EditableTermContainerComponent} from "../editable-term-container/editable-term-container.component";
 import {TermArgumentComponent} from "../term-argument/term-argument.component";
+import {ValidationData} from "../../models/char-validation/validation-data.model";
+import {WarningMessageData} from "../../models/char-validation/warning-message-data.model";
 
 @Component({
   selector: 'root',
   templateUrl: './root.component.html',
-  styleUrl: './root.component.css'
+  styleUrls: ['./root.component.css','../../assets/editable-elements-styles.css']
 })
 export class RootComponent extends InputEditableElement{
   @ViewChild(TermContainerComponent)
@@ -32,6 +34,24 @@ export class RootComponent extends InputEditableElement{
 
   override get renderedChars(): QueryList<InputTermDirective> {
     return this._renderedChars;
+  }
+  protected override getValidationMessages(): WarningMessageData[] {
+    let messages:WarningMessageData[]=[]
+    this.validateOneAsRootValue(messages)
+    this.validateOneAsRadical(messages)
+    console.log("in root validation messages: ",messages)
+    return messages;
+  }
+
+  private validateOneAsRootValue(messageList:WarningMessageData[]) {
+    if(this.mainComponent.toString=='1')
+      messageList.push({message:'La raiz de cualquier radical de 1 siempre sera 1.',type:'partially-invalid'})
+    console.log("on validate one as root value: ",this.mainComponent.toString)
+
+  }
+  private validateOneAsRadical(messageList: WarningMessageData[]) {
+    if(this.argumentComponent.toString=='1')
+      messageList.push({message:'No se puede agregar 1 como radical de una raiz.',type:'fully-invalid'})
   }
 }
 

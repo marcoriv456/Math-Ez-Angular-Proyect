@@ -25,7 +25,7 @@ import {TermValidationService} from "../services/term-validation/term-validation
 @Directive({
   selector: '[inputTerm]'
 })
-export class InputTermDirective implements OnDestroy{
+export class InputTermDirective{
   @Input('inputTerm')
   input!:{char:string, index:number,editableElementRef?:InputEditableElement,parent:InputEditableElement}
 
@@ -97,52 +97,50 @@ export class InputTermDirective implements OnDestroy{
     return this.ref.getBoundingClientRect().left-this.caretPositioningService.inputPositionX
   }
   // ------------------VARIABLE CHECKING LOGIC------------------
-  warningsService=inject(WarningsService)
-  warningMessages:WarningMessageData[]=[]
-  termValidationService=inject(TermValidationService)
-  valid=true
-  @HostBinding('class')
-  invalidType:'partially-invalid'|'fully-invalid'|undefined=undefined;
-  isMouseOver=false
-  @HostListener('mouseover')
-  onMouseOver(){
-    if(this.valid)
-      return;
-    this.emitWarning()
-    this.isMouseOver=true
-  }
-  @HostListener('mouseleave')
-  onMouseLeave(){
-    if(this.valid)
-      return;
-    this.hideWarning()
-    this.isMouseOver=false
-  }
-  ngOnDestroy() {
-    if(this.isMouseOver)
-      this.hideWarning()
-  }
-
-  validate(){
-    this.setValidationData(this.termValidationService.validateTerm(this))
-    if(this.isMouseOver)
-      this.valid ? this.hideWarning() : this.emitWarning()
-  }
-
-  private emitWarning(){
-    let dataToSend=this.data
-    dataToSend.positionX=this.absoluteLeftPosition
-    this.warningsService.showWarning.emit({messages:this.warningMessages,position:dataToSend})
-  }
-
-  private hideWarning(){
-    this.warningsService.hideWarning.emit()
-  }
-
-  private setValidationData({isValid,type,messages}:ValidationData){
-    this.valid=isValid
-    this.warningMessages=messages||[]
-    this.invalidType=type
-  }
+  // warningsService=inject(WarningsService)
+  // warningMessages:WarningMessageData[]=[]
+  // termValidationService=inject(TermValidationService)
+  // valid=true
+  // @HostBinding('class')
+  // invalidType:'partially-invalid'|'fully-invalid'|undefined=undefined;
+  // isMouseOver=false
+  // @HostListener('mouseover')
+  // onMouseOver(){
+  //   if(this.valid)
+  //     return;
+  //   this.emitWarning()
+  //   this.isMouseOver=true
+  // }
+  // @HostListener('mouseleave')
+  // onMouseLeave(){
+  //   if(this.valid)
+  //     return;
+  //   this.hideWarning()
+  //   this.isMouseOver=false
+  // }
+  // ngOnDestroy() {
+  //   if(this.isMouseOver)
+  //     this.hideWarning()
+  // }
+  //
+  // validate(){
+  //   this.setValidationData(this.termValidationService.validateTerm(this))
+  //   if(this.isMouseOver)
+  //     this.valid ? this.hideWarning() : this.emitWarning()
+  // }
+  //
+  // private emitWarning(){
+  //   this.warningsService.showWarning.emit({messages:this.warningMessages,position: {x:this.data.positionX,y:this.data.positionY},})
+  // }
+  //
+  // private hideWarning(){
+  //   this.warningsService.hideWarning.emit()
+  // }
+  //
+  // private setValidationData({isValid,type,messages}:ValidationData){
+  //   this.valid=isValid
+  //   this.warningMessages=messages||[]
+  //   this.invalidType=type
+  // }
   // ------------------VARIABLE CHECKING LOGIC------------------
 }

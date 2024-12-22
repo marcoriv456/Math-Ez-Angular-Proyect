@@ -5,6 +5,7 @@
   [terms]="radicalTerms"
   [index]="0"
   [inputTerm]="{char:'\\arg\\',index:0,editableElementRef:rootArgument,parent:this}"
+  (change)="this.updateValidation()"
 >
 </argument>
 <img #rootSymbol src="/assets/input/root/root-icon.svg" alt="">
@@ -15,6 +16,7 @@
   [index]="1"
   [inputTerm]="{char:'\\r-main\\',index: radicalTerms ? 1:0,editableElementRef:rootMainContainer,parent:this}"
   (termDeleted)="this.inputUtilitiesService.elementDeletedEmitter.emit({elementIndex:index,residualData:[]})"
+  (change)="this.updateValidation()"
 >
 </editable-term-container>
 

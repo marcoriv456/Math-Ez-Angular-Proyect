@@ -1,12 +1,40 @@
-@keyframes selection-blink {
-  from{
-    outline: 0.01em solid #000;
-  }
-  to{
-    outline: 0.01em solid #0004;
-    border-radius: 0.1em;
-    }
+:host{
+
+  --default-outline-color:#222;
+  --darker-default-outline-color:#000;
+
+  --partially-invalid-outline-color:#f90;
+
+  --fully-invalid-outline-color:#d33;
+
+  --outline-color:transparent;
 }
+/*@keyframes selection-blink {*/
+/*  from{*/
+/*    outline: 0.01em solid var(--darker-default-outline-color);*/
+/*  }*/
+/*  to{*/
+/*    outline: 0.01em solid var(--default-outline-color);*/
+/*    border-radius: 0.1em;*/
+/*  }*/
+/*}*/
+:host{
+  outline: var(--outline-color) 0.01em solid;
+  transition: outline-color 0.5s cubic-bezier(0,0,0,1);
+}
+
 :host.selected{
-  animation: selection-blink 1s cubic-bezier(0,0,0,1) forwards;
+  --outline-color:var(--default-outline-color);
 }
+:host.partially-invalid{
+  --outline-color:var(--partially-invalid-outline-color);
+}
+:host.fully-invalid{
+  --outline-color:var(--fully-invalid-outline-color);
+}
+:host.partially-invalid,
+:host.fully-invalid{
+  border-radius: 0.1em;
+}
+
+

@@ -1,4 +1,4 @@
-import {Component, ElementRef, inject, Input, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, inject, Input, Output, ViewChild} from '@angular/core';
 import {InputEditableElement} from "../../models/input-editable-element.class";
 import {Term} from "../../models/terms/term.model";
 import {TermContainerComponent} from "../term-container/term-container.component";
@@ -16,5 +16,15 @@ export class TermArgumentComponent extends InputEditableElement{
 
   override removeChars(from: number, deleteCount: number = 1): InputCharData | undefined {
     return this.removeSimpleChar(from, deleteCount);
+  }
+
+  @Output()
+  change=new EventEmitter();
+
+  override updateValidation() {
+    super.updateValidation();
+    console.log("on update validation")
+    
+    this.change.emit()
   }
 }

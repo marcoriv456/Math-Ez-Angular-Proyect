@@ -22,6 +22,7 @@ import {WarningMessageData} from "./models/char-validation/warning-message-data.
 import {InputCharData} from "./models/input-char-data.model";
 import {FunctionComponent} from "./components/function/function.component";
 import {TermContainerComponent} from "./components/term-container/term-container.component";
+import {WarningRenderData} from "./models/char-validation/warning-render-data.model";
 
 @Component({
   selector: 'app-input',
@@ -69,7 +70,6 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 
   private cdr = inject(ChangeDetectorRef)
   private renderer = inject(Renderer2)
-  private warningsService=inject(WarningsService)
   override terms: Term[] = [
     {char: '1', type: 'char'},
     {char: '2', type: 'char'},
@@ -346,7 +346,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     this.cdr.detectChanges()
     this.moveCaretTo(this.nextCharData)
     this.searchFunctionWrittenReferences()
-    this.currentElement.updateTermsValidation()
+    this.currentElement.updateValidation()
   }
 
   private moveCaretTo({positionX,positionY,index,size,parent}:InputCharData){
@@ -362,7 +362,8 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     let prevCharData=this.currentElement.removeChars(from,deleteCount)
     if(prevCharData)
       this.moveCaretTo(prevCharData)
-    this.currentElement.updateTermsValidation()
+    this.currentElement.updateValidation()
+    // this.currentElement.updateTermsValidation()
   }
 
   override removeChars(from: number, deleteCount: number = 1): InputCharData | undefined {
@@ -501,12 +502,12 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   protected showingWarning=false
   protected warningMessages:WarningMessageData[]=[]
 
-  private showWarning({messages,position}:{messages:WarningMessageData[],position:InputCharData}){
+  private showWarning({messages,position}:WarningRenderData){
     this.showingWarning=true
     this.cdr.detectChanges()
     let warningContainer=this.warningContainer.nativeElement as HTMLElement
-    this.renderer.setStyle(warningContainer,'left',position.positionX+'px')
-    this.renderer.setStyle(warningContainer,'top',position.positionY+'px')
+    this.renderer.setStyle(warningContainer,'left',position.x+'px')
+    this.renderer.setStyle(warningContainer,'top',position.y+'px')
     this.warningMessages=messages
   }
   private hideWarning(){
