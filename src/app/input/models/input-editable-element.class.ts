@@ -59,14 +59,25 @@ export abstract class InputEditableElement implements OnDestroy{
   get positionY(): number {
     return this.ref.getBoundingClientRect().top-this.inputUtilitiesService.inputPositionY;
   }
+  getRenderedChar(index:number){
+    return this.renderedChars.get(index)
+  }
 
   getCharData(index:number){
-    return this.renderedChars.get(index)?.data
+    return this.getRenderedChar(index)?.data
   }
+
+  get nextCharData(){
+    return this.getCharData(this.caretIndex+1)||this.lastCharData
+  }
+  get prevCharData(){
+    return this.getCharData(this.caretIndex-1)||this.noCharData
+  }
+
 
   getNextSpecialCharFixedData():InputCharData{
     let nextSpecialChar=this.getNextSpecialCharData()
-
+  
     if(nextSpecialChar && nextSpecialChar.index-1!==this.caretIndex)
       nextSpecialChar=this.renderedChars.get(nextSpecialChar.index-1)?.data
 
@@ -74,12 +85,12 @@ export abstract class InputEditableElement implements OnDestroy{
   }
 
   getNextSpecialCharData(){
-    return this.findSpecialChar(
-      this.caretIndex+1,
-      this.renderedChars.length,
-      i=>i+1,
-      (from, to)=>from<to
-    )
+    for(let i=this.caretIndex+1; i<this.renderedChars.length;i++){
+      let char=this.getRenderedChar(i)
+      if(char && this.isCharIrregular(char.char))
+        return char.data
+    }
+    return;
   }
 
   getPrevSpecialCharFixedData(){
@@ -92,23 +103,12 @@ export abstract class InputEditableElement implements OnDestroy{
   }
 
   getPrevSpecialCharData(){
-    return this.findSpecialChar(
-      this.caretIndex,
-      0,
-      i=>i-1,
-      (from,to)=>from>=to);
-  }
-
-  private findSpecialChar(from:number,to:number,stepF:(i:number)=>number,conditionF:(from:number,to:number)=>boolean):InputCharData|undefined{
-    let renderedChars=this.renderedChars
-    let i=from
-    while (conditionF(i,to)){
-      let char=renderedChars.get(i)
+    for(let i=this.caretIndex; i>=0;i--){
+      let char=this.getRenderedChar(i)
       if(char && this.isCharIrregular(char.char))
         return char.data
-      i=stepF(i)
     }
-    return undefined
+    return;
   }
 
   private isCharIrregular(char:string){
