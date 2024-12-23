@@ -6,6 +6,7 @@
   [terms]="argumentTerms"
   [index]="0"
   [inputTerm]="{char:'\\arg\\',index:0,editableElementRef:functionArgument,parent:this}"
+  (change)="this.updateValidation()"
 ></argument>
 <span>(</span>
 <editable-term-container
@@ -15,5 +16,6 @@
   [parent]="this"
   [inputTerm]="{char:'\\f-main\\',index:argumentTerms? 1:0,editableElementRef:functionMainContainer,parent:this}"
   (termDeleted)="inputUtilitiesService.elementDeletedEmitter.emit({elementIndex:index,residualData:[]})"
+  (change)="this.updateValidation()"
 ></editable-term-container>
 <span>)</span>
