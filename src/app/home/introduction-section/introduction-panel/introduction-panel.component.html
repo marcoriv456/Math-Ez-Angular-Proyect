@@ -1,8 +1,8 @@
 <section class="panel">
-  <div #panel__text   class="panel__text">
+  <div #panel__text   class="panel__text out">
     <ng-content></ng-content>
   </div>
-  <figure #panel__illustration class="panel__illustration" [ngClass]="'--sct-introduction-'+sectionNumber">
+  <figure #panel__illustration class="panel__illustration out" [ngClass]="'--sct-introduction-'+sectionNumber">
     <figure class="main" [ngStyle]="{'mask-image':getImageRoute('main')}"></figure>
     <figure class="secondary secondary--first" [ngStyle]="{'mask-image':getImageRoute('secondary--first')}"></figure>
     <figure class="secondary secondary--second" [ngStyle]="{'mask-image':getImageRoute('secondary--second')}"></figure>

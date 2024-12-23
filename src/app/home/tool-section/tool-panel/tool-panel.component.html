@@ -1,5 +1,5 @@
 <section>
-  <div #text_container class="text-container">
+  <div #text_container class="text-container out">
     <div class="title">
       <ng-content select="h3"></ng-content>
     </div>
@@ -7,10 +7,9 @@
       <ng-content select="p"></ng-content>
     </div>
   </div>
-  <figure #panel_icon [ngStyle]="{'mask-image':maskUrl}"></figure>
+  <figure #panel_icon class="out" [ngStyle]="{'mask-image':maskUrl}"></figure>
 
-
-  <nav #feature_container>
+  <nav class="out" #feature_container>
     <ng-content select="ul"></ng-content>
   </nav>
 </section>
