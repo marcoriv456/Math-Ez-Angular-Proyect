@@ -1,8 +1,9 @@
 <div class="main-overlay" #overlay>
-  <term-container
+  <editable-term-container
+    [index]="0"
+    [parent]="undefined"
     [terms]="terms"
-    [parent]="this"
-  ></term-container>
+  ></editable-term-container>
   <div class="caret-overlay">
     <div
       #caret

@@ -23,6 +23,8 @@ import {InputCharData} from "./models/input-char-data.model";
 import {FunctionComponent} from "./components/function/function.component";
 import {TermContainerComponent} from "./components/term-container/term-container.component";
 import {WarningRenderData} from "./models/char-validation/warning-render-data.model";
+import {EditableTermContainerComponent} from "./components/editable-term-container/editable-term-container.component";
+import {InputUtilitiesService} from "./services/caret-positioning/input-utilities.service";
 
 @Component({
   selector: 'app-input',
@@ -50,27 +52,26 @@ import {WarningRenderData} from "./models/char-validation/warning-render-data.mo
     ])
   ]
 })
-export class InputComponent extends InputEditableElement implements AfterViewInit,OnInit {
-  @ViewChild(TermContainerComponent)
-  termContainer!: TermContainerComponent;
+export class InputComponent implements AfterViewInit,OnInit {
+  @ViewChild(EditableTermContainerComponent)
+  private termContainer!: EditableTermContainerComponent;
   @HostBinding('tabindex')
-  protected tabIndex = 0
+  private tabIndex = 0
   @ViewChild('caret')
   private caretRef!: ElementRef
   @ViewChild('overlay')
   private overlay!:ElementRef
-
-  override parent = undefined
+  readonly ref=inject(ElementRef).nativeElement as HTMLElement
 
   @HostListener('click')
   protected onClick() {
-    this.setCurrentElement(this)
-    this.moveCaretTo(this.lastCharData)
+    this.setCurrentElement(this.termContainer)
+    this.moveCaretTo(this.termContainer.lastCharData)
   }
 
   private cdr = inject(ChangeDetectorRef)
   private renderer = inject(Renderer2)
-  override terms: Term[] = [
+  terms: Term[] = [
     {char: '1', type: 'char'},
     {char: '2', type: 'char'},
     {char: '3', type: 'char'},
@@ -125,15 +126,21 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     }
   ];
 
-  private currentElement: InputEditableElement = this
+  private currentElement!: InputEditableElement;
   caretIndex = 0
 
 
-  override index = 0
+  private inputUtilitiesService=inject(InputUtilitiesService)
+  private warningsService=inject(WarningsService)
 
   ngAfterViewInit() {
+    this.currentElement=this.termContainer
     this.inputUtilitiesService.charClicked.subscribe((charData) => this.moveCaretTo(charData))
-    this.inputUtilitiesService.elementDeletedEmitter.subscribe(({elementIndex,residualData})=>this.deleteElement(elementIndex,residualData))
+    this.inputUtilitiesService.elementDeletedEmitter.subscribe(({elementIndex,residualData})=>{
+      console.log('on element deleted callback')
+
+      this.deleteElement(elementIndex,residualData)
+    })
     this.warningsService.showWarning.subscribe((data)=>this.showWarning(data))
     this.warningsService.hideWarning.subscribe(()=>this.hideWarning())
     this.inputUtilitiesService.setInputRef(this)
@@ -141,16 +148,9 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   ngOnInit() {
     this.variableProviderService.setVariableProvider(this.variableProvider)
   }
-  override get absolutePositionX(){
-    return 0
-  }
 
-  override get positionX(): number {
+  get positionX(): number {
     return this.ref.getBoundingClientRect().left
-  }
-
-  override get positionY(): number {
-    return 0
   }
 
   @HostListener('keydown', ['$event'])
@@ -190,7 +190,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   private moveToNextElement() {
     let nextElement = this.currentElement.terms[this.caretIndex + 1]
     let isNextElementChar = nextElement && nextElement.type == 'char'
-    let isCaretInTheLastPosition = !nextElement && this.currentElement == this
+    let isCaretInTheLastPosition = !nextElement && this.currentElement == this.termContainer
 
     if (isNextElementChar || isCaretInTheLastPosition)
       this.moveCaretTo(this.nextCharData)
@@ -225,7 +225,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     let nextEditableEl=nextRenderedElement.asEditableElement
     if(nextEditableEl && !nextEditableEl.editable)
       nextEditableEl=nextEditableEl.renderedChars.get(0)?.asEditableElement
-    this.setCurrentElement(nextEditableEl || this)
+    this.setCurrentElement(nextEditableEl || this.termContainer)
     this.moveCaretTo(this.currentElement.noCharData)
   }
 
@@ -233,7 +233,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     let prevElement = this.currentElement.terms[this.caretIndex]
     let isPrevElementChar = prevElement && prevElement.type == 'char'
     let isCaretInFirstChar = !prevElement && this.caretIndex == 0
-    let isCaretInTheFirstPosition = !prevElement && this.currentElement == this
+    let isCaretInTheFirstPosition = !prevElement && this.currentElement == this.termContainer
 
     if (isPrevElementChar || isCaretInTheFirstPosition || isCaretInFirstChar)
       this.moveCaretTo(this.prevCharData)
@@ -260,7 +260,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     let prevEditableEl=prevRenderedElement.asEditableElement
     if(prevEditableEl&&!prevEditableEl.editable)
       prevEditableEl=prevEditableEl.renderedChars.get(prevEditableEl.lastCharData.index)?.asEditableElement
-    this.setCurrentElement(prevEditableEl || this)
+    this.setCurrentElement(prevEditableEl || this.termContainer)
     this.moveCaretTo(this.currentElement.lastCharData)
   }
 
@@ -279,7 +279,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
       prevCurrentElementIndex=actualParent.index
       actualParent=actualParent.parent
     }
-    this.setCurrentElement(actualParent||this)
+    this.setCurrentElement(actualParent||this.termContainer)
     return prevCurrentElementIndex
   }
 
@@ -324,13 +324,6 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     }
   }
 
-  override get noCharData(): InputCharData {
-    let charData=super.noCharData
-    charData.positionX=0
-    charData.positionY=0
-    return charData;
-  }
-
   private appendChar(char:string,ctrlKey?:boolean,altKey?:boolean) {
     if(char=='/')
       this.appendFraction()
@@ -359,16 +352,12 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     this.makeCharVisible(positionX)
   }
   private deleteChar(from=this.caretIndex, deleteCount=1){
-    if(this.caretIndex==-1&&this.currentElement==this)
+    if(this.caretIndex==-1&&this.currentElement==this.termContainer)
       return
     let prevCharData=this.currentElement.removeChars(from,deleteCount)
     if(prevCharData)
       this.moveCaretTo(prevCharData)
     this.currentElement.updateValidation()
-  }
-
-  override removeChars(from: number, deleteCount: number = 1): InputCharData | undefined {
-    return this.removeSimpleChar(from,deleteCount)
   }
 
 // ------------------STRUCTURING LOGIC------------------
@@ -399,9 +388,9 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     this.cdr.detectChanges()
     let appendedFrac=this.currentElement.renderedChars.get(from)?.asEditableElement as FractionComponent
     if(!nextChars.length)
-      this.setCurrentElement(appendedFrac.denominatorComponent?.asEditableElement||this)
+      this.setCurrentElement(appendedFrac.denominatorComponent?.asEditableElement||this.termContainer)
     if(!prevChars.length)
-      this.setCurrentElement(appendedFrac.numeratorComponent?.asEditableElement||this)
+      this.setCurrentElement(appendedFrac.numeratorComponent?.asEditableElement||this.termContainer)
     this.moveCaretTo(this.currentElement.noCharData)
   }
 
@@ -554,7 +543,6 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
       this.setCurrentElement(renderedFunction.argumentComponent||renderedFunction.mainContainer)
     this.moveCaretTo(this.currentElement.noCharData)
   }
-
 
   // ------------------FUNCTION CHECKING LOGIC------------------
 
