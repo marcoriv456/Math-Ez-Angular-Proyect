@@ -25,4 +25,10 @@ export class TermArgumentComponent extends InputEditableElement{
     super.append(from, deleteCount, ...term);
     this.change.emit()
   }
+
+  protected override removeSimpleChar(from: number, deleteCount: number = 1): InputCharData | undefined {
+    let data= super.removeSimpleChar(from, deleteCount);
+    this.change.emit()
+    return data
+  }
 }

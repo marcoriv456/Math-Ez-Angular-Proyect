@@ -29,4 +29,9 @@ export class EditableTermContainerComponent extends InputEditableElement{
     super.updateValidation();
     this.change.emit()
   }
+  protected override removeSimpleChar(from: number, deleteCount: number = 1): InputCharData | undefined {
+    let data= super.removeSimpleChar(from, deleteCount);
+    this.change.emit()
+    return data
+  }
 }
