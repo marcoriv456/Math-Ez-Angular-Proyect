@@ -42,6 +42,10 @@ export abstract class InputEditableElement implements OnDestroy{
     return this.ref.getBoundingClientRect().left-this.inputUtilitiesService.inputPositionX
   }
 
+  protected get absoluteCenteredPositionX(){
+    return this.absolutePositionX+(this.ref.offsetWidth/2)
+  }
+
   protected get positionX(): number {
     let parent:HTMLElement|null=this.ref.parentElement
     let leftPosition=this.ref.offsetLeft
@@ -198,7 +202,7 @@ export abstract class InputEditableElement implements OnDestroy{
   private emitShowWarning(){
     this.warningsService.showWarning.emit({
       messages:this.validationData.messages||[],
-      position:{x:this.absolutePositionX,y:this.positionY}})
+      position:{x:this.absoluteCenteredPositionX,y:this.positionY}})
   }
 
   private emitHideWarning(){

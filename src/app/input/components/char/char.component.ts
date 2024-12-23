@@ -42,7 +42,7 @@ export class CharComponent implements OnDestroy,OnInit{
     return {
       messages:[{message:`La variable '${this.char}' no es reconocible.`,type:'fully-invalid'}],
       position:{
-        x:this.ref.getBoundingClientRect().left-this.inputUtilitiesService.inputPositionX,
+        x:this.ref.getBoundingClientRect().left-this.inputUtilitiesService.inputPositionX+(this.ref.offsetWidth/2),
         y:this.ref.getBoundingClientRect().top-this.inputUtilitiesService.inputPositionY,
       }
     }
