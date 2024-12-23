@@ -7,12 +7,20 @@
   display: flex;
   margin-top: 2px;
 }
-img{
+
+svg{
   height: 100%;
+  fill: none;
+  stroke: var(--line-color);
+  stroke-miterlimit: 10;
+  stroke-width: 1em;
+  transition: stroke var(--highlighting-transition-duration) var(--highlighting-transition-easing);
 }
 argument{
   align-self: start;
 }
-editable-term-container{
-  border-top: calc(1em *0.1) solid #1d1d1b;
+
+:host editable-term-container{
+  transition: border-top-color var(--highlighting-transition-duration) var(--highlighting-transition-easing);
+  border-top: 0.1em solid var(--line-color);
 }

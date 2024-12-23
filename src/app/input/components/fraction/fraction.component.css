@@ -15,5 +15,8 @@
 
   width: 90%;
   height: calc(1em*0.05);
-  background-color: black;
+  background-color: var(--line-color);
+
+  transition: background-color var(--highlighting-transition-duration) var(--highlighting-transition-easing);
+
 }

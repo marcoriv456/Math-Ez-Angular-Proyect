@@ -18,7 +18,7 @@ import {TermContainerComponent} from "../term-container/term-container.component
 @Component({
   selector: 'frac',
   templateUrl: './fraction.component.html',
-  styleUrl: './fraction.component.css'
+  styleUrls: ['./fraction.component.css','../../assets/editable-elements-styles.css']
 })
 export class FractionComponent extends InputEditableElement{
   termContainer!: TermContainerComponent;

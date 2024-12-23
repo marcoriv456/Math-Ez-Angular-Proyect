@@ -9,6 +9,8 @@ span{
   position: relative;
   font-family: "Times New Roman";
   font-size: 1em;
+  color: var(--line-color);
+  transition: color var(--highlighting-transition-duration) var(--highlighting-transition-easing);
 }
 argument{
   align-self: end;
