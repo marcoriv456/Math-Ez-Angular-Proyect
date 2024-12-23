@@ -15,7 +15,6 @@ import {InputCharData} from "./input-char-data.model";
 import {TermContainerComponent} from "../components/term-container/term-container.component";
 import {WarningsService} from "../services/warnings/warnings.service";
 import {WarningMessageData} from "./char-validation/warning-message-data.model";
-import {TermValidationService} from "../services/term-validation/term-validation.service";
 import {ValidationData} from "./char-validation/validation-data.model";
 
 

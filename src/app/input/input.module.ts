@@ -13,7 +13,6 @@ import {WarningsService} from "./services/warnings/warnings.service";
 import {VariableProviderService} from "./services/variable-provider/variable-provider.service";
 import { FunctionComponent } from './components/function/function.component';
 import { TermContainerComponent } from './components/term-container/term-container.component';
-import {TermValidationService} from "./services/term-validation/term-validation.service";
 import { TermArgumentComponent } from './components/term-argument/term-argument.component';
 import { EditableTermContainerComponent } from './components/editable-term-container/editable-term-container.component';
 import { ParenthesisComponent } from './components/parenthesis/parenthesis.component';
@@ -40,8 +39,7 @@ import { ParenthesisComponent } from './components/parenthesis/parenthesis.compo
   providers:[
     InputUtilitiesService,
     WarningsService,
-    VariableProviderService,
-    TermValidationService
+    VariableProviderService
   ]
 })
 export class InputModule { }
