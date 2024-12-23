@@ -49,10 +49,11 @@ export class CharComponent implements OnDestroy,OnInit{
   }
 
 
-  @HostListener('mouseover')
-  onMouseOver(){
+  @HostListener('mouseover', ['$event'])
+  onMouseOver(event:MouseEvent){
     if(this.valid)
       return;
+    event.stopPropagation()
     this.warningsService.showWarning.emit(this.notValidData)
     this.isMouseOver=true
   }
