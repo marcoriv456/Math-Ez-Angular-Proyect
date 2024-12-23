@@ -64,36 +64,36 @@ export abstract class InputEditableElement implements OnDestroy{
     return this.renderedChars.get(index)?.data
   }
 
-  getNextSpecialCharFixedData(caretIndex:number):InputCharData{
-    let nextSpecialChar=this.getNextSpecialCharData(caretIndex)
+  getNextSpecialCharFixedData():InputCharData{
+    let nextSpecialChar=this.getNextSpecialCharData()
 
-    if(nextSpecialChar && nextSpecialChar.index-1!==caretIndex)
+    if(nextSpecialChar && nextSpecialChar.index-1!==this.caretIndex)
       nextSpecialChar=this.renderedChars.get(nextSpecialChar.index-1)?.data
 
     return nextSpecialChar||this.lastCharData
   }
 
-  getNextSpecialCharData(caretIndex:number){
+  getNextSpecialCharData(){
     return this.findSpecialChar(
-      caretIndex+1,
+      this.caretIndex+1,
       this.renderedChars.length,
       i=>i+1,
       (from, to)=>from<to
     )
   }
 
-  getPrevSpecialCharFixedData(caretIndex:number){
-    let prevSpecialChar=this.getPrevSpecialCharData(caretIndex)
+  getPrevSpecialCharFixedData(){
+    let prevSpecialChar=this.getPrevSpecialCharData()
 
-    if(prevSpecialChar&&prevSpecialChar.index==caretIndex)
+    if(prevSpecialChar&&prevSpecialChar.index==this.caretIndex)
       prevSpecialChar=this.renderedChars.get(prevSpecialChar.index-1)?.data
 
     return prevSpecialChar||this.noCharData
   }
 
-  getPrevSpecialCharData(caretIndex:number){
+  getPrevSpecialCharData(){
     return this.findSpecialChar(
-      caretIndex,
+      this.caretIndex,
       0,
       i=>i-1,
       (from,to)=>from>=to);

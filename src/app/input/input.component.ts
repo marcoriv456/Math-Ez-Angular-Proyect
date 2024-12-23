@@ -306,15 +306,15 @@ export class InputComponent implements AfterViewInit,OnInit {
   private onSpecialCtrlKeyDown(key:string){
     switch (key){
       case 'Backspace':
-        this.deleteChar(this.currentElement.getPrevSpecialCharFixedData(
-          this.currentElement.caretIndex).index+1,
-          this.currentElement.caretIndex-this.currentElement.getPrevSpecialCharFixedData(this.currentElement.caretIndex).index)
+        this.deleteChar(
+          this.currentElement.getPrevSpecialCharFixedData().index+1,
+          this.currentElement.caretIndex-this.currentElement.getPrevSpecialCharFixedData().index)
         break;
       case 'ArrowRight':
-        this.moveCaretTo(this.currentElement.getNextSpecialCharFixedData(this.currentElement.caretIndex))
+        this.moveCaretTo(this.currentElement.getNextSpecialCharFixedData())
         break;
       case 'ArrowLeft':
-        this.moveCaretTo(this.currentElement.getPrevSpecialCharFixedData(this.currentElement.caretIndex))
+        this.moveCaretTo(this.currentElement.getPrevSpecialCharFixedData())
         break;
     }
   }
@@ -370,10 +370,10 @@ export class InputComponent implements AfterViewInit,OnInit {
   }
 
   private getFractionCharsData(){
-    let prevCharsFrom=(this.currentElement.getPrevSpecialCharData(this.currentElement.caretIndex)?.index||-1)+1
+    let prevCharsFrom=(this.currentElement.getPrevSpecialCharData()?.index||-1)+1
     let prevCharsTo=this.currentElement.caretIndex+1
     let prevChars=this.currentElement.terms.slice(prevCharsFrom,prevCharsTo)
-    let nextCharsTo=(this.currentElement.getNextSpecialCharData(this.currentElement.caretIndex)?.index||this.currentElement.lastCharData.index+1)
+    let nextCharsTo=(this.currentElement.getNextSpecialCharData()?.index||this.currentElement.lastCharData.index+1)
     let nextCharsFrom=this.currentElement.caretIndex+1
     let nextChars=this.currentElement.terms.slice(nextCharsFrom,nextCharsTo)
     return{from:prevCharsFrom,to:nextCharsTo,prevChars,nextChars}
