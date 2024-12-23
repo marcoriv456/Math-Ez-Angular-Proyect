@@ -54,7 +54,7 @@ import {ParenthesisComponent} from "./components/parenthesis/parenthesis.compone
   ]
 })
 export class InputComponent implements AfterViewInit,OnInit {
-  terms: Term[] = [
+  protected terms: Term[] = [
     {char: '1', type: 'char'},
     {char: '2', type: 'char'},
     {char: '3', type: 'char'},
@@ -157,6 +157,19 @@ export class InputComponent implements AfterViewInit,OnInit {
     this.setCurrentElement(this.termContainer)
     this.moveCaretTo(this.termContainer.lastCharData)
   }
+  // ------------PUBLIC METHODS-------------
+  public append(...terms:Term[]){
+    terms.forEach(term=>this.appendTerm(term))
+  }
+
+  public getTerms(){
+    return [...this.terms]
+  }
+
+  public setTerms(terms:Term[]){
+    this.terms=terms
+  }
+  // ------------PUBLIC METHODS-------------
   // ------------INPUT MAPPING-------------
   @HostListener('keydown', ['$event'])
   protected onKeyDown(event: KeyboardEvent) {
