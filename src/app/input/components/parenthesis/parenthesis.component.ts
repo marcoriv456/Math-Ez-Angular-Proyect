@@ -25,7 +25,7 @@ export class ParenthesisComponent extends InputEditableElement implements AfterV
   }
 
   override removeChars(from: number, deleteCount: number = 1): InputCharData | undefined {
-    if(this.inputUtilitiesService.caretIndex==-1)
+    if(this.caretIndex==-1)
       this.inputUtilitiesService.elementDeletedEmitter.emit({elementIndex:this.index, residualData:[...this.terms,{type:'char',char:')'}]})
     return super.removeChars(from, deleteCount);
   }

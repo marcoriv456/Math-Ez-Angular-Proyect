@@ -12,7 +12,7 @@ export class InputUtilitiesService {
   constructor() { }
 
   get inputPositionX(){
-    return this.inputRef.positionX
+    return this.inputRef.ref.getBoundingClientRect().left
   }
   get inputPositionY(){
     return this.inputRef.ref.getBoundingClientRect().top
@@ -20,8 +20,4 @@ export class InputUtilitiesService {
   setInputRef(input:InputComponent){
     this.inputRef = input
   }
-  get caretIndex(){
-    return this.inputRef.caretIndex
-  }
-
 }

@@ -127,9 +127,6 @@ export class InputComponent implements AfterViewInit,OnInit {
   ];
 
   private currentElement!: InputEditableElement;
-  caretIndex = 0
-
-
   private inputUtilitiesService=inject(InputUtilitiesService)
   private warningsService=inject(WarningsService)
 
@@ -147,10 +144,6 @@ export class InputComponent implements AfterViewInit,OnInit {
   }
   ngOnInit() {
     this.variableProviderService.setVariableProvider(this.variableProvider)
-  }
-
-  get positionX(): number {
-    return this.ref.getBoundingClientRect().left
   }
 
   @HostListener('keydown', ['$event'])
@@ -188,7 +181,7 @@ export class InputComponent implements AfterViewInit,OnInit {
   }
 
   private moveToNextElement() {
-    let nextElement = this.currentElement.terms[this.caretIndex + 1]
+    let nextElement = this.currentElement.terms[this.currentElement.caretIndex + 1]
     let isNextElementChar = nextElement && nextElement.type == 'char'
     let isCaretInTheLastPosition = !nextElement && this.currentElement == this.termContainer
 
@@ -201,7 +194,7 @@ export class InputComponent implements AfterViewInit,OnInit {
   private moveCaretContextForward() {
     let nextRenderedElement = this.nextRenderedElement
     let parent=this.currentElement.parent
-    let isCaretInTheLastPosition=this.caretIndex==this.currentElement.lastCharData.index
+    let isCaretInTheLastPosition=this.currentElement.caretIndex==this.currentElement.lastCharData.index
     if(parent && !parent.editable  && isCaretInTheLastPosition)
       nextRenderedElement=this.nextRenderedElementInParent
     let nextRenderedElementClassRef = nextRenderedElement?.asEditableElement
@@ -214,7 +207,7 @@ export class InputComponent implements AfterViewInit,OnInit {
   }
 
   private get nextRenderedElement() {
-    return this.getRenderedElementAt(this.caretIndex + 1)
+    return this.getRenderedElementAt(this.currentElement.caretIndex + 1)
   }
 
   private get nextRenderedElementInParent() {
@@ -230,9 +223,9 @@ export class InputComponent implements AfterViewInit,OnInit {
   }
 
   private moveToPreviousElement() {
-    let prevElement = this.currentElement.terms[this.caretIndex]
+    let prevElement = this.currentElement.terms[this.currentElement.caretIndex]
     let isPrevElementChar = prevElement && prevElement.type == 'char'
-    let isCaretInFirstChar = !prevElement && this.caretIndex == 0
+    let isCaretInFirstChar = !prevElement && this.currentElement.caretIndex == 0
     let isCaretInTheFirstPosition = !prevElement && this.currentElement == this.termContainer
 
     if (isPrevElementChar || isCaretInTheFirstPosition || isCaretInFirstChar)
@@ -244,7 +237,7 @@ export class InputComponent implements AfterViewInit,OnInit {
   private moveCaretContextBackwards() {
     let prevRenderedElement = this.prevRenderedElement
     let parent=this.currentElement.parent
-    let isCaretInTheFirstPosition=this.caretIndex==-1
+    let isCaretInTheFirstPosition=this.currentElement.caretIndex==-1
     let parentHasMoreThanOneChild=parent && parent.renderedChars.length > 1
     if(parent && !parent.editable && isCaretInTheFirstPosition && parentHasMoreThanOneChild)
       prevRenderedElement=this.prevRenderedElementInParent
@@ -265,7 +258,7 @@ export class InputComponent implements AfterViewInit,OnInit {
   }
 
   private get prevRenderedElement(){
-    return this.getRenderedElementAt(this.caretIndex)
+    return this.getRenderedElementAt(this.currentElement.caretIndex)
   }
 
   private get prevRenderedElementInParent(){
@@ -303,23 +296,25 @@ export class InputComponent implements AfterViewInit,OnInit {
   }
 
   private get nextCharData(){
-    return this.currentElement.getCharData(this.caretIndex+1)||this.currentElement.lastCharData
+    return this.currentElement.getCharData(this.currentElement.caretIndex+1)||this.currentElement.lastCharData
   }
   private get prevCharData(){
-    return this.currentElement.getCharData(this.caretIndex-1)||this.currentElement.noCharData
+    return this.currentElement.getCharData(this.currentElement.caretIndex-1)||this.currentElement.noCharData
   }
 
 
   private onSpecialCtrlKeyDown(key:string){
     switch (key){
       case 'Backspace':
-        this.deleteChar(this.currentElement.getPrevSpecialCharFixedData(this.caretIndex).index+1,this.caretIndex-this.currentElement.getPrevSpecialCharFixedData(this.caretIndex).index)
+        this.deleteChar(this.currentElement.getPrevSpecialCharFixedData(
+          this.currentElement.caretIndex).index+1,
+          this.currentElement.caretIndex-this.currentElement.getPrevSpecialCharFixedData(this.currentElement.caretIndex).index)
         break;
       case 'ArrowRight':
-        this.moveCaretTo(this.currentElement.getNextSpecialCharFixedData(this.caretIndex))
+        this.moveCaretTo(this.currentElement.getNextSpecialCharFixedData(this.currentElement.caretIndex))
         break;
       case 'ArrowLeft':
-        this.moveCaretTo(this.currentElement.getPrevSpecialCharFixedData(this.caretIndex))
+        this.moveCaretTo(this.currentElement.getPrevSpecialCharFixedData(this.currentElement.caretIndex))
         break;
     }
   }
@@ -348,11 +343,11 @@ export class InputComponent implements AfterViewInit,OnInit {
     this.renderer.setStyle(this.caretRef.nativeElement,'left',positionX+'px')
     if(parent)
       this.setCurrentElement(parent)
-    this.caretIndex=index
+    this.currentElement.caretIndex=index
     this.makeCharVisible(positionX)
   }
-  private deleteChar(from=this.caretIndex, deleteCount=1){
-    if(this.caretIndex==-1&&this.currentElement==this.termContainer)
+  private deleteChar(from=this.currentElement.caretIndex, deleteCount=1){
+    if(this.currentElement.caretIndex==-1&&this.currentElement==this.termContainer)
       return
     let prevCharData=this.currentElement.removeChars(from,deleteCount)
     if(prevCharData)
@@ -375,11 +370,11 @@ export class InputComponent implements AfterViewInit,OnInit {
   }
 
   private getFractionCharsData(){
-    let prevCharsFrom=(this.currentElement.getPrevSpecialCharData(this.caretIndex)?.index||-1)+1
-    let prevCharsTo=this.caretIndex+1
+    let prevCharsFrom=(this.currentElement.getPrevSpecialCharData(this.currentElement.caretIndex)?.index||-1)+1
+    let prevCharsTo=this.currentElement.caretIndex+1
     let prevChars=this.currentElement.terms.slice(prevCharsFrom,prevCharsTo)
-    let nextCharsTo=(this.currentElement.getNextSpecialCharData(this.caretIndex)?.index||this.currentElement.lastCharData.index+1)
-    let nextCharsFrom=this.caretIndex+1
+    let nextCharsTo=(this.currentElement.getNextSpecialCharData(this.currentElement.caretIndex)?.index||this.currentElement.lastCharData.index+1)
+    let nextCharsFrom=this.currentElement.caretIndex+1
     let nextChars=this.currentElement.terms.slice(nextCharsFrom,nextCharsTo)
     return{from:prevCharsFrom,to:nextCharsTo,prevChars,nextChars}
   }
@@ -433,13 +428,13 @@ export class InputComponent implements AfterViewInit,OnInit {
     let nextParenthesis=this.findNextParenthesisChar()
     if(!nextParenthesis)
       return;
-    let from=this.caretIndex+1,
+    let from=this.currentElement.caretIndex+1,
         to=nextParenthesis.index+1;
     return {from,to,terms:this.currentElement.terms.slice(from,to-1)}
   }
 
   private findNextParenthesisChar(){
-    for(let i=this.caretIndex; i<this.currentElement.terms.length; i++){
+    for(let i=this.currentElement.caretIndex; i<this.currentElement.terms.length; i++){
       let term=this.getRenderedElementAt(i)
       if(term&&term.char==')')
         return term
@@ -452,12 +447,12 @@ export class InputComponent implements AfterViewInit,OnInit {
     if(!prevParenthesis)
       return;
     let from=prevParenthesis.index,
-        to=this.caretIndex+1;
+        to=this.currentElement.caretIndex+1;
     return{from,to,terms:this.currentElement.terms.slice(from+1,to)}
   }
 
   private findPrevParenthesisChar(){
-    for(let i=this.caretIndex; i>=0; i--){
+    for(let i=this.currentElement.caretIndex; i>=0; i--){
       let term=this.getRenderedElementAt(i)
       if(term&&term.char=='(')
         return term
@@ -469,10 +464,10 @@ export class InputComponent implements AfterViewInit,OnInit {
     this.appendTerm({char,type:'char'})
   }
 
-  private appendTerm(term:Term,replaceFrom=this.caretIndex+1,deleteCount=0){
+  private appendTerm(term:Term,replaceFrom=this.currentElement.caretIndex+1,deleteCount=0){
     this.currentElement.append(replaceFrom,deleteCount,term)
     this.cdr.detectChanges()
-    let appendedTerm=this.currentElement.renderedChars.get(this.caretIndex+1)?.asEditableElement
+    let appendedTerm=this.currentElement.renderedChars.get(this.currentElement.caretIndex+1)?.asEditableElement
     if(appendedTerm)
       this.setCurrentElement(appendedTerm)
   }
@@ -538,7 +533,7 @@ export class InputComponent implements AfterViewInit,OnInit {
       argumentTerms:functionName=='log'?[]:undefined
     }
     this.appendTerm(functionTerm,from,to-from+1)
-    let renderedFunction=this.currentElement.renderedChars.get(this.caretIndex+1-functionName.length)?.asEditableElement as FunctionComponent
+    let renderedFunction=this.currentElement.renderedChars.get(this.currentElement.caretIndex+1-functionName.length)?.asEditableElement as FunctionComponent
     if(renderedFunction)
       this.setCurrentElement(renderedFunction.argumentComponent||renderedFunction.mainContainer)
     this.moveCaretTo(this.currentElement.noCharData)

@@ -30,6 +30,7 @@ export abstract class InputEditableElement implements OnDestroy{
   ref=inject(ElementRef).nativeElement as HTMLElement
   inputUtilitiesService=inject(InputUtilitiesService)
   editable=true
+  caretIndex=-1
 
   private readonly irregularCharRegexp=/[^a-zA-Z\d]/
 
