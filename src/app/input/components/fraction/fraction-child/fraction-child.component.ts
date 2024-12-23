@@ -13,7 +13,7 @@ import {
 import {InputCharData} from "../../../models/input-char-data.model";
 import {InputEditableElement} from "../../../classes/input-editable-element.class";
 import {TermContainerComponent} from "../../term-container/term-container.component";
-import {WarningMessageData} from "../../../models/char-validation/warning-message-data.model";
+import {TermWarningMessageData} from "../../../models/char-validation/warning-message-data.model";
 
 @Component({
   selector: 'frac-child',
@@ -52,7 +52,7 @@ export class FractionChildComponent extends InputEditableElement implements Afte
 
   private zeroTermRegexp=/^0+$/
 
-  protected override getValidationMessages(): WarningMessageData[] {
+  protected override getValidationMessages(): TermWarningMessageData[] {
     let validationMessages= super.getValidationMessages();
     let actualValue=this.toString
     this.validateDivisionByZero(actualValue,validationMessages)
@@ -61,11 +61,11 @@ export class FractionChildComponent extends InputEditableElement implements Afte
     return validationMessages
   }
 
-  private validateDivisionByZero(actualValue:string,messageList:WarningMessageData[]){
+  private validateDivisionByZero(actualValue:string,messageList:TermWarningMessageData[]){
     if(this.zeroTermRegexp.test(this.toString))
       messageList.push({message:'No se puede dividir por 0.', type:'partially-invalid'})
   }
-  private validateOneAsDenominator(actualValue:string,messageList:WarningMessageData[]){
+  private validateOneAsDenominator(actualValue:string,messageList:TermWarningMessageData[]){
     if(actualValue=='1')
       messageList.push({message:'Tener "1" como denominador es redundante.', type:'partially-invalid'})
   }

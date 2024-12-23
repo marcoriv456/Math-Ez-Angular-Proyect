@@ -6,7 +6,7 @@ import {Term} from "../../models/terms/term.model";
 import {InputCharData} from "../../models/input-char-data.model";
 import {TermContainerComponent} from "../term-container/term-container.component";
 import {EditableTermContainerComponent} from "../editable-term-container/editable-term-container.component";
-import {WarningMessageData} from "../../models/char-validation/warning-message-data.model";
+import {TermWarningMessageData} from "../../models/char-validation/warning-message-data.model";
 
 @Component({
   selector: 'function',
@@ -34,25 +34,25 @@ export class FunctionComponent extends InputEditableElement{
   @ViewChild('functionArgument')
   argumentComponent!:EditableTermContainerComponent
 
-  protected override getValidationMessages(): WarningMessageData[] {
+  protected override getValidationMessages(): TermWarningMessageData[] {
     let validationMessages=super.getValidationMessages();
     if(this.functionName=='log')
       this.executeLogarithmValidations(validationMessages)
     return validationMessages
   }
 
-  private executeLogarithmValidations(messageList:WarningMessageData[]){
+  private executeLogarithmValidations(messageList:TermWarningMessageData[]){
     let argumentValue=this.argumentComponent.toString
     this.validateTenAsLogarithmArgument(argumentValue,messageList)
     this.validateLogarithmArgumentGreaterThanOne(argumentValue,messageList)
   }
 
-  private validateTenAsLogarithmArgument(argumentValue:string,messageList:WarningMessageData[]){
+  private validateTenAsLogarithmArgument(argumentValue:string,messageList:TermWarningMessageData[]){
     if(argumentValue=='10')
       messageList.push({type:'partially-invalid',message:'Aun si no se especifica, 10 es el valor por defecto de la base de un logaritmo.'})
   }
 
-  private validateLogarithmArgumentGreaterThanOne(argumentValue:string,messageList:WarningMessageData[]){
+  private validateLogarithmArgumentGreaterThanOne(argumentValue:string,messageList:TermWarningMessageData[]){
     let numberParentValue=Number(argumentValue)
     if(!isNaN(numberParentValue) && !(numberParentValue>1))
       messageList.push({type:'fully-invalid', message:'La base de un logaritmo debe de ser un numero positivo diferente de 1.'})

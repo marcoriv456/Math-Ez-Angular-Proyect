@@ -14,8 +14,8 @@ import {WarningsService} from "../../services/warnings/warnings.service";
 import {WarningRenderData} from "../../models/char-validation/warning-render-data.model";
 import {InputUtilitiesService} from "../../services/caret-positioning/input-utilities.service";
 import {VariableProviderService} from "../../services/variable-provider/variable-provider.service";
-import {ValidationData} from "../../models/char-validation/validation-data.model";
-import {WarningMessageData} from "../../models/char-validation/warning-message-data.model";
+import {TermValidationData} from "../../models/char-validation/validation-data.model";
+import {TermWarningMessageData} from "../../models/char-validation/warning-message-data.model";
 
 @Component({
   selector: 'char',

@@ -18,7 +18,7 @@ import {VariableProvider} from "./models/variable-provider.model";
 import {WarningsService} from "./services/warnings/warnings.service";
 import {animate, style, transition, trigger} from "@angular/animations";
 import {VariableProviderService} from "./services/variable-provider/variable-provider.service";
-import {WarningMessageData} from "./models/char-validation/warning-message-data.model";
+import {TermWarningMessageData} from "./models/char-validation/warning-message-data.model";
 import {InputCharData} from "./models/input-char-data.model";
 import {FunctionComponent} from "./components/function/function.component";
 import {TermContainerComponent} from "./components/term-container/term-container.component";
@@ -110,7 +110,7 @@ export class InputComponent implements AfterViewInit,OnInit {
   ];
   private currentElement!: InputEditableElement;
   protected showingWarning=false
-  protected warningMessages:WarningMessageData[]=[]
+  protected warningMessages:TermWarningMessageData[]=[]
   private recognizableFunctions=['sen','cos','tan','log','ln']
 
   readonly ref=inject(ElementRef).nativeElement as HTMLElement

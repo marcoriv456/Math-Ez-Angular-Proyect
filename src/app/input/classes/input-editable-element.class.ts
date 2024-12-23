@@ -14,8 +14,8 @@ import {Term} from "../models/terms/term.model";
 import {InputCharData} from "../models/input-char-data.model";
 import {TermContainerComponent} from "../components/term-container/term-container.component";
 import {WarningsService} from "../services/warnings/warnings.service";
-import {WarningMessageData} from "../models/char-validation/warning-message-data.model";
-import {ValidationData} from "../models/char-validation/validation-data.model";
+import {TermWarningMessageData} from "../models/char-validation/warning-message-data.model";
+import {TermValidationData} from "../models/char-validation/validation-data.model";
 
 
 @Directive()
@@ -158,7 +158,7 @@ export abstract class InputEditableElement implements OnDestroy{
   }
   isMouseOver=false
   warningsService=inject(WarningsService)
-  validationData:ValidationData={
+  validationData:TermValidationData={
     isValid:true,
     messages:[]
   }
@@ -190,14 +190,14 @@ export abstract class InputEditableElement implements OnDestroy{
     if(this.isMouseOver)
       this.validationData.isValid ? this.emitHideWarning() : this.emitShowWarning()
   }
-  validate():ValidationData{
+  validate():TermValidationData{
     let messages=this.getValidationMessages()
     let isValid=messages.length==0
     let type=isValid?undefined:(messages.find(value => value.type=='fully-invalid')?.type||'partially-invalid')
     return {messages,isValid,type}
   }
 
-  protected getValidationMessages():WarningMessageData[]{
+  protected getValidationMessages():TermWarningMessageData[]{
     return []
   }
 
@@ -211,7 +211,7 @@ export abstract class InputEditableElement implements OnDestroy{
     this.warningsService.hideWarning.emit()
   }
 
-  private setValidationData(data:ValidationData){
+  private setValidationData(data:TermValidationData){
     this.validationData=data
   }
 

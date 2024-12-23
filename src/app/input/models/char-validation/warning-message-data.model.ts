@@ -1,4 +1,4 @@
-export interface WarningMessageData{
+export interface TermWarningMessageData {
   message:string
   type?:'partially-invalid'|'fully-invalid'
 }

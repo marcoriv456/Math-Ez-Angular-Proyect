@@ -1,7 +1,7 @@
-import {WarningMessageData} from "./warning-message-data.model";
+import {TermWarningMessageData} from "./warning-message-data.model";
 
-export interface ValidationData{
+export interface TermValidationData {
   isValid:boolean
   type?:'partially-invalid'|'fully-invalid'
-  messages:WarningMessageData[]
+  messages:TermWarningMessageData[]
 }

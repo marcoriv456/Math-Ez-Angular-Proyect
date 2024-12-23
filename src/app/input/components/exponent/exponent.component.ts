@@ -6,7 +6,7 @@ import {InputUtilitiesService} from "../../services/caret-positioning/input-util
 import {from} from "rxjs";
 import {InputCharData} from "../../models/input-char-data.model";
 import {TermContainerComponent} from "../term-container/term-container.component";
-import {WarningMessageData} from "../../models/char-validation/warning-message-data.model";
+import {TermWarningMessageData} from "../../models/char-validation/warning-message-data.model";
 
 @Component({
   selector: 'exp',
@@ -19,7 +19,7 @@ export class ExponentComponent extends InputEditableElement{
 
   private zeroExponentRegexp=/^0+$/
 
-  protected override getValidationMessages(): WarningMessageData[] {
+  protected override getValidationMessages(): TermWarningMessageData[] {
     let validationMessages=super.getValidationMessages();
     let actualValue=this.toString
     this.validateOneExponent(actualValue,validationMessages)
@@ -27,12 +27,12 @@ export class ExponentComponent extends InputEditableElement{
     return validationMessages
   }
 
-  private validateZeroExponent(actualValue:string, messageList:WarningMessageData[]){
+  private validateZeroExponent(actualValue:string, messageList:TermWarningMessageData[]){
     if(this.zeroExponentRegexp.test(actualValue))
       messageList.push({message:'Cualquier valor elevado a 0 es igual a 1.', type:'partially-invalid'})
   }
 
-  private validateOneExponent(actualValue:string, messageList:WarningMessageData[]){
+  private validateOneExponent(actualValue:string, messageList:TermWarningMessageData[]){
     if(actualValue=='1')
       messageList.push({message:'Elevar a la potencia 1 es redundante.', type:'partially-invalid'})
   }
