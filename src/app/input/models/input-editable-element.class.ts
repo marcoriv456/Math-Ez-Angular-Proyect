@@ -38,6 +38,10 @@ export abstract class InputEditableElement implements OnDestroy{
     return this.termContainer.renderedChars
   }
 
+  protected get absolutePositionX(){
+    return this.ref.getBoundingClientRect().left-this.inputUtilitiesService.inputPositionX
+  }
+
   protected get positionX(): number {
     let parent:HTMLElement|null=this.ref.parentElement
     let leftPosition=this.ref.offsetLeft
@@ -184,9 +188,7 @@ export abstract class InputEditableElement implements OnDestroy{
     let messages=this.getValidationMessages()
     let isValid=messages.length==0
     let type=isValid?undefined:(messages.find(value => value.type=='fully-invalid')?.type||'partially-invalid')
-    let dataToSend= {isValid, messages, type}
-    console.log(dataToSend)
-    return dataToSend
+    return {messages,isValid,type}
   }
 
   protected getValidationMessages():WarningMessageData[]{
@@ -196,7 +198,7 @@ export abstract class InputEditableElement implements OnDestroy{
   private emitShowWarning(){
     this.warningsService.showWarning.emit({
       messages:this.validationData.messages||[],
-      position:{x:this.positionX,y:this.positionY}})
+      position:{x:this.absolutePositionX,y:this.positionY}})
   }
 
   private emitHideWarning(){
@@ -207,6 +209,10 @@ export abstract class InputEditableElement implements OnDestroy{
     this.validationData=data
   }
 
+  append(from:number, deleteCount:number,...term:Term[]){
+    this.terms.splice(from,deleteCount,...term)
+    this.updateValidation()
+  }
 
   // ----------------------VALIDATION LOGIC----------------------
 }

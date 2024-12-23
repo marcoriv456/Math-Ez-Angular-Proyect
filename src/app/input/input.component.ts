@@ -141,6 +141,9 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   ngOnInit() {
     this.variableProviderService.setVariableProvider(this.variableProvider)
   }
+  override get absolutePositionX(){
+    return 0
+  }
 
   override get positionX(): number {
     return this.ref.getBoundingClientRect().left
@@ -346,7 +349,6 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     this.cdr.detectChanges()
     this.moveCaretTo(this.nextCharData)
     this.searchFunctionWrittenReferences()
-    this.currentElement.updateValidation()
   }
 
   private moveCaretTo({positionX,positionY,index,size,parent}:InputCharData){
@@ -363,7 +365,6 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
     if(prevCharData)
       this.moveCaretTo(prevCharData)
     this.currentElement.updateValidation()
-    // this.currentElement.updateTermsValidation()
   }
 
   override removeChars(from: number, deleteCount: number = 1): InputCharData | undefined {
@@ -373,7 +374,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 // ------------------STRUCTURING LOGIC------------------
   private appendFraction(){
     let {from,to,prevChars,nextChars}=this.getFractionCharsData()
-    this.currentElement.terms.splice(from, to-from, {
+    this.currentElement.append(from, to-from, {
       numeratorChildren:prevChars,
       denominatorChildren:nextChars,
       type:'fraction'
@@ -406,7 +407,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
 
   private deleteElement(elementIndex:number,residualData:Term[]){
     this.moveContextToActualParent();
-    this.currentElement.terms.splice(elementIndex,1,...residualData)
+    this.currentElement.append(elementIndex,1,...residualData)
     this.cdr.detectChanges()
     this.moveCaretTo(this.currentElement.getCharData(elementIndex+residualData.length-1) ||this.currentElement.lastCharData)
   }
@@ -480,7 +481,7 @@ export class InputComponent extends InputEditableElement implements AfterViewIni
   }
 
   private appendTerm(term:Term,replaceFrom=this.caretIndex+1,deleteCount=0){
-    this.currentElement.terms.splice(replaceFrom,deleteCount,term)
+    this.currentElement.append(replaceFrom,deleteCount,term)
     this.cdr.detectChanges()
     let appendedTerm=this.currentElement.renderedChars.get(this.caretIndex+1)?.asEditableElement
     if(appendedTerm)

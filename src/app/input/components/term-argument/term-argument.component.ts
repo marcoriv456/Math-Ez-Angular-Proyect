@@ -21,10 +21,8 @@ export class TermArgumentComponent extends InputEditableElement{
   @Output()
   change=new EventEmitter();
 
-  override updateValidation() {
-    super.updateValidation();
-    console.log("on update validation")
-    
+  override append(from: number, deleteCount: number, ...term:Term[]) {
+    super.append(from, deleteCount, ...term);
     this.change.emit()
   }
 }

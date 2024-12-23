@@ -38,16 +38,14 @@ export class RootComponent extends InputEditableElement{
   protected override getValidationMessages(): WarningMessageData[] {
     let messages:WarningMessageData[]=[]
     this.validateOneAsRootValue(messages)
-    this.validateOneAsRadical(messages)
-    console.log("in root validation messages: ",messages)
+    if(this.radicalTerms)
+      this.validateOneAsRadical(messages)
     return messages;
   }
 
   private validateOneAsRootValue(messageList:WarningMessageData[]) {
     if(this.mainComponent.toString=='1')
       messageList.push({message:'La raiz de cualquier radical de 1 siempre sera 1.',type:'partially-invalid'})
-    console.log("on validate one as root value: ",this.mainComponent.toString)
-
   }
   private validateOneAsRadical(messageList: WarningMessageData[]) {
     if(this.argumentComponent.toString=='1')
