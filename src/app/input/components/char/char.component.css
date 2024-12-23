@@ -3,6 +3,7 @@
   display: grid;
   place-items: center;
   width: fit-content;
+  position: relative;
 
   font-size: 1em;
   animation: new-char 0.5s cubic-bezier(0,0,0,1);
@@ -12,10 +13,10 @@
 :host:hover{
   background-color: #0004;
 }
-:host.fully-invalid{
+:host.invalid{
   --color:#f00;
 }
-:host.fully-invalid:hover{
+:host.invalid:hover{
   background-color: #faa;
 }
 :host.partially-invalid{
