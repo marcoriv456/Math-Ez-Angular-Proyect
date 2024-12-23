@@ -25,6 +25,7 @@ import {TermContainerComponent} from "./components/term-container/term-container
 import {WarningRenderData} from "./models/char-validation/warning-render-data.model";
 import {EditableTermContainerComponent} from "./components/editable-term-container/editable-term-container.component";
 import {InputUtilitiesService} from "./services/caret-positioning/input-utilities.service";
+import {ParenthesisComponent} from "./components/parenthesis/parenthesis.component";
 
 @Component({
   selector: 'app-input',
@@ -437,18 +438,36 @@ export class InputComponent implements AfterViewInit,OnInit {
   private deleteTerms(from=this.currentElement.caretIndex, deleteCount=1){
     if(this.currentElement.caretIndex==-1&&this.currentElement==this.termContainer)
       return
+    if(this.getRenderedChar(from)?.asEditableElement instanceof ParenthesisComponent){
+      this.deleteParenthesis(from)
+      return;
+    }
     let prevCharData=this.currentElement.remove(from,deleteCount)
     if(prevCharData)
       this.moveCaretTo(prevCharData)
     this.currentElement.updateValidation()
   }
 
+  private deleteParenthesis(parenthesisIndex:number){
+    let parenthesisTerms=this.getRenderedChar(parenthesisIndex)?.asEditableElement?.terms
+    if(!parenthesisTerms)
+      return;
+    let terms:Term[]=[{type:'char',char:'('},...parenthesisTerms]
+    this.currentElement.terms.splice(parenthesisIndex,1,...terms)
+    this.detectChanges()
+    this.moveCaretTo(this.getCharData(parenthesisIndex+terms.length-1) ||this.lastCharData)
+  }
+
   private deleteCurrentElement(elementIndex:number,residualData:Term[]){
+    let indexToMoveAt=elementIndex+residualData.length-1
+    if(this.currentElement instanceof ParenthesisComponent)
+      indexToMoveAt=elementIndex-1
     this.moveContextToActualParent();
     this.currentElement.append(elementIndex,1,...residualData)
     this.detectChanges()
-    this.moveCaretTo(this.getCharData(elementIndex+residualData.length-1) ||this.lastCharData)
+    this.moveCaretTo(this.getCharData(indexToMoveAt) ||this.lastCharData)
   }
+
 
 // ------------------STRUCTURING LOGIC------------------
 // ------------------VALIDATION LOGIC------------------
