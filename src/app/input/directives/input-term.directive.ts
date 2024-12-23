@@ -15,7 +15,7 @@ export class InputTermDirective{
   @Input('inputTerm')
   input!:{char:string, index:number,editableElementRef?:InputEditableElement,parent:InputEditableElement}
   ref=inject(ElementRef).nativeElement as HTMLElement
-  caretPositioningService=inject(InputUtilitiesService)
+  inputUtilitiesService=inject(InputUtilitiesService)
 
   get data():InputCharData{
     return {
@@ -50,7 +50,7 @@ export class InputTermDirective{
       dataToSend.index-=1
     }
     dataToSend.parent=this.parent
-    this.caretPositioningService.charClicked.emit(dataToSend)
+    this.inputUtilitiesService.charClicked.emit(dataToSend)
   }
 
   private wasClickOnLeftSide(clickOffset:number){
@@ -70,7 +70,7 @@ export class InputTermDirective{
     return leftPosition
   }
   private get topPosition(){
-    return this.ref.getBoundingClientRect().top-this.caretPositioningService.inputPositionY
+    return this.ref.getBoundingClientRect().top-this.inputUtilitiesService.inputPositionY
   }
   private get size(){
     return this.ref.offsetHeight

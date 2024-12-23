@@ -538,7 +538,7 @@ export class InputComponent implements AfterViewInit,OnInit {
   // ----------AUTO-SCROLL LOGIC-----------
 
   // ----------LOWER LEVEL METHODS----------
-  private moveCaretTo({positionX,positionY,index,size,parent}:InputCharData){
+  private moveCaretTo({positionX,index,parent}:InputCharData){
     this.renderer.setStyle(this.caretRef.nativeElement,'left',positionX+'px')
     if(parent)
       this.setCurrentElement(parent)
