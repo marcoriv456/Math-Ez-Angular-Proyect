@@ -14,7 +14,7 @@ export class TermArgumentComponent extends InputEditableElement{
   @ViewChild(TermContainerComponent)
   termContainer!: TermContainerComponent;
 
-  override removeChars(from: number, deleteCount: number = 1): InputCharData | undefined {
+  override remove(from: number, deleteCount: number = 1): InputCharData | undefined {
     return this.removeSimpleChar(from, deleteCount);
   }
 

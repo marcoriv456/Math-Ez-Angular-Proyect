@@ -32,7 +32,7 @@ export class FractionChildComponent extends InputEditableElement implements Afte
 
   cdr=inject(ChangeDetectorRef)
 
-  override removeChars(from: number, deleteCount: number = 1): InputCharData|undefined {
+  override remove(from: number, deleteCount: number = 1): InputCharData|undefined {
     if(this.terms.length)
       return this.removeSimpleChar(from, deleteCount);
     this.termDeleted.emit()
@@ -40,7 +40,7 @@ export class FractionChildComponent extends InputEditableElement implements Afte
   }
 
   ngAfterViewInit() {
-    this.updateTermsValidation()
+    this.updateValidation()
   }
   override get noCharData(): InputCharData {
     let data=super.noCharData

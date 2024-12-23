@@ -77,7 +77,7 @@ export abstract class InputEditableElement implements OnDestroy{
 
   getNextSpecialCharFixedData():InputCharData{
     let nextSpecialChar=this.getNextSpecialCharData()
-  
+
     if(nextSpecialChar && nextSpecialChar.index-1!==this.caretIndex)
       nextSpecialChar=this.renderedChars.get(nextSpecialChar.index-1)?.data
 
@@ -123,6 +123,14 @@ export abstract class InputEditableElement implements OnDestroy{
     return {index:-1,positionX:this.positionX,positionY:this.positionY,size:this.size}
   }
 
+  get nextIndex(){
+    return this.caretIndex+1
+  }
+
+   get prevIndex(){
+    return this.caretIndex-1
+  }
+
   get size():number{
     return this.ref.offsetHeight
   }
@@ -134,13 +142,13 @@ export abstract class InputEditableElement implements OnDestroy{
     return this.getCharData(from-1)||this.noCharData
   }
 
-  removeChars(from:number, deleteCount=1):InputCharData|undefined {
+  remove(from:number, deleteCount=1):InputCharData|undefined {
     if(this.terms.length)
       return this.removeSimpleChar(from, deleteCount);
     this.inputUtilitiesService.elementDeletedEmitter.emit({elementIndex:this.index,residualData:[]})
     return;
   }
-  // ------------------VARIABLE CHECKING LOGIC------------------
+  // ----------------------VALIDATION LOGIC----------------------
   get toString(){
     return this.terms.map(child=>{
       if(child.type=='char')
@@ -148,12 +156,6 @@ export abstract class InputEditableElement implements OnDestroy{
       return '~'
     }).join('')
   }
-  // ------------------VARIABLE CHECKING LOGIC------------------
-  // ---------------------CHAR UPDATES LOGIC---------------------
-  updateTermsValidation(){
-    // this.renderedChars.forEach(char=>char.validate())
-  }
-  // ----------------------VALIDATION LOGIC----------------------
   isMouseOver=false
   warningsService=inject(WarningsService)
   validationData:ValidationData={
