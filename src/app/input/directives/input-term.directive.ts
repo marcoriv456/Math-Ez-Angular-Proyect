@@ -1,26 +1,12 @@
 import {
-  AfterViewChecked,
   Directive,
-  ElementRef, HostBinding,
+  ElementRef,
   HostListener,
-  inject,
-  Input,
-  OnChanges, OnDestroy,
-  SimpleChanges
+  inject, Input,
 } from '@angular/core';
 import {InputUtilitiesService} from "../services/caret-positioning/input-utilities.service";
 import {InputEditableElement} from "../models/input-editable-element.class";
-import {WarningsService} from "../services/warnings/warnings.service";
-import {VariableProvider} from "../models/variable-provider.model";
-import {VariableProviderService} from "../services/variable-provider/variable-provider.service";
-import {FractionComponent} from "../components/fraction/fraction.component";
-import {FractionChildComponent} from "../components/fraction/fraction-child/fraction-child.component";
-import {ExponentComponent} from "../components/exponent/exponent.component";
-import {ValidationData} from "../models/char-validation/validation-data.model";
-import {WarningMessageData} from "../models/char-validation/warning-message-data.model";
 import {InputCharData} from "../models/input-char-data.model";
-import {InputComponent} from "../input.component";
-import {TermValidationService} from "../services/term-validation/term-validation.service";
 
 @Directive({
   selector: '[inputTerm]'
@@ -28,11 +14,8 @@ import {TermValidationService} from "../services/term-validation/term-validation
 export class InputTermDirective{
   @Input('inputTerm')
   input!:{char:string, index:number,editableElementRef?:InputEditableElement,parent:InputEditableElement}
-
   ref=inject(ElementRef).nativeElement as HTMLElement
   caretPositioningService=inject(InputUtilitiesService)
-
-
 
   get data():InputCharData{
     return {
@@ -92,55 +75,4 @@ export class InputTermDirective{
   private get size(){
     return this.ref.offsetHeight
   }
-
-  private get absoluteLeftPosition(){
-    return this.ref.getBoundingClientRect().left-this.caretPositioningService.inputPositionX
-  }
-  // ------------------VARIABLE CHECKING LOGIC------------------
-  // warningsService=inject(WarningsService)
-  // warningMessages:WarningMessageData[]=[]
-  // termValidationService=inject(TermValidationService)
-  // valid=true
-  // @HostBinding('class')
-  // invalidType:'partially-invalid'|'fully-invalid'|undefined=undefined;
-  // isMouseOver=false
-  // @HostListener('mouseover')
-  // onMouseOver(){
-  //   if(this.valid)
-  //     return;
-  //   this.emitWarning()
-  //   this.isMouseOver=true
-  // }
-  // @HostListener('mouseleave')
-  // onMouseLeave(){
-  //   if(this.valid)
-  //     return;
-  //   this.hideWarning()
-  //   this.isMouseOver=false
-  // }
-  // ngOnDestroy() {
-  //   if(this.isMouseOver)
-  //     this.hideWarning()
-  // }
-  //
-  // validate(){
-  //   this.setValidationData(this.termValidationService.validateTerm(this))
-  //   if(this.isMouseOver)
-  //     this.valid ? this.hideWarning() : this.emitWarning()
-  // }
-  //
-  // private emitWarning(){
-  //   this.warningsService.showWarning.emit({messages:this.warningMessages,position: {x:this.data.positionX,y:this.data.positionY},})
-  // }
-  //
-  // private hideWarning(){
-  //   this.warningsService.hideWarning.emit()
-  // }
-  //
-  // private setValidationData({isValid,type,messages}:ValidationData){
-  //   this.valid=isValid
-  //   this.warningMessages=messages||[]
-  //   this.invalidType=type
-  // }
-  // ------------------VARIABLE CHECKING LOGIC------------------
 }

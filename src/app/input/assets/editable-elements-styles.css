@@ -9,15 +9,6 @@
 
   --outline-color:transparent;
 }
-/*@keyframes selection-blink {*/
-/*  from{*/
-/*    outline: 0.01em solid var(--darker-default-outline-color);*/
-/*  }*/
-/*  to{*/
-/*    outline: 0.01em solid var(--default-outline-color);*/
-/*    border-radius: 0.1em;*/
-/*  }*/
-/*}*/
 :host{
   outline: var(--outline-color) 0.01em solid;
   transition: outline-color 0.5s cubic-bezier(0,0,0,1);
