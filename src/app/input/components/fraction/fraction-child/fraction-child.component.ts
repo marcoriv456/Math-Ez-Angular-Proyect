@@ -11,7 +11,7 @@ import {
   ViewChildren
 } from '@angular/core';
 import {InputCharData} from "../../../models/input-char-data.model";
-import {InputEditableElement} from "../../../models/input-editable-element.class";
+import {InputEditableElement} from "../../../classes/input-editable-element.class";
 import {TermContainerComponent} from "../../term-container/term-container.component";
 import {WarningMessageData} from "../../../models/char-validation/warning-message-data.model";
 

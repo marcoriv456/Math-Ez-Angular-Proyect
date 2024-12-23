@@ -1,4 +1,4 @@
-import {InputEditableElement} from "./input-editable-element.class";
+import {InputEditableElement} from "../classes/input-editable-element.class";
 
 export interface InputCharData{
   positionX:number

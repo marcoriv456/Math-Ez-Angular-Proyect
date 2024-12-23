@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import {FractionComponent} from "./components/fraction/fraction.component";
 import {InputTermDirective} from "./directives/input-term.directive";
-import {InputEditableElement} from "./models/input-editable-element.class";
+import {InputEditableElement} from "./classes/input-editable-element.class";
 import {Term} from "./models/terms/term.model";
 import {RootComponent} from "./components/root/root.component";
 import {VariableProvider} from "./models/variable-provider.model";

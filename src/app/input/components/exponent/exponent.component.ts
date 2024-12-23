@@ -1,5 +1,5 @@
 import {Component, ElementRef, HostBinding, inject, Input, QueryList, ViewChild, ViewChildren} from '@angular/core';
-import {InputEditableElement} from "../../models/input-editable-element.class";
+import {InputEditableElement} from "../../classes/input-editable-element.class";
 import {Term} from "../../models/terms/term.model";
 import {InputTermDirective} from "../../directives/input-term.directive";
 import {InputUtilitiesService} from "../../services/caret-positioning/input-utilities.service";
@@ -31,7 +31,7 @@ export class ExponentComponent extends InputEditableElement{
     if(this.zeroExponentRegexp.test(actualValue))
       messageList.push({message:'Cualquier valor elevado a 0 es igual a 1.', type:'partially-invalid'})
   }
-  
+
   private validateOneExponent(actualValue:string, messageList:WarningMessageData[]){
     if(actualValue=='1')
       messageList.push({message:'Elevar a la potencia 1 es redundante.', type:'partially-invalid'})

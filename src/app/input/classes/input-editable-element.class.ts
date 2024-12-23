@@ -10,12 +10,12 @@ import {
   ViewChild
 } from "@angular/core";
 import {InputUtilitiesService} from "../services/caret-positioning/input-utilities.service";
-import {Term} from "./terms/term.model";
-import {InputCharData} from "./input-char-data.model";
+import {Term} from "../models/terms/term.model";
+import {InputCharData} from "../models/input-char-data.model";
 import {TermContainerComponent} from "../components/term-container/term-container.component";
 import {WarningsService} from "../services/warnings/warnings.service";
-import {WarningMessageData} from "./char-validation/warning-message-data.model";
-import {ValidationData} from "./char-validation/validation-data.model";
+import {WarningMessageData} from "../models/char-validation/warning-message-data.model";
+import {ValidationData} from "../models/char-validation/validation-data.model";
 
 
 @Directive()

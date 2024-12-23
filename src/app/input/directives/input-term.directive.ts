@@ -5,7 +5,7 @@ import {
   inject, Input,
 } from '@angular/core';
 import {InputUtilitiesService} from "../services/caret-positioning/input-utilities.service";
-import {InputEditableElement} from "../models/input-editable-element.class";
+import {InputEditableElement} from "../classes/input-editable-element.class";
 import {InputCharData} from "../models/input-char-data.model";
 
 @Directive({

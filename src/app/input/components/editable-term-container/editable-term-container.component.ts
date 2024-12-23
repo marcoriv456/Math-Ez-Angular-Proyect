@@ -1,5 +1,5 @@
 import {Component, ElementRef, EventEmitter, inject, Input, Output, ViewChild} from '@angular/core';
-import {InputEditableElement} from "../../models/input-editable-element.class";
+import {InputEditableElement} from "../../classes/input-editable-element.class";
 import {Term} from "../../models/terms/term.model";
 import {TermContainerComponent} from "../term-container/term-container.component";
 import {InputUtilitiesService} from "../../services/caret-positioning/input-utilities.service";

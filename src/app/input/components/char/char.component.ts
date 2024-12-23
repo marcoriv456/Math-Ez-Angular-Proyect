@@ -9,7 +9,7 @@ import {
   OnDestroy,
   OnInit
 } from '@angular/core';
-import {InputEditableElement} from "../../models/input-editable-element.class";
+import {InputEditableElement} from "../../classes/input-editable-element.class";
 import {WarningsService} from "../../services/warnings/warnings.service";
 import {WarningRenderData} from "../../models/char-validation/warning-render-data.model";
 import {InputUtilitiesService} from "../../services/caret-positioning/input-utilities.service";
