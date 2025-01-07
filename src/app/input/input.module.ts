@@ -16,6 +16,7 @@ import { TermContainerComponent } from './components/term-container/term-contain
 import { TermArgumentComponent } from './components/term-argument/term-argument.component';
 import { EditableTermContainerComponent } from './components/editable-term-container/editable-term-container.component';
 import { ParenthesisComponent } from './components/parenthesis/parenthesis.component';
+import {CaretContextManagerService} from "./services/caret-context-manager/caret-context-manager.service";
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ParenthesisComponent } from './components/parenthesis/parenthesis.compo
   providers:[
     InputUtilitiesService,
     WarningsService,
-    VariableProviderService
+    VariableProviderService,
+    CaretContextManagerService
   ]
 })
 export class InputModule { }

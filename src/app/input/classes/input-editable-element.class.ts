@@ -120,7 +120,7 @@ export abstract class InputEditableElement implements OnDestroy{
   }
 
   get noCharData():InputCharData{
-    return {index:-1,positionX:this.positionX,positionY:this.positionY,size:this.size}
+    return {index:-1,positionX:this.positionX,positionY:this.positionY,size:this.size, parent:this}
   }
 
   get nextIndex(){

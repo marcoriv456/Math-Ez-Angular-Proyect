@@ -22,7 +22,8 @@ export class InputTermDirective{
       positionX:this.rightPosition,
       positionY:this.topPosition,
       index:this.index,
-      size:this.size
+      size:this.size,
+      parent:this.parent
     }
   }
 

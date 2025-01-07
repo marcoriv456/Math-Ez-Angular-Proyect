@@ -37,6 +37,11 @@ export class CaretContextManagerService {
       return this.getBackwardsContextData()
   }
 
+  public getActualParentContextData(currentElement:InputEditableElement, termContainer:EditableTermContainerComponent){
+    this.setup(currentElement,termContainer)
+    return this.getParentContextData('forwards')
+  }
+
   private setup(currentElement:InputEditableElement, termContainer:EditableTermContainerComponent){
     this.currentElement=currentElement
     this.termContainer=termContainer
@@ -63,16 +68,16 @@ export class CaretContextManagerService {
   }
 
   private getBackwardsContextData() {
-    let prevRenderedElement = this.prevRenderedElement,
+    let actualRenderedElement = this.actualRenderedElement,
       parent=this.currentElement.parent,
       isCaretInTheFirstPosition=this.currentElement.caretIndex==-1,
       parentHasMoreThanOneChild=parent && parent.renderedChars.length > 1
     if(parent && !parent.editable && isCaretInTheFirstPosition && parentHasMoreThanOneChild)
-      prevRenderedElement=this.prevRenderedElementInParent
-    if (!prevRenderedElement || !prevRenderedElement.asEditableElement)
+      actualRenderedElement=this.prevRenderedElementInParent
+    if (!actualRenderedElement || !actualRenderedElement.asEditableElement)
       return this.getParentContextData('backwards')
     else
-      return this.getPrevRenderedElementContextData(prevRenderedElement)
+      return this.getPrevRenderedElementContextData(actualRenderedElement)
   }
 
   private getPrevRenderedElementContextData(prevRenderedElement:InputTermDirective){
@@ -99,12 +104,16 @@ export class CaretContextManagerService {
     return this.getRenderedElement(this.caretIndex+1)
   }
 
-  private get nextRenderedElementData(){
-    return this.nextRenderedElement?.data || this.currentElement.lastCharData
+  private get actualRenderedElement(){
+    return this.getRenderedElement(this.caretIndex)
   }
 
   private get prevRenderedElement(){
-    return this.getRenderedElement(this.caretIndex)
+    return this.getRenderedElement(this.caretIndex-1)
+  }
+
+  private get nextRenderedElementData(){
+    return this.nextRenderedElement?.data || this.currentElement.lastCharData
   }
 
   private get prevRenderedElementData(){

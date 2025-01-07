@@ -26,6 +26,7 @@ import {WarningRenderData} from "./models/char-validation/warning-render-data.mo
 import {EditableTermContainerComponent} from "./components/editable-term-container/editable-term-container.component";
 import {InputUtilitiesService} from "./services/caret-positioning/input-utilities.service";
 import {ParenthesisComponent} from "./components/parenthesis/parenthesis.component";
+import {CaretContextManagerService} from "./services/caret-context-manager/caret-context-manager.service";
 
 @Component({
   selector: 'app-input',
@@ -66,6 +67,7 @@ export class InputComponent implements AfterViewInit,OnInit {
   private inputUtilitiesService=inject(InputUtilitiesService)
   private warningsService=inject(WarningsService)
   private variableProviderService=inject(VariableProviderService)
+  private caretContextManagerService=inject(CaretContextManagerService)
 
   @ViewChild(EditableTermContainerComponent)
   private termContainer!: EditableTermContainerComponent;
@@ -188,82 +190,19 @@ export class InputComponent implements AfterViewInit,OnInit {
   }
   // ------------INPUT MAPPING-------------
   // -----------CARET CONTEXT LOGIC------------
-  private moveToNextElement() {
-    let nextElement = this.currentElement.terms[this.nextIndex],
-        isNextElementChar = nextElement && nextElement.type == 'char',
-        isCaretInTheLastPosition = !nextElement && this.currentElement == this.termContainer
-    if (isNextElementChar || isCaretInTheLastPosition)
-      this.moveCaretTo(this.nextCharData)
-    else
-      this.moveCaretContextForward()
+  private moveToNextElement(){
+    let nextElementData=this.caretContextManagerService.getNextElementData(this.currentElement,this.termContainer)
+    this.moveCaretTo(nextElementData)
   }
 
-  private moveCaretContextForward() {
-    let nextRenderedElement = this.nextRenderedElement,
-        parent=this.currentElement.parent,
-        isCaretInTheLastPosition=this.currentElement.caretIndex==this.currentElement.lastCharData.index
-    if(parent && !parent.editable  && isCaretInTheLastPosition)
-      nextRenderedElement=this.nextRenderedElementInParent
-    let nextEditableElement = nextRenderedElement?.asEditableElement
-    if (!nextRenderedElement || !nextEditableElement){
-      let prevContextIndex=this.moveContextToActualParent()
-      this.moveCaretTo(this.getCharData(prevContextIndex)||this.lastCharData)
-    }
-    else
-      this.moveContextToNextRenderedElement(nextRenderedElement)
-  }
-
-  private moveContextToNextRenderedElement(nextRenderedElement: InputTermDirective) {
-    let nextEditableEl=nextRenderedElement.asEditableElement
-    if(nextEditableEl && !nextEditableEl.editable)
-      nextEditableEl=nextEditableEl.renderedChars.get(0)?.asEditableElement
-    this.setCurrentElement(nextEditableEl || this.termContainer)
-    this.moveCaretTo(this.currentElement.noCharData)
-  }
-
-  private moveToPreviousElement() {
-    let prevElement = this.currentElement.terms[this.currentElement.caretIndex],
-        isPrevElementChar = prevElement && prevElement.type == 'char',
-        isCaretInFirstChar = !prevElement && this.currentElement.caretIndex == 0,
-        isCaretInTheFirstPosition = !prevElement && this.currentElement == this.termContainer
-    if (isPrevElementChar || isCaretInTheFirstPosition || isCaretInFirstChar)
-      this.moveCaretTo(this.prevCharData)
-    else
-      this.moveCaretContextBackwards()
-  }
-
-  private moveCaretContextBackwards() {
-    let prevRenderedElement = this.prevRenderedElement,
-        parent=this.currentElement.parent,
-        isCaretInTheFirstPosition=this.currentElement.caretIndex==-1,
-        parentHasMoreThanOneChild=parent && parent.renderedChars.length > 1
-    if(parent && !parent.editable && isCaretInTheFirstPosition && parentHasMoreThanOneChild)
-      prevRenderedElement=this.prevRenderedElementInParent
-    if (!prevRenderedElement || !prevRenderedElement.asEditableElement){
-      let prevContextIndex=this.moveContextToActualParent()
-      this.moveCaretTo(this.getCharData(prevContextIndex-1) || this.noCharData)
-    }
-    else
-      this.moveContextToPrevRenderedElement(prevRenderedElement)
-  }
-
-  private moveContextToPrevRenderedElement(prevRenderedElement:InputTermDirective){
-    let prevEditableEl=prevRenderedElement.asEditableElement
-    if(prevEditableEl&&!prevEditableEl.editable)
-      prevEditableEl=prevEditableEl.renderedChars.get(prevEditableEl.lastCharData.index)?.asEditableElement
-    this.setCurrentElement(prevEditableEl || this.termContainer)
-    this.moveCaretTo(this.currentElement.lastCharData)
+  private moveToPreviousElement(){
+    let prevElementData=this.caretContextManagerService.getPrevElementData(this.currentElement,this.termContainer)
+    this.moveCaretTo(prevElementData)
   }
 
   private moveContextToActualParent(){
-    let prevCurrentElementIndex=this.currentElement.index
-    let actualParent=this.currentElement.parent
-    if(actualParent && !actualParent.editable){
-      prevCurrentElementIndex=actualParent.index
-      actualParent=actualParent.parent
-    }
-    this.setCurrentElement(actualParent||this.termContainer)
-    return prevCurrentElementIndex
+    let actualParentContextData=this.caretContextManagerService.getActualParentContextData(this.currentElement,this.termContainer)
+    this.moveCaretTo(actualParentContextData)
   }
 
   private setCurrentElement(element:InputEditableElement){
@@ -514,10 +453,6 @@ export class InputComponent implements AfterViewInit,OnInit {
     return this.currentElement.nextCharData
   }
 
-  private get prevCharData(){
-    return this.currentElement.prevCharData
-  }
-
   private get noCharData(){
     return this.currentElement.noCharData
   }
@@ -532,22 +467,6 @@ export class InputComponent implements AfterViewInit,OnInit {
 
   private get nextRenderedElement() {
     return this.getRenderedChar(this.currentElement.caretIndex + 1)
-  }
-
-  private get prevRenderedElement(){
-    return this.getRenderedChar(this.currentElement.caretIndex)
-  }
-
-  private get nextRenderedElementInParent() {
-    return this.getRenderedElementInParentAt(this.currentElement.index + 1)
-  }
-
-  private get prevRenderedElementInParent(){
-    return this.getRenderedElementInParentAt(this.currentElement.index-1)
-  }
-
-  private getRenderedElementInParentAt(index:number){
-    return this.currentElement.parent?.renderedChars.get(index)
   }
 
   private getRenderedChar(index:number){
