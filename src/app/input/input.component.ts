@@ -27,6 +27,7 @@ import {EditableTermContainerComponent} from "./components/editable-term-contain
 import {InputUtilitiesService} from "./services/caret-positioning/input-utilities.service";
 import {ParenthesisComponent} from "./components/parenthesis/parenthesis.component";
 import {CaretContextManagerService} from "./services/caret-context-manager/caret-context-manager.service";
+import {FractionAdder} from "./classes/adders/fraction-adder";
 
 @Component({
   selector: 'app-input',
@@ -219,35 +220,7 @@ export class InputComponent implements AfterViewInit,OnInit {
 // ------------------STRUCTURING LOGIC------------------
 //   ----FRACTIONS----
   private appendFraction(){
-    let {from,to,prevChars,nextChars}=this.getFractionCharsData()
-    this.currentElement.append(from, to-from, {
-      numeratorChildren:prevChars,
-      denominatorChildren:nextChars,
-      type:'fraction'
-    })
-    this.moveCaretTo(this.getCharData(from-1)||this.lastCharData)
-    let isFractionFilled=prevChars.length && nextChars.length
-    if(!isFractionFilled)
-      this.moveCaretToEmptyFractionChild(from,nextChars,prevChars)
-  }
-
-  private getFractionCharsData(){
-    let origin=this.nextIndex,
-        from=(this.currentElement.getPrevSpecialCharData()?.index||-1)+1,
-        to=(this.currentElement.getNextSpecialCharData()?.index||this.currentElement.lastCharData.index+1),
-        prevChars=this.currentElement.terms.slice(from,origin),
-        nextChars=this.currentElement.terms.slice(origin,to)
-    return{from:from,to:to,prevChars,nextChars}
-  }
-
-  private moveCaretToEmptyFractionChild(from:number,nextChars:Term[],prevChars:Term[]){
-    this.detectChanges()
-    let appendedFrac=this.getRenderedChar(from)?.asEditableElement as FractionComponent
-    if(!nextChars.length)
-      this.setCurrentElement(appendedFrac.denominatorComponent?.asEditableElement||this.termContainer)
-    if(!prevChars.length)
-      this.setCurrentElement(appendedFrac.numeratorComponent?.asEditableElement||this.termContainer)
-    this.moveCaretTo(this.currentElement.noCharData)
+    this.moveCaretTo(new FractionAdder(this.currentElement,this.cdr).appendFraction())
   }
 //   ----FRACTIONS----
 
