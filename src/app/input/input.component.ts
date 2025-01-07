@@ -91,6 +91,7 @@ export class InputComponent implements AfterViewInit,OnInit {
   ngAfterViewInit() {
     this.currentElement=this.termContainer
     this.inputUtilitiesService.setInputRef(this)
+    this.caretContextManagerService.setup(this.termContainer)
     this.subscribeToServices()
   }
 
@@ -191,17 +192,17 @@ export class InputComponent implements AfterViewInit,OnInit {
   // ------------INPUT MAPPING-------------
   // -----------CARET CONTEXT LOGIC------------
   private moveToNextElement(){
-    let nextElementData=this.caretContextManagerService.getNextElementData(this.currentElement,this.termContainer)
+    let nextElementData=this.caretContextManagerService.getNextElementData(this.currentElement)
     this.moveCaretTo(nextElementData)
   }
 
   private moveToPreviousElement(){
-    let prevElementData=this.caretContextManagerService.getPrevElementData(this.currentElement,this.termContainer)
+    let prevElementData=this.caretContextManagerService.getPrevElementData(this.currentElement)
     this.moveCaretTo(prevElementData)
   }
 
   private moveContextToActualParent(){
-    let actualParentContextData=this.caretContextManagerService.getActualParentContextData(this.currentElement,this.termContainer)
+    let actualParentContextData=this.caretContextManagerService.getActualParentContextData(this.currentElement)
     this.moveCaretTo(actualParentContextData)
   }
 

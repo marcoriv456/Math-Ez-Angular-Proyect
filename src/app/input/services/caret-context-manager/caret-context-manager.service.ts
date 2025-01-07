@@ -14,8 +14,8 @@ export class CaretContextManagerService {
   private currentElement!:InputEditableElement
   private termContainer!:InputEditableElement
 
-  public getNextElementData(currentElement:InputEditableElement, termContainer:EditableTermContainerComponent) {
-    this.setup(currentElement,termContainer)
+  public getNextElementData(currentElement:InputEditableElement) {
+    this.setCurrentElement(currentElement)
     let nextElement = this.currentElement.terms[this.nextIndex],
       isNextElementChar = nextElement && nextElement.type == 'char',
       isCaretInTheLastPosition = !nextElement && this.currentElement == this.termContainer
@@ -25,8 +25,8 @@ export class CaretContextManagerService {
       return this.getForwardContextData()
   }
 
-  public getPrevElementData(currentElement:InputEditableElement, termContainer:EditableTermContainerComponent) {
-    this.setup(currentElement,termContainer)
+  public getPrevElementData(currentElement:InputEditableElement) {
+    this.setCurrentElement(currentElement)
     let prevElement = this.currentElement.terms[this.currentElement.caretIndex],
       isPrevElementChar = prevElement && prevElement.type == 'char',
       isCaretInFirstChar = !prevElement && this.currentElement.caretIndex == 0,
@@ -37,14 +37,19 @@ export class CaretContextManagerService {
       return this.getBackwardsContextData()
   }
 
-  public getActualParentContextData(currentElement:InputEditableElement, termContainer:EditableTermContainerComponent){
-    this.setup(currentElement,termContainer)
+  public getActualParentContextData(currentElement:InputEditableElement){
+    this.setCurrentElement(currentElement)
     return this.getParentContextData('forwards')
   }
 
-  private setup(currentElement:InputEditableElement, termContainer:EditableTermContainerComponent){
-    this.currentElement=currentElement
-    this.termContainer=termContainer
+  private setCurrentElement(element:InputEditableElement){
+    this.currentElement=element
+  }
+
+  public setup(termContainer:EditableTermContainerComponent){
+    if(!this.termContainer)
+      this.termContainer=termContainer
+    this.currentElement=termContainer
   }
 
   private getForwardContextData() {
