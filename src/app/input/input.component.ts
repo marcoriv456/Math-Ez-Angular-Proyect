@@ -29,6 +29,7 @@ import {ParenthesisComponent} from "./components/parenthesis/parenthesis.compone
 import {CaretContextManagerService} from "./services/caret-context-manager/caret-context-manager.service";
 import {FractionAdder} from "./classes/adders/fraction-adder";
 import {ParenthesisAdder} from "./classes/adders/parenthesis-adder.class";
+import {FunctionAdder} from "./classes/adders/function-adder";
 
 @Component({
   selector: 'app-input',
@@ -153,7 +154,7 @@ export class InputComponent implements AfterViewInit,OnInit {
       this.appendSingleChar(char)
     this.detectChanges()
     this.moveCaretTo(this.nextCharData)
-    this.searchFunctionWrittenReferences()
+    this.lookForMathFunctionReferences()
   }
 
   private onSpecialKeyDown(key: string) {
@@ -264,7 +265,6 @@ export class InputComponent implements AfterViewInit,OnInit {
     this.appendTerm({char,type:'char'})
   }
 //   ----CHARS----
-
   private appendTerm(term:Term,replaceFrom=this.nextIndex,deleteCount=0){
     this.currentElement.append(replaceFrom,deleteCount,term)
     this.detectChanges()
@@ -323,41 +323,11 @@ export class InputComponent implements AfterViewInit,OnInit {
 
   // ------------------VALIDATION LOGIC------------------
   // ------------------FUNCTION CHECKING LOGIC------------------
-  private searchFunctionWrittenReferences(){
-    let {indices,foundFunction}=this.evaluateRecognizableFunctions()
-    if(!indices)
-      return;
-    let from=indices[0][0],
-        to=indices[0][1]-1
-    this.appendFunction(from,to,foundFunction)
-  }
-
-  private evaluateRecognizableFunctions(){
-    let coincidence:RegExpExecArray|null=null,
-        foundFunction='',
-        currentElementValue=this.currentElement.toString
-    for(let functionName of this.recognizableFunctions){
-      let functionRegexp=new RegExp(functionName,'id')
-      coincidence=functionRegexp.exec(currentElementValue)
-      foundFunction=functionName
-      if(coincidence)
-        break;
-    }
-    return{indices:coincidence?.indices, foundFunction}
-  }
-
-  private appendFunction(from:number,to:number,functionName:string){
-    let functionTerm:Term={
-      type:'function',
-      functionName,
-      functionChildren:[],
-      argumentTerms:functionName=='log'?[]:undefined
-    }
-    this.appendTerm(functionTerm,from,to-from+1)
-    let renderedFunction=this.getRenderedChar(this.nextIndex-functionName.length)?.asEditableElement as FunctionComponent
-    if(renderedFunction)
-      this.setCurrentElement(renderedFunction.argumentComponent||renderedFunction.mainContainer)
-    this.moveCaretTo(this.currentElement.noCharData)
+  private lookForMathFunctionReferences(){
+    const functionAdder=new FunctionAdder(this.recognizableFunctions,this.currentElement,this.cdr),
+          functionReferenceWasFound=functionAdder.searchFunctionWrittenReferences()
+    if(functionReferenceWasFound)
+      this.moveCaretTo(functionAdder.appendFunction())
   }
   // ------------------FUNCTION CHECKING LOGIC------------------
 
