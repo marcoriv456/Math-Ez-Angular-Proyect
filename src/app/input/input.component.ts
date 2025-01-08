@@ -30,6 +30,7 @@ import {CaretContextManagerService} from "./services/caret-context-manager/caret
 import {FractionAdder} from "./classes/adders/fraction-adder";
 import {ParenthesisAdder} from "./classes/adders/parenthesis-adder.class";
 import {FunctionAdder} from "./classes/adders/function-adder";
+import {SimpleAdder} from "./classes/adders/simple-adder.class";
 
 @Component({
   selector: 'app-input',
@@ -153,7 +154,7 @@ export class InputComponent implements AfterViewInit,OnInit {
     else
       this.appendSingleChar(char)
     this.detectChanges()
-    this.moveCaretTo(this.nextCharData)
+    // this.moveCaretTo(this.nextCharData)
     this.lookForMathFunctionReferences()
   }
 
@@ -218,15 +219,10 @@ export class InputComponent implements AfterViewInit,OnInit {
   }
   // -----------CARET CONTEXT LOGIC------------
 
-
-// ------------------STRUCTURING LOGIC------------------
-//   ----FRACTIONS----
   private appendFraction(){
     this.moveCaretTo(new FractionAdder(this.currentElement,this.cdr).appendFraction())
   }
-//   ----FRACTIONS----
 
-//   ----PARENTHESIS----
   private appendParenthesis(parenthesis:string){
     const parenthesisAdder=new ParenthesisAdder(this.currentElement,this.cdr,parenthesis),
           isThereAMatchingParenthesis=parenthesisAdder.isThereAMatchingParenthesis()
@@ -236,41 +232,25 @@ export class InputComponent implements AfterViewInit,OnInit {
       this.appendSingleChar(parenthesis)
   }
 
-//   ----PARENTHESIS----
-
-  //   ----ROOTS----
   private appendEditableRadicalRoot(){
-    this.appendRoot({type:"root",rootChildren:[],radicalTerms:[]})
+    this.appendTerm({type:"root",rootChildren:[],radicalTerms:[]})
   }
+
   private appendSimpleRoot(){
-    this.appendRoot({type:"root",rootChildren:[]})
+    this.appendTerm({type:"root",rootChildren:[]})
   }
 
-  private appendRoot(root:Term){
-    this.appendTerm(root)
-    let renderedRoot=(this.currentElement as RootComponent)
-    this.setCurrentElement(renderedRoot.argumentComponent||renderedRoot.mainComponent)
-    this.moveCaretTo(this.currentElement.noCharData)
-  }
-//   ----ROOTS----
-
-//   ----EXPONENTS----
   private appendExponent(){
     this.appendTerm({type:'exponent',exponentChildren:[]})
   }
-//   ----EXPONENTS----
 
-//   ----CHARS----
   private appendSingleChar(char:string){
-    this.appendTerm({char,type:'char'})
+    this.appendTerm({type:'char',char})
   }
-//   ----CHARS----
-  private appendTerm(term:Term,replaceFrom=this.nextIndex,deleteCount=0){
-    this.currentElement.append(replaceFrom,deleteCount,term)
-    this.detectChanges()
-    let appendedTerm=this.nextRenderedElement?.asEditableElement
-    if(appendedTerm)
-      this.setCurrentElement(appendedTerm)
+
+  private appendTerm(term:Term,replaceFrom?:number,deleteCount?:number){
+    let adder=new SimpleAdder(this.currentElement,this.cdr,term)
+    this.moveCaretTo(adder.appendTerm(replaceFrom,deleteCount))
   }
 
   private deleteTerms(from=this.currentElement.caretIndex, deleteCount=1){
