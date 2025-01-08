@@ -23,7 +23,7 @@ export class TermDeleter{
     else if(this.isCurrentElementEmpty())
       return this.deleteCurrentElement()
     else if(this.isCaretInTheFirstPosition())
-      return this.removeCurrentElementInFirstIndex()
+      return this.deleteCurrentElementInFirstIndex()
     else
       return this.deleteSimpleChars(startIndex,deleteCount)
   }
@@ -59,7 +59,7 @@ export class TermDeleter{
     return editableParent.getCharData(fractionParent.index+residualFractionTerms.length-1)||editableParent.noCharData
   }
 
-  private removeCurrentElementInFirstIndex(){
+  private deleteCurrentElementInFirstIndex(){
     if(this.isCurrentElementAFractionChild())
       return this.removeCurrentFractionInFirstIndex()
     let {terms,parent,index}=this.currentElement
