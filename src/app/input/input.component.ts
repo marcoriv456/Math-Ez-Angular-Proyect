@@ -1,31 +1,27 @@
 import {
-  AfterViewChecked,
   AfterViewInit,
   ChangeDetectorRef,
   Component,
   ElementRef,
   HostBinding,
   HostListener,
-  inject, Input, OnInit, QueryList,
-  Renderer2, ViewChild, ViewChildren,
+  inject,
+  Input,
+  OnInit,
+  Renderer2,
+  ViewChild,
 } from '@angular/core';
-import {FractionComponent} from "./components/fraction/fraction.component";
-import {InputTermDirective} from "./directives/input-term.directive";
 import {InputEditableElement} from "./classes/input-editable-element.class";
 import {Term} from "./models/terms/term.model";
-import {RootComponent} from "./components/root/root.component";
 import {VariableProvider} from "./models/variable-provider.model";
 import {WarningsService} from "./services/warnings/warnings.service";
 import {animate, style, transition, trigger} from "@angular/animations";
 import {VariableProviderService} from "./services/variable-provider/variable-provider.service";
 import {TermWarningMessageData} from "./models/char-validation/warning-message-data.model";
 import {InputCharData} from "./models/input-char-data.model";
-import {FunctionComponent} from "./components/function/function.component";
-import {TermContainerComponent} from "./components/term-container/term-container.component";
 import {WarningRenderData} from "./models/char-validation/warning-render-data.model";
 import {EditableTermContainerComponent} from "./components/editable-term-container/editable-term-container.component";
 import {InputUtilitiesService} from "./services/caret-positioning/input-utilities.service";
-import {ParenthesisComponent} from "./components/parenthesis/parenthesis.component";
 import {CaretContextManagerService} from "./services/caret-context-manager/caret-context-manager.service";
 import {FractionAdder} from "./classes/adders/fraction-adder";
 import {ParenthesisAdder} from "./classes/adders/parenthesis-adder.class";
