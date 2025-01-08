@@ -73,19 +73,21 @@ export class TermDeleter{
   }
 
   private removeCurrentFractionInFirstIndex(){
-    const currentFraction=this.currentElement.parent as FractionComponent,
-          {numeratorChildren,denominatorChildren,index}=currentFraction,
-          {parent}=currentFraction,
-          isCurrentElementAFractionDenominator=(this.currentElement as FractionChildComponent).type=='denominator'
-    let   indexToMoveAt=index - 1;
+    const currentFraction=this.currentElement.parent as FractionComponent
+    const {numeratorChildren,denominatorChildren,index,parent}=currentFraction
 
+    const isCurrentElementAFractionDenominator=(this.currentElement as FractionChildComponent).type=='denominator'
+
+    let indexToMoveAt=index - 1;
     if (isCurrentElementAFractionDenominator)
       indexToMoveAt+=numeratorChildren.length
 
     parent?.replace(index,1,[...numeratorChildren,...denominatorChildren])
 
     this.cdr.detectChanges()
-    return parent?.getCharData(indexToMoveAt) || parent?.noCharData || this.termContainer.noCharData
+    return parent?.getCharData(indexToMoveAt)
+        || parent?.noCharData
+        || this.termContainer.noCharData
   }
 
   private deleteSimpleChars(startFrom:number,deleteCount=1){
