@@ -28,6 +28,7 @@ import {InputUtilitiesService} from "./services/caret-positioning/input-utilitie
 import {ParenthesisComponent} from "./components/parenthesis/parenthesis.component";
 import {CaretContextManagerService} from "./services/caret-context-manager/caret-context-manager.service";
 import {FractionAdder} from "./classes/adders/fraction-adder";
+import {ParenthesisAdder} from "./classes/adders/parenthesis-adder.class";
 
 @Component({
   selector: 'app-input',
@@ -226,50 +227,14 @@ export class InputComponent implements AfterViewInit,OnInit {
 
 //   ----PARENTHESIS----
   private appendParenthesis(parenthesis:string){
-    let data=parenthesis=='(' ? this.getForwardParenthesisData():this.getPrevParenthesisData();
-    if(!data){
+    const parenthesisAdder=new ParenthesisAdder(this.currentElement,this.cdr,parenthesis),
+          isThereAMatchingParenthesis=parenthesisAdder.isThereAMatchingParenthesis()
+    if(isThereAMatchingParenthesis)
+      this.moveCaretTo(parenthesisAdder.appendParenthesis())
+    else
       this.appendSingleChar(parenthesis)
-      return;
-    }
-    let {from,to,terms}=data
-    this.appendTerm({type:'parenthesis',parenthesisChildren:terms},from,to-from)
   }
 
-  private getForwardParenthesisData(){
-    let nextParenthesis=this.findNextParenthesisChar()
-    if(!nextParenthesis)
-      return;
-    let from=this.nextIndex,
-        to=nextParenthesis.index+1;
-    return {from,to,terms:this.currentElement.terms.slice(from,to-1)}
-  }
-
-  private findNextParenthesisChar(){
-    for(let i=this.currentElement.caretIndex; i<this.currentElement.terms.length; i++){
-      let term=this.getRenderedChar(i)
-      if(term&&term.char==')')
-        return term
-    }
-    return;
-  }
-
-  private getPrevParenthesisData(){
-    let prevParenthesis=this.findPrevParenthesisChar()
-    if(!prevParenthesis)
-      return;
-    let from=prevParenthesis.index,
-        to=this.nextIndex;
-    return{from,to,terms:this.currentElement.terms.slice(from+1,to)}
-  }
-
-  private findPrevParenthesisChar(){
-    for(let i=this.currentElement.caretIndex; i>=0; i--){
-      let term=this.getRenderedChar(i)
-      if(term&&term.char=='(')
-        return term
-    }
-    return;
-  }
 //   ----PARENTHESIS----
 
   //   ----ROOTS----
