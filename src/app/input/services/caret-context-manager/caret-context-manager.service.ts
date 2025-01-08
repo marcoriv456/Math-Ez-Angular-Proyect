@@ -100,7 +100,7 @@ export class CaretContextManagerService {
       prevCurrentElementIndex=actualParent.index
       actualParent=actualParent.parent
     }
-    const contextChangeData=actualParent?.getCharData(prevCurrentElementIndex - (option=='forwards' ? 0:1)),
+    const contextChangeData=actualParent?.getCharData(prevCurrentElementIndex - (option=='forwards' ? 0:1))  || actualParent?.noCharData,
           defaultContextChangeData=option == 'forwards' ? this.termContainer.lastCharData:this.termContainer.noCharData
     return contextChangeData || defaultContextChangeData
   }
