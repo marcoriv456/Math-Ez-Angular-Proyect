@@ -154,8 +154,6 @@ export class InputComponent implements AfterViewInit,OnInit {
       this.appendParenthesis(char)
     else
       this.appendSingleChar(char)
-    this.detectChanges()
-    // this.moveCaretTo(this.nextCharData)
     this.lookForMathFunctionReferences()
   }
 
@@ -171,10 +169,10 @@ export class InputComponent implements AfterViewInit,OnInit {
         this.moveToPreviousElement()
         break;
       case 'Home':
-        this.moveCaretTo(this.noCharData)
+        this.moveCaretTo(this.currentElement.noCharData)
         break;
       case 'End':
-        this.moveCaretTo(this.lastCharData)
+        this.moveCaretTo(this.currentElement.lastCharData)
         break;
     }
   }
@@ -263,7 +261,7 @@ export class InputComponent implements AfterViewInit,OnInit {
 // ------------------VALIDATION LOGIC------------------
   private showWarning({messages,position}:WarningRenderData){
     this.showingWarning=true
-    this.detectChanges()
+    this.cdr.detectChanges()
     let warningContainer=this.warningContainer.nativeElement as HTMLElement
     this.renderer.setStyle(warningContainer,'left',position.x+'px')
     this.renderer.setStyle(warningContainer,'top',position.y+'px')
@@ -306,37 +304,6 @@ export class InputComponent implements AfterViewInit,OnInit {
     this.makeCharVisible(positionX)
   }
 
-  private getCharData(index:number){
-    return this.currentElement.getCharData(index)
-  }
-
-  private get nextCharData(){
-    return this.currentElement.nextCharData
-  }
-
-  private get noCharData(){
-    return this.currentElement.noCharData
-  }
-
-  private get lastCharData(){
-    return this.currentElement.lastCharData
-  }
-
-  private get nextIndex(){
-    return this.currentElement.nextIndex
-  }
-
-  private get nextRenderedElement() {
-    return this.getRenderedChar(this.currentElement.caretIndex + 1)
-  }
-
-  private getRenderedChar(index:number){
-    return this.currentElement.getRenderedChar(index)
-  }
-
-  private detectChanges(){
-    this.cdr.detectChanges()
-  }
   // ----------LOWER LEVEL METHODS----------
 }
 
