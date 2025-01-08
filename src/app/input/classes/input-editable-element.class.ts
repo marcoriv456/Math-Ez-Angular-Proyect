@@ -135,6 +135,14 @@ export abstract class InputEditableElement implements OnDestroy{
     return this.ref.offsetHeight
   }
 
+  replace(from:number, deleteCount=1,terms:Term[]){
+    this.terms.splice(from,deleteCount,...terms)
+  }
+
+  delete(from:number,deleteCount=1){
+    this.terms.splice(from,deleteCount)
+  }
+
   protected removeSimpleChar(from:number, deleteCount=1):InputCharData|undefined{
     if(from==-1)
       return

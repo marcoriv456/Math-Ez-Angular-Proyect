@@ -31,6 +31,7 @@ import {FractionAdder} from "./classes/adders/fraction-adder";
 import {ParenthesisAdder} from "./classes/adders/parenthesis-adder.class";
 import {FunctionAdder} from "./classes/adders/function-adder";
 import {SimpleAdder} from "./classes/adders/simple-adder.class";
+import {TermDeleter} from "./classes/term-deleter.class";
 
 @Component({
   selector: 'app-input',
@@ -101,7 +102,7 @@ export class InputComponent implements AfterViewInit,OnInit {
 
   private subscribeToServices(){
     this.inputUtilitiesService.charClicked.subscribe(this.moveCaretTo.bind(this))
-    this.inputUtilitiesService.elementDeletedEmitter.subscribe(({elementIndex,residualData})=>this.deleteCurrentElement(elementIndex,residualData))
+    // this.inputUtilitiesService.elementDeletedEmitter.subscribe(({elementIndex,residualData})=>this.deleteCurrentElement(elementIndex,residualData))
     this.warningsService.showWarning.subscribe(this.showWarning.bind(this))
     this.warningsService.hideWarning.subscribe(this.hideWarning.bind(this))
   }
@@ -253,39 +254,10 @@ export class InputComponent implements AfterViewInit,OnInit {
     this.moveCaretTo(adder.appendTerm(replaceFrom,deleteCount))
   }
 
-  private deleteTerms(from=this.currentElement.caretIndex, deleteCount=1){
-    if(this.currentElement.caretIndex==-1&&this.currentElement==this.termContainer)
-      return
-    if(this.getRenderedChar(from)?.asEditableElement instanceof ParenthesisComponent){
-      this.deleteParenthesis(from)
-      return;
-    }
-    let prevCharData=this.currentElement.remove(from,deleteCount)
-    if(prevCharData)
-      this.moveCaretTo(prevCharData)
-    this.currentElement.updateValidation()
+  private deleteTerms(startIndex:number=this.currentElement.caretIndex,deleteCount=1){
+    let termDeleter=new TermDeleter(this.currentElement,this.termContainer,this.cdr)
+    this.moveCaretTo(termDeleter.deleteTerms(startIndex,deleteCount)||this.currentElement.noCharData)
   }
-
-  private deleteParenthesis(parenthesisIndex:number){
-    let parenthesisTerms=this.getRenderedChar(parenthesisIndex)?.asEditableElement?.terms
-    if(!parenthesisTerms)
-      return;
-    let terms:Term[]=[{type:'char',char:'('},...parenthesisTerms]
-    this.currentElement.terms.splice(parenthesisIndex,1,...terms)
-    this.detectChanges()
-    this.moveCaretTo(this.getCharData(parenthesisIndex+terms.length-1) ||this.lastCharData)
-  }
-
-  private deleteCurrentElement(elementIndex:number,residualData:Term[]){
-    let indexToMoveAt=elementIndex+residualData.length-1
-    if(this.currentElement instanceof ParenthesisComponent)
-      indexToMoveAt=elementIndex-1
-    this.moveContextToActualParent();
-    this.currentElement.append(elementIndex,1,...residualData)
-    this.detectChanges()
-    this.moveCaretTo(this.getCharData(indexToMoveAt) ||this.lastCharData)
-  }
-
 
 // ------------------STRUCTURING LOGIC------------------
 // ------------------VALIDATION LOGIC------------------
