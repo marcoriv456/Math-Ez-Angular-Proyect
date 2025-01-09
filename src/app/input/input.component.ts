@@ -62,10 +62,11 @@ export class InputComponent implements AfterViewInit,OnInit {
   protected showingWarning=false
   protected warningMessages:TermWarningMessageData[]=[]
   private recognizableFunctions=['sen','cos','tan','log','ln']
+  protected caretStyleData={ height:'0px', left:'0px', top:'0px' }
+  protected warningStyleData={ left:'50%', top:'0' }
 
   readonly ref=inject(ElementRef).nativeElement as HTMLElement
   private cdr = inject(ChangeDetectorRef)
-  private renderer = inject(Renderer2)
   private inputUtilitiesService=inject(InputUtilitiesService)
   private warningsService=inject(WarningsService)
   private variableProviderService=inject(VariableProviderService)
@@ -77,9 +78,6 @@ export class InputComponent implements AfterViewInit,OnInit {
   private caretRef!: ElementRef
   @ViewChild('overlay')
   private overlay!:ElementRef
-  @ViewChild('warningContainer')
-  private warningContainer!:ElementRef
-
   @HostBinding('tabindex')
   private tabIndex = 0
 
@@ -248,14 +246,10 @@ export class InputComponent implements AfterViewInit,OnInit {
 // ------------------VALIDATION LOGIC------------------
   private showWarning({messages,position}:WarningRenderData){
     this.showingWarning=true
-    this.cdr.detectChanges()
 
-    let positionX=position.x-this.ref.getBoundingClientRect().left
-    let positionY=position.y-this.ref.getBoundingClientRect().top
+    this.warningStyleData.left=position.x-this.ref.getBoundingClientRect().left + 'px'
+    this.warningStyleData.top = position.y-this.ref.getBoundingClientRect().top + 'px'
 
-    let warningContainer=this.warningContainer.nativeElement as HTMLElement
-    this.renderer.setStyle(warningContainer,'left',positionX+'px')
-    this.renderer.setStyle(warningContainer,'top',positionY+'px')
     this.warningMessages=messages
   }
   private hideWarning(){
@@ -289,13 +283,6 @@ export class InputComponent implements AfterViewInit,OnInit {
     this.currentElement.caretIndex=index
     this.makeCharVisible(positionX)
   }
-
-  protected caretStyleData={
-    height:'0px',
-    left:'0px',
-    top:'0px'
-  }
-
 
   private setCurrentElement(element:InputEditableElement){
     this.currentElement.selected=false

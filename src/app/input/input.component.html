@@ -16,9 +16,10 @@
 </div>
 
 <div
+  *ngIf="showingWarning"
   #warningContainer
   [@warning-animations]
-  *ngIf="showingWarning"
+  [ngStyle]="warningStyleData"
   class="warning-container">
   <span
     *ngFor="let warning of warningMessages"
