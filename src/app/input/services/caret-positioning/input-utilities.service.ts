@@ -7,17 +7,6 @@ import {InputCharData} from "../../models/input-char-data.model";
 @Injectable()
 export class InputUtilitiesService {
   charClicked=new EventEmitter<InputCharData>
-  elementDeletedEmitter=new EventEmitter<{ elementIndex:number,residualData:Term[] }>();
-  private inputRef!:InputComponent
   constructor() { }
 
-  get inputPositionX(){
-    return this.inputRef.ref.getBoundingClientRect().left
-  }
-  get inputPositionY(){
-    return this.inputRef.ref.getBoundingClientRect().top
-  }
-  setInputRef(input:InputComponent){
-    this.inputRef = input
-  }
 }

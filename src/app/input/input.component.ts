@@ -92,21 +92,18 @@ export class InputComponent implements AfterViewInit,OnInit {
 
   ngAfterViewInit() {
     this.currentElement=this.termContainer
-    this.inputUtilitiesService.setInputRef(this)
     this.caretContextManagerService.setup(this.termContainer)
     this.subscribeToServices()
   }
 
   private subscribeToServices(){
     this.inputUtilitiesService.charClicked.subscribe(this.moveCaretTo.bind(this))
-    // this.inputUtilitiesService.elementDeletedEmitter.subscribe(({elementIndex,residualData})=>this.deleteCurrentElement(elementIndex,residualData))
     this.warningsService.showWarning.subscribe(this.showWarning.bind(this))
     this.warningsService.hideWarning.subscribe(this.hideWarning.bind(this))
   }
 
   @HostListener('click')
   protected onClick() {
-    this.setCurrentElement(this.termContainer)
     this.moveCaretTo(this.termContainer.lastCharData)
   }
   // ------------PUBLIC METHODS-------------
@@ -211,7 +208,9 @@ export class InputComponent implements AfterViewInit,OnInit {
     this.currentElement=element
     this.renderer.addClass(this.currentElement.ref,'selected')
     this.renderer.setStyle(this.caretRef.nativeElement,'--height',element.size+'px',2)
-    this.renderer.setStyle(this.caretRef.nativeElement,'top',element.positionY+'px')
+
+    let positionY=element.positionY-this.ref.getBoundingClientRect().top
+    this.renderer.setStyle(this.caretRef.nativeElement,'top',positionY+'px')
   }
   // -----------CARET CONTEXT LOGIC------------
 
@@ -259,9 +258,13 @@ export class InputComponent implements AfterViewInit,OnInit {
   private showWarning({messages,position}:WarningRenderData){
     this.showingWarning=true
     this.cdr.detectChanges()
+
+    let positionX=position.x-this.ref.getBoundingClientRect().left
+    let positionY=position.y-this.ref.getBoundingClientRect().top
+
     let warningContainer=this.warningContainer.nativeElement as HTMLElement
-    this.renderer.setStyle(warningContainer,'left',position.x+'px')
-    this.renderer.setStyle(warningContainer,'top',position.y+'px')
+    this.renderer.setStyle(warningContainer,'left',positionX+'px')
+    this.renderer.setStyle(warningContainer,'top',positionY+'px')
     this.warningMessages=messages
   }
   private hideWarning(){

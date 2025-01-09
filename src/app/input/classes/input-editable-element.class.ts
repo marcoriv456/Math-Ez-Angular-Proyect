@@ -39,7 +39,7 @@ export abstract class InputEditableElement implements OnDestroy{
   }
 
   protected get absolutePositionX(){
-    return this.ref.getBoundingClientRect().left-this.inputUtilitiesService.inputPositionX
+    return this.ref.getBoundingClientRect().left
   }
 
   protected get absoluteCenteredPositionX(){
@@ -57,7 +57,7 @@ export abstract class InputEditableElement implements OnDestroy{
   }
 
   get positionY(): number {
-    return this.ref.getBoundingClientRect().top-this.inputUtilitiesService.inputPositionY;
+    return this.ref.getBoundingClientRect().top;
   }
   getRenderedChar(index:number){
     return this.renderedChars.get(index)
@@ -153,7 +153,7 @@ export abstract class InputEditableElement implements OnDestroy{
   remove(from:number, deleteCount=1):InputCharData|undefined {
     if(this.terms.length)
       return this.removeSimpleChar(from, deleteCount);
-    this.inputUtilitiesService.elementDeletedEmitter.emit({elementIndex:this.index,residualData:[]})
+    // this.inputUtilitiesService.elementDeletedEmitter.emit({elementIndex:this.index,residualData:[]})
     return;
   }
   // ----------------------VALIDATION LOGIC----------------------

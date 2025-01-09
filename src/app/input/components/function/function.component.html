@@ -15,7 +15,6 @@
   [terms]="terms"
   [parent]="this"
   [inputTerm]="{char:'\\f-main\\',index:argumentTerms? 1:0,editableElementRef:functionMainContainer,parent:this}"
-  (termDeleted)="inputUtilitiesService.elementDeletedEmitter.emit({elementIndex:index,residualData:[]})"
   (change)="this.updateValidation()"
 ></editable-term-container>
 <span>)</span>

@@ -71,7 +71,7 @@ export class InputTermDirective{
     return leftPosition
   }
   private get topPosition(){
-    return this.ref.getBoundingClientRect().top-this.inputUtilitiesService.inputPositionY
+    return this.ref.getBoundingClientRect().top
   }
   private get size(){
     return this.ref.offsetHeight
