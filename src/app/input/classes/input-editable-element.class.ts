@@ -135,6 +135,11 @@ export abstract class InputEditableElement implements OnDestroy{
     return this.ref.offsetHeight
   }
 
+  append(terms:Term[], index:number){
+    this.terms.splice(index,0,...terms)
+    this.updateValidation()
+  }
+
   replace(from:number, deleteCount=1,terms:Term[]){
     this.terms.splice(from,deleteCount,...terms)
     this.updateValidation()
@@ -210,11 +215,6 @@ export abstract class InputEditableElement implements OnDestroy{
 
   private setValidationData(data:TermValidationData){
     this.validationData=data
-  }
-
-  append(from:number, deleteCount:number,...term:Term[]){
-    this.terms.splice(from,deleteCount,...term)
-    this.updateValidation()
   }
 
   // ----------------------VALIDATION LOGIC----------------------

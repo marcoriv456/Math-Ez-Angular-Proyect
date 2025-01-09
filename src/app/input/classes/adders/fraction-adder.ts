@@ -37,11 +37,11 @@ export class FractionAdder{
   }
 
   private appendFractionToCurrentElement(){
-    this.currentElement.append(this.from, this.to-this.from, {
+    this.currentElement.replace(this.from, this.to-this.from,[{
       numeratorChildren:this.prevChars,
       denominatorChildren:this.nextChars,
       type:'fraction'
-    })
+    }])
   }
 
   private moveCaretToEmptyFractionChild(){

@@ -10,8 +10,8 @@ export class SimpleAdder{
     private readonly term:Term,
   ) { }
 
-  public appendTerm(replaceFrom=this.currentElement.nextIndex, deleteCount=0):InputCharData{
-    this.currentElement.append(replaceFrom,deleteCount,this.term)
+  public appendTerm(index=this.currentElement.nextIndex):InputCharData{
+    this.currentElement.append([this.term],index)
     this.cdr.detectChanges()
     let appendedEditableTerm=this.currentElement.getRenderedChar(this.currentElement.nextIndex)?.asEditableElement
     if(appendedEditableTerm)

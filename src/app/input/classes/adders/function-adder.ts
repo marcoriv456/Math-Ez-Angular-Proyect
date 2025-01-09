@@ -17,7 +17,7 @@ export class FunctionAdder{
   private foundFunctionName!:string
 
   public appendFunction(){
-    this.currentElement.append(this.from,this.to-this.from+1,this.generatedFunctionTerm)
+    this.currentElement.replace(this.from,this.to-this.from+1,[this.generatedFunctionTerm])
     this.cdr.detectChanges()
     const renderedFunction=this.currentElement.getRenderedChar(this.currentElement.nextIndex-this.foundFunctionName.length)?.asEditableElement as FunctionComponent,
           elementToContextAt=renderedFunction.argumentComponent || renderedFunction.mainContainer

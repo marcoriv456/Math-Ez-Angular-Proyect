@@ -18,7 +18,7 @@ export class RootAdder{
   }
 
   private appendRoot(replaceFrom=this.currentElement.nextIndex, deleteCount=0,root:Term):InputCharData{
-    this.currentElement.append(replaceFrom,deleteCount,root)
+    this.currentElement.replace(replaceFrom,deleteCount,[root])
     this.cdr.detectChanges()
 
     let appendedRoot=this.currentElement.getRenderedChar(this.currentElement.nextIndex)?.asEditableElement as RootComponent

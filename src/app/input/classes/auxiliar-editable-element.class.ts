@@ -13,8 +13,9 @@ export class AuxiliaryEditableElement extends InputEditableElement{
   @Output()
   change=new EventEmitter();
 
-  override append(from: number, deleteCount: number, ...term:Term[]) {
-    super.append(from, deleteCount, ...term);
+
+  override append(terms: Term[], index: number = this.caretIndex) {
+    super.append(terms, index);
     this.change.emit()
   }
 

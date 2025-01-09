@@ -20,7 +20,7 @@ export class ParenthesisAdder{
 
   public appendParenthesis(){
     let {from,to,terms}=this.data
-    this.currentElement.append(from,to-from,{type:'parenthesis',parenthesisChildren:terms})
+    this.currentElement.replace(from,to-from,[{type:'parenthesis',parenthesisChildren:terms}])
     if(this.parenthesis=="(")
       return this.getAddedParenthesis()?.noCharData || this.currentElement.noCharData
     return this.currentElement.getCharData(from+1) ||this.currentElement. noCharData

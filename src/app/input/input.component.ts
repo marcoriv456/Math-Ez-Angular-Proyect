@@ -235,9 +235,9 @@ export class InputComponent implements AfterViewInit,OnInit {
     this.appendTerm({type:'char',char})
   }
 
-  private appendTerm(term:Term,replaceFrom?:number,deleteCount?:number){
+  private appendTerm(term:Term){
     let adder=new SimpleAdder(this.currentElement,this.cdr,term)
-    this.moveCaretTo(adder.appendTerm(replaceFrom,deleteCount))
+    this.moveCaretTo(adder.appendTerm())
   }
 
   private deleteTerms(startIndex:number=this.currentElement.caretIndex,deleteCount=1){
