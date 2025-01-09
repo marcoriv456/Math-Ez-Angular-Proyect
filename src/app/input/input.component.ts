@@ -21,7 +21,7 @@ import {TermWarningMessageData} from "./models/char-validation/warning-message-d
 import {InputCharData} from "./models/input-char-data.model";
 import {WarningRenderData} from "./models/char-validation/warning-render-data.model";
 import {EditableTermContainerComponent} from "./components/editable-term-container/editable-term-container.component";
-import {InputUtilitiesService} from "./services/caret-positioning/input-utilities.service";
+import {CharClickedNotifierService} from "./services/char-clicked-notifier/char-clicked-notifier.service";
 import {CaretContextManagerService} from "./services/caret-context-manager/caret-context-manager.service";
 import {FractionAdder} from "./classes/adders/fraction-adder";
 import {ParenthesisAdder} from "./classes/adders/parenthesis-adder.class";
@@ -55,7 +55,7 @@ export class InputComponent implements AfterViewInit,OnInit {
 
   readonly ref=inject(ElementRef).nativeElement as HTMLElement
   private cdr = inject(ChangeDetectorRef)
-  private inputUtilitiesService=inject(InputUtilitiesService)
+  private inputUtilitiesService=inject(CharClickedNotifierService)
   private variableProviderService=inject(VariableProviderService)
   private caretContextManagerService=inject(CaretContextManagerService)
 

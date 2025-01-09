@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import {InputEditableElement} from "../../classes/input-editable-element.class";
 import {InputTermDirective} from "../../directives/input-term.directive";
-import {InputUtilitiesService} from "../../services/caret-positioning/input-utilities.service";
+import {CharClickedNotifierService} from "../../services/char-clicked-notifier/char-clicked-notifier.service";
 import {Term} from "../../models/terms/term.model";
 import {TermContainerComponent} from "../term-container/term-container.component";
 

@@ -4,7 +4,7 @@ import {
   HostListener,
   inject, Input,
 } from '@angular/core';
-import {InputUtilitiesService} from "../services/caret-positioning/input-utilities.service";
+import {CharClickedNotifierService} from "../services/char-clicked-notifier/char-clicked-notifier.service";
 import {InputEditableElement} from "../classes/input-editable-element.class";
 import {InputCharData} from "../models/input-char-data.model";
 
@@ -15,7 +15,7 @@ export class InputTermDirective{
   @Input('inputTerm')
   input!:{char:string, index:number,editableElementRef?:InputEditableElement,parent:InputEditableElement}
   ref=inject(ElementRef).nativeElement as HTMLElement
-  inputUtilitiesService=inject(InputUtilitiesService)
+  inputUtilitiesService=inject(CharClickedNotifierService)
 
   get data():InputCharData{
     return {

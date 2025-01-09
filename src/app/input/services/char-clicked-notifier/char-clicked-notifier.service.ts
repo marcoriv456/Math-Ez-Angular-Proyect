@@ -5,8 +5,6 @@ import {Term} from "../../models/terms/term.model";
 import {InputCharData} from "../../models/input-char-data.model";
 
 @Injectable()
-export class InputUtilitiesService {
+export class CharClickedNotifierService {
   charClicked=new EventEmitter<InputCharData>
-  constructor() { }
-
 }

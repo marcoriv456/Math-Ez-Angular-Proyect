@@ -9,7 +9,7 @@ import {
   OnDestroy,
   ViewChild
 } from "@angular/core";
-import {InputUtilitiesService} from "../services/caret-positioning/input-utilities.service";
+import {CharClickedNotifierService} from "../services/char-clicked-notifier/char-clicked-notifier.service";
 import {Term} from "../models/terms/term.model";
 import {InputCharData} from "../models/input-char-data.model";
 import {TermContainerComponent} from "../components/term-container/term-container.component";
@@ -28,7 +28,7 @@ export abstract class InputEditableElement implements OnDestroy{
   @Input()
   index!:number
   ref=inject(ElementRef).nativeElement as HTMLElement
-  inputUtilitiesService=inject(InputUtilitiesService)
+  inputUtilitiesService=inject(CharClickedNotifierService)
   editable=true
   caretIndex=-1
 

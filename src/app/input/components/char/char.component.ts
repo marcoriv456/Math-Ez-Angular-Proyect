@@ -12,7 +12,7 @@ import {
 import {InputEditableElement} from "../../classes/input-editable-element.class";
 import {WarningsService} from "../../services/warnings/warnings.service";
 import {WarningRenderData} from "../../models/char-validation/warning-render-data.model";
-import {InputUtilitiesService} from "../../services/caret-positioning/input-utilities.service";
+import {CharClickedNotifierService} from "../../services/char-clicked-notifier/char-clicked-notifier.service";
 import {VariableProviderService} from "../../services/variable-provider/variable-provider.service";
 import {TermValidationData} from "../../models/char-validation/validation-data.model";
 import {TermWarningMessageData} from "../../models/char-validation/warning-message-data.model";
@@ -31,7 +31,7 @@ export class CharComponent implements OnDestroy,OnInit{
   }
 
   private ref=inject(ElementRef).nativeElement as HTMLElement
-  private inputUtilitiesService=inject(InputUtilitiesService)
+  private inputUtilitiesService=inject(CharClickedNotifierService)
   private variableProvider=inject(VariableProviderService)
   private warningsService=inject(WarningsService)
   private isMouseOver=false

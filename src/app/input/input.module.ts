@@ -4,7 +4,7 @@ import {InputComponent} from "./input.component";
 import {InputTestingEnvironmentComponent} from "./input-testing-environment/input-testing-environment.component";
 import { CharComponent } from './components/char/char.component';
 import { FractionComponent } from './components/fraction/fraction.component';
-import {InputUtilitiesService} from "./services/caret-positioning/input-utilities.service";
+import {CharClickedNotifierService} from "./services/char-clicked-notifier/char-clicked-notifier.service";
 import { InputTermDirective } from './directives/input-term.directive';
 import { FractionChildComponent } from './components/fraction/fraction-child/fraction-child.component';
 import { ExponentComponent } from './components/exponent/exponent.component';
@@ -40,7 +40,7 @@ import { TermValidationWarningComponent } from './components/term-validation-war
     CommonModule
   ],
   providers:[
-    InputUtilitiesService,
+    CharClickedNotifierService,
     WarningsService,
     VariableProviderService,
     CaretContextManagerService

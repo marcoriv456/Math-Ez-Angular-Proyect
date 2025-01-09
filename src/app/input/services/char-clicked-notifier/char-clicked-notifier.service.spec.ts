@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { InputUtilitiesService } from './input-utilities.service';
+import { CharClickedNotifierService } from './char-clicked-notifier.service';
 
 describe('CaretPositioningService', () => {
-  let service: InputUtilitiesService;
+  let service: CharClickedNotifierService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(InputUtilitiesService);
+    service = TestBed.inject(CharClickedNotifierService);
   });
 
   it('should be created', () => {
