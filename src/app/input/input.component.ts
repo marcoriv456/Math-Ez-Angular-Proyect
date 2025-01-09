@@ -36,16 +36,6 @@ import {RootAdder} from "./classes/adders/root-adder.class";
   templateUrl: './input.component.html',
   styleUrl: './input.component.css',
   animations:[
-    trigger('warning-animations',[
-      transition(':enter',[
-        style({transform:'translateY(-100%)',opacity:0}),
-        animate('500ms cubic-bezier(0,0,0,1)',style({transform:'translateY(0)',opacity:1}))
-      ]),
-      transition(':leave',[
-        animate('500ms cubic-bezier(0,0,0,1)',style({transform:'translateY(-100%)',opacity:0}))
-      ]),
-
-    ]),
     trigger('advice-fading',[
       transition(':enter',[
         style({transform:'translateY(-10%)',opacity:0}),
@@ -60,16 +50,12 @@ import {RootAdder} from "./classes/adders/root-adder.class";
 export class InputComponent implements AfterViewInit,OnInit {
   protected terms: Term[] = [];
   private currentElement!: InputEditableElement;
-  protected showingWarning=false
-  protected warningMessages:TermWarningMessageData[]=[]
   private recognizableFunctions=['sen','cos','tan','log','ln']
   protected caretStyleData={ height:'0px', left:'0px', top:'0px' }
-  protected warningStyleData={ left:'50%', top:'0' }
 
   readonly ref=inject(ElementRef).nativeElement as HTMLElement
   private cdr = inject(ChangeDetectorRef)
   private inputUtilitiesService=inject(InputUtilitiesService)
-  private warningsService=inject(WarningsService)
   private variableProviderService=inject(VariableProviderService)
   private caretContextManagerService=inject(CaretContextManagerService)
 
@@ -95,8 +81,6 @@ export class InputComponent implements AfterViewInit,OnInit {
 
   private subscribeToServices(){
     this.inputUtilitiesService.charClicked.subscribe(this.moveCaretTo.bind(this))
-    this.warningsService.showWarning.subscribe(this.showWarning.bind(this))
-    this.warningsService.hideWarning.subscribe(this.hideWarning.bind(this))
   }
 
   @HostListener('click')
@@ -244,22 +228,7 @@ export class InputComponent implements AfterViewInit,OnInit {
     let termDeleter=new TermDeleter(this.currentElement,this.termContainer,this.cdr)
     this.moveCaretTo(termDeleter.deleteTerms(startIndex,deleteCount)||this.currentElement.noCharData)
   }
-
 // ------------------STRUCTURING LOGIC------------------
-// ------------------VALIDATION LOGIC------------------
-  private showWarning({messages,position}:WarningRenderData){
-    this.showingWarning=true
-
-    this.warningStyleData.left=position.x-this.ref.getBoundingClientRect().left + 'px'
-    this.warningStyleData.top = position.y-this.ref.getBoundingClientRect().top + 'px'
-
-    this.warningMessages=messages
-  }
-  private hideWarning(){
-    this.showingWarning=false
-  }
-
-  // ------------------VALIDATION LOGIC------------------
   // ------------------FUNCTION CHECKING LOGIC------------------
   private lookForMathFunctionReferences(){
     const functionAdder=new FunctionAdder(this.recognizableFunctions,this.currentElement,this.cdr),
