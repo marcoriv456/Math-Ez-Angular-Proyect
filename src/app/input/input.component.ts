@@ -76,10 +76,6 @@ export class InputComponent implements AfterViewInit,OnInit {
   ngAfterViewInit() {
     this.currentElement=this.termContainer
     this.caretContextManagerService.setup(this.termContainer)
-    this.subscribeToServices()
-  }
-
-  private subscribeToServices(){
     this.inputUtilitiesService.charClicked.subscribe(this.moveCaretTo.bind(this))
   }
 
@@ -178,14 +174,8 @@ export class InputComponent implements AfterViewInit,OnInit {
     let prevElementData=this.caretContextManagerService.getPrevElementData(this.currentElement)
     this.moveCaretTo(prevElementData)
   }
-
-  private moveContextToActualParent(){
-    let actualParentContextData=this.caretContextManagerService.getActualParentContextData(this.currentElement)
-    this.moveCaretTo(actualParentContextData)
-  }
-
   // -----------CARET CONTEXT LOGIC------------
-
+// ------------------STRUCTURING LOGIC------------------
   private appendFraction(){
     this.moveCaretTo(new FractionAdder(this.currentElement,this.cdr).appendFraction())
   }
@@ -264,7 +254,6 @@ export class InputComponent implements AfterViewInit,OnInit {
     this.caretStyleData.height=element.size+'px'
     this.caretStyleData.top=element.positionY-this.ref.getBoundingClientRect().top+'px'
   }
-
   // ----------LOWER LEVEL METHODS----------
 }
 
