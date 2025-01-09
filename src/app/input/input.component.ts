@@ -161,6 +161,12 @@ export class InputComponent implements AfterViewInit,OnInit {
       case 'ArrowLeft':
         this.moveCaretTo(this.currentElement.getPrevSpecialCharFixedData())
         break;
+      case 'Home':
+        this.moveCaretTo(this.termContainer.noCharData)
+        break;
+      case 'End':
+        this.moveCaretTo(this.termContainer.lastCharData)
+        break;
     }
   }
   // ------------INPUT MAPPING-------------
