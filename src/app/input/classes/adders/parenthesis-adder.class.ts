@@ -20,10 +20,14 @@ export class ParenthesisAdder{
 
   public appendParenthesis(){
     let {from,to,terms}=this.data
+
     this.currentElement.replace(from,to-from,[{type:'parenthesis',parenthesisChildren:terms}])
+    this.cdr.detectChanges()
+
     if(this.parenthesis=="(")
       return this.getAddedParenthesis()?.noCharData || this.currentElement.noCharData
-    return this.currentElement.getCharData(from+1) ||this.currentElement. noCharData
+
+    return this.currentElement.getCharData(from) ||this.currentElement. noCharData
   }
 
   public isThereAMatchingParenthesis(){
@@ -85,7 +89,6 @@ export class ParenthesisAdder{
   }
 
   private getAddedParenthesis(){
-    this.cdr.detectChanges()
     return this.currentElement.getRenderedChar(this.currentElement.caretIndex+1)?.asEditableElement
   }
 
