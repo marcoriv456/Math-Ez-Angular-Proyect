@@ -137,10 +137,12 @@ export abstract class InputEditableElement implements OnDestroy{
 
   replace(from:number, deleteCount=1,terms:Term[]){
     this.terms.splice(from,deleteCount,...terms)
+    this.updateValidation()
   }
 
   delete(from:number,deleteCount=1){
     this.terms.splice(from,deleteCount)
+    this.updateValidation()
   }
 
   protected removeSimpleChar(from:number, deleteCount=1):InputCharData|undefined{
