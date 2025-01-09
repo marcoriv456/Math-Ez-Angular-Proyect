@@ -229,4 +229,8 @@ export abstract class InputEditableElement implements OnDestroy{
   }
 
   // ----------------------VALIDATION LOGIC----------------------
+  // ----------------------SELECTION LOGIC----------------------
+  @HostBinding('class.selected')
+  selected=false
+  // ----------------------SELECTION LOGIC----------------------
 }

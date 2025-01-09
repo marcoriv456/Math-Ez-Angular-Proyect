@@ -203,15 +203,6 @@ export class InputComponent implements AfterViewInit,OnInit {
     this.moveCaretTo(actualParentContextData)
   }
 
-  private setCurrentElement(element:InputEditableElement){
-    this.renderer.removeClass(this.currentElement.ref,'selected')
-    this.currentElement=element
-    this.renderer.addClass(this.currentElement.ref,'selected')
-    this.renderer.setStyle(this.caretRef.nativeElement,'--height',element.size+'px',2)
-
-    let positionY=element.positionY-this.ref.getBoundingClientRect().top
-    this.renderer.setStyle(this.caretRef.nativeElement,'top',positionY+'px')
-  }
   // -----------CARET CONTEXT LOGIC------------
 
   private appendFraction(){
@@ -297,6 +288,16 @@ export class InputComponent implements AfterViewInit,OnInit {
       this.setCurrentElement(parent)
     this.currentElement.caretIndex=index
     this.makeCharVisible(positionX)
+  }
+
+  private setCurrentElement(element:InputEditableElement){
+    element.selected=true
+    this.currentElement.selected=false
+    this.currentElement=element
+    this.renderer.setStyle(this.caretRef.nativeElement,'--height',element.size+'px',2)
+
+    let positionY=element.positionY-this.ref.getBoundingClientRect().top
+    this.renderer.setStyle(this.caretRef.nativeElement,'top',positionY+'px')
   }
 
   // ----------LOWER LEVEL METHODS----------
