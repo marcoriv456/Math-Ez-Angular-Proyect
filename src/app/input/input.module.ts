@@ -16,7 +16,6 @@ import { TermContainerComponent } from './components/term-container/term-contain
 import { TermArgumentComponent } from './components/term-argument/term-argument.component';
 import { EditableTermContainerComponent } from './components/editable-term-container/editable-term-container.component';
 import { ParenthesisComponent } from './components/parenthesis/parenthesis.component';
-import {CaretContextManagerService} from "./services/caret-context-manager/caret-context-manager.service";
 import { TermValidationWarningComponent } from './components/term-validation-warning/term-validation-warning.component';
 
 @NgModule({
@@ -43,7 +42,6 @@ import { TermValidationWarningComponent } from './components/term-validation-war
     CharClickedNotifierService,
     WarningsService,
     VariableProviderService,
-    CaretContextManagerService
   ]
 })
 export class InputModule { }

@@ -22,7 +22,6 @@ import {InputCharData} from "./models/input-char-data.model";
 import {WarningRenderData} from "./models/char-validation/warning-render-data.model";
 import {EditableTermContainerComponent} from "./components/editable-term-container/editable-term-container.component";
 import {CharClickedNotifierService} from "./services/char-clicked-notifier/char-clicked-notifier.service";
-import {CaretContextManagerService} from "./services/caret-context-manager/caret-context-manager.service";
 import {FractionAdder} from "./classes/adders/fraction-adder";
 import {ParenthesisAdder} from "./classes/adders/parenthesis-adder.class";
 import {FunctionAdder} from "./classes/adders/function-adder";
