@@ -30,6 +30,7 @@ import {SimpleAdder} from "./classes/adders/simple-adder.class";
 import {TermDeleter} from "./classes/term-deleter.class";
 import {CharVisibilityManager} from "./classes/char-visibility-manager.class";
 import {RootAdder} from "./classes/adders/root-adder.class";
+import {InputContextManager} from "./classes/input-context-manager.class";
 
 @Component({
   selector: 'app-input',
@@ -57,7 +58,6 @@ export class InputComponent implements AfterViewInit,OnInit {
   private cdr = inject(ChangeDetectorRef)
   private inputUtilitiesService=inject(CharClickedNotifierService)
   private variableProviderService=inject(VariableProviderService)
-  private caretContextManagerService=inject(CaretContextManagerService)
 
   @ViewChild(EditableTermContainerComponent)
   private termContainer!: EditableTermContainerComponent;
@@ -75,7 +75,6 @@ export class InputComponent implements AfterViewInit,OnInit {
 
   ngAfterViewInit() {
     this.currentElement=this.termContainer
-    this.caretContextManagerService.setup(this.termContainer)
     this.inputUtilitiesService.charClicked.subscribe(this.moveCaretTo.bind(this))
   }
 
@@ -172,13 +171,17 @@ export class InputComponent implements AfterViewInit,OnInit {
   // ------------INPUT MAPPING-------------
   // -----------CARET CONTEXT LOGIC------------
   private moveToNextElement(){
-    let nextElementData=this.caretContextManagerService.getNextElementData(this.currentElement)
+    let nextElementData=this.getContextManager().getNextElementData()
     this.moveCaretTo(nextElementData)
   }
 
   private moveToPreviousElement(){
-    let prevElementData=this.caretContextManagerService.getPrevElementData(this.currentElement)
+    let prevElementData=this.getContextManager().getPrevElementData()
     this.moveCaretTo(prevElementData)
+  }
+
+  private getContextManager(){
+    return new InputContextManager(this.currentElement,this.termContainer)
   }
   // -----------CARET CONTEXT LOGIC------------
 // ------------------STRUCTURING LOGIC------------------
