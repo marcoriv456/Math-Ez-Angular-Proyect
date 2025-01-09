@@ -3,7 +3,7 @@ import {Term} from "../models/terms/term.model";
 import {InputEditableElement} from "./input-editable-element.class";
 import {EditableTermContainerComponent} from "../components/editable-term-container/editable-term-container.component";
 import {ChangeDetectorRef} from "@angular/core";
-import {InputTermDirective} from "../directives/input-term.directive";
+import {InputTermDirective} from "../directives/input-term/input-term.directive";
 import {FractionChildComponent} from "../components/fraction/fraction-child/fraction-child.component";
 import {InputCharData} from "../models/input-char-data.model";
 import {FractionComponent} from "../components/fraction/fraction.component";

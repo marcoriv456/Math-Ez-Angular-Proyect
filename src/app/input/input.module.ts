@@ -5,7 +5,7 @@ import {InputTestingEnvironmentComponent} from "./input-testing-environment/inpu
 import { CharComponent } from './components/char/char.component';
 import { FractionComponent } from './components/fraction/fraction.component';
 import {CharClickedNotifierService} from "./services/char-clicked-notifier/char-clicked-notifier.service";
-import { InputTermDirective } from './directives/input-term.directive';
+import { InputTermDirective } from './directives/input-term/input-term.directive';
 import { FractionChildComponent } from './components/fraction/fraction-child/fraction-child.component';
 import { ExponentComponent } from './components/exponent/exponent.component';
 import { RootComponent } from './components/root/root.component';

@@ -4,9 +4,9 @@ import {
   HostListener,
   inject, Input,
 } from '@angular/core';
-import {CharClickedNotifierService} from "../services/char-clicked-notifier/char-clicked-notifier.service";
-import {InputEditableElement} from "../classes/input-editable-element.class";
-import {InputCharData} from "../models/input-char-data.model";
+import {CharClickedNotifierService} from "../../services/char-clicked-notifier/char-clicked-notifier.service";
+import {InputEditableElement} from "../../classes/input-editable-element.class";
+import {InputCharData} from "../../models/input-char-data.model";
 
 @Directive({
   selector: '[inputTerm]'

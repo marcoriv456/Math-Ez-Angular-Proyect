@@ -1,6 +1,6 @@
 import {InputEditableElement} from "./input-editable-element.class";
 import {EditableTermContainerComponent} from "../components/editable-term-container/editable-term-container.component";
-import {InputTermDirective} from "../directives/input-term.directive";
+import {InputTermDirective} from "../directives/input-term/input-term.directive";
 
 export class InputContextManager{
   constructor(
