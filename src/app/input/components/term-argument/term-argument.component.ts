@@ -12,7 +12,5 @@ import {AuxiliaryEditableElement} from "../../classes/auxiliar-editable-element.
   styleUrls: ['./term-argument.component.css','../../assets/editable-elements-styles.css']
 })
 export class TermArgumentComponent extends AuxiliaryEditableElement{
-  override remove(from: number, deleteCount: number = 1): InputCharData | undefined {
-    return this.removeSimpleChar(from, deleteCount);
-  }
+
 }

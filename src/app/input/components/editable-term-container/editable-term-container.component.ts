@@ -12,12 +12,5 @@ import {AuxiliaryEditableElement} from "../../classes/auxiliar-editable-element.
   styleUrls: ['./editable-term-container.component.css','../../assets/editable-elements-styles.css']
 })
 export class EditableTermContainerComponent extends AuxiliaryEditableElement{
-  @Output()
-  termDeleted=new EventEmitter<void>()
-  override remove(from: number, deleteCount: number = 1): InputCharData|undefined {
-    if(this.terms.length)
-      return this.removeSimpleChar(from, deleteCount);
-    this.termDeleted.emit()
-    return;
-  }
+
 }

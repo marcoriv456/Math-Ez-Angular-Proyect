@@ -145,19 +145,6 @@ export abstract class InputEditableElement implements OnDestroy{
     this.updateValidation()
   }
 
-  protected removeSimpleChar(from:number, deleteCount=1):InputCharData|undefined{
-    if(from==-1)
-      return
-    this.terms.splice(from,deleteCount)
-    return this.getCharData(from-1)||this.noCharData
-  }
-
-  remove(from:number, deleteCount=1):InputCharData|undefined {
-    if(this.terms.length)
-      return this.removeSimpleChar(from, deleteCount);
-    // this.inputUtilitiesService.elementDeletedEmitter.emit({elementIndex:this.index,residualData:[]})
-    return;
-  }
   // ----------------------VALIDATION LOGIC----------------------
   get toString(){
     return this.terms.map(child=>{

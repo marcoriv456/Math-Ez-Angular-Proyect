@@ -29,15 +29,7 @@ export class FractionChildComponent extends InputEditableElement implements Afte
   @Input()
   type!:'numerator'|'denominator'
 
-
   cdr=inject(ChangeDetectorRef)
-
-  override remove(from: number, deleteCount: number = 1): InputCharData|undefined {
-    if(this.terms.length)
-      return this.removeSimpleChar(from, deleteCount);
-    this.termDeleted.emit()
-    return;
-  }
 
   ngAfterViewInit() {
     this.updateValidation()

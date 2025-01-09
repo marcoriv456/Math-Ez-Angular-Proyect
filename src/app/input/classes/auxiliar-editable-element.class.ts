@@ -18,12 +18,6 @@ export class AuxiliaryEditableElement extends InputEditableElement{
     this.change.emit()
   }
 
-  protected override removeSimpleChar(from: number, deleteCount: number = 1): InputCharData | undefined {
-    let data= super.removeSimpleChar(from, deleteCount);
-    this.change.emit()
-    return data
-  }
-
   override replace(from: number, deleteCount: number = 1, terms: Term[]) {
     super.replace(from, deleteCount, terms);
     this.change.emit()
