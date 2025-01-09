@@ -283,21 +283,27 @@ export class InputComponent implements AfterViewInit,OnInit {
 
   // ----------LOWER LEVEL METHODS----------
   private moveCaretTo({positionX,index,parent}:InputCharData){
-    this.renderer.setStyle(this.caretRef.nativeElement,'left',positionX+'px')
+    this.caretStyleData.left=positionX+'px'
     if(parent)
       this.setCurrentElement(parent)
     this.currentElement.caretIndex=index
     this.makeCharVisible(positionX)
   }
 
+  protected caretStyleData={
+    height:'0px',
+    left:'0px',
+    top:'0px'
+  }
+
+
   private setCurrentElement(element:InputEditableElement){
-    element.selected=true
     this.currentElement.selected=false
     this.currentElement=element
-    this.renderer.setStyle(this.caretRef.nativeElement,'--height',element.size+'px',2)
+    this.currentElement.selected=true
 
-    let positionY=element.positionY-this.ref.getBoundingClientRect().top
-    this.renderer.setStyle(this.caretRef.nativeElement,'top',positionY+'px')
+    this.caretStyleData.height=element.size+'px'
+    this.caretStyleData.top=element.positionY-this.ref.getBoundingClientRect().top+'px'
   }
 
   // ----------LOWER LEVEL METHODS----------
