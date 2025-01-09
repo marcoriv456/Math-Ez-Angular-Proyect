@@ -29,6 +29,7 @@ import {FunctionAdder} from "./classes/adders/function-adder";
 import {SimpleAdder} from "./classes/adders/simple-adder.class";
 import {TermDeleter} from "./classes/term-deleter.class";
 import {CharVisibilityManager} from "./classes/char-visibility-manager.class";
+import {RootAdder} from "./classes/adders/root-adder.class";
 
 @Component({
   selector: 'app-input',
@@ -215,11 +216,15 @@ export class InputComponent implements AfterViewInit,OnInit {
   }
 
   private appendEditableRadicalRoot(){
-    this.appendTerm({type:"root",rootChildren:[],radicalTerms:[]})
+    this.moveCaretTo(this.getRoodAdder().appendEditableRadicalRoot())
   }
 
   private appendSimpleRoot(){
-    this.appendTerm({type:"root",rootChildren:[]})
+    this.moveCaretTo(this.getRoodAdder().appendSimpleRoot())
+  }
+
+  private getRoodAdder(){
+    return new RootAdder(this.currentElement,this.cdr)
   }
 
   private appendExponent(){
