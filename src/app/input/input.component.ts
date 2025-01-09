@@ -28,6 +28,7 @@ import {ParenthesisAdder} from "./classes/adders/parenthesis-adder.class";
 import {FunctionAdder} from "./classes/adders/function-adder";
 import {SimpleAdder} from "./classes/adders/simple-adder.class";
 import {TermDeleter} from "./classes/term-deleter.class";
+import {CharVisibilityManager} from "./classes/char-visibility-manager.class";
 
 @Component({
   selector: 'app-input',
@@ -280,14 +281,9 @@ export class InputComponent implements AfterViewInit,OnInit {
   // ----------AUTO-SCROLL LOGIC-----------
   private makeCharVisible(positionX:number){
     let overlay=this.overlay.nativeElement as HTMLElement,
-        overlayViewWidth=overlay.clientWidth,
-        scrollBarFrom=overlay.scrollLeft,
-        scrollBarTo=scrollBarFrom+overlayViewWidth,
-        isCharVisible=positionX > scrollBarFrom && positionX < scrollBarTo
-    if(!isCharVisible){
-      let isCaretOnRightSide=positionX > scrollBarFrom
-      overlay.scrollTo({left : isCaretOnRightSide ? positionX-overlayViewWidth+2 : positionX})
-    }
+        charVisibilityManager=new CharVisibilityManager(overlay)
+
+    charVisibilityManager.makeCharVisible(positionX)
   }
   // ----------AUTO-SCROLL LOGIC-----------
 
