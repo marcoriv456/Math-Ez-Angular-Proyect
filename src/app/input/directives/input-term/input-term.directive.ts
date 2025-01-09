@@ -43,6 +43,8 @@ export class InputTermDirective{
   @HostListener('click',['$event'])
   onClick(event:MouseEvent){
     event.stopPropagation()
+    if(this.asEditableElement)
+      return;
     let {offsetX}=event
     let wasClickOnLeftSide=this.wasClickOnLeftSide(offsetX)
     let dataToSend=this.data

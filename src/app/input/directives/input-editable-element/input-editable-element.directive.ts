@@ -211,5 +211,11 @@ export abstract class InputEditableElement implements OnDestroy{
   @HostBinding('class.selected')
   selected=false
   // ----------------------SELECTION LOGIC----------------------
+  @HostListener('click',['$event'])
+  private onClick(event:MouseEvent){
+    event.stopPropagation()
+    if(this.editable)
+      this.inputUtilitiesService.charClicked.emit(this.lastCharData)
+  }
 
 }

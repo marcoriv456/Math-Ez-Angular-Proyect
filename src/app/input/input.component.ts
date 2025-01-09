@@ -77,10 +77,6 @@ export class InputComponent implements AfterViewInit,OnInit {
     this.inputUtilitiesService.charClicked.subscribe(this.moveCaretTo.bind(this))
   }
 
-  @HostListener('click')
-  protected onClick() {
-    this.moveCaretTo(this.termContainer.lastCharData)
-  }
   // ------------PUBLIC METHODS-------------
   public append(...terms:Term[]){
     terms.forEach(term=>this.appendTerm(term))
