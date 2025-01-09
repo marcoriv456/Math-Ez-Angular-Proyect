@@ -4,6 +4,7 @@ export class CharVisibilityManager {
   private readonly overlayViewWidth:number;
   private readonly scrollBarFrom:number;
   private readonly scrollBarTo:number;
+  private readonly offset=3
   constructor(private overlay:HTMLElement) {
     this.overlayViewWidth=overlay.clientWidth
     this.scrollBarFrom=overlay.scrollLeft
@@ -14,13 +15,17 @@ export class CharVisibilityManager {
 
   public makeCharVisible(positionX:number){
     let isCharVisible=positionX > this.scrollBarFrom && positionX < this.scrollBarTo
+    if(isCharVisible)
+      return;
 
-    if(!isCharVisible){
-      let isCaretOnRightSide=positionX > this.scrollBarFrom
+    let isCaretOnRightSide=positionX > this.scrollBarFrom
+    if(isCaretOnRightSide)
+      positionX-=this.overlayViewWidth
 
-      this.overlay.scrollTo({
-        left : isCaretOnRightSide ? positionX-this.overlayViewWidth : positionX
-      })
+    this.overlay.scrollTo({left: positionX})
+
+    if(isCaretOnRightSide)
+      setTimeout(()=>this.overlay.scrollBy({left: this.offset}),100)
     }
-  }
+
 }
