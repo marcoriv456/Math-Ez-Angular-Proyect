@@ -27,21 +27,46 @@ export class InputTermDirective{
     }
   }
 
-  get char(){
-    return this.input.char
+  get rightPosition(){
+    return this.leftPosition+this.ref.offsetWidth
   }
+
+  get topPosition(){
+    return this.ref.getBoundingClientRect().top
+  }
+
   get index(){
     return this.input.index
   }
-  get asEditableElement(){
-    return this.input.editableElementRef
+
+  private get size(){
+    return this.ref.offsetHeight
   }
+
   get parent(){
     return this.input.parent
   }
 
+  get char(){
+    return this.input.char
+  }
+
+  get asEditableElement(){
+    return this.input.editableElementRef
+  }
+
+  get leftPosition(){
+    let parent:HTMLElement|null=this.ref.parentElement
+    let leftPosition=this.ref.offsetLeft
+    while(parent && !(parent.tagName=='APP-INPUT')){
+      leftPosition+=parent.offsetLeft||0
+      parent=parent.parentElement
+    }
+    return leftPosition
+  }
+
   @HostListener('click',['$event'])
-  onClick(event:MouseEvent){
+  private onClick(event:MouseEvent){
     event.stopPropagation()
     if(this.asEditableElement)
       return;
@@ -58,24 +83,5 @@ export class InputTermDirective{
 
   private wasClickOnLeftSide(clickOffset:number){
     return this.ref.offsetWidth/2>clickOffset
-  }
-
-  private get rightPosition(){
-    return this.leftPosition+this.ref.offsetWidth
-  }
-  get leftPosition(){
-    let parent:HTMLElement|null=this.ref.parentElement
-    let leftPosition=this.ref.offsetLeft
-    while(parent && !(parent.tagName=='APP-INPUT')){
-      leftPosition+=parent.offsetLeft||0
-      parent=parent.parentElement
-    }
-    return leftPosition
-  }
-  private get topPosition(){
-    return this.ref.getBoundingClientRect().top
-  }
-  private get size(){
-    return this.ref.offsetHeight
   }
 }
