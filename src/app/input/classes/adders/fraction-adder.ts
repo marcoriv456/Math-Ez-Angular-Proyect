@@ -1,9 +1,9 @@
 import {Term} from "../../models/terms/term.model";
 import {FractionComponent} from "../../components/fraction/fraction.component";
-import {InputEditableElement} from "../input-editable-element.class";
 import {ChangeDetectorRef} from "@angular/core";
 import {InputCharData} from "../../models/input-char-data.model";
 import {FractionChildComponent} from "../../components/fraction/fraction-child/fraction-child.component";
+import {InputEditableElement} from "../../directives/input-editable-element/input-editable-element.directive";
 
 export class FractionAdder{
   constructor(

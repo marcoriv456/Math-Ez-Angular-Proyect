@@ -1,7 +1,7 @@
-import {InputEditableElement} from "../input-editable-element.class";
 import {ChangeDetectorRef} from "@angular/core";
 import {Term} from "../../models/terms/term.model";
 import {InputCharData} from "../../models/input-char-data.model";
+import {InputEditableElement} from "../../directives/input-editable-element/input-editable-element.directive";
 
 export class ParenthesisAdder{
   constructor(

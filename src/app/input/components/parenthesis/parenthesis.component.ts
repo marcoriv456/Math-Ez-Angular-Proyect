@@ -3,7 +3,7 @@ import {Term} from "../../models/terms/term.model";
 import {TermContainerComponent} from "../term-container/term-container.component";
 import {CharClickedNotifierService} from "../../services/char-clicked-notifier/char-clicked-notifier.service";
 import {InputCharData} from "../../models/input-char-data.model";
-import {InputEditableElement} from "../../classes/input-editable-element.class";
+import {InputEditableElement} from "../../directives/input-editable-element/input-editable-element.directive";
 
 @Component({
   selector: 'parenthesis',

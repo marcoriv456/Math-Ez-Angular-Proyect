@@ -1,5 +1,4 @@
 import {Component, ElementRef, HostBinding, inject, Input, QueryList, ViewChild, ViewChildren} from '@angular/core';
-import {InputEditableElement} from "../../classes/input-editable-element.class";
 import {CharClickedNotifierService} from "../../services/char-clicked-notifier/char-clicked-notifier.service";
 import {InputTermDirective} from "../../directives/input-term/input-term.directive";
 import {Term} from "../../models/terms/term.model";
@@ -7,6 +6,7 @@ import {InputCharData} from "../../models/input-char-data.model";
 import {TermContainerComponent} from "../term-container/term-container.component";
 import {EditableTermContainerComponent} from "../editable-term-container/editable-term-container.component";
 import {TermWarningMessageData} from "../../models/char-validation/warning-message-data.model";
+import {InputEditableElement} from "../../directives/input-editable-element/input-editable-element.directive";
 
 @Component({
   selector: 'function',

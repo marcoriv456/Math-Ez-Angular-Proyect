@@ -1,7 +1,7 @@
 import {Term} from "../../models/terms/term.model";
 import {FunctionComponent} from "../../components/function/function.component";
-import {InputEditableElement} from "../input-editable-element.class";
 import {ChangeDetectorRef} from "@angular/core";
+import {InputEditableElement} from "../../directives/input-editable-element/input-editable-element.directive";
 
 export class FunctionAdder{
   constructor(

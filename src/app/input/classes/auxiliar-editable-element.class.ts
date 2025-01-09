@@ -2,8 +2,8 @@ import {Directive, EventEmitter, Output, ViewChild} from "@angular/core";
 import {TermContainerComponent} from "../components/term-container/term-container.component";
 import {Term} from "../models/terms/term.model";
 import {InputCharData} from "../models/input-char-data.model";
-import {InputEditableElement} from "./input-editable-element.class";
 import {from} from "rxjs";
+import {InputEditableElement} from "../directives/input-editable-element/input-editable-element.directive";
 
 @Directive()
 export class AuxiliaryEditableElement extends InputEditableElement{

@@ -1,8 +1,8 @@
-import {InputEditableElement} from "../input-editable-element.class";
 import {ChangeDetectorRef} from "@angular/core";
 import {InputCharData} from "../../models/input-char-data.model";
 import {Term} from "../../models/terms/term.model";
 import {RootComponent} from "../../components/root/root.component";
+import {InputEditableElement} from "../../directives/input-editable-element/input-editable-element.directive";
 
 export class RootAdder{
   constructor(

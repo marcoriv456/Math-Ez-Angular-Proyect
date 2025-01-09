@@ -1,22 +1,11 @@
-import {
-  Component,
-  Directive,
-  ElementRef,
-  HostBinding,
-  HostListener,
-  inject,
-  Input,
-  OnDestroy,
-  ViewChild
-} from "@angular/core";
-import {CharClickedNotifierService} from "../services/char-clicked-notifier/char-clicked-notifier.service";
-import {Term} from "../models/terms/term.model";
-import {InputCharData} from "../models/input-char-data.model";
-import {TermContainerComponent} from "../components/term-container/term-container.component";
-import {WarningsService} from "../services/warnings/warnings.service";
-import {TermWarningMessageData} from "../models/char-validation/warning-message-data.model";
-import {TermValidationData} from "../models/char-validation/validation-data.model";
-
+import {Directive, ElementRef, HostBinding, HostListener, inject, Input, OnDestroy} from '@angular/core';
+import {TermContainerComponent} from "../../components/term-container/term-container.component";
+import {Term} from "../../models/terms/term.model";
+import {CharClickedNotifierService} from "../../services/char-clicked-notifier/char-clicked-notifier.service";
+import {InputCharData} from "../../models/input-char-data.model";
+import {WarningsService} from "../../services/warnings/warnings.service";
+import {TermValidationData} from "../../models/char-validation/validation-data.model";
+import {TermWarningMessageData} from "../../models/char-validation/warning-message-data.model";
 
 @Directive()
 export abstract class InputEditableElement implements OnDestroy{
@@ -127,7 +116,7 @@ export abstract class InputEditableElement implements OnDestroy{
     return this.caretIndex+1
   }
 
-   get prevIndex(){
+  get prevIndex(){
     return this.caretIndex-1
   }
 
@@ -222,4 +211,5 @@ export abstract class InputEditableElement implements OnDestroy{
   @HostBinding('class.selected')
   selected=false
   // ----------------------SELECTION LOGIC----------------------
+
 }

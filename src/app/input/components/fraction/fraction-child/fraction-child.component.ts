@@ -11,9 +11,9 @@ import {
   ViewChildren
 } from '@angular/core';
 import {InputCharData} from "../../../models/input-char-data.model";
-import {InputEditableElement} from "../../../classes/input-editable-element.class";
 import {TermContainerComponent} from "../../term-container/term-container.component";
 import {TermWarningMessageData} from "../../../models/char-validation/warning-message-data.model";
+import {InputEditableElement} from "../../../directives/input-editable-element/input-editable-element.directive";
 
 @Component({
   selector: 'frac-child',

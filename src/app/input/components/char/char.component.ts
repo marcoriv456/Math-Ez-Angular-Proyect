@@ -9,7 +9,6 @@ import {
   OnDestroy,
   OnInit
 } from '@angular/core';
-import {InputEditableElement} from "../../classes/input-editable-element.class";
 import {WarningsService} from "../../services/warnings/warnings.service";
 import {WarningRenderData} from "../../models/char-validation/warning-render-data.model";
 import {CharClickedNotifierService} from "../../services/char-clicked-notifier/char-clicked-notifier.service";

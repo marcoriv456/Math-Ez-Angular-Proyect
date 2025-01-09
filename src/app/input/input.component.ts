@@ -11,7 +11,6 @@ import {
   Renderer2,
   ViewChild,
 } from '@angular/core';
-import {InputEditableElement} from "./classes/input-editable-element.class";
 import {Term} from "./models/terms/term.model";
 import {VariableProvider} from "./models/variable-provider.model";
 import {WarningsService} from "./services/warnings/warnings.service";
@@ -30,6 +29,7 @@ import {TermDeleter} from "./classes/term-deleter.class";
 import {CharVisibilityManager} from "./classes/char-visibility-manager.class";
 import {RootAdder} from "./classes/adders/root-adder.class";
 import {InputContextManager} from "./classes/input-context-manager.class";
+import {InputEditableElement} from "./directives/input-editable-element/input-editable-element.directive";
 
 @Component({
   selector: 'app-input',
