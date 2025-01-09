@@ -6,7 +6,6 @@
   ></editable-term-container>
   <div class="caret-overlay">
     <div
-      #caret
       id="caret-container"
       [ngStyle]="caretStyleData"
     >
@@ -17,7 +16,6 @@
 
 <div
   *ngIf="showingWarning"
-  #warningContainer
   [@warning-animations]
   [ngStyle]="warningStyleData"
   class="warning-container">

@@ -74,8 +74,6 @@ export class InputComponent implements AfterViewInit,OnInit {
 
   @ViewChild(EditableTermContainerComponent)
   private termContainer!: EditableTermContainerComponent;
-  @ViewChild('caret')
-  private caretRef!: ElementRef
   @ViewChild('overlay')
   private overlay!:ElementRef
   @HostBinding('tabindex')
