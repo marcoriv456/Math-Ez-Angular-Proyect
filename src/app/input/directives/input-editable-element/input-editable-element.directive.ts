@@ -11,38 +11,41 @@ import {Subject} from "rxjs";
 
 @Directive()
 export abstract class InputEditableElement{
-  abstract termContainer: TermContainerComponent
+  protected abstract termContainer: TermContainerComponent
   @Input()
-  terms!:Term[]
+  public terms!:Term[]
   @Input()
-  parent!:InputEditableElement|undefined
+  public parent!:InputEditableElement|undefined
   @Input()
-  index!:number
-  ref=inject(ElementRef).nativeElement as HTMLElement
-  inputUtilitiesService=inject(CharClickedNotifierService)
-  editable=true
-  caretIndex=-1
+  public index!:number
+  public ref=inject(ElementRef).nativeElement as HTMLElement
+  public inputUtilitiesService=inject(CharClickedNotifierService)
+  public editable=true
+  public caretIndex=-1
 
+  @HostBinding('class.selected')
+  public selected=false
+
+  public validationRequester=new Subject<void>()
   protected validatorClass!:{ new (component: any): TermValidator }|undefined
-  get validator():TermValidator|undefined{
+
+  private readonly irregularCharRegexp=/[^a-zA-Z\d]/
+
+  @HostListener('click',['$event'])
+  private onClick(event:MouseEvent){
+    event.stopPropagation()
+    if(this.editable)
+      this.inputUtilitiesService.charClicked.emit(this.lastCharData)
+  }
+
+  get validator(){
     if(this.validatorClass)
       return new this.validatorClass(this)
     return;
   }
-  validationRequester=new Subject<void>()
-
-  private readonly irregularCharRegexp=/[^a-zA-Z\d]/
 
   get renderedChars(){
     return this.termContainer.renderedChars
-  }
-
-  protected get absolutePositionX(){
-    return this.ref.getBoundingClientRect().left
-  }
-
-  protected get absoluteCenteredPositionX(){
-    return this.absolutePositionX+(this.ref.offsetWidth/2)
   }
 
   protected get positionX(): number {
@@ -157,20 +160,15 @@ export abstract class InputEditableElement{
       return '~'
     }).join('')
   }
+
   updateValidation(){
     this.validationRequester.next()
   }
 
   // ----------------------VALIDATION LOGIC----------------------
   // ----------------------SELECTION LOGIC----------------------
-  @HostBinding('class.selected')
-  selected=false
+
   // ----------------------SELECTION LOGIC----------------------
-  @HostListener('click',['$event'])
-  private onClick(event:MouseEvent){
-    event.stopPropagation()
-    if(this.editable)
-      this.inputUtilitiesService.charClicked.emit(this.lastCharData)
-  }
+
 
 }
