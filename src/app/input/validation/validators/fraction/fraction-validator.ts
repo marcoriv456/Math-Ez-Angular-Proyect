@@ -2,10 +2,13 @@ import {TermValidator} from "../../abstracts/validator.abstract";
 import {TermValidationMessage} from "../../models/term-validation-message.model";
 import {TermWarningMessageData} from "../../../models/char-validation/warning-message-data.model";
 import {FractionComponent} from "../../../components/fraction/fraction.component";
+import {validTermValidation} from "../../default-values/valid-term-validation";
+import {TermValidationData} from "../../../models/char-validation/validation-data.model";
 
 export class FractionValidator extends TermValidator{
   private readonly numeratorValue:number
   private readonly denominatorValue:number
+
 
   constructor(private fractionComponent: FractionComponent) {
     super();
@@ -24,22 +27,24 @@ export class FractionValidator extends TermValidator{
   private invalidateIndetermination(messages:TermValidationMessage[]){
     if(this.numeratorValue==0 && this.denominatorValue==0){
       messages.push({message:"Dividir 0 sobre 0 da un resultado indeterminado.", type:'fully-invalid'})
-      this.disableFractionChildValidators()
-    }else{
-      this.enableFractionChildValidators()
+      this.removeChildrenValidation()
     }
-
+    else
+      this.restoreChildrenValidation()
   }
 
+  private restoreChildrenValidation(){
+    const {numeratorComponent,denominatorComponent}=this.fractionComponent
 
-  private disableFractionChildValidators(){
-    // let {numeratorComponent,denominatorComponent}=this.fractionComponent
-
-
-  //   hacer algo como numeratorcomponent.validator as fraction validator .disable validation control
+    numeratorComponent.updateValidation()
+    denominatorComponent.updateValidation()
   }
 
-  private enableFractionChildValidators(){
-  //   hacer algo como numeratorcomponent.validator as fraction validator .disable validation control
+  private removeChildrenValidation(){
+    const {numeratorComponent,denominatorComponent}=this.fractionComponent
+
+    numeratorComponent.validationData=validTermValidation
+    denominatorComponent.validationData=validTermValidation
   }
+
 }

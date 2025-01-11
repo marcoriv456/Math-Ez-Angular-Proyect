@@ -16,16 +16,14 @@ import {TermWarningMessageData} from "../../../models/char-validation/warning-me
 import {InputEditableElement} from "../../../directives/input-editable-element/input-editable-element.directive";
 import {FractionNumeratorValidator} from "../../../validation/validators/fraction/fraction-numerator.validator";
 import {FractionDenominatorValidator} from "../../../validation/validators/fraction/fraction-denominator.validator";
+import {AuxiliaryEditableElement} from "../../../classes/auxiliar-editable-element.class";
 
 @Component({
   selector: 'frac-child',
   templateUrl: './fraction-child.component.html',
   styleUrls: ['./fraction-child.component.css','../../../assets/editable-elements-styles.css']
 })
-export class FractionChildComponent extends InputEditableElement implements OnInit{
-  @ViewChild(TermContainerComponent)
-  termContainer!: TermContainerComponent;
-
+export class FractionChildComponent extends AuxiliaryEditableElement implements OnInit{
   @Output()
   termDeleted=new EventEmitter<void>
   @Input()

@@ -4,6 +4,7 @@
   [terms]="numeratorChildren"
   [parent]="this"
   [index]="0"
+  (change)="updateValidation()"
   type="numerator"
 ></frac-child>
 <span class="frac-bar"></span>
@@ -13,6 +14,7 @@
   [terms]="denominatorChildren"
   [parent]="this"
   [index]="1"
+  (change)="updateValidation()"
   type="denominator"
 >
 </frac-child>
