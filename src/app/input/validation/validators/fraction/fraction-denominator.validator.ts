@@ -1,8 +1,8 @@
 import {FractionChildComponent} from "../../../components/fraction/fraction-child/fraction-child.component";
 import {TermValidationMessage} from "../../models/term-validation-message.model";
-import {FractionChildValidator} from "./fraction-child.validator";
+import {TermValidator} from "../../abstracts/validator.abstract";
 
-export class FractionDenominatorValidator extends FractionChildValidator{
+export class FractionDenominatorValidator extends TermValidator{
   denominatorValue:number
   constructor(denominatorComponent:FractionChildComponent) {
     super()
@@ -12,7 +12,7 @@ export class FractionDenominatorValidator extends FractionChildValidator{
   protected override getValidationMessages(): TermValidationMessage[] {
     let messages=  super.getValidationMessages();
 
-    if(!this.validationControl || isNaN(this.denominatorValue))
+    if(isNaN(this.denominatorValue))
       return messages
 
     this.warnOneAsDenominator(messages)
