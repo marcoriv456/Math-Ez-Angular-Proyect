@@ -9,7 +9,7 @@ span{
   position: relative;
   font-family: "Times New Roman";
   font-size: 1em;
-  color: var(--line-color);
+  color: var(--inner-line-color);
   transition: color var(--highlighting-transition-duration) var(--highlighting-transition-easing);
 }
 argument{
@@ -17,4 +17,32 @@ argument{
 }
 editable-term-container{
   font-size: 0.8em;
+}
+
+:host:not(.partially-invalid,.fully-invalid):has(>.selected)>*{
+  --inner-line-color: var(--selection-color);
+}
+
+:host:not(.partially-invalid,.fully-invalid)>.selected{
+  --outline-color: var(--selection-color);
+}
+
+:host.partially-invalid>*{
+  --inner-line-color: var(--partially-invalid-color);
+}
+
+:host.partially-invalid,
+:host.partially-invalid>.selected
+{
+  --outline-color: var(--partially-invalid-color);
+}
+
+
+:host.fully-invalid>*{
+  --inner-line-color: var(--fully-invalid-color);
+}
+
+:host.fully-invalid,
+:host.fully-invalid>.selected {
+  --outline-color: var(--fully-invalid-color);
 }

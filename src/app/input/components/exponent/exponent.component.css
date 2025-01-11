@@ -9,3 +9,15 @@
 term-container{
   min-width: 1ch;
 }
+
+:host:not(.partially-invalid,.fully-invalid).selected{
+  --outline-color: var(--selection-color);
+}
+
+:host.partially-invalid{
+  --outline-color: var(--partially-invalid-color);
+}
+
+:host.fully-invalid {
+  --outline-color: var(--fully-invalid-color);
+}

@@ -3,11 +3,17 @@
   display: flex;
   height: 100%;
 }
+
 span{
   position: relative;
   display: grid;
   place-items: center;
   font-family: "Times New Roman", sans-serif;
-  color: var(--line-color);
+  color: var(--inner-line-color);
   transition: color var(--highlighting-transition-duration) var(--highlighting-transition-easing);
+}
+
+:host.selected{
+  --outline-color: var(--selection-color);
+  --inner-line-color: var(--selection-color);
 }

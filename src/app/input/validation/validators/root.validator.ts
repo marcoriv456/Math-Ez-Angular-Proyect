@@ -37,7 +37,7 @@ export class RootValidator extends TermValidator{
 
   private invalidateNegativeRadicandAndOddIndex(messages:TermValidationMessage[]){
     if(this.radicandValue < 0 && (this.indexValue%2==0  || !this.indexValue))
-      messages.push({message:'La raiz de un numero negativo con indice par dara un numero complejo.'})
+      messages.push({message:'La raiz de un numero negativo con indice par dara un numero complejo.', type:'fully-invalid'})
   }
 
   private invalidateOneAsRadicandValue(messages:TermValidationMessage[]) {

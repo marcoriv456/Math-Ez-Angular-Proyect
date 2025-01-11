@@ -13,18 +13,19 @@
 :host:hover{
   background-color: #0004;
 }
-:host.invalid{
-  --color:#f00;
+:host.fully-invalid pre{
+  color:#f00;
+
 }
-:host.invalid:hover{
+:host.fully-invalid:hover{
   background-color: #faa;
 }
-:host.partially-invalid{
-  --color: #777;
+:host.partially-invalid pre{
+  color: #777;
 }
 pre{
   font-family: "Times New Roman", sans-serif;
-  color: var(--color);
+  color: #000;
 }
 @keyframes new-char {
   from{

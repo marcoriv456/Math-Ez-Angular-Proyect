@@ -11,7 +11,7 @@
 svg{
   height: 100%;
   fill: none;
-  stroke: var(--line-color);
+  stroke: var(--inner-line-color);
   stroke-miterlimit: 10;
   stroke-width: 1em;
   transition: stroke var(--highlighting-transition-duration) var(--highlighting-transition-easing);
@@ -22,5 +22,32 @@ argument{
 
 :host editable-term-container{
   transition: border-top-color var(--highlighting-transition-duration) var(--highlighting-transition-easing);
-  border-top: 0.1em solid var(--line-color);
+  border-top: 0.1em solid var(--inner-line-color);
+}
+
+:host:not(.partially-invalid,.fully-invalid):has(>.selected)>*{
+  --inner-line-color: var(--selection-color);
+}
+
+:host:not(.partially-invalid,.fully-invalid)>.selected{
+  --outline-color: var(--selection-color);
+}
+
+:host.partially-invalid>*{
+  --inner-line-color: var(--partially-invalid-color);
+}
+
+:host.partially-invalid,
+:host.partially-invalid>.selected {
+  --outline-color: var(--partially-invalid-color);
+}
+
+
+:host.fully-invalid>*{
+  --inner-line-color: var(--fully-invalid-color);
+}
+
+:host.fully-invalid,
+:host.fully-invalid>.selected{
+  --outline-color: var(--fully-invalid-color);
 }

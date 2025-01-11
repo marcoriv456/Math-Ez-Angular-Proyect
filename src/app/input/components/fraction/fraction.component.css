@@ -15,8 +15,30 @@
 
   width: 90%;
   height: calc(1em*0.05);
-  background-color: var(--line-color);
+  background-color: var(--inner-line-color);
 
   transition: background-color var(--highlighting-transition-duration) var(--highlighting-transition-easing);
 
+}
+
+:host:has(.selected){
+  --inner-line-color: var(--selection-color);
+}
+:host:has(.partially-invalid){
+  --inner-line-color: var(--partially-invalid-color);
+}
+:host:has(.fully-invalid){
+  --inner-line-color: var(--fully-invalid-color);
+}
+
+
+
+:host.partially-invalid{
+  --inner-line-color: var(--partially-invalid-color);
+  --outline-color: var(--partially-invalid-color);
+}
+
+:host.fully-invalid{
+  --inner-line-color: var(--fully-invalid-color);
+  --outline-color: var(--fully-invalid-color);
 }

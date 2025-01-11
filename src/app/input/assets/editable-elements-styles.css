@@ -1,6 +1,4 @@
 :host{
-
-
   --default-outline-color:transparent;
   --default-line-color:#1d1d1b;
   --selection-color: #359aff;
@@ -10,59 +8,17 @@
   --highlighting-transition-duration: 0.5s;
   --highlighting-transition-easing: cubic-bezier(0,0,0,1);
 
-
-
-  --outline-selection-color:var(--default-outline-color);
-  --line-color:var(--default-line-color);
+  --outline-color:var(--default-outline-color);
+  --inner-line-color:var(--default-line-color);
 }
+
 :host{
-  outline: var(--outline-selection-color) 0.01em solid;
+  outline: var(--outline-color) 0.01em solid;
   transition: outline-color var(--highlighting-transition-duration) var(--highlighting-transition-easing);
 }
-
-:host.selected{
-  --outline-selection-color:var(--selection-color);
-  --line-color: var(--selection-color);
-}
-
-:host.selected>*,
-:host:has(>.selected),
-:host:has(>.selected)>*
-{
-  --line-color: var(--selection-color);
-}
-
-:host.partially-invalid {
-  /*--outline-selection-color:var(--partially-invalid-color);*/
-  --line-color: var(--partially-invalid-color);
-}
-
-:host.partially-invalid>*,
-:host:has(>.partially-invalid){
-  --line-color: var(--partially-invalid-color);
-}
-:host.partially-invalid>.selected{
-  --outline-selection-color:var(--partially-invalid-color);
-}
-
-:host.fully-invalid{
-  --outline-selection-color:var(--fully-invalid-color);
-  --line-color: var(--fully-invalid-color);
-}
-
-:host.fully-invalid>*,
-:host:has(>.fully-invalid){
-  --line-color: var(--fully-invalid-color);
-}
-
-:host.fully-invalid>.selected{
-  --outline-selection-color:var(--fully-invalid-color);
-}
-
 
 :host.partially-invalid,
 :host.fully-invalid{
   border-radius: 0.1em;
 }
-
 
