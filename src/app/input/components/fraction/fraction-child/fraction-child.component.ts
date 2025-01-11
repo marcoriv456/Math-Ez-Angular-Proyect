@@ -5,7 +5,7 @@ import {
   EventEmitter,
   HostBinding,
   inject,
-  Input,
+  Input, OnInit,
   Output,
   QueryList, ViewChild,
   ViewChildren
@@ -14,13 +14,15 @@ import {InputCharData} from "../../../models/input-char-data.model";
 import {TermContainerComponent} from "../../term-container/term-container.component";
 import {TermWarningMessageData} from "../../../models/char-validation/warning-message-data.model";
 import {InputEditableElement} from "../../../directives/input-editable-element/input-editable-element.directive";
+import {FractionNumeratorValidator} from "../../../validation/validators/fraction/fraction-numerator.validator";
+import {FractionDenominatorValidator} from "../../../validation/validators/fraction/fraction-denominator.validator";
 
 @Component({
   selector: 'frac-child',
   templateUrl: './fraction-child.component.html',
   styleUrls: ['./fraction-child.component.css','../../../assets/editable-elements-styles.css']
 })
-export class FractionChildComponent extends InputEditableElement implements AfterViewInit{
+export class FractionChildComponent extends InputEditableElement implements OnInit{
   @ViewChild(TermContainerComponent)
   termContainer!: TermContainerComponent;
 
@@ -31,9 +33,6 @@ export class FractionChildComponent extends InputEditableElement implements Afte
 
   cdr=inject(ChangeDetectorRef)
 
-  ngAfterViewInit() {
-    this.updateValidation()
-  }
   override get noCharData(): InputCharData {
     let data=super.noCharData
     this.cdr.detectChanges()
@@ -42,23 +41,7 @@ export class FractionChildComponent extends InputEditableElement implements Afte
     return data
   }
 
-  private zeroTermRegexp=/^0+$/
-
-  protected override getValidationMessages(): TermWarningMessageData[] {
-    let validationMessages= super.getValidationMessages();
-    let actualValue=this.toString
-    this.validateDivisionByZero(actualValue,validationMessages)
-    if(this.type=='denominator')
-      this.validateOneAsDenominator(actualValue,validationMessages)
-    return validationMessages
-  }
-
-  private validateDivisionByZero(actualValue:string,messageList:TermWarningMessageData[]){
-    if(this.zeroTermRegexp.test(this.toString))
-      messageList.push({message:'No se puede dividir por 0.', type:'partially-invalid'})
-  }
-  private validateOneAsDenominator(actualValue:string,messageList:TermWarningMessageData[]){
-    if(actualValue=='1')
-      messageList.push({message:'Tener "1" como denominador es redundante.', type:'partially-invalid'})
+  ngOnInit() {
+    this.validatorClass = this.type=="numerator" ? FractionNumeratorValidator : FractionDenominatorValidator
   }
 }

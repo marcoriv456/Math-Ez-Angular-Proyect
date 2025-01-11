@@ -1,21 +1,52 @@
 import {
+  AfterViewInit,
   Directive,
-  ElementRef,
+  ElementRef, HostBinding,
   HostListener,
-  inject, Input,
+  inject, Input, OnDestroy, OnInit,
 } from '@angular/core';
 import {CharClickedNotifierService} from "../../services/char-clicked-notifier/char-clicked-notifier.service";
 import {InputCharData} from "../../models/input-char-data.model";
 import {InputEditableElement} from "../input-editable-element/input-editable-element.directive";
+import {TermValidator} from "../../validation/abstracts/validator.abstract";
+import {CharValidator} from "../../validation/validators/char.validator";
+import {VariableProviderService} from "../../services/variable-provider/variable-provider.service";
+import {CharComponent} from "../../components/char/char.component";
+import {WarningsService} from "../../services/warnings/warnings.service";
+import {TermValidationData} from "../../models/char-validation/validation-data.model";
+import {TermWarningMessageData} from "../../models/char-validation/warning-message-data.model";
 
 @Directive({
   selector: '[inputTerm]'
 })
-export class InputTermDirective{
+export class InputTermDirective implements AfterViewInit,OnDestroy{
   @Input('inputTerm')
-  input!:{char:string, index:number,editableElementRef?:InputEditableElement,parent:InputEditableElement}
+  input!:{char:string, index:number,editableElementRef?:InputEditableElement,charClassRef?:CharComponent,parent:InputEditableElement}
   ref=inject(ElementRef).nativeElement as HTMLElement
   inputUtilitiesService=inject(CharClickedNotifierService)
+
+  // private validator:TermValidator|undefined
+  private get validator():TermValidator|undefined{
+    if(this.asEditableElement)
+      return this.asEditableElement.validator
+    else if(this.asCharComponent)
+      return new CharValidator(this.asCharComponent)
+    return;
+  }
+  private readonly defaultValidationData:TermValidationData={
+    isValid:true,
+    messages:[]
+  }
+
+  ngAfterViewInit() {
+    if(this.asEditableElement)
+      this.asEditableElement.validationRequester.subscribe(()=>{
+        this.updateValidation()
+        console.log("requester called, validation: ", this.validator)
+
+      })
+    this.updateValidation()
+  }
 
   get data():InputCharData{
     return {
@@ -55,6 +86,10 @@ export class InputTermDirective{
     return this.input.editableElementRef
   }
 
+  private get asCharComponent(){
+    return this.input.charClassRef
+  }
+
   get leftPosition(){
     let parent:HTMLElement|null=this.ref.parentElement
     let leftPosition=this.ref.offsetLeft
@@ -63,6 +98,14 @@ export class InputTermDirective{
       parent=parent.parentElement
     }
     return leftPosition
+  }
+
+  protected get absoluteLeftPosition(){
+    return this.ref.getBoundingClientRect().left
+  }
+
+  protected get absoluteCenteredLeftPosition(){
+    return this.absoluteLeftPosition+(this.ref.offsetWidth/2)
   }
 
   @HostListener('click',['$event'])
@@ -84,4 +127,54 @@ export class InputTermDirective{
   private wasClickOnLeftSide(clickOffset:number){
     return this.ref.offsetWidth/2>clickOffset
   }
+  // --------------VALIDATION LOGIC------------------
+  isMouseOver=false
+  warningsService=inject(WarningsService)
+  validationData:TermValidationData=this.defaultValidationData
+  @HostBinding('class')
+  get validityClassBinding(){
+    return this.validationData.type
+  }
+  @HostListener('mouseover')
+  onMouseOver(  ){
+    if(this.validationData.isValid)
+      return;
+    this.emitShowWarning()
+    this.isMouseOver=true
+  }
+  @HostListener('mouseleave')
+  onMouseLeave(){
+    if(this.validationData.isValid)
+      return;
+    this.emitHideWarning()
+    this.isMouseOver=false
+  }
+  ngOnDestroy() {
+    if(this.isMouseOver)
+      this.emitHideWarning()
+  }
+
+  updateValidation(){
+    if(!this.validator)
+      return;
+    this.setValidationData(this.validator.validate())
+    if(this.isMouseOver)
+      this.validationData.isValid ? this.emitHideWarning() : this.emitShowWarning()
+  }
+
+  private emitShowWarning(){
+    this.warningsService.showWarning.emit({
+      messages:this.validationData.messages||[],
+      position:{x:this.absoluteCenteredLeftPosition,y:this.topPosition}})
+  }
+
+  private emitHideWarning(){
+    this.warningsService.hideWarning.emit()
+  }
+
+  private setValidationData(data:TermValidationData){
+    this.validationData=data
+  }
+
+  // --------------VALIDATION LOGIC------------------
 }

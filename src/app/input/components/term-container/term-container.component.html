@@ -1,8 +1,9 @@
 <ng-container *ngFor="let term of terms; let i=index">
   <char
+    #charComponent
     *ngIf="term.type=='char'"
     [char]="term.char"
-    [inputTerm]="{char:term.char,index:i,parent}"
+    [inputTerm]="{char:term.char,index:i,charClassRef:charComponent,parent}"
   ></char>
   <frac
     #fractionComponent

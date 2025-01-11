@@ -6,13 +6,14 @@ import {CharComponent} from "../../components/char/char.component";
 export class CharValidator extends TermValidator{
   private readonly letterRegex=/^[a-zA-Z]$/
   private readonly invalidReferenceMessage:TermValidationMessage
-  
+  private variableProvider:VariableProviderService
+
   constructor(
     private charComponent:CharComponent,
-    private variableProvider:VariableProviderService
   ) {
     super()
-    this.invalidReferenceMessage={message:`No se reconoce a la variable "${charComponent.char}"`}
+    this.invalidReferenceMessage={message:`No se reconoce a la variable "${charComponent.char}"`,type:"fully-invalid"}
+    this.variableProvider=charComponent.variableProvider
   }
 
   protected override getValidationMessages(): TermValidationMessage[] {

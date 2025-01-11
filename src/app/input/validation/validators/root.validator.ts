@@ -15,10 +15,10 @@ export class RootValidator extends TermValidator{
 
   protected override getValidationMessages(): TermValidationMessage[] {
     let messages:TermValidationMessage[]=[]
+    if(!isNaN(this.radicandValue))
+      this.validateRadicandValue(messages)
 
-    this.validateRadicandValue(messages)
-
-    if(this.indexValue)
+    if(!isNaN(this.indexValue))
       this.validateIndexValue(messages)
 
     return messages;

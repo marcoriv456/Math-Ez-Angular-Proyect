@@ -14,7 +14,11 @@ export class FractionValidator extends TermValidator{
   }
 
   protected override getValidationMessages(): TermValidationMessage[] {
-    return super.getValidationMessages();
+    let messages=super.getValidationMessages()
+
+    this.invalidateIndetermination(messages)
+
+    return messages;
   }
 
   private invalidateIndetermination(messages:TermValidationMessage[]){

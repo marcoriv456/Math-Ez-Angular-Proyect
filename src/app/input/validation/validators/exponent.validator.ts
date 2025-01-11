@@ -16,7 +16,7 @@ export class ExponentValidator extends TermValidator{
   protected override getValidationMessages(): TermValidationMessage[] {
     let validationMessages=super.getValidationMessages();
 
-    if(!this.actualExponentValue)
+    if(isNaN(this.actualExponentValue))
       return validationMessages
 
     this.validateOneExponent(validationMessages)

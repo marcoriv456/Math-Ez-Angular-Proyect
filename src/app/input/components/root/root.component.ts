@@ -1,14 +1,11 @@
-import {Component, ElementRef, HostBinding, inject, Input, QueryList, ViewChild, ViewChildren} from '@angular/core';
-import {CharClickedNotifierService} from "../../services/char-clicked-notifier/char-clicked-notifier.service";
+import {Component, Input, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {InputTermDirective} from "../../directives/input-term/input-term.directive";
 import {Term} from "../../models/terms/term.model";
-import {InputCharData} from "../../models/input-char-data.model";
 import {TermContainerComponent} from "../term-container/term-container.component";
 import {EditableTermContainerComponent} from "../editable-term-container/editable-term-container.component";
 import {TermArgumentComponent} from "../term-argument/term-argument.component";
-import {TermValidationData} from "../../models/char-validation/validation-data.model";
-import {TermWarningMessageData} from "../../models/char-validation/warning-message-data.model";
 import {InputEditableElement} from "../../directives/input-editable-element/input-editable-element.directive";
+import {RootValidator} from "../../validation/validators/root.validator";
 
 @Component({
   selector: 'root',
@@ -35,21 +32,6 @@ export class RootComponent extends InputEditableElement{
   override get renderedChars(): QueryList<InputTermDirective> {
     return this._renderedChars;
   }
-  protected override getValidationMessages(): TermWarningMessageData[] {
-    let messages:TermWarningMessageData[]=[]
-    this.validateOneAsRootValue(messages)
-    if(this.radicalTerms)
-      this.validateOneAsRadical(messages)
-    return messages;
-  }
-
-  private validateOneAsRootValue(messageList:TermWarningMessageData[]) {
-    if(this.mainComponent.toString=='1')
-      messageList.push({message:'La raiz de cualquier radical de 1 siempre sera 1.',type:'partially-invalid'})
-  }
-  private validateOneAsRadical(messageList: TermWarningMessageData[]) {
-    if(this.argumentComponent.toString=='1')
-      messageList.push({message:'No se puede agregar 1 como radical de una raiz.',type:'fully-invalid'})
-  }
+  override validatorClass=RootValidator
 }
 

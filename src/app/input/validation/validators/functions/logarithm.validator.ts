@@ -19,7 +19,7 @@ export class LogarithmValidator extends TermValidator{
     let messages=super.getValidationMessages()
 
     this.validateArgument(messages)
-    if(this.baseValue)
+    if(!isNaN(this.baseValue))
       this.validateBase(messages)
 
     return messages

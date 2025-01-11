@@ -12,7 +12,7 @@ export class FractionNumeratorValidator extends FractionChildValidator{
 
   protected override getValidationMessages(): TermValidationMessage[] {
     let messages= super.getValidationMessages();
-    if(!this.validationControl || !this.numeratorValue)
+    if(!this.validationControl || isNaN(this.numeratorValue))
       return messages
 
     this.warnZeroAsNumerator(messages)

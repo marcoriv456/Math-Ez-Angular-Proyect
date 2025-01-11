@@ -6,9 +6,11 @@ import {InputCharData} from "../../models/input-char-data.model";
 import {WarningsService} from "../../services/warnings/warnings.service";
 import {TermValidationData} from "../../models/char-validation/validation-data.model";
 import {TermWarningMessageData} from "../../models/char-validation/warning-message-data.model";
+import {TermValidator} from "../../validation/abstracts/validator.abstract";
+import {Subject} from "rxjs";
 
 @Directive()
-export abstract class InputEditableElement implements OnDestroy{
+export abstract class InputEditableElement{
   abstract termContainer: TermContainerComponent
   @Input()
   terms!:Term[]
@@ -20,6 +22,14 @@ export abstract class InputEditableElement implements OnDestroy{
   inputUtilitiesService=inject(CharClickedNotifierService)
   editable=true
   caretIndex=-1
+
+  protected validatorClass!:{ new (component: any): TermValidator }|undefined
+  get validator():TermValidator|undefined{
+    if(this.validatorClass)
+      return new this.validatorClass(this)
+    return;
+  }
+  validationRequester=new Subject<void>()
 
   private readonly irregularCharRegexp=/[^a-zA-Z\d]/
 
@@ -147,63 +157,8 @@ export abstract class InputEditableElement implements OnDestroy{
       return '~'
     }).join('')
   }
-  isMouseOver=false
-  warningsService=inject(WarningsService)
-  validationData:TermValidationData={
-    isValid:true,
-    messages:[]
-  }
-  @HostBinding('class')
-  get validityClassBinding(){
-    return this.validationData.type
-  }
-  @HostListener('mouseover')
-  onMouseOver(  ){
-    if(this.validationData.isValid)
-      return;
-    this.emitShowWarning()
-    this.isMouseOver=true
-  }
-  @HostListener('mouseleave')
-  onMouseLeave(){
-    if(this.validationData.isValid)
-      return;
-    this.emitHideWarning()
-    this.isMouseOver=false
-  }
-  ngOnDestroy() {
-    if(this.isMouseOver)
-      this.emitHideWarning()
-  }
-
   updateValidation(){
-    this.setValidationData(this.validate())
-    if(this.isMouseOver)
-      this.validationData.isValid ? this.emitHideWarning() : this.emitShowWarning()
-  }
-  validate():TermValidationData{
-    let messages=this.getValidationMessages()
-    let isValid=messages.length==0
-    let type=isValid?undefined:(messages.find(value => value.type=='fully-invalid')?.type||'partially-invalid')
-    return {messages,isValid,type}
-  }
-
-  protected getValidationMessages():TermWarningMessageData[]{
-    return []
-  }
-
-  private emitShowWarning(){
-    this.warningsService.showWarning.emit({
-      messages:this.validationData.messages||[],
-      position:{x:this.absoluteCenteredPositionX,y:this.positionY}})
-  }
-
-  private emitHideWarning(){
-    this.warningsService.hideWarning.emit()
-  }
-
-  private setValidationData(data:TermValidationData){
-    this.validationData=data
+    this.validationRequester.next()
   }
 
   // ----------------------VALIDATION LOGIC----------------------
