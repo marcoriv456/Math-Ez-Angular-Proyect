@@ -1,9 +1,8 @@
 import {TermValidator} from "../../abstracts/validator.abstract";
 import {TermValidationMessage} from "../../models/term-validation-message.model";
-import {TermWarningMessageData} from "../../../models/char-validation/warning-message-data.model";
 import {FractionComponent} from "../../../components/fraction/fraction.component";
 import {validTermValidation} from "../../default-values/valid-term-validation";
-import {TermValidationData} from "../../../models/char-validation/validation-data.model";
+import {TermValidationData} from "../../models/term-validation-data.model";
 
 export class FractionValidator extends TermValidator{
   private readonly numeratorValue:number

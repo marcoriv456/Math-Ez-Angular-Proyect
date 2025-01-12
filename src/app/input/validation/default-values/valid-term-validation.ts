@@ -1,4 +1,4 @@
-import {TermValidationData} from "../../models/char-validation/validation-data.model";
+import {TermValidationData} from "../models/term-validation-data.model";
 
 export const validTermValidation:TermValidationData={
   isValid:true,

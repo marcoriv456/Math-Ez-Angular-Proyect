@@ -4,8 +4,7 @@ import {Term} from "../../models/terms/term.model";
 import {CharClickedNotifierService} from "../../services/char-clicked-notifier/char-clicked-notifier.service";
 import {InputCharData} from "../../models/input-char-data.model";
 import {WarningsService} from "../../services/warnings/warnings.service";
-import {TermValidationData} from "../../models/char-validation/validation-data.model";
-import {TermWarningMessageData} from "../../models/char-validation/warning-message-data.model";
+import {TermValidationData} from "../../validation/models/term-validation-data.model";
 import {TermValidator} from "../../validation/abstracts/validator.abstract";
 import {Subject} from "rxjs";
 

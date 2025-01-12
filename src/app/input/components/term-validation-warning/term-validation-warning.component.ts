@@ -1,8 +1,8 @@
 import {Component, ElementRef, inject, OnInit} from '@angular/core';
-import {TermWarningMessageData} from "../../models/char-validation/warning-message-data.model";
 import {WarningsService} from "../../services/warnings/warnings.service";
-import {WarningRenderData} from "../../models/char-validation/warning-render-data.model";
+import {WarningRenderData} from "../../validation/models/term-validation-warning-render-data.model";
 import {animate, style, transition, trigger} from "@angular/animations";
+import {TermValidationMessage} from "../../validation/models/term-validation-message.model";
 
 @Component({
   selector: 'term-validation-warning',
@@ -23,7 +23,7 @@ import {animate, style, transition, trigger} from "@angular/animations";
 })
 export class TermValidationWarningComponent implements OnInit{
   protected showingWarning=false
-  protected warningMessages:TermWarningMessageData[]=[]
+  protected warningMessages:TermValidationMessage[]=[]
   protected warningStyleData={ left:'50%', top:'0' }
   private warningsService=inject(WarningsService)
   private ref=inject(ElementRef).nativeElement as HTMLElement

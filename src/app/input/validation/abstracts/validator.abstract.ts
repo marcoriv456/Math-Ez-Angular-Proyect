@@ -1,5 +1,5 @@
 import {TermValidationMessage} from "../models/term-validation-message.model";
-import {TermValidationData} from "../../models/char-validation/validation-data.model";
+import {TermValidationData} from "../models/term-validation-data.model";
 
 export abstract class TermValidator {
   protected getValidationMessages():TermValidationMessage[]{

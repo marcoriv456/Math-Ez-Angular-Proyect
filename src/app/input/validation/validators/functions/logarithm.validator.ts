@@ -1,7 +1,6 @@
 import {TermValidator} from "../../abstracts/validator.abstract";
 import {TermValidationMessage} from "../../models/term-validation-message.model";
 import {FunctionComponent} from "../../../components/function/function.component";
-import {TermWarningMessageData} from "../../../models/char-validation/warning-message-data.model";
 
 export class LogarithmValidator extends TermValidator{
 
@@ -54,7 +53,7 @@ export class LogarithmValidator extends TermValidator{
       messages.push({message:"No existe exponente que genere 0.",type:"fully-invalid"})
   }
 
-  private warnBaseEqualToTen(messageList:TermWarningMessageData[]){
+  private warnBaseEqualToTen(messageList:TermValidationMessage[]){
     if(this.baseValue==10)
       messageList.push({type:'partially-invalid',message:'Aun si no se especifica, 10 es el valor por defecto de la base de un logaritmo.'})
   }

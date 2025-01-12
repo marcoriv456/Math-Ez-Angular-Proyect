@@ -13,8 +13,7 @@ import {CharValidator} from "../../validation/validators/char.validator";
 import {VariableProviderService} from "../../services/variable-provider/variable-provider.service";
 import {CharComponent} from "../../components/char/char.component";
 import {WarningsService} from "../../services/warnings/warnings.service";
-import {TermValidationData} from "../../models/char-validation/validation-data.model";
-import {TermWarningMessageData} from "../../models/char-validation/warning-message-data.model";
+import {TermValidationData} from "../../validation/models/term-validation-data.model";
 import {validTermValidation} from "../../validation/default-values/valid-term-validation";
 
 @Directive({
