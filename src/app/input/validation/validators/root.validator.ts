@@ -4,13 +4,13 @@ import {TermValidationMessage} from "../models/term-validation-message.model";
 
 export class RootValidator extends TermValidator{
   private readonly radicandValue:number
-  private readonly indexValue:number
-  private readonly indexStringValue:string
+  private readonly indexValue:number|undefined
+  private readonly indexStringValue:string|undefined
   constructor(
     rootComponent:RootComponent
   ) {
     super()
-    this.indexStringValue = rootComponent.indexComponent.toString
+    this.indexStringValue = rootComponent.indexComponent?.toString
     this.radicandValue = +rootComponent.radicandComponent.toString
     this.indexValue = +this.indexStringValue
   }
@@ -20,7 +20,7 @@ export class RootValidator extends TermValidator{
     if(!isNaN(this.radicandValue))
       this.validateRadicandValue(messages)
 
-    if(!isNaN(this.indexValue))
+    if(!isNaN(this.indexValue||NaN))
       this.validateIndexValue(messages)
 
     return messages;
@@ -38,7 +38,7 @@ export class RootValidator extends TermValidator{
 
 
   private invalidateNegativeRadicandAndOddIndex(messages:TermValidationMessage[]){
-    if(this.radicandValue < 0 && (this.indexValue%2==0  || this.indexStringValue==""))
+    if(this.radicandValue < 0 && (this.indexValue && this.indexValue%2==0  || this.indexStringValue==""))
       messages.push({message:'La raiz de un numero negativo con indice par dara un numero complejo.', type:'fully-invalid'})
   }
 
