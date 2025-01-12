@@ -10,7 +10,7 @@ import {InputEditableElement} from "../../directives/input-editable-element/inpu
   templateUrl: './parenthesis.component.html',
   styleUrls: ['./parenthesis.component.css','../../assets/editable-elements-styles.css']
 })
-export class ParenthesisComponent extends InputEditableElement implements AfterViewInit{
+export class ParenthesisComponent extends InputEditableElement{
   @ViewChild(TermContainerComponent)
   termContainer!: TermContainerComponent;
 
@@ -18,9 +18,5 @@ export class ParenthesisComponent extends InputEditableElement implements AfterV
   leftParenthesis!:ElementRef
   protected override get positionX(): number {
     return super.positionX+this.leftParenthesis.nativeElement.offsetWidth;
-  }
-
-  ngAfterViewInit() {
-    this.updateValidation()
   }
 }
