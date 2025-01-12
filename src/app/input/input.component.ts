@@ -30,6 +30,7 @@ import {CharVisibilityManager} from "./classes/char-visibility-manager.class";
 import {RootAdder} from "./classes/adders/root-adder.class";
 import {InputContextManager} from "./classes/input-context-manager.class";
 import {InputEditableElement} from "./directives/input-editable-element/input-editable-element.directive";
+import {SpecialCharFinder} from "./classes/special-char-finder.class";
 
 @Component({
   selector: 'app-input',
@@ -145,15 +146,13 @@ export class InputComponent implements AfterViewInit,OnInit {
   private onSpecialCtrlKeyDown(key:string){
     switch (key){
       case 'Backspace':
-        this.deleteTerms(
-          this.currentElement.getPrevSpecialCharFixedData().index+1,
-          this.currentElement.caretIndex-this.currentElement.getPrevSpecialCharFixedData().index)
+        this.deleteTermsUntilPrevSpecialChar()
         break;
       case 'ArrowRight':
-        this.moveCaretTo(this.currentElement.getNextSpecialCharFixedData())
+        this.moveToNextSpecialChar()
         break;
       case 'ArrowLeft':
-        this.moveCaretTo(this.currentElement.getPrevSpecialCharFixedData())
+        this.moveToPrevSpecialChar()
         break;
       case 'Home':
         this.moveCaretTo(this.termContainer.noCharData)
@@ -178,6 +177,28 @@ export class InputComponent implements AfterViewInit,OnInit {
   private getContextManager(){
     return new InputContextManager(this.currentElement,this.termContainer)
   }
+
+  private moveToNextSpecialChar(){
+    this.moveCaretTo(this.getCharFinder().getNextSpecialCharFixedData())
+  }
+
+  private moveToPrevSpecialChar(){
+    this.moveCaretTo(this.getCharFinder().getPrevSpecialCharFixedData())
+  }
+
+  private deleteTermsUntilPrevSpecialChar(){
+    const charFinder=this.getCharFinder()
+
+    const startIndex=charFinder.getPrevSpecialCharFixedData().index+1,
+          deleteCount= this.currentElement.caretIndex-charFinder.getPrevSpecialCharFixedData().index
+
+    this.deleteTerms(startIndex,deleteCount)
+  }
+
+  private getCharFinder(){
+    return new SpecialCharFinder(this.currentElement)
+  }
+
   // -----------CARET CONTEXT LOGIC------------
 // ------------------STRUCTURING LOGIC------------------
   private appendFraction(){

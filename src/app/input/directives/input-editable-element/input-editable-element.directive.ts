@@ -29,8 +29,6 @@ export abstract class InputEditableElement{
   public validationRequester=new Subject<void>()
   protected validatorClass!:{ new (component: any): TermValidator }|undefined
 
-  private readonly irregularCharRegexp=/[^a-zA-Z\d]/
-
   @HostListener('click',['$event'])
   private onClick(event:MouseEvent){
     event.stopPropagation()
@@ -74,47 +72,6 @@ export abstract class InputEditableElement{
   }
   get prevCharData(){
     return this.getCharData(this.caretIndex-1)||this.noCharData
-  }
-
-
-  getNextSpecialCharFixedData():InputCharData{
-    let nextSpecialChar=this.getNextSpecialCharData()
-
-    if(nextSpecialChar && nextSpecialChar.index-1!==this.caretIndex)
-      nextSpecialChar=this.renderedChars.get(nextSpecialChar.index-1)?.data
-
-    return nextSpecialChar||this.lastCharData
-  }
-
-  getNextSpecialCharData(){
-    for(let i=this.caretIndex+1; i<this.renderedChars.length;i++){
-      let char=this.getRenderedChar(i)
-      if(char && this.isCharIrregular(char.char))
-        return char.data
-    }
-    return;
-  }
-
-  getPrevSpecialCharFixedData(){
-    let prevSpecialChar=this.getPrevSpecialCharData()
-
-    if(prevSpecialChar&&prevSpecialChar.index==this.caretIndex)
-      prevSpecialChar=this.renderedChars.get(prevSpecialChar.index-1)?.data
-
-    return prevSpecialChar||this.noCharData
-  }
-
-  getPrevSpecialCharData(){
-    for(let i=this.caretIndex; i>=0;i--){
-      let char=this.getRenderedChar(i)
-      if(char && this.isCharIrregular(char.char))
-        return char.data
-    }
-    return;
-  }
-
-  private isCharIrregular(char:string){
-    return this.irregularCharRegexp.test(char)
   }
 
   get lastCharData(){
@@ -166,9 +123,4 @@ export abstract class InputEditableElement{
   }
 
   // ----------------------VALIDATION LOGIC----------------------
-  // ----------------------SELECTION LOGIC----------------------
-
-  // ----------------------SELECTION LOGIC----------------------
-
-
 }

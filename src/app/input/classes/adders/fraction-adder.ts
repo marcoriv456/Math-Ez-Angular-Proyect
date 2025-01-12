@@ -4,6 +4,7 @@ import {ChangeDetectorRef} from "@angular/core";
 import {InputCharData} from "../../models/input-char-data.model";
 import {FractionChildComponent} from "../../components/fraction/fraction-child/fraction-child.component";
 import {InputEditableElement} from "../../directives/input-editable-element/input-editable-element.directive";
+import {SpecialCharFinder} from "../special-char-finder.class";
 
 export class FractionAdder{
   constructor(
@@ -21,8 +22,11 @@ export class FractionAdder{
 
   private setupFractionData(){
     this.origin=this.currentElement.nextIndex
-    this.from=(this.currentElement.getPrevSpecialCharData()?.index||-1)+1
-    this.to=(this.currentElement.getNextSpecialCharData()?.index||this.currentElement.lastCharData.index+1)
+
+    const charFinder=new SpecialCharFinder(this.currentElement)
+    this.from=(charFinder.getPrevSpecialCharData()?.index||-1)+1
+    this.to=(charFinder.getNextSpecialCharData()?.index||this.currentElement.lastCharData.index+1)
+
     this.prevChars=this.currentElement.terms.slice(this.from,this.origin)
     this.nextChars=this.currentElement.terms.slice(this.origin,this.to)
   }
