@@ -1,6 +1,6 @@
 import {Component, ElementRef, inject, OnInit} from '@angular/core';
 import {WarningsService} from "../../services/warnings/warnings.service";
-import {WarningRenderData} from "../../validation/models/term-validation-warning-render-data.model";
+import {TermValidationWarningRenderData} from "../../validation/models/term-validation-warning-render-data.model";
 import {animate, style, transition, trigger} from "@angular/animations";
 import {TermValidationMessage} from "../../validation/models/term-validation-message.model";
 
@@ -33,7 +33,7 @@ export class TermValidationWarningComponent implements OnInit{
     this.warningsService.hideWarning.subscribe(this.hideWarning.bind(this))
   }
 
-  private showWarning({messages,position}:WarningRenderData){
+  private showWarning({messages,position}:TermValidationWarningRenderData){
     this.showingWarning=true
 
     this.warningStyleData.left=position.x-this.ref.getBoundingClientRect().left + 'px'

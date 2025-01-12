@@ -17,7 +17,7 @@ import {WarningsService} from "./services/warnings/warnings.service";
 import {animate, style, transition, trigger} from "@angular/animations";
 import {VariableProviderService} from "./services/variable-provider/variable-provider.service";
 import {InputCharData} from "./models/input-char-data.model";
-import {WarningRenderData} from "./validation/models/term-validation-warning-render-data.model";
+import {TermValidationWarningRenderData} from "./validation/models/term-validation-warning-render-data.model";
 import {EditableTermContainerComponent} from "./components/editable-term-container/editable-term-container.component";
 import {CharClickedNotifierService} from "./services/char-clicked-notifier/char-clicked-notifier.service";
 import {FractionAdder} from "./classes/adders/fraction-adder";
