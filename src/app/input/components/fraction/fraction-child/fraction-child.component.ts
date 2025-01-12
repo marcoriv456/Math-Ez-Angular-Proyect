@@ -1,19 +1,4 @@
-import {
-  AfterViewInit, ChangeDetectorRef,
-  Component,
-  ElementRef,
-  EventEmitter,
-  HostBinding,
-  inject,
-  Input, OnInit,
-  Output,
-  QueryList, ViewChild,
-  ViewChildren
-} from '@angular/core';
-import {InputCharData} from "../../../models/input-char-data.model";
-import {TermContainerComponent} from "../../term-container/term-container.component";
-import {TermWarningMessageData} from "../../../models/char-validation/warning-message-data.model";
-import {InputEditableElement} from "../../../directives/input-editable-element/input-editable-element.directive";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FractionNumeratorValidator} from "../../../validation/validators/fraction/fraction-numerator.validator";
 import {FractionDenominatorValidator} from "../../../validation/validators/fraction/fraction-denominator.validator";
 import {AuxiliaryEditableElement} from "../../../classes/auxiliar-editable-element.class";
@@ -24,19 +9,13 @@ import {AuxiliaryEditableElement} from "../../../classes/auxiliar-editable-eleme
   styleUrls: ['./fraction-child.component.css','../../../assets/editable-elements-styles.css']
 })
 export class FractionChildComponent extends AuxiliaryEditableElement implements OnInit{
-  @Output()
-  termDeleted=new EventEmitter<void>
   @Input()
   type!:'numerator'|'denominator'
 
-  cdr=inject(ChangeDetectorRef)
-
-  override get noCharData(): InputCharData {
-    let data=super.noCharData
-    this.cdr.detectChanges()
-    data.positionX = this.terms.length==0 ?
-      data.positionX+this.ref.offsetWidth/2 : (this.renderedChars.get(0)?.leftPosition||0)
-    return data
+  override get positionX(){
+    if(this.terms.length==0)
+      return super.positionX+this.ref.offsetWidth/2
+    return this.renderedChars.get(0)?.leftPosition||0
   }
 
   ngOnInit() {
