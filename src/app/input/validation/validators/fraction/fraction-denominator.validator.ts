@@ -4,9 +4,11 @@ import {TermValidator} from "../../abstracts/validator.abstract";
 
 export class FractionDenominatorValidator extends TermValidator{
   denominatorValue:number
+  denominatorStringValue:string
   constructor(denominatorComponent:FractionChildComponent) {
     super()
-    this.denominatorValue = +denominatorComponent.toString
+    this.denominatorStringValue = denominatorComponent.toString
+    this.denominatorValue = +this.denominatorStringValue
   }
 
   protected override getValidationMessages(): TermValidationMessage[] {
@@ -27,7 +29,7 @@ export class FractionDenominatorValidator extends TermValidator{
   }
 
   private invalidateZeroAsDenominator(messages:TermValidationMessage[]){
-    if(this.denominatorValue==0)
+    if(this.denominatorValue==0 && this.denominatorStringValue!=="")
       messages.push({message:"Cualquier division entre 0 esta indefinida.",type:'fully-invalid'})
   }
 }

@@ -4,10 +4,12 @@ import {TermValidator} from "../../abstracts/validator.abstract";
 
 export class FractionNumeratorValidator extends TermValidator{
   private readonly numeratorValue:number
+  private readonly numeratorStringValue:string
 
   constructor(numeratorComponent:FractionChildComponent) {
     super();
-    this.numeratorValue = +numeratorComponent.toString
+    this.numeratorStringValue = numeratorComponent.toString
+    this.numeratorValue = +this.numeratorStringValue
   }
 
   protected override getValidationMessages(): TermValidationMessage[] {
@@ -22,7 +24,7 @@ export class FractionNumeratorValidator extends TermValidator{
   }
 
   private warnZeroAsNumerator(messages:TermValidationMessage[]){
-    if(this.numeratorValue==0)
+    if(this.numeratorValue==0 && this.numeratorStringValue!=='')
       messages.push({message:'Cuando el numerador es 0, la fracción siempre resulta igual a 0.',type:'partially-invalid'})
   }
 }

@@ -8,12 +8,16 @@ import {TermValidationData} from "../../../models/char-validation/validation-dat
 export class FractionValidator extends TermValidator{
   private readonly numeratorValue:number
   private readonly denominatorValue:number
+  private readonly numeratorStringValue:string
+  private readonly denominatorStringValue:string
 
 
   constructor(private fractionComponent: FractionComponent) {
     super();
-    this.numeratorValue= +(fractionComponent.numeratorComponent.asEditableElement?.toString ||"")
-    this.denominatorValue= +(fractionComponent.denominatorComponent.asEditableElement?.toString ||"")
+    this.numeratorStringValue = (fractionComponent.numeratorComponent.asEditableElement?.toString ||"")
+    this.denominatorStringValue = (fractionComponent.denominatorComponent.asEditableElement?.toString ||"")
+    this.numeratorValue = +this.numeratorStringValue
+    this.denominatorValue = +this.denominatorStringValue
   }
 
   protected override getValidationMessages(): TermValidationMessage[] {
@@ -25,7 +29,7 @@ export class FractionValidator extends TermValidator{
   }
 
   private invalidateIndetermination(messages:TermValidationMessage[]){
-    if(this.numeratorValue==0 && this.denominatorValue==0){
+    if(this.numeratorValue==0 && this.denominatorValue==0 && this.numeratorStringValue!=='' && this.denominatorStringValue!==''){
       messages.push({message:"Dividir 0 sobre 0 da un resultado indeterminado.", type:'fully-invalid'})
       this.removeChildrenValidation()
     }
