@@ -7,12 +7,15 @@ export class LogarithmValidator extends TermValidator{
 
   private readonly baseValue:number
   private readonly argumentValue:number
+  private readonly baseStringValue:string
+  private readonly argumentStringValue:string
 
   constructor(functionComponent:FunctionComponent) {
     super();
-    this.baseValue = +functionComponent.baseComponent.toString
-    this.argumentValue = +functionComponent.argumentContainer.toString
-
+    this.baseStringValue = functionComponent.baseComponent.toString
+    this.argumentStringValue = functionComponent.argumentContainer.toString
+    this.baseValue = +this.baseStringValue
+    this.argumentValue = +this.argumentStringValue
   }
 
   protected override getValidationMessages(): TermValidationMessage[] {
@@ -37,7 +40,7 @@ export class LogarithmValidator extends TermValidator{
 
 
   private invalidateBaseLessOrEqualToOne(messages:TermValidationMessage[]){
-    if(this.baseValue <= 1)
+    if(this.baseValue <= 1 && this.baseStringValue!=='')
       messages.push({message:"La base de un logaritmo debe de ser un numero positivo distinto de 1.",type:"fully-invalid"})
   }
 
@@ -47,8 +50,8 @@ export class LogarithmValidator extends TermValidator{
   }
 
   private invalidateArgumentEqualThanZero(messages:TermValidationMessage[]){
-    if(this.argumentValue == 0)
-      messages.push({message:"No existe exponent que genere 0.",type:"fully-invalid"})
+    if(this.argumentValue == 0 && this.argumentStringValue!=='')
+      messages.push({message:"No existe exponente que genere 0.",type:"fully-invalid"})
   }
 
   private warnBaseEqualToTen(messageList:TermWarningMessageData[]){
