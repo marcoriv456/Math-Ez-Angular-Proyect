@@ -12,13 +12,18 @@ export class FunctionAdder{
 
   private from!:number
   private to!:number
-  private generatedFunctionTerm!:Term
   private functionCoincidenceIndices:RegExpIndicesArray|undefined
   private foundFunctionName!:string
+  private functionArgumentTerms:Term[]|undefined
 
   public appendFunction(){
-    this.currentElement.replace(this.from,this.to-this.from+1,[this.generatedFunctionTerm])
+    this.checkParenthesisAutofillAvailability()
+    this.currentElement.replace(this.from,this.to-this.from+1,[this.generateFunctionTerm()])
     this.cdr.detectChanges()
+
+    if(this.functionArgumentTerms)
+      return this.currentElement.nextCharData
+
     const renderedFunction=this.currentElement.getRenderedChar(this.currentElement.nextIndex-this.foundFunctionName.length)?.asEditableElement as FunctionComponent,
           elementToContextAt=renderedFunction.argumentComponent || renderedFunction.mainContainer
     return elementToContextAt.noCharData
@@ -33,12 +38,7 @@ export class FunctionAdder{
   private setupValues(){
     if(!this.functionCoincidenceIndices)
       return;
-    this.generatedFunctionTerm={
-      type:'function',
-      functionName:this.foundFunctionName,
-      functionChildren:[],
-      argumentTerms:this.foundFunctionName=='log'?[]:undefined
-    }
+
     this.from=this.functionCoincidenceIndices[0][0]
     this.to=this.functionCoincidenceIndices[0][1]-1
   }
@@ -56,6 +56,23 @@ export class FunctionAdder{
     }
     this.functionCoincidenceIndices=coincidence?.indices
     this.foundFunctionName=foundFunction
+  }
+
+  private checkParenthesisAutofillAvailability(){
+    const nextTerm= this.currentElement.terms[this.to+1]
+    if(!nextTerm || nextTerm.type!=='parenthesis')
+      return;
+    this.to++
+    this.functionArgumentTerms=nextTerm.parenthesisChildren
+  }
+
+  private generateFunctionTerm():Term{
+    return{
+      type:"function",
+      functionName:this.foundFunctionName,
+      functionChildren:this.functionArgumentTerms||[],
+      argumentTerms:this.foundFunctionName=='log' ? [] : undefined
+    }
   }
 
 }
