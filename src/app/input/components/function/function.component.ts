@@ -20,17 +20,17 @@ export class FunctionComponent extends InputEditableElement implements OnInit{
   @ViewChild('functionNameLabel')
   functionNameLabel!:ElementRef
   @Input()
-  argumentTerms?:Term[]
+  baseTerms?:Term[]
   override editable=false
   @ViewChildren(InputTermDirective)
   _renderedChars!:QueryList<InputTermDirective>;
   override get renderedChars(): QueryList<InputTermDirective> {
     return this._renderedChars
   }
-  @ViewChild('functionMainContainer')
-  mainContainer!:EditableTermContainerComponent
-  @ViewChild('functionArgument')
-  argumentComponent!:EditableTermContainerComponent
+  @ViewChild('functionArgumentContainer')
+  argumentContainer!:EditableTermContainerComponent
+  @ViewChild('functionBaseComponent')
+  baseComponent!:EditableTermContainerComponent
 
   ngOnInit() {
     switch (this.functionName){

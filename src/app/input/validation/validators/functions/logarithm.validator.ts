@@ -10,8 +10,8 @@ export class LogarithmValidator extends TermValidator{
 
   constructor(functionComponent:FunctionComponent) {
     super();
-    this.baseValue = +functionComponent.argumentComponent.toString
-    this.argumentValue = +functionComponent.mainContainer.toString
+    this.baseValue = +functionComponent.baseComponent.toString
+    this.argumentValue = +functionComponent.argumentContainer.toString
 
   }
 

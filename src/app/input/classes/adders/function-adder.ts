@@ -25,7 +25,7 @@ export class FunctionAdder{
       return this.currentElement.nextCharData
 
     const renderedFunction=this.currentElement.getRenderedChar(this.currentElement.nextIndex-this.foundFunctionName.length)?.asEditableElement as FunctionComponent,
-          elementToContextAt=renderedFunction.argumentComponent || renderedFunction.mainContainer
+          elementToContextAt=renderedFunction.baseComponent || renderedFunction.argumentContainer
     return elementToContextAt.noCharData
   }
 
