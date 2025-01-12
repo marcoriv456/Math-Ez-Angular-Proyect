@@ -5,25 +5,22 @@ import {TermContainerComponent} from "../term-container/term-container.component
 import {EditableTermContainerComponent} from "../editable-term-container/editable-term-container.component";
 import {InputEditableElement} from "../../directives/input-editable-element/input-editable-element.directive";
 import {LogarithmValidator} from "../../validation/validators/functions/logarithm.validator";
+import {
+  InputNonEditableElement
+} from "../../directives/input-non-editable-element/input-non-editable-element.directive";
 
 @Component({
   selector: 'function',
   templateUrl: './function.component.html',
   styleUrls: ['./function.component.css','../../assets/editable-elements-styles.css']
 })
-export class FunctionComponent extends InputEditableElement implements OnInit{
-  @ViewChild(TermContainerComponent)
-  termContainer!: TermContainerComponent;
-
+export class FunctionComponent extends InputNonEditableElement implements OnInit{
   @Input()
   functionName!:string
   @ViewChild('functionNameLabel')
   functionNameLabel!:ElementRef
   @Input()
   baseTerms?:Term[]
-  override editable=false
-  @ViewChildren(InputTermDirective)
-  _renderedChars!:QueryList<InputTermDirective>;
   override get renderedChars(): QueryList<InputTermDirective> {
     return this._renderedChars
   }

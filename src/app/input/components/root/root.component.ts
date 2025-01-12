@@ -6,23 +6,18 @@ import {EditableTermContainerComponent} from "../editable-term-container/editabl
 import {TermArgumentComponent} from "../term-argument/term-argument.component";
 import {InputEditableElement} from "../../directives/input-editable-element/input-editable-element.directive";
 import {RootValidator} from "../../validation/validators/root.validator";
+import {
+  InputNonEditableElement
+} from "../../directives/input-non-editable-element/input-non-editable-element.directive";
 
 @Component({
   selector: 'root',
   templateUrl: './root.component.html',
   styleUrls: ['./root.component.css','../../assets/editable-elements-styles.css']
 })
-export class RootComponent extends InputEditableElement{
-  @ViewChild(TermContainerComponent)
-  termContainer!: TermContainerComponent;
-
-  @ViewChildren(InputTermDirective)
-  _renderedChars!:QueryList<InputTermDirective>
-
+export class RootComponent extends InputNonEditableElement{
   @Input()
   radicalTerms?:Term[]
-
-  override editable=false
 
   @ViewChild('radicandComponent')
   radicandComponent!:EditableTermContainerComponent
