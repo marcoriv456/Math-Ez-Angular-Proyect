@@ -17,8 +17,8 @@ export class FractionAdder{
   private origin!:number
   private from!:number
   private to!:number
-  private prevChars!:Term[]
-  private nextChars!:Term[]
+  private numeratorChars!:Term[]
+  private denominatorChars!:Term[]
 
   private setupFractionData(){
     this.origin=this.currentElement.nextIndex
@@ -27,32 +27,31 @@ export class FractionAdder{
     this.from=(charFinder.getPrevSpecialCharData()?.index||-1)+1
     this.to=(charFinder.getNextSpecialCharData()?.index||this.currentElement.lastCharData.index+1)
 
-    this.prevChars=this.currentElement.terms.slice(this.from,this.origin)
-    this.nextChars=this.currentElement.terms.slice(this.origin,this.to)
+    this.numeratorChars=this.currentElement.terms.slice(this.from,this.origin)
+    this.denominatorChars=this.currentElement.terms.slice(this.origin,this.to)
   }
 
   public appendFraction():InputCharData{
     this.appendFractionToCurrentElement()
+
     this.cdr.detectChanges()
-    let isFractionFilled=this.prevChars.length && this.nextChars.length
-    if(!isFractionFilled)
-      return this.moveCaretToEmptyFractionChild()
-    return this.currentElement.getCharData(this.from-1)||this.currentElement.noCharData
+
+    return this.moveCaretToFractionChild()
   }
 
   private appendFractionToCurrentElement(){
     this.currentElement.replace(this.from, this.to-this.from,[{
-      numeratorChildren:this.prevChars,
-      denominatorChildren:this.nextChars,
+      numeratorChildren:this.numeratorChars,
+      denominatorChildren:this.denominatorChars,
       type:'fraction'
     }])
   }
 
-  private moveCaretToEmptyFractionChild(){
+  private moveCaretToFractionChild(){
     let appendedFrac=this.currentElement.getRenderedChar(this.from)?.asEditableElement as FractionComponent
-    if(!this.nextChars.length)
-      return (appendedFrac.denominatorComponent.asEditableElement as FractionChildComponent).noCharData
-    return (appendedFrac.numeratorComponent.asEditableElement as FractionChildComponent).noCharData
+    if(!this.numeratorChars.length)
+      return (appendedFrac.numeratorComponent.asEditableElement as FractionChildComponent).noCharData
+    return (appendedFrac.denominatorComponent.asEditableElement as FractionChildComponent).noCharData
   }
 
 }
