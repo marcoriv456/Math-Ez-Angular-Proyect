@@ -14,21 +14,21 @@ export abstract class InputEditableElement{
 
   protected abstract termContainer: TermContainerComponent
   @Input()
-  public terms!:Term[]
+  public readonly terms!:Term[]
   @Input()
-  public parent!:InputEditableElement|undefined
+  public readonly parent!:InputEditableElement|undefined
   @Input()
-  public index!:number
+  public readonly index!:number
 
-  public ref=inject(ElementRef).nativeElement as HTMLElement
+  public readonly ref=inject(ElementRef).nativeElement as HTMLElement
 
-  public editable=true
+  public readonly editable:boolean=true
   public caretIndex=-1
 
   @HostBinding('class.selected')
   public selected=false
 
-  public validationRequester=new Subject<void>()
+  public readonly validationRequester=new Subject<void>()
   protected validatorClass!:{ new (component: any): TermValidator }|undefined
 
 
