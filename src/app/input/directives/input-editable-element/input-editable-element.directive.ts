@@ -29,13 +29,6 @@ export abstract class InputEditableElement{
   public validationRequester=new Subject<void>()
   protected validatorClass!:{ new (component: any): TermValidator }|undefined
 
-  @HostListener('click',['$event'])
-  private onClick(event:MouseEvent){
-    event.stopPropagation()
-    if(this.editable)
-      this.inputUtilitiesService.charClicked.emit(this.lastCharData)
-  }
-
   get validator(){
     if(this.validatorClass)
       return new this.validatorClass(this)

@@ -162,6 +162,11 @@ export class InputComponent implements AfterViewInit,OnInit {
         break;
     }
   }
+
+  @HostListener('click')
+  private onClick(){
+    this.moveCaretTo(this.termContainer.lastCharData)
+  }
   // ------------INPUT MAPPING-------------
   // -----------CARET CONTEXT LOGIC------------
   private moveToNextElement(){

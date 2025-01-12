@@ -23,9 +23,8 @@ export class InputTermDirective implements AfterViewInit,OnDestroy{
   @Input('inputTerm')
   input!:{char:string, index:number,editableElementRef?:InputEditableElement,charClassRef?:CharComponent,parent:InputEditableElement}
   ref=inject(ElementRef).nativeElement as HTMLElement
-  inputUtilitiesService=inject(CharClickedNotifierService)
+  charClickedNotifier=inject(CharClickedNotifierService)
 
-  // private validator:TermValidator|undefined
   private get validator():TermValidator|undefined{
     if(this.asEditableElement)
       return this.asEditableElement.validator
@@ -33,6 +32,7 @@ export class InputTermDirective implements AfterViewInit,OnDestroy{
       return new CharValidator(this.asCharComponent)
     return;
   }
+
   private readonly defaultValidationData:TermValidationData={
     isValid:true,
     messages:[]
@@ -40,11 +40,7 @@ export class InputTermDirective implements AfterViewInit,OnDestroy{
 
   ngAfterViewInit() {
     if(this.asEditableElement)
-      this.asEditableElement.validationRequester.subscribe(()=>{
-        this.updateValidation()
-        console.log("requester called, validation: ", this.validator)
-
-      })
+      this.asEditableElement.validationRequester.subscribe(()=>this.updateValidation())
     this.updateValidation()
   }
 
@@ -111,22 +107,33 @@ export class InputTermDirective implements AfterViewInit,OnDestroy{
   @HostListener('click',['$event'])
   private onClick(event:MouseEvent){
     event.stopPropagation()
-    if(this.asEditableElement)
-      return;
-    let {offsetX}=event
-    let wasClickOnLeftSide=this.wasClickOnLeftSide(offsetX)
-    let dataToSend=this.data
-    if(wasClickOnLeftSide){
-      dataToSend.positionX=this.leftPosition
-      dataToSend.index-=1
-    }
-    dataToSend.parent=this.parent
-    this.inputUtilitiesService.charClicked.emit(dataToSend)
+    const clickPosition=event.clientX-this.absoluteLeftPosition
+
+    let dataToSend:InputCharData
+
+    if(this.asEditableElement && this.asEditableElement.editable)
+      dataToSend=this.asEditableElement.noCharData
+    else
+      dataToSend=this.getClickedCharData(clickPosition)
+
+    this.charClickedNotifier.charClicked.emit(dataToSend)
   }
 
-  private wasClickOnLeftSide(clickOffset:number){
-    return this.ref.offsetWidth/2>clickOffset
+  private getClickedCharData(clickPosition:number){
+    let charData=this.data
+
+    if(this.wasClickOnLeftSide(clickPosition)){
+      charData.positionX=this.leftPosition
+      charData.index-=1
+    }
+
+    return charData
   }
+
+  private wasClickOnLeftSide(clickPosition:number){
+    return this.ref.offsetWidth/2>clickPosition
+  }
+
   // --------------VALIDATION LOGIC------------------
   isMouseOver=false
   warningsService=inject(WarningsService)
