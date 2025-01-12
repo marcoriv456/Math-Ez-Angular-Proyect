@@ -22,3 +22,6 @@
   border-radius: 0.1em;
 }
 
+:host.empty{
+  border: dashed 1px #666;
+}

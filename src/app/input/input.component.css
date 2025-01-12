@@ -74,7 +74,7 @@
   display: grid;
   place-items: center;
 }
-term-container:not(:has(*)){
+editable-term-container.empty{
   border: none;
 }
 @keyframes blink {
