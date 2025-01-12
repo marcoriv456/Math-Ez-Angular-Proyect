@@ -24,10 +24,10 @@ export class RootComponent extends InputEditableElement{
 
   override editable=false
 
-  @ViewChild('rootMainContainer')
-  mainComponent!:EditableTermContainerComponent
-  @ViewChild('rootArgument')
-  argumentComponent!:TermArgumentComponent
+  @ViewChild('radicandComponent')
+  radicandComponent!:EditableTermContainerComponent
+  @ViewChild('indexComponent')
+  indexComponent!:TermArgumentComponent
 
   override get renderedChars(): QueryList<InputTermDirective> {
     return this._renderedChars;

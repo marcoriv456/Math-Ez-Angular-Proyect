@@ -22,6 +22,6 @@ export class RootAdder{
     this.cdr.detectChanges()
 
     let appendedRoot=this.currentElement.getRenderedChar(this.currentElement.nextIndex)?.asEditableElement as RootComponent
-    return (appendedRoot.argumentComponent || appendedRoot.mainComponent).noCharData
+    return (appendedRoot.indexComponent || appendedRoot.radicandComponent).noCharData
   }
 }

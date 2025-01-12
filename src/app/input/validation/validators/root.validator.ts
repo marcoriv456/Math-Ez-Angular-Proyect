@@ -9,8 +9,8 @@ export class RootValidator extends TermValidator{
     rootComponent:RootComponent
   ) {
     super()
-    this.radicandValue = +rootComponent.mainComponent.toString
-    this.indexValue = +rootComponent.argumentComponent.toString
+    this.radicandValue = +rootComponent.radicandComponent.toString
+    this.indexValue = +rootComponent.indexComponent.toString
   }
 
   protected override getValidationMessages(): TermValidationMessage[] {
