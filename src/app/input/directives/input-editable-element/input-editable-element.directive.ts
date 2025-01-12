@@ -72,7 +72,7 @@ export abstract class InputEditableElement{
   }
 
   public get noCharData():InputCharData{
-    return {index:-1,positionX:this.positionX,positionY:this.positionY,size:this.size, parent:this}
+    return {index:-1,positionX:this.positionX, parent:this}
   }
 
   public get nextIndex(){

@@ -38,9 +38,7 @@ export class InputTermDirective implements OnInit,AfterViewInit,OnDestroy{
   get data():InputCharData{
     return {
       positionX:this.rightPosition,
-      positionY:this.topPosition,
       index:this.index,
-      size:this.size,
       parent:this.parent
     }
   }
@@ -55,10 +53,6 @@ export class InputTermDirective implements OnInit,AfterViewInit,OnDestroy{
 
   get index(){
     return this.input.index
-  }
-
-  private get size(){
-    return this.ref.offsetHeight
   }
 
   get parent(){
