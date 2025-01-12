@@ -15,6 +15,7 @@ import {CharComponent} from "../../components/char/char.component";
 import {WarningsService} from "../../services/warnings/warnings.service";
 import {TermValidationData} from "../../models/char-validation/validation-data.model";
 import {TermWarningMessageData} from "../../models/char-validation/warning-message-data.model";
+import {validTermValidation} from "../../validation/default-values/valid-term-validation";
 
 @Directive({
   selector: '[inputTerm]'
@@ -26,7 +27,7 @@ export class InputTermDirective implements OnInit,AfterViewInit,OnDestroy{
   charClickedNotifier=inject(CharClickedNotifierService)
 
   ngOnInit() {
-    this.validationData=this.defaultValidationData
+    this.validationData=validTermValidation
   }
 
   ngAfterViewInit() {
@@ -124,10 +125,6 @@ export class InputTermDirective implements OnInit,AfterViewInit,OnDestroy{
 
   private isMouseOver=false
   private readonly warningsService=inject(WarningsService)
-  private readonly defaultValidationData:TermValidationData={
-    isValid:true,
-    messages:[]
-  }
 
   private get validator():TermValidator|undefined{
     if(this.asEditableElement)
