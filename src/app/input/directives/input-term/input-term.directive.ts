@@ -19,23 +19,14 @@ import {TermWarningMessageData} from "../../models/char-validation/warning-messa
 @Directive({
   selector: '[inputTerm]'
 })
-export class InputTermDirective implements AfterViewInit,OnDestroy{
+export class InputTermDirective implements OnInit,AfterViewInit,OnDestroy{
   @Input('inputTerm')
   input!:{char:string, index:number,editableElementRef?:InputEditableElement,charClassRef?:CharComponent,parent:InputEditableElement}
   ref=inject(ElementRef).nativeElement as HTMLElement
   charClickedNotifier=inject(CharClickedNotifierService)
 
-  private get validator():TermValidator|undefined{
-    if(this.asEditableElement)
-      return this.asEditableElement.validator
-    else if(this.asCharComponent)
-      return new CharValidator(this.asCharComponent)
-    return;
-  }
-
-  private readonly defaultValidationData:TermValidationData={
-    isValid:true,
-    messages:[]
+  ngOnInit() {
+    this.validationData=this.defaultValidationData
   }
 
   ngAfterViewInit() {
@@ -135,33 +126,50 @@ export class InputTermDirective implements AfterViewInit,OnDestroy{
   }
 
   // --------------VALIDATION LOGIC------------------
-  isMouseOver=false
-  warningsService=inject(WarningsService)
-  validationData:TermValidationData=this.defaultValidationData
+  public validationData!:TermValidationData
+
+  private isMouseOver=false
+  private readonly warningsService=inject(WarningsService)
+  private readonly defaultValidationData:TermValidationData={
+    isValid:true,
+    messages:[]
+  }
+
+  private get validator():TermValidator|undefined{
+    if(this.asEditableElement)
+      return this.asEditableElement.validator
+    else if(this.asCharComponent)
+      return new CharValidator(this.asCharComponent)
+    return;
+  }
+
   @HostBinding('class')
   get validityClassBinding(){
     return this.validationData.type
   }
+
   @HostListener('mouseover')
-  onMouseOver(  ){
+  private onMouseOver(){
     if(this.validationData.isValid)
       return;
     this.emitShowWarning()
     this.isMouseOver=true
   }
+
   @HostListener('mouseleave')
-  onMouseLeave(){
+  private onMouseLeave(){
     if(this.validationData.isValid)
       return;
     this.emitHideWarning()
     this.isMouseOver=false
   }
+
   ngOnDestroy() {
     if(this.isMouseOver)
       this.emitHideWarning()
   }
 
-  updateValidation(){
+  public updateValidation(){
     if(!this.validator)
       return;
     this.setValidationData(this.validator.validate())
@@ -182,6 +190,5 @@ export class InputTermDirective implements AfterViewInit,OnDestroy{
   private setValidationData(data:TermValidationData){
     this.validationData=data
   }
-
   // --------------VALIDATION LOGIC------------------
 }
