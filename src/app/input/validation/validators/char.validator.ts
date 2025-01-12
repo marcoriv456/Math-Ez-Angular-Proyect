@@ -4,7 +4,7 @@ import {VariableProviderService} from "../../services/variable-provider/variable
 import {CharComponent} from "../../components/char/char.component";
 
 export class CharValidator extends TermValidator{
-  private readonly letterRegex=/^[a-zA-Z]$/
+  private readonly letterRegex=/^[^0-9+\-*/=()]$/
   private readonly invalidReferenceMessage:TermValidationMessage
   private variableProvider:VariableProviderService
 
