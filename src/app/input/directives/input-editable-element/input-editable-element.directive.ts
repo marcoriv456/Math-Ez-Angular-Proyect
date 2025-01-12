@@ -29,7 +29,7 @@ export abstract class InputEditableElement{
   public selected=false
   @HostBinding('class.empty')
   private get isEmpty(){
-    return this.terms&&this.terms.length==0
+    return this.terms && this.terms.length==0 && this.editable
   }
 
   public readonly validationRequester=new Subject<void>()
