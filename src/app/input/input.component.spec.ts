@@ -460,7 +460,7 @@ fdescribe('InputComponent', () => {
 
         it('having the caret placed next to an irregular character, when the user presses ctrl + left, it should move the caret back of the irregular character', () => {
           pressKeys(...'12+13')
-          pressCtrlKeyAnd('ArrowLeft')
+          moveBackward(2)
 
           pressCtrlKeyAnd('ArrowLeft')
 
@@ -469,8 +469,7 @@ fdescribe('InputComponent', () => {
 
         it('having the caret placed behind an irregular character, when the user presses ctrl + right, it should move the caret next to the irregular character', () => {
           pressKeys(...'12+13')
-          pressCtrlKeyAnd('ArrowLeft')
-          pressKeys('ArrowLeft')
+          moveBackward(3)
 
           pressCtrlKeyAnd('ArrowRight')
 
@@ -493,10 +492,6 @@ fdescribe('InputComponent', () => {
 
           expectCaretPosition(0)
         });
-
-
-
-
       });
     });
     //--------------------- USER INTERACTION TESTS---------------------
