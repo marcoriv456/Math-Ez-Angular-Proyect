@@ -508,6 +508,15 @@ fdescribe('InputComponent', () => {
         const expectCaretHeight = (heightToExpect:number) => {
           expect(getCaretHeight()).toBeCloseTo(heightToExpect)
         }
+
+        const helloInTerms:Term[]=[
+          {type:'char', char:'h'},
+          {type:'char', char:'e'},
+          {type:'char', char:'l'},
+          {type:'char', char:'l'},
+          {type:'char', char:'o'}
+        ]
+
         describe('Caret changes writing inside a fraction', ()=>{
           const expectedTerm:Term={
             type:'fraction',
@@ -594,6 +603,27 @@ fdescribe('InputComponent', () => {
             expectCaretPosition(getRightBorderPositionOfChar(4))
           });
         })
+
+        describe('Caret changes when writing inside a parenthesis', () => {
+          const expectedTerm:Term= {
+            type:'parenthesis',
+            parenthesisChildren:helloInTerms
+          }
+
+          it('when the user writes something inside a parenthesis, it should modify the caret height', () => {
+            pressKeys(...'(hello)', 'ArrowLeft')
+
+            expectTerms(expectedTerm)
+            expectCaretHeight(getCharHeight(4))
+          });
+
+          it('when the user writes something inside a parenthesis, it should modify the caret position', () => {
+            pressKeys(...'(hello)', 'ArrowLeft')
+
+            expectTerms(expectedTerm)
+            expectCaretPosition(getRightBorderPositionOfChar(4))
+          });
+        });
 
       });
 
