@@ -625,19 +625,17 @@ fdescribe('InputComponent', () => {
             return +computedBorderWidth.slice(0,computedBorderWidth.length-2)
           }
 
-
-          it('when the user writes something inside a root, it should modify the caret height', () => {
+          beforeEach(()=>{
             pressCtrlKeyAnd('r')
             pressKeys(...'hello')
+          })
 
+          it('should modify the caret height', () => {
             expectTerms(expectedTerm)
             expectCaretHeight(getCharHeight(4)+getRootTopBorderAnchor())
           });
 
-          it('when the user writes something inside a root, it should modify the caret position', () => {
-            pressCtrlKeyAnd('r')
-            pressKeys(...'hello')
-
+          it('should modify the caret position', () => {
             expectTerms(expectedTerm)
             expectCaretPosition(getRightBorderPositionOfChar(4))
           });
