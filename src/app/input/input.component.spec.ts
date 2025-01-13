@@ -394,6 +394,7 @@ fdescribe('InputComponent', () => {
       }
 
       const expectCaretPosition = (expectedPosition:number) => {
+        fixture.detectChanges()
         expect(getCaretPosition()).toBeCloseTo(expectedPosition,1)
       }
 
@@ -447,10 +448,55 @@ fdescribe('InputComponent', () => {
 
           pressCtrlKeyAnd('ArrowRight')
 
-          fixture.detectChanges()
+          expectCaretPosition(getLeftBorderPositionOfChar(2))
+        });
+        it('having irregular characters already written, when the user preses ctrl + left, it should move the caret next to the previous irregular character', () => {
+          pressKeys(...'12+13')
+
+          pressCtrlKeyAnd('ArrowLeft')
+
+          expectCaretPosition(getRightBorderPositionOfChar(2))
+        });
+
+        it('having the caret placed next to an irregular character, when the user presses ctrl + left, it should move the caret back of the irregular character', () => {
+          pressKeys(...'12+13')
+          pressCtrlKeyAnd('ArrowLeft')
+
+          pressCtrlKeyAnd('ArrowLeft')
 
           expectCaretPosition(getLeftBorderPositionOfChar(2))
         });
+
+        it('having the caret placed behind an irregular character, when the user presses ctrl + right, it should move the caret next to the irregular character', () => {
+          pressKeys(...'12+13')
+          pressCtrlKeyAnd('ArrowLeft')
+          pressKeys('ArrowLeft')
+
+          pressCtrlKeyAnd('ArrowRight')
+
+          expectCaretPosition(getRightBorderPositionOfChar(2))
+        });
+
+        it('having some elements already written and the caret placed anywhere, when the user presses ctrl + end, it should move the caret to the inputs end', () => {
+          pressKeys(...'1234')
+          moveBackward(4)
+
+          pressCtrlKeyAnd('End')
+
+          expectCaretPosition(getRightBorderPositionOfChar(3))
+        });
+
+        it('having some elements already written and the caret placed anywhere, when the user presses ctrl + home, it should move the caret to the inputs start', () => {
+          pressKeys(...'1234')
+
+          pressCtrlKeyAnd('Home')
+
+          expectCaretPosition(0)
+        });
+
+
+
+
       });
     });
     //--------------------- USER INTERACTION TESTS---------------------
