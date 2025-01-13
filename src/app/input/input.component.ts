@@ -50,7 +50,7 @@ import {SpecialCharFinder} from "./classes/special-char-finder.class";
 export class InputComponent implements AfterViewInit,OnInit {
   protected terms: Term[] = [];
   private currentElement!: InputEditableElement;
-  private recognizableFunctions=['sen','cos','tan','log','ln']
+  public readonly recognizableFunctions=['sen','cos','tan','log','ln']
   protected caretStyleData={ height:'0px', left:'0px', top:'0px' }
 
   readonly ref=inject(ElementRef).nativeElement as HTMLElement

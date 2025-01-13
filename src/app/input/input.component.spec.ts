@@ -31,6 +31,7 @@ fdescribe('InputComponent', () => {
   let variableProvider = new ExperimentalVariableProviderService()
   let variableProviderContainer: VariableProviderService;
 
+  let recognizableFunctions:string[]=[]
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -70,6 +71,7 @@ fdescribe('InputComponent', () => {
     spyOn(variableProviderContainer, 'setVariableProvider').and.callThrough()
 
     component = fixture.componentInstance;
+    recognizableFunctions=component.recognizableFunctions
 
     fixture.detectChanges();
   });
@@ -311,6 +313,50 @@ fdescribe('InputComponent', () => {
           expectTerms({type:'char',char:'π'})
         });
       });
+
+      describe(`Functions adding`,()=>{
+        it('when the user writes a recognizable function, it should add it', () => {
+          recognizableFunctions.forEach((functionName)=>{
+            pressKeys(...functionName)
+
+            expectTerms({
+              type:'function',
+              functionName,
+              functionChildren:[],
+              argumentTerms: functionName == 'log' ? []:undefined
+            })
+
+            pressKeys('Backspace')
+          })
+        });
+
+        it('having a parenthesis next to the caret, when the user writes a recognizable function, it should add the function with the parenthesis elements inside it', ()=>{
+          recognizableFunctions.forEach((functionName)=>{
+            pressKeys(...'(hello)')
+            dispatchEvents(new KeyboardEvent('keydown',{key:'ArrowLeft', ctrlKey:true}))
+
+            pressKeys(...functionName)
+
+            expectTerms({
+              type:'function',
+              functionName,
+              functionChildren:[
+                {type:'char',char:'h'},
+                {type:'char',char:'e'},
+                {type:'char',char:'l'},
+                {type:'char',char:'l'},
+                {type:'char',char:'o'},
+              ],
+              argumentTerms: functionName == 'log' ? []:undefined
+            })
+
+            pressKeys('Backspace')
+          })
+
+        });
+
+      })
+      
     })
     //--------------------- USER INTERACTION TESTS---------------------
 
