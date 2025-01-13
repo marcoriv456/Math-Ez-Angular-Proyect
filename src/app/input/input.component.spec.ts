@@ -252,6 +252,57 @@ fdescribe('InputComponent', () => {
           })
         });
       })
+
+      describe('Parenthesis adding', ()=>{
+
+        it('when the user presses the opened parenthesis character, it should add am opened parenthesis character', () => {
+          pressKeys('(')
+
+          expectTerms({type:'char',char:'('})
+        });
+
+        it('when the user presses the closed parenthesis character, it should add a closed parenthesis character', () => {
+          pressKeys(')')
+
+          expectTerms({type:'char', char:')'})
+        });
+
+        it('having an opened parenthesis already typed, when the user types a closed parenthesis, it should add an empty parenthesis term', () => {
+          pressKeys('(',')')
+
+          expectTerms({type:'parenthesis', parenthesisChildren:[]})
+        });
+
+        it('having an opened parenthesis and some elements next to it already typed, when the user types a closed parenthesis, it should add a filled parenthesis term', () => {
+          pressKeys('(',...'hello', ')')
+
+          expectTerms({
+            type:'parenthesis',
+            parenthesisChildren:[
+              {type:'char',char:'h'},
+              {type:'char',char:'e'},
+              {type:'char',char:'l'},
+              {type:'char',char:'l'},
+              {type:'char',char:'o'},
+            ]
+          })
+        });
+
+        it('having some elements and a closed parenthesis next to it already typed, when the user types an opened parenthesis before them, it should add a filled parenthesis term', () => {
+          pressKeys(...'hello',')','ArrowLeft','ArrowLeft','ArrowLeft','ArrowLeft','ArrowLeft','ArrowLeft','(')
+
+          expectTerms({
+            type:'parenthesis',
+            parenthesisChildren:[
+              {type:'char',char:'h'},
+              {type:'char',char:'e'},
+              {type:'char',char:'l'},
+              {type:'char',char:'l'},
+              {type:'char',char:'o'},
+            ]
+          })
+        });
+      })
     })
     //--------------------- USER INTERACTION TESTS---------------------
 
