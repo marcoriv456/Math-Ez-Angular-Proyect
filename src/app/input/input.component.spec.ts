@@ -379,7 +379,7 @@ fdescribe('InputComponent', () => {
         fixture.detectChanges()
       }
 
-      const getCaretPosition = ()=>{
+      const getCaretPositionX = ()=>{
         let caretLeftStyle= caretElement?.style.left||""
         return +caretLeftStyle.slice(0,caretLeftStyle.length-2)||0
       }
@@ -397,11 +397,10 @@ fdescribe('InputComponent', () => {
         return char.getBoundingClientRect().left + char.offsetWidth
       }
 
-      const expectCaretPosition = (expectedPosition:number) => {
+      const expectCaretHorizontalPosition = (expectedPositionX:number) => {
         fixture.detectChanges()
-        expect(getCaretPosition()).toBeCloseTo(expectedPosition,0)
+        expect(getCaretPositionX()).toBeCloseTo(expectedPositionX,0)
       }
-
 
       beforeEach(()=>{
         caretElement=document.querySelector('#caret-container') as HTMLElement
@@ -412,7 +411,7 @@ fdescribe('InputComponent', () => {
         pressKeys(...'hello')
 
 
-        expectCaretPosition(getRightBorderPositionOfChar(4))
+        expectCaretHorizontalPosition(getRightBorderPositionOfChar(4))
       });
 
 
@@ -423,7 +422,7 @@ fdescribe('InputComponent', () => {
 
           moveBackward(5)
 
-          expectCaretPosition(0)
+          expectCaretHorizontalPosition(0)
         });
 
         it('having "hello" already written and the caret placed in the first position, when the user presses the right arrow key 5 times, it should move to the last element position', () => {
@@ -432,21 +431,21 @@ fdescribe('InputComponent', () => {
 
           moveForward(5)
 
-          expectCaretPosition(getRightBorderPositionOfChar(4))
+          expectCaretHorizontalPosition(getRightBorderPositionOfChar(4))
         });
 
         it('having no element already written, when the user presses the left arrow (whatever the times it does), it should stay in the first position', () => {
 
           moveBackward(10)
 
-          expect(getCaretPosition()).toBeCloseTo(0)
+          expect(getCaretPositionX()).toBeCloseTo(0)
         });
 
         it('having no element already written, when the user presses the right arrow (whatever the times it does), it should stay in the first position', () => {
 
           moveForward(10)
 
-          expectCaretPosition(0)
+          expectCaretHorizontalPosition(0)
         });
       })
 
@@ -460,12 +459,12 @@ fdescribe('InputComponent', () => {
 
           pressCtrlKeyAnd('ArrowRight')
 
-          expectCaretPosition(getLeftBorderPositionOfChar(2))
+          expectCaretHorizontalPosition(getLeftBorderPositionOfChar(2))
         });
         it('having irregular characters already written, when the user preses ctrl + left, it should move the caret next to the previous irregular character', () => {
           pressCtrlKeyAnd('ArrowLeft')
 
-          expectCaretPosition(getRightBorderPositionOfChar(2))
+          expectCaretHorizontalPosition(getRightBorderPositionOfChar(2))
         });
 
         it('having the caret placed next to an irregular character, when the user presses ctrl + left, it should move the caret back of the irregular character', () => {
@@ -473,7 +472,7 @@ fdescribe('InputComponent', () => {
 
           pressCtrlKeyAnd('ArrowLeft')
 
-          expectCaretPosition(getLeftBorderPositionOfChar(2))
+          expectCaretHorizontalPosition(getLeftBorderPositionOfChar(2))
         });
 
         it('having the caret placed behind an irregular character, when the user presses ctrl + right, it should move the caret next to the irregular character', () => {
@@ -481,7 +480,7 @@ fdescribe('InputComponent', () => {
 
           pressCtrlKeyAnd('ArrowRight')
 
-          expectCaretPosition(getRightBorderPositionOfChar(2))
+          expectCaretHorizontalPosition(getRightBorderPositionOfChar(2))
         });
 
         it('having some elements already written and the caret placed anywhere, when the user presses ctrl + end, it should move the caret to the inputs end', () => {
@@ -489,13 +488,13 @@ fdescribe('InputComponent', () => {
 
           pressCtrlKeyAnd('End')
 
-          expectCaretPosition(getRightBorderPositionOfChar(4))
+          expectCaretHorizontalPosition(getRightBorderPositionOfChar(4))
         });
 
         it('having some elements already written and the caret placed anywhere, when the user presses ctrl + home, it should move the caret to the inputs start', () => {
           pressCtrlKeyAnd('Home')
 
-          expectCaretPosition(0)
+          expectCaretHorizontalPosition(0)
         });
       });
 
@@ -514,6 +513,19 @@ fdescribe('InputComponent', () => {
           expect(getCaretHeight()).toBeCloseTo(heightToExpect,0)
         }
 
+        const getCaretPositionY = () => {
+          return caretElement.getBoundingClientRect().top
+        }
+
+        const expectCaretVerticalPosition = (expectedPositionY:number) => {
+          fixture.detectChanges()
+          expect(getCaretPositionY()).toBeCloseTo(expectedPositionY,0)
+        }
+
+        const getTopPositionOfCharParent = (index:number) => {
+          return getRenderedCharacters().item(index).parentElement?.getBoundingClientRect().top||0
+        }
+
         const helloInTerms:Term[]=[
           {type:'char', char:'h'},
           {type:'char', char:'e'},
@@ -522,32 +534,43 @@ fdescribe('InputComponent', () => {
           {type:'char', char:'o'}
         ]
 
-        describe('Caret changes writing inside a fraction', ()=>{
+        beforeEach(()=>{
+          caretElement.style.transition='none'
+        })
+
+        describe('When the user writes something inside a fraction', ()=>{
           const expectedTerm:Term={
             type:'fraction',
             numeratorChildren:[
-              {type:'char',char:'1'}
+              {type:'char',char:'2'}
             ],
             denominatorChildren:[
+              {type:'char',char:'1'},
+              {type:'char',char:'2'},
               {type:'char',char:'1'},
               {type:'char',char:'2'}
             ]
           }
 
           beforeEach(()=>{
-            pressKeys(...'1/12')
+            pressKeys(...'2/1212')
             fixture.detectChanges()
 
             expectTerms(expectedTerm)
-          })
+          })  
 
-          it('when the user writes something inside a fraction, it should modify the caret position', () => {
-            expectCaretPosition(getRightBorderPositionOfChar(2))
+          it('It should modify the caret horizontal position', () => {
+            expectCaretHorizontalPosition(getRightBorderPositionOfChar(4))
           });
 
-          it('when the user writes something inside a fraction, it should modify the caret height', () => {
+          it('It should modify the caret vertical position to the same the character parent container has', () => {
+            expectCaretVerticalPosition(getTopPositionOfCharParent(2))
+          });
+
+          it('It should modify the caret height', () => {
             expectCaretHeight(getCharHeight(2))
           });
+
         })
 
         describe("Caret changes writing inside an exponent", ()=>{
@@ -568,7 +591,7 @@ fdescribe('InputComponent', () => {
           });
 
           it('when the user writes something inside an exponent, it should modify the caret position', () => {
-            expectCaretPosition(getRightBorderPositionOfChar(4))
+            expectCaretHorizontalPosition(getRightBorderPositionOfChar(4))
           });
         })
 
@@ -590,7 +613,7 @@ fdescribe('InputComponent', () => {
           });
 
           it('when the user writes something inside a function, it should modify the caret position', () => {
-            expectCaretPosition(getRightBorderPositionOfChar(4))
+            expectCaretHorizontalPosition(getRightBorderPositionOfChar(4))
           });
         })
 
@@ -609,7 +632,7 @@ fdescribe('InputComponent', () => {
           });
 
           it('when the user writes something inside a parenthesis, it should modify the caret position', () => {
-            expectCaretPosition(getRightBorderPositionOfChar(4))
+            expectCaretHorizontalPosition(getRightBorderPositionOfChar(4))
           });
         });
 
@@ -638,7 +661,7 @@ fdescribe('InputComponent', () => {
             });
 
             it('should modify the caret position', () => {
-              expectCaretPosition(getRightBorderPositionOfChar(4))
+              expectCaretHorizontalPosition(getRightBorderPositionOfChar(4))
             });
           });
 
@@ -660,7 +683,7 @@ fdescribe('InputComponent', () => {
             });
 
             it('should modify the caret position', () => {
-              expectCaretPosition(getRightBorderPositionOfChar(4))
+              expectCaretHorizontalPosition(getRightBorderPositionOfChar(4))
             });
           });
 
