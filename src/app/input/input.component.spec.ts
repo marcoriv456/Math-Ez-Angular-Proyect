@@ -111,6 +111,7 @@ fdescribe('InputComponent', () => {
     });
 
     describe('Character adding on user interaction', () => {
+
       describe('simple character adding', () => {
 
         it("should add a character, when the keydown event is triggered and the key's length is equal to 1", () => {
@@ -131,7 +132,7 @@ fdescribe('InputComponent', () => {
           )
         });
       })
-      
+
       describe('Fraction adding', () => {
         const addSlash = () => pressKeys('/')
 
@@ -190,6 +191,35 @@ fdescribe('InputComponent', () => {
               {type: "char", char: 'd'},
               {type: "char", char: 'e'},
               {type: "char", char: 'n'},
+            ]
+          })
+        });
+      })
+
+      describe('Exponent adding', ()=>{
+        const pressExponentShortcut = ()=>{
+          dispatchEvents(new KeyboardEvent('keydown', {key:'e', ctrlKey:true}))
+        }
+
+        it('when the user presses the exponent shortcut, it should add an exponent', () => {
+          pressExponentShortcut()
+
+          expectTerms({type:'exponent', exponentChildren:[]})
+        });
+
+        it('given a recently added exponent,when the user doesnt moves to anywhere else, it should add some terms inside the exponent', () => {
+          pressExponentShortcut()
+
+          pressKeys(...'hello')
+
+          expectTerms({
+            type:'exponent',
+            exponentChildren:[
+              {type:'char',char:'h'},
+              {type:'char',char:'e'},
+              {type:'char',char:'l'},
+              {type:'char',char:'l'},
+              {type:'char',char:'o'}
             ]
           })
         });
