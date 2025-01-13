@@ -493,6 +493,38 @@ fdescribe('InputComponent', () => {
           expectCaretPosition(0)
         });
       });
+
+      describe('Caret movement in context changes', ()=>{
+
+        const getCharHeight = (index:number) => {
+          return (getRenderedCharacters().item(index) as HTMLElement).offsetHeight
+        }
+
+        const getCaretHeight = () => {
+          let caretHeightStyle = caretElement.style.height
+          return +caretHeightStyle.slice(0,caretHeightStyle.length-2)
+        }
+
+        const expectCaretHeight = (heightToExpect:number) => {
+          expect(getCaretHeight()).toBeCloseTo(heightToExpect)
+        }
+
+        it('when the user writes something inside a fraction, it should modify the caret position', () => {
+          pressKeys(...'1/12')
+          fixture.detectChanges()
+
+          expectCaretPosition(getRightBorderPositionOfChar(2))
+        });
+
+        it('when the user writes something inside a fraction, it should modify the caret height', () => {
+          pressKeys(...'1/12')
+          fixture.detectChanges()
+
+          expectCaretHeight(getCharHeight(2))
+        });
+
+      });
+
     });
     //--------------------- USER INTERACTION TESTS---------------------
 
