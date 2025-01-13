@@ -89,4 +89,51 @@ fdescribe('InputComponent', () => {
     });
   })
   //--------------------- INITIALIZATION TESTS---------------------
+
+  //--------------------- USER INTERACTION TESTS---------------------
+  describe('User interactions', () => {
+    const dispatchEvents = (...events: KeyboardEvent[]) => {
+      events.forEach(event => component.ref.dispatchEvent(event))
+    }
+
+    const pressKeys = (...keys: string[]) => {
+      dispatchEvents(...keys.map(key => new KeyboardEvent('keydown', {key})))
+    }
+
+    const expectTerms = (...expectedTerms: Term[]) => {
+      expect(component.getTerms()).toEqual(expectedTerms)
+    }
+
+    it('should lost focus when tab key is clicked', () => {
+      pressKeys('Tab')
+
+      expect(document.activeElement).not.toEqual(component.ref)
+    });
+
+    describe('Character adding on user interaction', () => {
+      describe('simple character adding', () => {
+
+        it("should add a character, when the keydown event is triggered and the key's length is equal to 1", () => {
+          pressKeys('a')
+
+          expectTerms({type: 'char', char: 'a'})
+        })
+
+        it('when multiple character keys are pressed, then it should add multiple characters', () => {
+          pressKeys(..."hello")
+
+          expectTerms(
+            {type: 'char', char: 'h'},
+            {type: 'char', char: 'e'},
+            {type: 'char', char: 'l'},
+            {type: 'char', char: 'l'},
+            {type: 'char', char: 'o'},
+          )
+        });
+      })
+    })
+    //--------------------- USER INTERACTION TESTS---------------------
+
+
+  })
 })
