@@ -529,19 +529,18 @@ fdescribe('InputComponent', () => {
             ]
           }
 
-          it('when the user writes something inside a fraction, it should modify the caret position', () => {
+          beforeEach(()=>{
             pressKeys(...'1/12')
             fixture.detectChanges()
 
             expectTerms(expectedTerm)
+          })
+
+          it('when the user writes something inside a fraction, it should modify the caret position', () => {
             expectCaretPosition(getRightBorderPositionOfChar(2))
           });
 
           it('when the user writes something inside a fraction, it should modify the caret height', () => {
-            pressKeys(...'1/12')
-            fixture.detectChanges()
-
-            expectTerms(expectedTerm)
             expectCaretHeight(getCharHeight(2))
           });
         })
