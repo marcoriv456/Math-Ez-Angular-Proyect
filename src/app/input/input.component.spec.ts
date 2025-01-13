@@ -103,6 +103,10 @@ fdescribe('InputComponent', () => {
       dispatchEvents(...keys.map(key => new KeyboardEvent('keydown', {key})))
     }
 
+    const pressCtrlKeyAnd = (...keys:string[]) => {
+      keys.forEach((key)=>dispatchEvents(new KeyboardEvent('keydown',{key, ctrlKey:true})))
+    }
+
     const expectTerms = (...expectedTerms: Term[]) => {
       expect(component.getTerms()).toEqual(expectedTerms)
     }
@@ -438,10 +442,6 @@ fdescribe('InputComponent', () => {
       })
 
       describe('Caret movement in special keys', () => {
-        const pressCtrlKeyAnd = (key:string) => {
-          dispatchEvents(new KeyboardEvent('keydown',{key, ctrlKey:true}))
-        }
-
         it('having irregular characters already written and the caret placed in the first position, when the user preses ctrl + right arrow, it should move the caret back of the next irregular character', () => {
           pressKeys(...'12+13')
           pressCtrlKeyAnd('Home')
@@ -494,7 +494,7 @@ fdescribe('InputComponent', () => {
         });
       });
 
-      describe('Caret movement in context changes', ()=>{
+      describe('Caret movement inside contexts', ()=>{
 
         const getCharHeight = (index:number) => {
           return (getRenderedCharacters().item(index) as HTMLElement).offsetHeight
@@ -508,20 +508,37 @@ fdescribe('InputComponent', () => {
         const expectCaretHeight = (heightToExpect:number) => {
           expect(getCaretHeight()).toBeCloseTo(heightToExpect)
         }
+        describe('Caret changes writing inside a fraction', ()=>{
+          it('when the user writes something inside a fraction, it should modify the caret position', () => {
+            pressKeys(...'1/12')
+            fixture.detectChanges()
 
-        it('when the user writes something inside a fraction, it should modify the caret position', () => {
-          pressKeys(...'1/12')
-          fixture.detectChanges()
+            expectCaretPosition(getRightBorderPositionOfChar(2))
+          });
 
-          expectCaretPosition(getRightBorderPositionOfChar(2))
-        });
+          it('when the user writes something inside a fraction, it should modify the caret height', () => {
+            pressKeys(...'1/12')
+            fixture.detectChanges()
 
-        it('when the user writes something inside a fraction, it should modify the caret height', () => {
-          pressKeys(...'1/12')
-          fixture.detectChanges()
+            expectCaretHeight(getCharHeight(2))
+          });
+        })
 
-          expectCaretHeight(getCharHeight(2))
-        });
+        describe("Caret changes writing inside an exponent", ()=>{
+          it('when the user writes something inside an exponent, it should modify the caret height', () => {
+            pressCtrlKeyAnd('e')
+            pressKeys(...'hello')
+
+            expectCaretHeight(getCharHeight(4))
+          });
+
+          it('when the user writes something inside an exponent, it should modify the caret position', () => {
+            pressCtrlKeyAnd('e')
+            pressKeys(...'hello')
+
+            expectCaretPosition(getRightBorderPositionOfChar(4))
+          });
+        })
 
       });
 
