@@ -609,10 +609,6 @@ fdescribe('InputComponent', () => {
         });
 
         describe('Caret changes when writing inside a root', () => {
-          const expectedTerm:Term= {
-            type:'root',
-            rootChildren:helloInTerms
-          }
           const getRootTopBorderAnchor = () => {
             const computedBorderWidth =  component.ref.querySelector('root')?.querySelector('editable-term-container')?.computedStyleMap().get('border-top-width')?.toString()
             if(!computedBorderWidth)
@@ -620,21 +616,51 @@ fdescribe('InputComponent', () => {
             return +computedBorderWidth.slice(0,computedBorderWidth.length-2)
           }
 
-          beforeEach(()=>{
-            pressCtrlKeyAnd('r')
-            pressKeys(...'hello')
-            expectTerms(expectedTerm)
-          })
+          describe('Simple root', () => {
+            const expectedTerm:Term= {
+              type:'root',
+              rootChildren:helloInTerms
+            }
 
-          it('should modify the caret height', () => {
-            expectCaretHeight(getCharHeight(4)+getRootTopBorderAnchor())
+            beforeEach(()=>{
+              pressCtrlKeyAnd('r')
+              pressKeys(...'hello')
+              expectTerms(expectedTerm)
+            })
+
+            it('should modify the caret height', () => {
+              expectCaretHeight(getCharHeight(4)+getRootTopBorderAnchor())
+            });
+
+            it('should modify the caret position', () => {
+              expectCaretPosition(getRightBorderPositionOfChar(4))
+            });
           });
 
-          it('should modify the caret position', () => {
-            expectCaretPosition(getRightBorderPositionOfChar(4))
+          describe('Editable index root', () => {
+            const expectedTerm:Term= {
+              type:'root',
+              rootChildren:[],
+              radicalTerms:helloInTerms
+            }
+
+            beforeEach(()=>{
+              dispatchEvents(new KeyboardEvent('keydown',{key:'r',altKey:true}))
+              pressKeys(...'hello')
+              expectTerms(expectedTerm)
+            })
+
+            it('should modify the caret height', () => {
+              expectCaretHeight(getCharHeight(4))
+            });
+
+            it('should modify the caret position', () => {
+              expectCaretPosition(getRightBorderPositionOfChar(4))
+            });
           });
+
         });
-
+        
       });
 
     });
