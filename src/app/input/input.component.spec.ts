@@ -365,16 +365,24 @@ fdescribe('InputComponent', () => {
       const moveForward = (steps=1) => {
         for(let i=0; i<steps;i++)
           pressKeys('ArrowRight')
+        fixture.detectChanges()
       }
 
       const moveBackward = (steps=1) =>{
         for(let i=0; i<steps;i++)
           pressKeys('ArrowLeft')
+        fixture.detectChanges()
       }
 
       const getCaretPosition = ()=>{
         let caretLeftStyle= caretElement?.style.left||""
         return +caretLeftStyle.slice(0,caretLeftStyle.length-2)||0
+      }
+
+      const getLastCharacterPosition = () => {
+        const characters=component.ref.querySelectorAll('char')
+        let lastCharacter=characters.item(characters.length-1) as HTMLElement
+        return lastCharacter.getBoundingClientRect().left+lastCharacter.offsetWidth
       }
 
       describe('Caret movement across single characters', ()=>{
@@ -386,10 +394,34 @@ fdescribe('InputComponent', () => {
           pressKeys(...'hello',)
 
           moveBackward(5)
-          fixture.detectChanges()
 
           expect(getCaretPosition()).toBeCloseTo(0)
         });
+
+        it('having "hello" already written and the caret placed in the first position, when the user presses the right arrow key 5 times, it should move to the last element position', () => {
+          pressKeys(...'hello',)
+          moveBackward(5)
+
+          moveForward(5)
+
+          expect(getCaretPosition()).toBeCloseTo(getLastCharacterPosition(),1)
+        });
+
+        it('having no element already written, when the presses the left arrow (whatever the times it does), it should stay in the first position', () => {
+
+          moveBackward(10)
+
+          expect(getCaretPosition()).toBeCloseTo(0)
+        });
+
+        it('having no element already written, when the presses the right arrow (whatever the times it does), it should stay in the first position', () => {
+
+          moveForward(10)
+
+          expect(getCaretPosition()).toBeCloseTo(0)
+        });
+
+
 
       })
 
