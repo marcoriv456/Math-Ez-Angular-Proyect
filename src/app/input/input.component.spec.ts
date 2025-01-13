@@ -739,6 +739,17 @@ fdescribe('InputComponent', () => {
           expectTerms(...parsePhrase('world'))
         });
 
+        it('should remain nothing', () => {
+          remove(11)
+
+          expectTerms()
+        });
+
+        it("shouldn't throw an error" , () => {
+          remove(20)
+
+          expectTerms()
+        });
       });
 
       describe('Remove using ctrl key: ', () => {
@@ -785,6 +796,12 @@ fdescribe('InputComponent', () => {
 
         it('should remain nothing', () => {
           pressCtrlKeyAnd('Backspace','Backspace','Backspace')
+
+          expectTerms()
+        });
+
+        it("shouldn't throw an error" , () => {
+          pressCtrlKeyAnd('Backspace','Backspace','Backspace','Backspace','Backspace','Backspace')
 
           expectTerms()
         });
