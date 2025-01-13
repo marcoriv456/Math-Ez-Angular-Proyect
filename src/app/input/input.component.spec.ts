@@ -442,24 +442,24 @@ fdescribe('InputComponent', () => {
       })
 
       describe('Caret movement in special keys', () => {
-        it('having irregular characters already written and the caret placed in the first position, when the user preses ctrl + right arrow, it should move the caret back of the next irregular character', () => {
+        beforeEach(()=>{
           pressKeys(...'12+13')
-          pressCtrlKeyAnd('Home')
+        })
+
+        it('having irregular characters already written and the caret placed in the first position, when the user preses ctrl + right arrow, it should move the caret back of the next irregular character', () => {
+          moveBackward(5)
 
           pressCtrlKeyAnd('ArrowRight')
 
           expectCaretPosition(getLeftBorderPositionOfChar(2))
         });
         it('having irregular characters already written, when the user preses ctrl + left, it should move the caret next to the previous irregular character', () => {
-          pressKeys(...'12+13')
-
           pressCtrlKeyAnd('ArrowLeft')
 
           expectCaretPosition(getRightBorderPositionOfChar(2))
         });
 
         it('having the caret placed next to an irregular character, when the user presses ctrl + left, it should move the caret back of the irregular character', () => {
-          pressKeys(...'12+13')
           moveBackward(2)
 
           pressCtrlKeyAnd('ArrowLeft')
@@ -468,7 +468,6 @@ fdescribe('InputComponent', () => {
         });
 
         it('having the caret placed behind an irregular character, when the user presses ctrl + right, it should move the caret next to the irregular character', () => {
-          pressKeys(...'12+13')
           moveBackward(3)
 
           pressCtrlKeyAnd('ArrowRight')
@@ -477,17 +476,14 @@ fdescribe('InputComponent', () => {
         });
 
         it('having some elements already written and the caret placed anywhere, when the user presses ctrl + end, it should move the caret to the inputs end', () => {
-          pressKeys(...'1234')
           moveBackward(4)
 
           pressCtrlKeyAnd('End')
 
-          expectCaretPosition(getRightBorderPositionOfChar(3))
+          expectCaretPosition(getRightBorderPositionOfChar(4))
         });
 
         it('having some elements already written and the caret placed anywhere, when the user presses ctrl + home, it should move the caret to the inputs start', () => {
-          pressKeys(...'1234')
-
           pressCtrlKeyAnd('Home')
 
           expectCaretPosition(0)
@@ -660,7 +656,7 @@ fdescribe('InputComponent', () => {
           });
 
         });
-        
+
       });
 
     });
