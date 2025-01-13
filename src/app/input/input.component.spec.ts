@@ -393,6 +393,10 @@ fdescribe('InputComponent', () => {
         return char.getBoundingClientRect().left + char.offsetWidth
       }
 
+      const expectCaretPosition = (expectedPosition:number) => {
+        expect(getCaretPosition()).toBeCloseTo(expectedPosition,1)
+      }
+
 
       beforeEach(()=>{
         caretElement=document.querySelector('#caret-container') as HTMLElement
@@ -405,7 +409,7 @@ fdescribe('InputComponent', () => {
 
           moveBackward(5)
 
-          expect(getCaretPosition()).toBeCloseTo(0)
+          expectCaretPosition(0)
         });
 
         it('having "hello" already written and the caret placed in the first position, when the user presses the right arrow key 5 times, it should move to the last element position', () => {
@@ -414,8 +418,7 @@ fdescribe('InputComponent', () => {
 
           moveForward(5)
 
-          let lastCharRightBorderPosition=getRightBorderPositionOfChar(4)
-          expect(getCaretPosition()).toBeCloseTo(lastCharRightBorderPosition,1)
+          expectCaretPosition(getRightBorderPositionOfChar(4))
         });
 
         it('having no element already written, when the user presses the left arrow (whatever the times it does), it should stay in the first position', () => {
@@ -429,7 +432,7 @@ fdescribe('InputComponent', () => {
 
           moveForward(10)
 
-          expect(getCaretPosition()).toBeCloseTo(0)
+          expectCaretPosition(0)
         });
       })
 
@@ -446,8 +449,7 @@ fdescribe('InputComponent', () => {
 
           fixture.detectChanges()
 
-          let expectedPosition=getLeftBorderPositionOfChar(2)
-          expect(getCaretPosition()).toBeCloseTo(expectedPosition)
+          expectCaretPosition(getLeftBorderPositionOfChar(2))
         });
       });
     });
