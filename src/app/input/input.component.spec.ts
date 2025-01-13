@@ -549,13 +549,7 @@ fdescribe('InputComponent', () => {
         describe("Caret changes writing inside an exponent", ()=>{
           const expectedTerm:Term={
             type:'exponent',
-            exponentChildren:[
-              {type:'char', char:'h'},
-              {type:'char', char:'e'},
-              {type:'char', char:'l'},
-              {type:'char', char:'l'},
-              {type:'char', char:'o'}
-            ]
+            exponentChildren:helloInTerms
           }
 
           it('when the user writes something inside an exponent, it should modify the caret height', () => {
@@ -579,13 +573,7 @@ fdescribe('InputComponent', () => {
           const expectedTerm:Term= {
             type:'function',
             functionName:'cos',
-            functionChildren:[
-              {type:'char', char:'h'},
-              {type:'char', char:'e'},
-              {type:'char', char:'l'},
-              {type:'char', char:'l'},
-              {type:'char', char:'o'}
-            ],
+            functionChildren:helloInTerms,
             argumentTerms:undefined
           }
 
