@@ -303,6 +303,14 @@ fdescribe('InputComponent', () => {
           })
         });
       })
+
+      describe('Special char adding', () => {
+        it('when the user presses the ctrl + p shortcut, it should add a pi character', () => {
+          dispatchEvents(new KeyboardEvent('keydown',{key:'p',ctrlKey:true}))
+
+          expectTerms({type:'char',char:'π'})
+        });
+      });
     })
     //--------------------- USER INTERACTION TESTS---------------------
 
