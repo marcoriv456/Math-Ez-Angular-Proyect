@@ -573,7 +573,7 @@ fdescribe('InputComponent', () => {
 
         })
 
-        describe("Caret changes writing inside an exponent", ()=>{
+        describe("When the user writes something inside an exponent", ()=>{
           const expectedTerm:Term={
             type:'exponent',
             exponentChildren:helloInTerms
@@ -586,8 +586,12 @@ fdescribe('InputComponent', () => {
             expectTerms(expectedTerm)
           })
 
-          it('when the user writes something inside an exponent, it should modify the caret height', () => {
+          it('it should modify the caret height', () => {
             expectCaretHeight(getCharParentHeight(4))
+          });
+
+          it('It should modify the caret vertical position to the same the character parent container has', () => {
+            expectCaretVerticalPosition(getCharParentVerticalPosition(4))
           });
 
           it('when the user writes something inside an exponent, it should modify the caret position', () => {
@@ -610,6 +614,10 @@ fdescribe('InputComponent', () => {
 
           it('when the user writes something inside a function, it should modify the caret height', () => {
             expectCaretHeight(getCharParentHeight(4))
+          });
+
+          it('It should modify the caret vertical position to the same the character parent container has', () => {
+            expectCaretVerticalPosition(getCharParentVerticalPosition(4))
           });
 
           it('when the user writes something inside a function, it should modify the caret position', () => {
@@ -660,6 +668,10 @@ fdescribe('InputComponent', () => {
               expectCaretHeight(getCharParentHeight(4)+getRootTopBorderAnchor())
             });
 
+            it('It should modify the caret vertical position to the same the character parent container has', () => {
+              expectCaretVerticalPosition(getCharParentVerticalPosition(4)-getRootTopBorderAnchor())
+            });
+
             it('should modify the caret position', () => {
               expectCaretHorizontalPosition(getRightBorderPositionOfChar(4))
             });
@@ -680,6 +692,10 @@ fdescribe('InputComponent', () => {
 
             it('should modify the caret height', () => {
               expectCaretHeight(getCharParentHeight(4))
+            });
+
+            it('It should modify the caret vertical position to the same the character parent container has', () => {
+              expectCaretVerticalPosition(getCharParentVerticalPosition(4))
             });
 
             it('should modify the caret position', () => {
