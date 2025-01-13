@@ -509,10 +509,22 @@ fdescribe('InputComponent', () => {
           expect(getCaretHeight()).toBeCloseTo(heightToExpect)
         }
         describe('Caret changes writing inside a fraction', ()=>{
+          const expectedTerm:Term={
+            type:'fraction',
+            numeratorChildren:[
+              {type:'char',char:'1'}
+            ],
+            denominatorChildren:[
+              {type:'char',char:'1'},
+              {type:'char',char:'2'}
+            ]
+          }
+
           it('when the user writes something inside a fraction, it should modify the caret position', () => {
             pressKeys(...'1/12')
             fixture.detectChanges()
 
+            expectTerms(expectedTerm)
             expectCaretPosition(getRightBorderPositionOfChar(2))
           });
 
@@ -520,6 +532,7 @@ fdescribe('InputComponent', () => {
             pressKeys(...'1/12')
             fixture.detectChanges()
 
+            expectTerms(expectedTerm)
             expectCaretHeight(getCharHeight(2))
           });
         })
@@ -581,7 +594,7 @@ fdescribe('InputComponent', () => {
             expectCaretPosition(getRightBorderPositionOfChar(4))
           });
         })
-        
+
       });
 
     });
