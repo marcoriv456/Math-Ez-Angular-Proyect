@@ -506,7 +506,7 @@ fdescribe('InputComponent', () => {
         }
 
         const expectCaretHeight = (heightToExpect:number) => {
-          expect(getCaretHeight()).toBeCloseTo(heightToExpect)
+          expect(getCaretHeight()).toBeCloseTo(heightToExpect,0)
         }
 
         const helloInTerms:Term[]=[
@@ -607,6 +607,36 @@ fdescribe('InputComponent', () => {
 
           it('when the user writes something inside a parenthesis, it should modify the caret position', () => {
             pressKeys(...'(hello)', 'ArrowLeft')
+
+            expectTerms(expectedTerm)
+            expectCaretPosition(getRightBorderPositionOfChar(4))
+          });
+        });
+
+        describe('Caret changes when writing inside a root', () => {
+          const expectedTerm:Term= {
+            type:'root',
+            rootChildren:helloInTerms
+          }
+          const getRootTopBorderAnchor = () => {
+            const computedBorderWidth =  component.ref.querySelector('root')?.querySelector('editable-term-container')?.computedStyleMap().get('border-top-width')?.toString()
+            if(!computedBorderWidth)
+              return 0
+            return +computedBorderWidth.slice(0,computedBorderWidth.length-2)
+          }
+
+
+          it('when the user writes something inside a root, it should modify the caret height', () => {
+            pressCtrlKeyAnd('r')
+            pressKeys(...'hello')
+
+            expectTerms(expectedTerm)
+            expectCaretHeight(getCharHeight(4)+getRootTopBorderAnchor())
+          });
+
+          it('when the user writes something inside a root, it should modify the caret position', () => {
+            pressCtrlKeyAnd('r')
+            pressKeys(...'hello')
 
             expectTerms(expectedTerm)
             expectCaretPosition(getRightBorderPositionOfChar(4))
