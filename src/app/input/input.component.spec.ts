@@ -22,7 +22,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {Term} from "./models/terms/term.model";
 import {VariableProvider} from "./models/variable-provider.model";
 import {ExperimentalVariableProviderService} from "./input-testing-environment/experimental-variable-provider.service";
-import {inject} from "@angular/core";
+import {inject, input} from "@angular/core";
 
 fdescribe('InputComponent', () => {
   let component: InputComponent;
@@ -356,8 +356,45 @@ fdescribe('InputComponent', () => {
         });
 
       })
-      
+
     })
+
+    describe('Caret positioning', () => {
+      let caretElement=document.querySelector('#caret-container') as HTMLElement
+
+      const moveForward = (steps=1) => {
+        for(let i=0; i<steps;i++)
+          pressKeys('ArrowRight')
+      }
+
+      const moveBackward = (steps=1) =>{
+        for(let i=0; i<steps;i++)
+          pressKeys('ArrowLeft')
+      }
+
+      const getCaretPosition = ()=>{
+        let caretLeftStyle= caretElement?.style.left||""
+        return +caretLeftStyle.slice(0,caretLeftStyle.length-2)||0
+      }
+
+      describe('Caret movement across single characters', ()=>{
+        beforeEach(()=>{
+          caretElement=document.querySelector('#caret-container') as HTMLElement
+        })
+
+        it('having "hello" already written, when the user presses the left arrow key 5 times, it should move the caret to the left border of the input',  () => {
+          pressKeys(...'hello',)
+
+          moveBackward(5)
+          fixture.detectChanges()
+
+          expect(getCaretPosition()).toBeCloseTo(0)
+        });
+
+      })
+
+
+    });
     //--------------------- USER INTERACTION TESTS---------------------
 
 
