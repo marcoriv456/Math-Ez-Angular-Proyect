@@ -23,6 +23,7 @@ import {Term} from "./models/terms/term.model";
 import {VariableProvider} from "./models/variable-provider.model";
 import {ExperimentalVariableProviderService} from "./input-testing-environment/experimental-variable-provider.service";
 import {inject, input} from "@angular/core";
+import {SpecialCharFinder} from "./classes/special-char-finder.class";
 
 fdescribe('InputComponent', () => {
   let component: InputComponent;
@@ -379,16 +380,25 @@ fdescribe('InputComponent', () => {
         return +caretLeftStyle.slice(0,caretLeftStyle.length-2)||0
       }
 
-      const getLastCharacterPosition = () => {
-        const characters=component.ref.querySelectorAll('char')
-        let lastCharacter=characters.item(characters.length-1) as HTMLElement
-        return lastCharacter.getBoundingClientRect().left+lastCharacter.offsetWidth
+      const getRenderedCharacters = () =>{
+        return component.ref.querySelectorAll("char")
       }
 
+      const getLeftBorderPositionOfChar = (index:number) => {
+        return getRenderedCharacters().item(index).getBoundingClientRect().left
+      }
+
+      const getRightBorderPositionOfChar = (index:number) => {
+        let char = getRenderedCharacters().item(index) as HTMLElement
+        return char.getBoundingClientRect().left + char.offsetWidth
+      }
+
+
+      beforeEach(()=>{
+        caretElement=document.querySelector('#caret-container') as HTMLElement
+      })
+
       describe('Caret movement across single characters', ()=>{
-        beforeEach(()=>{
-          caretElement=document.querySelector('#caret-container') as HTMLElement
-        })
 
         it('having "hello" already written, when the user presses the left arrow key 5 times, it should move the caret to the left border of the input',  () => {
           pressKeys(...'hello',)
@@ -404,28 +414,42 @@ fdescribe('InputComponent', () => {
 
           moveForward(5)
 
-          expect(getCaretPosition()).toBeCloseTo(getLastCharacterPosition(),1)
+          let lastCharRightBorderPosition=getRightBorderPositionOfChar(4)
+          expect(getCaretPosition()).toBeCloseTo(lastCharRightBorderPosition,1)
         });
 
-        it('having no element already written, when the presses the left arrow (whatever the times it does), it should stay in the first position', () => {
+        it('having no element already written, when the user presses the left arrow (whatever the times it does), it should stay in the first position', () => {
 
           moveBackward(10)
 
           expect(getCaretPosition()).toBeCloseTo(0)
         });
 
-        it('having no element already written, when the presses the right arrow (whatever the times it does), it should stay in the first position', () => {
+        it('having no element already written, when the user presses the right arrow (whatever the times it does), it should stay in the first position', () => {
 
           moveForward(10)
 
           expect(getCaretPosition()).toBeCloseTo(0)
         });
-
-
-
       })
 
+      describe('Caret movement in special keys', () => {
+        const pressCtrlKeyAnd = (key:string) => {
+          dispatchEvents(new KeyboardEvent('keydown',{key, ctrlKey:true}))
+        }
 
+        it('having irregular characters already written and the caret placed in the first position, when the user preses ctrl + right arrow, it should move the caret back of the next irregular character', () => {
+          pressKeys(...'12+13')
+          pressCtrlKeyAnd('Home')
+
+          pressCtrlKeyAnd('ArrowRight')
+
+          fixture.detectChanges()
+
+          let expectedPosition=getLeftBorderPositionOfChar(2)
+          expect(getCaretPosition()).toBeCloseTo(expectedPosition)
+        });
+      });
     });
     //--------------------- USER INTERACTION TESTS---------------------
 
