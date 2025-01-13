@@ -597,18 +597,16 @@ fdescribe('InputComponent', () => {
             type:'parenthesis',
             parenthesisChildren:helloInTerms
           }
+          beforeEach(()=>{
+            pressKeys(...'(hello)', 'ArrowLeft')
+            expectTerms(expectedTerm)
+          })
 
           it('when the user writes something inside a parenthesis, it should modify the caret height', () => {
-            pressKeys(...'(hello)', 'ArrowLeft')
-
-            expectTerms(expectedTerm)
             expectCaretHeight(getCharHeight(4))
           });
 
           it('when the user writes something inside a parenthesis, it should modify the caret position', () => {
-            pressKeys(...'(hello)', 'ArrowLeft')
-
-            expectTerms(expectedTerm)
             expectCaretPosition(getRightBorderPositionOfChar(4))
           });
         });
@@ -628,15 +626,14 @@ fdescribe('InputComponent', () => {
           beforeEach(()=>{
             pressCtrlKeyAnd('r')
             pressKeys(...'hello')
+            expectTerms(expectedTerm)
           })
 
           it('should modify the caret height', () => {
-            expectTerms(expectedTerm)
             expectCaretHeight(getCharHeight(4)+getRootTopBorderAnchor())
           });
 
           it('should modify the caret position', () => {
-            expectTerms(expectedTerm)
             expectCaretPosition(getRightBorderPositionOfChar(4))
           });
         });
