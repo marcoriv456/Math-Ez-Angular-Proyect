@@ -95,7 +95,7 @@ fdescribe('InputComponent', () => {
 
   //--------------------- USER INTERACTION TESTS---------------------
   describe('User interactions', () => {
-    const dispatchEvents = (...events: KeyboardEvent[]) => {
+    const dispatchEvents = (...events: Event[]) => {
       events.forEach(event => component.ref.dispatchEvent(event))
     }
 
@@ -406,6 +406,15 @@ fdescribe('InputComponent', () => {
       beforeEach(()=>{
         caretElement=document.querySelector('#caret-container') as HTMLElement
       })
+
+      it('when the user clicks the input, it should move caret to the end', () => {
+        dispatchEvents(new MouseEvent('click'))
+        pressKeys(...'hello')
+
+
+        expectCaretPosition(getRightBorderPositionOfChar(4))
+      });
+
 
       describe('Caret movement across single characters', ()=>{
 
