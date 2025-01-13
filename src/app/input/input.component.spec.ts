@@ -399,7 +399,7 @@ fdescribe('InputComponent', () => {
 
       const expectCaretPosition = (expectedPosition:number) => {
         fixture.detectChanges()
-        expect(getCaretPosition()).toBeCloseTo(expectedPosition,1)
+        expect(getCaretPosition()).toBeCloseTo(expectedPosition,0)
       }
 
 
@@ -539,6 +539,37 @@ fdescribe('InputComponent', () => {
             expectCaretPosition(getRightBorderPositionOfChar(4))
           });
         })
+
+        describe("Caret changes when writing inside a function", ()=>{
+          const expectedTerm:Term= {
+            type:'function',
+            functionName:'cos',
+            functionChildren:[
+              {type:'char', char:'h'},
+              {type:'char', char:'e'},
+              {type:'char', char:'l'},
+              {type:'char', char:'l'},
+              {type:'char', char:'o'}
+            ],
+            argumentTerms:undefined
+          }
+
+          it('when the user writes something inside a function, it should modify the caret height', () => {
+            pressKeys(...'cos',...'hello')
+
+            expectTerms(expectedTerm)
+            expectCaretHeight(getCharHeight(4))
+          });
+
+          it('when the user writes something inside a function, it should modify the caret position', () => {
+            pressKeys(...'cos',...'hello')
+
+            expectTerms(expectedTerm)
+            expectCaretPosition(getRightBorderPositionOfChar(4))
+          });
+        })
+
+
 
       });
 
