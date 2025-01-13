@@ -103,6 +103,18 @@ fdescribe('InputComponent', () => {
       dispatchEvents(...keys.map(key => new KeyboardEvent('keydown', {key})))
     }
 
+    const moveForward = (steps=1) => {
+      for(let i=0; i<steps;i++)
+        pressKeys('ArrowRight')
+      fixture.detectChanges()
+    }
+
+    const moveBackward = (steps=1) =>{
+      for(let i=0; i<steps;i++)
+        pressKeys('ArrowLeft')
+      fixture.detectChanges()
+    }
+
     const pressCtrlKeyAnd = (...keys:string[]) => {
       keys.forEach((key)=>dispatchEvents(new KeyboardEvent('keydown',{key, ctrlKey:true})))
     }
@@ -366,18 +378,6 @@ fdescribe('InputComponent', () => {
 
     describe('Caret positioning', () => {
       let caretElement=document.querySelector('#caret-container') as HTMLElement
-
-      const moveForward = (steps=1) => {
-        for(let i=0; i<steps;i++)
-          pressKeys('ArrowRight')
-        fixture.detectChanges()
-      }
-
-      const moveBackward = (steps=1) =>{
-        for(let i=0; i<steps;i++)
-          pressKeys('ArrowLeft')
-        fixture.detectChanges()
-      }
 
       const getCaretPositionX = ()=>{
         let caretLeftStyle= caretElement?.style.left||""
@@ -705,6 +705,89 @@ fdescribe('InputComponent', () => {
 
         });
 
+      });
+
+    });
+
+    describe('Term removal on user interactions: ', () => {
+      const remove = (count=1) => {
+        for (let i=0; i<count; i++)
+          pressKeys('Backspace')
+      }
+
+      const parsePhrase:(phrase:string)=>Term[] = (phrase:string) => {
+        return [...phrase].map(char=> {
+          return {type:'char',char}
+        })
+      }
+
+      describe('Remove simple characters:', () => {
+        beforeEach(()=>{
+          pressKeys(..."hello world")
+        })
+
+        it('should remain the phrase "hello"', () => {
+          remove(6)
+
+          expectTerms(...parsePhrase("hello"))
+        })
+
+        it('should remain the phrase world', () => {
+          moveBackward(5)
+          remove(6)
+
+          expectTerms(...parsePhrase('world'))
+        });
+
+      });
+
+      describe('Remove using ctrl key: ', () => {
+
+        beforeEach(()=>{
+          pressKeys(..."hello+world")
+        })
+
+        it('Should remain "hello+"', () => {
+          pressCtrlKeyAnd('Backspace')
+
+          expectTerms(...parsePhrase('hello+'))
+        });
+
+        it('Should remain "hello"', () => {
+          pressCtrlKeyAnd('Backspace', 'Backspace')
+
+          expectTerms(...parsePhrase('hello'))
+        });
+
+        it('should remain "helloworld"', () => {
+          moveBackward(5)
+
+          pressCtrlKeyAnd('Backspace')
+
+          expectTerms(...parsePhrase('helloworld'))
+        });
+
+        it('should remain "+world"', () => {
+          moveBackward(6)
+
+          pressCtrlKeyAnd('Backspace')
+
+          expectTerms(...parsePhrase('+world'))
+        });
+
+        it('should remain "world"', () => {
+          moveBackward(5)
+
+          pressCtrlKeyAnd('Backspace','Backspace')
+
+          expectTerms(...parsePhrase('world'))
+        });
+
+        it('should remain nothing', () => {
+          pressCtrlKeyAnd('Backspace','Backspace','Backspace')
+
+          expectTerms()
+        });
       });
 
     });
