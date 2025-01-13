@@ -577,17 +577,16 @@ fdescribe('InputComponent', () => {
             argumentTerms:undefined
           }
 
-          it('when the user writes something inside a function, it should modify the caret height', () => {
+          beforeEach(()=>{
             pressKeys(...'cos',...'hello')
-
             expectTerms(expectedTerm)
+          })
+
+          it('when the user writes something inside a function, it should modify the caret height', () => {
             expectCaretHeight(getCharHeight(4))
           });
 
           it('when the user writes something inside a function, it should modify the caret position', () => {
-            pressKeys(...'cos',...'hello')
-
-            expectTerms(expectedTerm)
             expectCaretPosition(getRightBorderPositionOfChar(4))
           });
         })
