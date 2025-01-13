@@ -224,6 +224,34 @@ fdescribe('InputComponent', () => {
           })
         });
       })
+
+      describe('Root adding', ()=>{
+        const pressSimpleRootShortcut = ()=> {
+          dispatchEvents(new KeyboardEvent('keydown', {key:'r', ctrlKey:true}))
+        }
+        const pressEditableBaseRootShortcut = ()=> {
+          dispatchEvents(new KeyboardEvent('keydown', {key:'r', altKey:true}))
+        }
+
+        it('when the user presses ctrl + r, it should add a simple root', () => {
+          pressSimpleRootShortcut()
+
+          expectTerms({
+            type:'root',
+            rootChildren:[]
+          })
+        });
+
+        it('when the user presses alt + r, it should add an editable base root', () => {
+          pressEditableBaseRootShortcut()
+
+          expectTerms({
+            type:'root',
+            rootChildren:[],
+            radicalTerms:[]
+          })
+        });
+      })
     })
     //--------------------- USER INTERACTION TESTS---------------------
 
