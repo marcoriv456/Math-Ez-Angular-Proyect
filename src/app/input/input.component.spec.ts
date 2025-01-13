@@ -131,6 +131,69 @@ fdescribe('InputComponent', () => {
           )
         });
       })
+      
+      describe('Fraction adding', () => {
+        const addSlash = () => pressKeys('/')
+
+
+        it('having no elements written already, when a "/" char is typed, should add an empty fraction', () => {
+          addSlash()
+
+          expectTerms({type: 'fraction', denominatorChildren: [], numeratorChildren: []})
+        });
+
+        it('having some elements added already and the caret placed in front of them, when a "/" character is typed. should add a fraction with a filled numerator', () => {
+          pressKeys(...'num')
+
+          addSlash()
+
+          expectTerms({
+            type: 'fraction',
+            numeratorChildren: [
+              {type: 'char', char: 'n'},
+              {type: 'char', char: 'u'},
+              {type: 'char', char: 'm'},
+            ],
+            denominatorChildren: [],
+          })
+        });
+
+        it('having some elements in already and the caret placed before them, when the "/" character is typed, then it should add a fraction with a filled denominator ', () => {
+          pressKeys(...'den', 'ArrowLeft', 'ArrowLeft', 'ArrowLeft',)
+
+          addSlash()
+
+          expectTerms({
+            type: "fraction",
+            numeratorChildren: [],
+            denominatorChildren: [
+              {type: "char", char: 'd'},
+              {type: "char", char: 'e'},
+              {type: "char", char: 'n'},
+            ]
+          });
+        })
+
+        it('having some elements in already and the caret placed in the middle of them, when the "/" character is , then it should add a full filed fraction', () => {
+          pressKeys(...'num',...'den', 'ArrowLeft', 'ArrowLeft', 'ArrowLeft')
+
+          addSlash()
+
+          expectTerms({
+            type: "fraction",
+            numeratorChildren: [
+              {type: "char", char: 'n'},
+              {type: "char", char: 'u'},
+              {type: "char", char: 'm'},
+            ],
+            denominatorChildren: [
+              {type: "char", char: 'd'},
+              {type: "char", char: 'e'},
+              {type: "char", char: 'n'},
+            ]
+          })
+        });
+      })
     })
     //--------------------- USER INTERACTION TESTS---------------------
 
