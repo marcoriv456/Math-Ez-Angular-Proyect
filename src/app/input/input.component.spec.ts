@@ -552,19 +552,18 @@ fdescribe('InputComponent', () => {
             exponentChildren:helloInTerms
           }
 
-          it('when the user writes something inside an exponent, it should modify the caret height', () => {
+          beforeEach(()=>{
             pressCtrlKeyAnd('e')
             pressKeys(...'hello')
 
             expectTerms(expectedTerm)
+          })
+
+          it('when the user writes something inside an exponent, it should modify the caret height', () => {
             expectCaretHeight(getCharHeight(4))
           });
 
           it('when the user writes something inside an exponent, it should modify the caret position', () => {
-            pressCtrlKeyAnd('e')
-            pressKeys(...'hello')
-
-            expectTerms(expectedTerm)
             expectCaretPosition(getRightBorderPositionOfChar(4))
           });
         })
