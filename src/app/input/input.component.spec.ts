@@ -525,10 +525,22 @@ fdescribe('InputComponent', () => {
         })
 
         describe("Caret changes writing inside an exponent", ()=>{
+          const expectedTerm:Term={
+            type:'exponent',
+            exponentChildren:[
+              {type:'char', char:'h'},
+              {type:'char', char:'e'},
+              {type:'char', char:'l'},
+              {type:'char', char:'l'},
+              {type:'char', char:'o'}
+            ]
+          }
+
           it('when the user writes something inside an exponent, it should modify the caret height', () => {
             pressCtrlKeyAnd('e')
             pressKeys(...'hello')
 
+            expectTerms(expectedTerm)
             expectCaretHeight(getCharHeight(4))
           });
 
@@ -536,6 +548,7 @@ fdescribe('InputComponent', () => {
             pressCtrlKeyAnd('e')
             pressKeys(...'hello')
 
+            expectTerms(expectedTerm)
             expectCaretPosition(getRightBorderPositionOfChar(4))
           });
         })
@@ -568,9 +581,7 @@ fdescribe('InputComponent', () => {
             expectCaretPosition(getRightBorderPositionOfChar(4))
           });
         })
-
-
-
+        
       });
 
     });
