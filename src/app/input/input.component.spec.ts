@@ -500,7 +500,7 @@ fdescribe('InputComponent', () => {
 
       describe('Caret movement inside contexts', ()=>{
 
-        const getCharHeight = (index:number) => {
+        const getCharParentHeight = (index:number) => {
           return (getRenderedCharacters().item(index) as HTMLElement).offsetHeight
         }
 
@@ -513,16 +513,16 @@ fdescribe('InputComponent', () => {
           expect(getCaretHeight()).toBeCloseTo(heightToExpect,0)
         }
 
-        const getCaretPositionY = () => {
+        const caretVerticalPosition = () => {
           return caretElement.getBoundingClientRect().top
         }
 
         const expectCaretVerticalPosition = (expectedPositionY:number) => {
           fixture.detectChanges()
-          expect(getCaretPositionY()).toBeCloseTo(expectedPositionY,0)
+          expect(caretVerticalPosition()).toBeCloseTo(expectedPositionY,0)
         }
 
-        const getTopPositionOfCharParent = (index:number) => {
+        const getCharParentVerticalPosition = (index:number) => {
           return getRenderedCharacters().item(index).parentElement?.getBoundingClientRect().top||0
         }
 
@@ -557,18 +557,18 @@ fdescribe('InputComponent', () => {
             fixture.detectChanges()
 
             expectTerms(expectedTerm)
-          })  
+          })
 
           it('It should modify the caret horizontal position', () => {
             expectCaretHorizontalPosition(getRightBorderPositionOfChar(4))
           });
 
           it('It should modify the caret vertical position to the same the character parent container has', () => {
-            expectCaretVerticalPosition(getTopPositionOfCharParent(2))
+            expectCaretVerticalPosition(getCharParentVerticalPosition(2))
           });
 
           it('It should modify the caret height', () => {
-            expectCaretHeight(getCharHeight(2))
+            expectCaretHeight(getCharParentHeight(2))
           });
 
         })
@@ -587,7 +587,7 @@ fdescribe('InputComponent', () => {
           })
 
           it('when the user writes something inside an exponent, it should modify the caret height', () => {
-            expectCaretHeight(getCharHeight(4))
+            expectCaretHeight(getCharParentHeight(4))
           });
 
           it('when the user writes something inside an exponent, it should modify the caret position', () => {
@@ -609,7 +609,7 @@ fdescribe('InputComponent', () => {
           })
 
           it('when the user writes something inside a function, it should modify the caret height', () => {
-            expectCaretHeight(getCharHeight(4))
+            expectCaretHeight(getCharParentHeight(4))
           });
 
           it('when the user writes something inside a function, it should modify the caret position', () => {
@@ -628,7 +628,7 @@ fdescribe('InputComponent', () => {
           })
 
           it('when the user writes something inside a parenthesis, it should modify the caret height', () => {
-            expectCaretHeight(getCharHeight(4))
+            expectCaretHeight(getCharParentHeight(4))
           });
 
           it('when the user writes something inside a parenthesis, it should modify the caret position', () => {
@@ -657,7 +657,7 @@ fdescribe('InputComponent', () => {
             })
 
             it('should modify the caret height', () => {
-              expectCaretHeight(getCharHeight(4)+getRootTopBorderAnchor())
+              expectCaretHeight(getCharParentHeight(4)+getRootTopBorderAnchor())
             });
 
             it('should modify the caret position', () => {
@@ -679,7 +679,7 @@ fdescribe('InputComponent', () => {
             })
 
             it('should modify the caret height', () => {
-              expectCaretHeight(getCharHeight(4))
+              expectCaretHeight(getCharParentHeight(4))
             });
 
             it('should modify the caret position', () => {
