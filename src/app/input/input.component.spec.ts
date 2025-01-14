@@ -975,9 +975,44 @@ fdescribe('InputComponent', () => {
               fixture.detectChanges()
             })
           });
+        });
 
+        describe('Parenthesis removal', () => {
+          beforeEach(()=>{
+            component.setTerms()
+            fixture.detectChanges()
+          })
 
+          it('being outside, it should remove only the last parenthesis character, and the other terms should remain', () => {
+            pressKeys(...'(12345)')
+            expectTerms({type:'parenthesis', parenthesisChildren:parsePhrase('12345')})
 
+            remove(1)
+
+            expectTerms(...parsePhrase('(12345'))
+            expectCaretHorizontalPosition(getRightBorderPositionOfChar(5))
+          });
+
+          it('being inside, with no terms, should remove the whole parenthesis', () => {
+            pressKeys(...'()')
+            moveBackward(1)
+
+            remove(1)
+
+            expectTerms()
+            expectCaretHorizontalPosition(0)
+          });
+
+          it('being inside, with some terms, and the caret in the first position, it should remove the parenthesis, but the inner terms should remain', () => {
+            pressKeys(...'(12345)')
+            expectTerms({type:'parenthesis', parenthesisChildren:parsePhrase('12345')})
+            moveBackward(6)
+
+            remove(1)
+
+            expectTerms(...parsePhrase('12345'))
+            expectCaretHorizontalPosition(0)
+          });
         });
       });
     });
