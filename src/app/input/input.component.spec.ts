@@ -95,6 +95,8 @@ fdescribe('InputComponent', () => {
 
   //--------------------- USER INTERACTION TESTS---------------------
   describe('User interactions', () => {
+    let caretElement=document.querySelector('#caret-container') as HTMLElement
+
     const dispatchEvents = (...events: Event[]) => {
       events.forEach(event => component.ref.dispatchEvent(event))
     }
@@ -145,6 +147,11 @@ fdescribe('InputComponent', () => {
       fixture.detectChanges()
       expect(getCaretPositionX()).toBeCloseTo(expectedPositionX,0)
     }
+
+
+    beforeEach(()=>{
+      caretElement=document.querySelector('#caret-container') as HTMLElement
+    })
 
     it('should lost focus when tab key is clicked', () => {
       pressKeys('Tab')
@@ -400,11 +407,6 @@ fdescribe('InputComponent', () => {
     })
 
     describe('Caret positioning', () => {
-      let caretElement=document.querySelector('#caret-container') as HTMLElement
-
-      beforeEach(()=>{
-        caretElement=document.querySelector('#caret-container') as HTMLElement
-      })
 
       it('when the user clicks the input, it should move caret to the end', () => {
         dispatchEvents(new MouseEvent('click'))
@@ -811,6 +813,17 @@ fdescribe('InputComponent', () => {
 
         describe('Fraction removal: ', () => {
 
+          it('being outside, it should remove the complete fraction', () => {
+            pressKeys(...'5/23')
+            expectTerms({type:'fraction', numeratorChildren:parsePhrase('5'),denominatorChildren:parsePhrase('23')})
+            moveForward(1)
+
+            remove(1)
+
+            expectTerms()
+            expectCaretHorizontalPosition(0)
+          });
+
           describe('Being inside the numerator: ', () => {
 
             it('in first index, it should remove the fraction ', () => {
@@ -819,6 +832,7 @@ fdescribe('InputComponent', () => {
 
               remove(1)
 
+              expectCaretHorizontalPosition(0)
               expectTerms()
             });
 
@@ -829,6 +843,7 @@ fdescribe('InputComponent', () => {
 
               remove(1)
 
+              expectCaretHorizontalPosition(getRightBorderPositionOfChar(1))
               expectTerms(...parsePhrase("24"))
             });
 
@@ -839,6 +854,7 @@ fdescribe('InputComponent', () => {
 
               remove(1)
 
+              expectCaretHorizontalPosition(0)
               expectTerms(...parsePhrase('212'))
             });
           });
@@ -851,15 +867,35 @@ fdescribe('InputComponent', () => {
 
               remove(1)
 
+              expectCaretHorizontalPosition(0)
               expectTerms()
+            });
+
+            it('in first index and having elements only in the numerator, it should remove the fraction, but the terms inside of it should remain there', () => {
+              pressKeys(...'24','/' )
+              expectTerms({type:'fraction',numeratorChildren:parsePhrase('24'),denominatorChildren:[]})
+
+              remove(1)
+
+              expectCaretHorizontalPosition(getRightBorderPositionOfChar(1))
+              expectTerms(...parsePhrase("24"))
+            });
+
+
+            it('in first index and having some elements, it should remove the fraction, but the terms inside of it should remain there', () => {
+              pressKeys(...'21/2')
+              expectTerms({type:'fraction',numeratorChildren: parsePhrase('21'),denominatorChildren:parsePhrase('2')})
+              moveBackward(1)
+
+              remove(1)
+
+              expectCaretHorizontalPosition(getRightBorderPositionOfChar(1))
+              expectTerms(...parsePhrase('212'))
             });
 
           });
 
-
         });
-
-
       });
     });
     //--------------------- USER INTERACTION TESTS---------------------
