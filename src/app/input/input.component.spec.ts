@@ -931,6 +931,54 @@ fdescribe('InputComponent', () => {
             expectCaretHorizontalPosition(0)
           });
         });
+
+        describe('Function removal', () => {
+          const addFunction = (fn:string) => {
+              pressKeys(...fn)
+              expectTerms({type:'function', functionName:fn, functionChildren:[], argumentTerms:fn=='log' ? []:undefined})
+          }
+
+          it('being outside, should remove the whole function', () => {
+            recognizableFunctions.forEach(fn=>{
+              addFunction(fn)
+              moveForward(1)
+
+              remove(1)
+
+              expectTerms()
+              expectCaretHorizontalPosition(0)
+            })
+          });
+
+          it('being inside, with no terms, should remove the whole function', () => {
+            recognizableFunctions.forEach(fn=>{
+              addFunction(fn)
+
+              remove(1)
+
+              expectTerms()
+              expectCaretHorizontalPosition(0)
+            })
+          });
+
+          it('being inside with some terms and the caret in the first index, it should remove the whole function, but the terms should remain there', () => {
+            recognizableFunctions.forEach(fn=>{
+              addFunction(fn)
+              pressKeys(...'12345')
+              moveBackward(5)
+
+              remove(1)
+
+              expectTerms(...parsePhrase('12345'))
+              expectCaretHorizontalPosition(0)
+              component.setTerms()
+              fixture.detectChanges()
+            })
+          });
+
+
+
+        });
       });
     });
     //--------------------- USER INTERACTION TESTS---------------------
