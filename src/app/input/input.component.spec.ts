@@ -896,6 +896,41 @@ fdescribe('InputComponent', () => {
           });
 
         });
+
+        describe('Exponent removal', () => {
+          it('being outside, it should remove the complete exponent', () => {
+            pressCtrlKeyAnd('e')
+            pressKeys(...'1992')
+            expectTerms({type:'exponent', exponentChildren:parsePhrase('1992')})
+
+            moveForward(1)
+            remove(1)
+
+            expectTerms()
+            expectCaretHorizontalPosition(0)
+          });
+
+          it('being inside with no term, should remove the exponent ', () => {
+            pressCtrlKeyAnd('e')
+            expectTerms({type:'exponent', exponentChildren:[]})
+
+            remove(1)
+
+            expectTerms()
+            expectCaretHorizontalPosition(0)
+          });
+
+          it('being inside with some terms and in the first index, it should remove the exponent, but the elements should remain there', () => {
+            pressCtrlKeyAnd('e')
+            pressKeys(...'1992')
+            moveBackward(4)
+
+            remove(1)
+
+            expectTerms(...parsePhrase('1992'))
+            expectCaretHorizontalPosition(0)
+          });
+        });
       });
     });
     //--------------------- USER INTERACTION TESTS---------------------
