@@ -1014,6 +1014,45 @@ fdescribe('InputComponent', () => {
             expectCaretHorizontalPosition(0)
           });
         });
+
+        describe('Root removal', () => {
+          describe('in normal roots', () => {
+            beforeEach(()=>{
+              component.setTerms()
+              fixture.detectChanges()
+              pressCtrlKeyAnd('r')
+              expectTerms({type:'root', rootChildren:[]})
+
+            })
+
+            it('being outside, it should remove the whole root', () => {
+              moveForward(1)
+
+              remove(1)
+
+              expectTerms()
+              expectCaretHorizontalPosition(0)
+            });
+
+            it('being inside with no terms, it should remove the root', () => {
+              remove(1)
+
+              expectTerms()
+              expectCaretHorizontalPosition(0)
+            });
+
+            it('being inside with some terms and wit the caret in the first position, it should remove the root, but the terms should remain there', () => {
+              pressKeys('12345')
+              expectTerms({type:'root', rootChildren:parsePhrase('12345')})
+              moveBackward(5)
+
+              remove(1)
+
+              expectTerms(...parsePhrase('12345'))
+            });
+          });
+
+        });
       });
     });
     //--------------------- USER INTERACTION TESTS---------------------
