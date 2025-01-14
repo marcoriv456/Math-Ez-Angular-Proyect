@@ -1018,11 +1018,8 @@ fdescribe('InputComponent', () => {
         describe('Root removal', () => {
           describe('in normal roots', () => {
             beforeEach(()=>{
-              component.setTerms()
-              fixture.detectChanges()
               pressCtrlKeyAnd('r')
               expectTerms({type:'root', rootChildren:[]})
-
             })
 
             it('being outside, it should remove the whole root', () => {
@@ -1042,13 +1039,46 @@ fdescribe('InputComponent', () => {
             });
 
             it('being inside with some terms and wit the caret in the first position, it should remove the root, but the terms should remain there', () => {
-              pressKeys('12345')
+              pressKeys(...'12345')
               expectTerms({type:'root', rootChildren:parsePhrase('12345')})
               moveBackward(5)
 
               remove(1)
 
               expectTerms(...parsePhrase('12345'))
+            });
+          });
+
+          describe('in editable index roots', () => {
+            beforeEach(()=>{
+              dispatchEvents(new KeyboardEvent('keydown',{key:'r', altKey:true}))
+              expectTerms({type:'root', rootChildren:[], radicalTerms:[]})
+            })
+
+            it('being outside, is should remove the whole root', () => {
+              moveForward(2)
+
+              remove(1)
+
+              expectTerms()
+              expectCaretHorizontalPosition(0)
+            });
+
+            it('being inside the index editor, it should remove the whole root', () => {
+              remove(1)
+
+              expectTerms()
+              expectCaretHorizontalPosition(0)
+            });
+
+            it('being inside the index editor with some terms and the caret placed in the first positions, it should remove the root, but the index terms should remain there', () => {
+              pressKeys(...'12345')
+              moveBackward(5)
+
+              remove(1)
+
+              expectTerms(...parsePhrase('12345'))
+              expectCaretHorizontalPosition(0)
             });
           });
 
