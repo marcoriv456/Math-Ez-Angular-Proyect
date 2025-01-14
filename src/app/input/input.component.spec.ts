@@ -123,6 +123,29 @@ fdescribe('InputComponent', () => {
       expect(component.getTerms()).toEqual(expectedTerms)
     }
 
+    const getCaretPositionX = ()=>{
+      let caretLeftStyle= caretElement?.style.left||""
+      return +caretLeftStyle.slice(0,caretLeftStyle.length-2)||0
+    }
+
+    const getRenderedCharacters = () =>{
+      return component.ref.querySelectorAll("char")
+    }
+
+    const getLeftBorderPositionOfChar = (index:number) => {
+      return getRenderedCharacters().item(index).getBoundingClientRect().left
+    }
+
+    const getRightBorderPositionOfChar = (index:number) => {
+      let char = getRenderedCharacters().item(index) as HTMLElement
+      return char.getBoundingClientRect().left + char.offsetWidth
+    }
+
+    const expectCaretHorizontalPosition = (expectedPositionX:number) => {
+      fixture.detectChanges()
+      expect(getCaretPositionX()).toBeCloseTo(expectedPositionX,0)
+    }
+
     it('should lost focus when tab key is clicked', () => {
       pressKeys('Tab')
 
@@ -378,29 +401,6 @@ fdescribe('InputComponent', () => {
 
     describe('Caret positioning', () => {
       let caretElement=document.querySelector('#caret-container') as HTMLElement
-
-      const getCaretPositionX = ()=>{
-        let caretLeftStyle= caretElement?.style.left||""
-        return +caretLeftStyle.slice(0,caretLeftStyle.length-2)||0
-      }
-
-      const getRenderedCharacters = () =>{
-        return component.ref.querySelectorAll("char")
-      }
-
-      const getLeftBorderPositionOfChar = (index:number) => {
-        return getRenderedCharacters().item(index).getBoundingClientRect().left
-      }
-
-      const getRightBorderPositionOfChar = (index:number) => {
-        let char = getRenderedCharacters().item(index) as HTMLElement
-        return char.getBoundingClientRect().left + char.offsetWidth
-      }
-
-      const expectCaretHorizontalPosition = (expectedPositionX:number) => {
-        fixture.detectChanges()
-        expect(getCaretPositionX()).toBeCloseTo(expectedPositionX,0)
-      }
 
       beforeEach(()=>{
         caretElement=document.querySelector('#caret-container') as HTMLElement
@@ -853,7 +853,7 @@ fdescribe('InputComponent', () => {
 
               expectTerms()
             });
-            
+
           });
 
 
