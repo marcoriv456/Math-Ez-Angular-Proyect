@@ -807,6 +807,60 @@ fdescribe('InputComponent', () => {
         });
       });
 
+      describe('Remove editable terms: ', () => {
+
+        describe('Fraction removal: ', () => {
+
+          describe('Being inside the numerator: ', () => {
+
+            it('in first index, it should remove the fraction ', () => {
+              pressKeys('/')
+              expectTerms({type:'fraction',denominatorChildren:[],numeratorChildren:[]})
+
+              remove(1)
+
+              expectTerms()
+            });
+
+            it('in first index and having elements only in the denominator, it should remove the fraction, but the terms inside of it should remain there', () => {
+              pressKeys('/','ArrowRight', ...'24')
+              expectTerms({type:'fraction',numeratorChildren:[],denominatorChildren:parsePhrase('24')})
+              moveBackward(3)
+
+              remove(1)
+
+              expectTerms(...parsePhrase("24"))
+            });
+
+            it('in first index and having some elements, it should remove the fraction, but the terms inside of it should remain there', () => {
+              pressKeys(...'21/2')
+              expectTerms({type:'fraction',numeratorChildren: parsePhrase('21'),denominatorChildren:parsePhrase('2')})
+              moveBackward(4)
+
+              remove(1)
+
+              expectTerms(...parsePhrase('212'))
+            });
+          });
+
+          describe('Being inside the denominator: ', () => {
+
+            it('in first index, it should remove the fraction', () => {
+              pressKeys('/', 'ArrowRight')
+              expectTerms({type:'fraction', denominatorChildren:[], numeratorChildren:[]})
+
+              remove(1)
+
+              expectTerms()
+            });
+            
+          });
+
+
+        });
+
+
+      });
     });
     //--------------------- USER INTERACTION TESTS---------------------
 
