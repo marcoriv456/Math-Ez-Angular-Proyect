@@ -32,7 +32,9 @@ export class InputTermDirective implements OnInit,AfterViewInit,OnDestroy{
   ngAfterViewInit() {
     if(this.asEditableElement)
       this.asEditableElement.validationRequester.subscribe(()=>this.updateValidation())
-    this.updateValidation()
+    setTimeout(()=>{
+      this.updateValidation()
+    })
   }
 
   get data():InputCharData{
