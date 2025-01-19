@@ -7,20 +7,16 @@ import {VariableProviderService} from "../../services/variable-provider/variable
 import {
   ExperimentalVariableProviderService
 } from "../../input-testing-environment/experimental-variable-provider.service";
+import {configureTestbed} from "../../tests/config/configure-testbed.helper";
 
 describe('EditableTermContainerComponent', () => {
   let component: EditableTermContainerComponent;
   let fixture: ComponentFixture<EditableTermContainerComponent>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule(testingModuleConfig)
-    .compileComponents();
-
-    fixture = TestBed.createComponent(EditableTermContainerComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-
-    TestBed.inject(VariableProviderService).setVariableProvider(new ExperimentalVariableProviderService())
+    let {testBedFixture,fixtureComponent}=await configureTestbed(EditableTermContainerComponent)
+    component=fixtureComponent
+    fixture=testBedFixture
   });
 
   it('should create', () => {
