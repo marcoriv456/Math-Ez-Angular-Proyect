@@ -3,6 +3,7 @@ import {ComponentFixture, TestBed} from "@angular/core/testing";
 import {EditableTermContainerComponent} from "../components/editable-term-container/editable-term-container.component";
 import {TermContainerComponent} from "../components/term-container/term-container.component";
 import {parsePhrase} from "./utlis/parse-phrase.helper";
+import {CharComponent} from "../components/char/char.component";
 
 export function runEditableElementTests<T extends InputEditableElement>(className:string){
   let component: EditableTermContainerComponent;
@@ -99,6 +100,35 @@ export function runEditableElementTests<T extends InputEditableElement>(classNam
 
     });
 
+    describe('Obtaining rendered chars :', () => {
+        const testingPhrase="hello"
+        beforeEach(()=>{
+          component.append(parsePhrase(testingPhrase))
+          fixture.detectChanges()
+        })
 
+        it('writing some elements, it should have some rendered elements', () => {
+          expect(component.renderedChars.length).toBe(5)
+        });
+
+        it('shouldn\'t return any character as undefined', () => {
+          [...testingPhrase].forEach((char,index)=>expect(component.getRenderedChar(index)).toBeTruthy())
+        });
+
+        it('should return every single character in the phrase', () => {
+          [...testingPhrase].forEach((char,index)=>expect(component.getRenderedChar(index)?.char).toBe(char))
+        });
+      });
+
+    describe('Computed properties: ', () => {
+      it('should determine correctly whether it is empty or not', () => {
+        component.terms=[]
+        expect(component['isEmpty']).toBeTrue()
+
+        component.terms=parsePhrase('hello')
+        expect(component['isEmpty']).toBeFalse()
+      });
+    });
   })
+
 }
