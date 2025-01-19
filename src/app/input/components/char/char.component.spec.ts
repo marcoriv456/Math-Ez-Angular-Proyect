@@ -13,9 +13,9 @@ describe('CharComponent', () => {
   let component: CharComponent;
   let fixture: ComponentFixture<CharComponent>;
   beforeEach(async () => {
-    let { fixtureComponent, testBedFixture}=await configureTestbed(CharComponent)
-    fixture=testBedFixture
-    component=fixtureComponent
+    let { _component, _fixture}=await configureTestbed(CharComponent)
+    fixture=_fixture
+    component=_component
   });
 
   it('should create', () => {

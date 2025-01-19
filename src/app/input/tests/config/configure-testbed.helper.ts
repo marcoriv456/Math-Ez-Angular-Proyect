@@ -14,5 +14,5 @@ export const configureTestbed= async (type:{new (...args:any[]):any}) => {
 
   fixture.detectChanges();
   TestBed.inject(VariableProviderService).setVariableProvider(new ExperimentalVariableProviderService())
-  return {testBedFixture:fixture,fixtureComponent:component}
+  return {_fixture:fixture,_component:component}
 }

@@ -14,9 +14,9 @@ describe('EditableTermContainerComponent', () => {
   let fixture: ComponentFixture<EditableTermContainerComponent>;
 
   beforeEach(async () => {
-    let {testBedFixture,fixtureComponent}=await configureTestbed(EditableTermContainerComponent)
-    component=fixtureComponent
-    fixture=testBedFixture
+    let {_fixture,_component}=await configureTestbed(EditableTermContainerComponent)
+    component=_component
+    fixture=_fixture
   });
 
   it('should create', () => {

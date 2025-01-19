@@ -34,10 +34,10 @@ describe('InputComponent', () => {
   let variableProviderContainer: VariableProviderService;
 
   beforeEach(async () => {
-    let {fixtureComponent,testBedFixture}=await configureTestbed(InputComponent)
+    let {_component,_fixture}=await configureTestbed(InputComponent)
 
-    component=fixtureComponent
-    fixture=testBedFixture
+    component=_component
+    fixture=_fixture
 
     fixture.componentRef.setInput('variableProvider', variableProvider)
     variableProviderContainer = TestBed.inject(VariableProviderService)
