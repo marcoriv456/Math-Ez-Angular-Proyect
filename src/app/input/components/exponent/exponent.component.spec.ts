@@ -1,23 +1,25 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExponentComponent } from './exponent.component';
+import {configureTestbed} from "../../tests/config/configure-testbed.helper";
+import {runEditableElementTests} from "../../tests/editable-elements-shared-tests.spec..test";
+import {parsePhrase} from "../../tests/utlis/parse-phrase.helper";
 
-describe('PowerComponent', () => {
+describe('ExponentComponent', () => {
   let component: ExponentComponent;
   let fixture: ComponentFixture<ExponentComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ExponentComponent]
-    })
-    .compileComponents();
 
-    fixture = TestBed.createComponent(ExponentComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  beforeEach(async () => {
+     let {_fixture,_component}= await configureTestbed(ExponentComponent)
+    fixture=_fixture
+    component=_component
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  runEditableElementTests<ExponentComponent>('ExponentComponent',ExponentComponent)
+
 });
