@@ -8,7 +8,7 @@ import {
 } from "../../input-testing-environment/experimental-variable-provider.service";
 import {By} from "@angular/platform-browser";
 
-fdescribe('CharComponent', () => {
+describe('CharComponent', () => {
   let component: CharComponent;
   let fixture: ComponentFixture<CharComponent>;
   beforeEach(async () => {
