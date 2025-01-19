@@ -35,7 +35,7 @@ export abstract class InputEditableElement{
   protected validatorClass!:{ new (component: any): TermValidator }|undefined
 
 
-  public append(terms:Term[], index:number){
+  public append(terms:Term[], index:number = this.caretIndex){
     this.terms.splice(index,0,...terms)
     this.updateValidation()
   }

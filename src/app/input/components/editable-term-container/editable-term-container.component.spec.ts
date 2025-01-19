@@ -23,6 +23,6 @@ describe('EditableTermContainerComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  runEditableElementTests<EditableTermContainerComponent>('EditableTermContainerComponent')
+  runEditableElementTests<EditableTermContainerComponent>('EditableTermContainerComponent',EditableTermContainerComponent)
 
 });

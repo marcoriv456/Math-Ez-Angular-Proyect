@@ -4,24 +4,25 @@ import {EditableTermContainerComponent} from "../components/editable-term-contai
 import {TermContainerComponent} from "../components/term-container/term-container.component";
 import {parsePhrase} from "./utlis/parse-phrase.helper";
 import {CharComponent} from "../components/char/char.component";
+import {configureTestbed} from "./config/configure-testbed.helper";
 
-export function runEditableElementTests<T extends InputEditableElement>(className:string){
-  let component: EditableTermContainerComponent;
-  let fixture: ComponentFixture<EditableTermContainerComponent>;
+export function runEditableElementTests<T extends InputEditableElement>(name:string, type:{new ():T}) {
+  let component: T;
+  let fixture: ComponentFixture<T>;
 
-  describe(`${className} - Editable Elements Test suite`, ()=>{
-    beforeEach(() => {
-      fixture = TestBed.createComponent(EditableTermContainerComponent);
+  describe(`${name} - Editable Elements Test suite`, ()=>{
+    beforeEach(async() => {
+      fixture = TestBed.createComponent(type);
       component = fixture.componentInstance;
       fixture.detectChanges();
 
       fixture.componentRef.setInput('terms', [])
 
 
-      spyOn(component, 'updateValidation')
+      spyOn(component as any, 'updateValidation')
     });
 
-    it(`should get an ${className} instance.` , () => {
+    it(`should get an ${name} instance.` , () => {
       expect(component).toBeTruthy();
     });
 
