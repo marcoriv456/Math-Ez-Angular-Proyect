@@ -7,19 +7,15 @@ import {
   ExperimentalVariableProviderService
 } from "../../input-testing-environment/experimental-variable-provider.service";
 import {By} from "@angular/platform-browser";
+import {configureTestbed} from "../../tests/config/configure-testbed.helper";
 
 describe('CharComponent', () => {
   let component: CharComponent;
   let fixture: ComponentFixture<CharComponent>;
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [CharComponent],
-      providers:[VariableProviderService]
-    })
-    .compileComponents();
-    fixture = TestBed.createComponent(CharComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    let { fixtureComponent, testBedFixture}=await configureTestbed(CharComponent)
+    fixture=testBedFixture
+    component=fixtureComponent
   });
 
   it('should create', () => {

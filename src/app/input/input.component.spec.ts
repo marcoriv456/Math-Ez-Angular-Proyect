@@ -24,6 +24,7 @@ import {VariableProvider} from "./models/variable-provider.model";
 import {ExperimentalVariableProviderService} from "./input-testing-environment/experimental-variable-provider.service";
 import {inject, input} from "@angular/core";
 import {SpecialCharFinder} from "./classes/special-char-finder.class";
+import {configureTestbed} from "./tests/config/configure-testbed.helper";
 
 describe('InputComponent', () => {
   let component: InputComponent;
@@ -33,44 +34,13 @@ describe('InputComponent', () => {
   let variableProviderContainer: VariableProviderService;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [
-        InputComponent,
-        InputTestingEnvironmentComponent,
-        CharComponent,
-        FractionComponent,
-        InputTermDirective,
-        FractionChildComponent,
-        ExponentComponent,
-        RootComponent,
-        FunctionComponent,
-        TermContainerComponent,
-        TermArgumentComponent,
-        EditableTermContainerComponent,
-        ParenthesisComponent,
-        TermValidationWarningComponent
-      ],
-      imports: [
-        CommonModule,
-        BrowserAnimationsModule
-      ],
-      providers: [
-        CharClickedNotifierService,
-        WarningsService,
-        VariableProviderService,
-      ],
+    let {fixtureComponent,testBedFixture}=await configureTestbed(InputComponent)
 
-    })
-      .compileComponents();
+    component=fixtureComponent
+    fixture=testBedFixture
 
-    fixture = TestBed.createComponent(InputComponent);
     fixture.componentRef.setInput('variableProvider', variableProvider)
-
     variableProviderContainer = TestBed.inject(VariableProviderService)
-    spyOn(variableProviderContainer, 'setVariableProvider').and.callThrough()
-
-    component = fixture.componentInstance;
-
     fixture.detectChanges();
   });
 
@@ -85,7 +55,7 @@ describe('InputComponent', () => {
     })
 
     it('should set the variable provider in the container service', () => {
-      expect(variableProviderContainer.setVariableProvider).toHaveBeenCalled()
+      expect(variableProviderContainer.variableProvider).toBeTruthy()
     });
   })
   //--------------------- INITIALIZATION TESTS---------------------
