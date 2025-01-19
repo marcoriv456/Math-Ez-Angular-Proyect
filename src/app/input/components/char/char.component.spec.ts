@@ -8,7 +8,7 @@ import {
 } from "../../input-testing-environment/experimental-variable-provider.service";
 import {By} from "@angular/platform-browser";
 
-describe('CharComponent', () => {
+fdescribe('CharComponent', () => {
   let component: CharComponent;
   let fixture: ComponentFixture<CharComponent>;
   beforeEach(async () => {
@@ -26,4 +26,7 @@ describe('CharComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should inject variable provider service', () => {
+    expect(component.variableProvider).toBeTruthy()
+  });
 });
