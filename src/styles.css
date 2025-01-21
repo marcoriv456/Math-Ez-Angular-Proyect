@@ -10,4 +10,59 @@
 :root{
   font-family: "Lato", sans-serif;
   font-size: 12px;
+
+
+  /* GLOBAL COLORS */
+  --col-black: #1d1d1b;
+  --col-white: #ffffff;
+  --col-background: #f7f7f7;
+  --col-main: #0099ff;
+  --col-main-d1: #007ce3;
+  --col-main-d2: #0860c7;
+  --col-main-d3: #1144aa;
+  --col-mian-l1: #73affe;
+  --col-main-l2: #d1defa;
+
+
+  /* TOPICS-COLORS */
+  --col-topic-calculus: #fe7375;
+  --col-topic-algebra: #fec473;
+  --col-topic-trigonometry: #73fe78;
+  --col-topic-statistics: #d273fe;
+  --col-topic-logic: #53ffc3;
+  --col-topic-graphics: #7386fe;
+  --col-topic-measures: #fceb33;
+  
+
+  /* TYPE */
+  --small-subtitle-family: "Gilroy";
+  --small-subtitle-size: 20px;
+  --small-subtitle-size-rem: 1.25rem;
+  --small-subtitle-weight: 800;
+  --small-subtitle-style: normal;
+
+  --big-subtitle-family: "Tinos";
+  --big-subtitle-size: 40px;
+  --big-subtitle-size-rem: 2.5rem;
+  --big-subtitle-weight: 400;
+  --big-subtitle-style: normal;
+
+  --text-family: "Montserrat";
+  --text-size: 16px;
+  --text-size-rem: 1rem;
+  --text-weight: 400;
+  --text-style: normal;
+  --text-line-height: 160%;
+
+  --citations-family: "Tinos";
+  --citations-size: 24px;
+  --citations-size-rem: 1.5rem;
+  --citations-weight: 400;
+  --citations-style: normal;
+
+
+  /* SHADOWS */
+  --toony-shadow: 0 8px 0 0 rgba(0 0 0 / 0.25);
+  --inner-toony-shadow: inset 8px 8px 0 0 rgba(0 0 0 / 0.25);
+
 }

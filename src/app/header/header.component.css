@@ -1,0 +1,7 @@
+:host{
+  --header-link-family: "Gilroy";
+  --header-link-size: 24px;
+  --header-link-size-rem: 1.5rem;
+  --header-link-weight: 800;
+  --header-link-style: normal;
+}
