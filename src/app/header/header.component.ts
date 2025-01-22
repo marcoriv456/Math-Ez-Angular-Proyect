@@ -5,7 +5,7 @@ import {FlubberAnimation} from "./helpers/flubber-animation.helper";
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css','../../assets/styles/section-color-themes.css']
+  styleUrl:'./header.component.css'
 })
 export class HeaderComponent implements AfterViewInit,OnDestroy{
   private flubberAnimations:FlubberAnimation[]=[]

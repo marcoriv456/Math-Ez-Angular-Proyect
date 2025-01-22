@@ -4,7 +4,7 @@ import {FooterService} from "./footer.service";
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.css','../../assets/styles/section-color-themes.css']
+  styleUrl:'./footer.component.css'
 })
 export class FooterComponent implements AfterViewInit{
   ref=inject(ElementRef)
