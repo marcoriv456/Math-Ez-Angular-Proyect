@@ -1,0 +1,88 @@
+:host{
+  position: absolute;
+  top: 0;
+}
+.introduction{
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+.introduction>div{
+  flex: 1 0 50%;
+}
+.introduction .left-container{
+  display: flex;
+  justify-content: center;
+}
+
+.introduction .left-container svg{
+  width: 75%;
+  height: 25%;
+}
+.introduction .left-container svg *{
+  fill: var(--col-black);
+}
+
+.introduction .right-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.introduction .right-container h1{
+  color: var(--col-black);
+  text-align: center;
+
+  font-family: var(--big-subtitle-family), sans-serif;
+  font-size: var(--big-subtitle-size);
+  font-style: var(--big-subtitle-style);
+  font-weight: var(--big-subtitle-weight);
+  line-height: var(--big-subtitle-size);
+}
+
+.introduction .right-container p{
+  color: var(--col-black);
+  text-align: center;
+  font-size:  var(--text-size);
+}
+
+.introduction .right-container h2{
+  color: var(--col-black);
+  text-align: center;
+
+  font-family: var(--small-subtitle-family), sans-serif;
+  font-size: var(--small-subtitle-size);
+  font-style: var(--small-subtitle-style);
+  font-weight: var(--small-subtitle-weight);
+  text-transform: uppercase;
+}
+
+.introduction .input-container {
+  display: flex;
+}
+
+.introduction .input-container button{
+  width: 5rem;
+  display: grid;
+  place-content: center;
+  font-size: 3rem;
+  background-color: var(--col-main);
+  border: none;
+  border-radius: 0.75rem;
+}
+
+.introduction .input-container app-input,
+.introduction .input-container button{
+  flex:1 0 auto
+}
+
+.introduction .input-container app-input,
+.introduction .input-container button,
+.introduction .right-container p {
+  font-family:var(--text-family), sans-serif;
+  font-style: var(--text-style);
+  font-weight:var(--text-weight);
+  line-height:var(--text-line-height);
+}
+
+
