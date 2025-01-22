@@ -42,20 +42,17 @@
 
   /* TYPE */
   --small-subtitle-family: "Gilroy";
-  --small-subtitle-size: 20px;
-  --small-subtitle-size-rem: 1.25rem;
+  --small-subtitle-size: 2rem;
   --small-subtitle-weight: 800;
   --small-subtitle-style: normal;
 
   --big-subtitle-family: "Tinos";
-  --big-subtitle-size: 40px;
-  --big-subtitle-size-rem: 2.5rem;
+  --big-subtitle-size: 3rem;
   --big-subtitle-weight: 400;
   --big-subtitle-style: normal;
 
   --text-family: "Montserrat";
-  --text-size: 16px;
-  --text-size-rem: 1rem;
+  --text-size: 1.5rem;
   --text-weight: 400;
   --text-style: normal;
   --text-line-height: 160%;
