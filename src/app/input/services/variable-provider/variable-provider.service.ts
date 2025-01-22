@@ -15,7 +15,9 @@ export class VariableProviderService {
   }
 
   get variableNames(){
-    return [...this.variableProvider.variableNames,...this.defaultVariableNames];
+    if(!this.variableProvider)
+      return this.defaultVariableNames
+    return [...this.variableProvider?.variableNames,...this.defaultVariableNames];
   }
 
   get defaultVariableNames(){
