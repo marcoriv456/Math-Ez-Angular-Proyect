@@ -58,23 +58,32 @@
 }
 
 .introduction .input-container {
+  width: 70%;
+  height: 4rem;
   display: flex;
+}
+
+.introduction .input-container app-input{
+  font-size: 2rem;
+  height: 100%;
 }
 
 .introduction .input-container button{
   width: 5rem;
+  height: 100%;
   display: grid;
   place-content: center;
   font-size: 3rem;
-  background-color: var(--col-main);
+  background-color: var(--col-main-l1);
   border: none;
   border-radius: 0.75rem;
 }
 
 .introduction .input-container app-input,
 .introduction .input-container button{
-  flex:1 0 auto
+  flex:1 1 auto
 }
+
 
 .introduction .input-container app-input,
 .introduction .input-container button,
