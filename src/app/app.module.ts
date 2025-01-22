@@ -9,12 +9,14 @@ import { InputComponent } from './input/input.component';
 import { InputTestingEnvironmentComponent } from './input/input-testing-environment/input-testing-environment.component';
 import {InputModule} from "./input/input.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         HeaderComponent,
-        FooterComponent
+        FooterComponent,
+        HomeComponent
     ],
     imports: [
         BrowserModule,
