@@ -39,6 +39,9 @@ import {InputEditableElement} from "./directives/input-editable-element/input-ed
   imports: [
     CommonModule
   ],
+  exports:[
+    InputComponent
+  ],
   providers:[
     CharClickedNotifierService,
     WarningsService,
