@@ -4,9 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { HomeComponent } from './home/home.component';
-import { LogoSectionComponent } from './home/logo-section/logo-section.component';
-import {HomeModule} from "./home/home.module";
 import { FooterComponent } from './footer/footer.component';
 import { InputComponent } from './input/input.component';
 import { InputTestingEnvironmentComponent } from './input/input-testing-environment/input-testing-environment.component';
@@ -22,7 +19,6 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     imports: [
         BrowserModule,
         AppRoutingModule,
-        HomeModule,
         InputModule,
         BrowserAnimationsModule
     ],

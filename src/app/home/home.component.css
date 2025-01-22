@@ -1,9 +1,0 @@
-:host{
-  --in-easing:cubic-bezier(0,0,0,1);
-  --out-easing:cubic-bezier(0,0,1,0);
-
-  --transition-duration:0.8s;
-  --small-transition-duration:calc(var(--transition-duration)*0.5);
-
-  --section-height:200vh;
-}
