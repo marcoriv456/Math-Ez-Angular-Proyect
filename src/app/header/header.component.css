@@ -32,6 +32,19 @@ header{
   visibility: hidden;
 }
 
+#bg g .layer-1{
+  fill: var(--col-main);
+}
+#bg g .layer-2{
+  fill: var(--col-main-d1);
+}
+#bg g .layer-3{
+  fill: var(--col-main-d2);
+}
+#bg g .layer-4{
+  fill: var(--col-main-d3);
+}
+
 .logo-container{
   width: 15rem;
   height: 7.5rem;
