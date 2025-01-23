@@ -296,7 +296,6 @@ section{
   height: 100vh;
   position: relative;
 }
-
 .register .content-container{
   position: absolute;
   top: 20%;
@@ -369,17 +368,36 @@ section{
   transition-duration: var(--long-trans-duration);
   transition-timing-function: var(--trans-easing-out);
   transition-property: translate;
-  transition-delay: 0s;
 }
+
 .register .bottom-blob .layer-1{
   fill: var(--col-main-d1);
 }
+
 .register .bottom-blob .layer-2{
   fill: var(--col-main);
-  /*transition-delay: 0.1s;*/
 }
+
 .register .bottom-blob .layer-3{
   fill: var(--col-main-l1);
+}
+
+.register .bottom-images{
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: space-evenly;
+  z-index: -10;
+}
+
+.register .bottom-images img{
+  max-width: 30vw;
+  max-height: 25vw;
+  translate: 0 100%;
+  transition-duration: var(--long-trans-duration);
+  transition-timing-function: var(--trans-easing-out);
+  transition-property: translate;
 }
 
 .register.intersecting .bottom-blob .layer{
@@ -389,8 +407,12 @@ section{
 .register.intersecting .bottom-blob .layer-2{
   transition-delay: 0.1s;
 }
+
 .register.intersecting .bottom-blob .layer-3{
   transition-delay: 0.2s;
 }
 
+.register.intersecting .bottom-images img{
+  translate: 0 0;
+}
 
