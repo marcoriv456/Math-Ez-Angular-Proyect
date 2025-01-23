@@ -1,5 +1,5 @@
 section{
-  /*outline: 1px solid black;*/
+  outline: 1px solid black;
 }
 
 .introduction{
@@ -118,7 +118,7 @@ section{
   font-weight: var(--big-subtitle-weight);
 }
 .topics .text-container p{
-  color: #000;
+  color: var(--col-black);
   text-align: center;
 
   font-family: var(--text-family), sans-serif;
@@ -212,9 +212,6 @@ section{
   --btn-color: var(--col-topic-statistics);
   left: 15rem;
 }
-
-
-
 .topics.intersected .btn-container button span{
   color: var(--btn-color);
 }
@@ -291,4 +288,71 @@ section{
   opacity: 1;
   transform: translate(0,0);
   transition-timing-function: var(--trans-easing-out);
+}
+
+
+
+.register{
+  height: 100vh;
+  position: relative;
+}
+
+.register .content-container{
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  translate: -50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+.register .content-container .text-container{
+  max-width: 35rem;
+}
+
+.register .content-container .text-container h3{
+  color: var(--col-black);
+  text-align: center;
+  font-family: var(--big-subtitle-family), sans-serif;
+  font-size: var(--big-subtitle-size);
+  font-style: var(--big-subtitle-style);
+  font-weight: var(--big-subtitle-weight);
+}
+
+.register .content-container .text-container p{
+  color: var(--col-black);
+  text-align: center;
+  font-family: var(--text-family), sans-serif;
+  font-size: var(--text-size);
+  font-weight: var(--text-weight);
+  line-height: var(--text-line-height);
+}
+
+.register .content-container .btn-container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.register .content-container .btn-container button{
+  padding: 1rem 1.5rem;
+  border-radius: 1.5rem;
+  border: none;
+  text-align: center;
+  font-family: var(--small-subtitle-family), sans-serif;
+  font-size: var(--small-subtitle-size);
+  font-style: var(--small-subtitle-style);
+  font-weight: var(--small-subtitle-weight);
+  text-transform: uppercase;
+}
+
+.register .content-container .btn-container button.create-account{
+  color: var(--col-white);
+  background-color: var(--col-main-l1);
+}
+.register .content-container .btn-container button.log-in{
+  color: var(--col-black);
+  background-color: var(--col-main-l2);
 }
