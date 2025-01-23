@@ -1,5 +1,5 @@
 section{
-  outline: 1px solid black;
+  /*outline: 1px solid black;*/
 }
 
 .introduction{
@@ -128,10 +128,129 @@ section{
   line-height:  var(--text-line-height);
 }
 
+.topics .btn-container{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+}
+
+.topics .btn-container button{
+  --btn-color:none;
+  width: 10rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  background-color: transparent;
+  border: none;
+  translate: -50%;
+  transition-property: top,left,transform;
+  transition-duration: var(--long-trans-duration);
+  transition-timing-function: var(--trans-easing-out);
+  top: 0;
+  left: 0;
+}
+
+
+
+
+.topics .btn-container button .img-container{
+  width: 10rem;
+  height: 10rem;
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  background-color: var(--btn-color);
+}
+
+.topics .btn-container button .img-container img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: invert(1) brightness(100);
+}
+
+.topics .btn-container button span{
+  color: transparent;
+  text-align: center;
+
+  font-family: var(--small-subtitle-family),sans-serif;
+  font-size: var(--small-subtitle-size);
+  font-style: var(--small-subtitle-style);
+  font-weight: var(--small-subtitle-weight);
+  text-transform: uppercase;
+  transition-property: color;
+  transition-duration: var(--long-trans-duration);
+  transition-timing-function: var(--trans-easing-out);
+}
+
+.topics .btn-container button.calculus{
+  --btn-color: var(--col-topic-calculus);
+  left: -15rem;
+}
+.topics .btn-container button.algebra{
+  --btn-color: var(--col-topic-algebra);
+  left: -10rem;
+}
+.topics .btn-container button.graphics{
+  --btn-color: var(--col-topic-graphics);
+  left: -5rem;
+}
+.topics .btn-container button.logic{
+  --btn-color: var(--col-topic-logic);
+  left: 50%;
+}
+.topics .btn-container button.measures{
+  --btn-color: var(--col-topic-measures);
+  left: 5rem;
+}
+.topics .btn-container button.trigonometry{
+  --btn-color: var(--col-topic-trigonometry);
+  left: 10rem;
+}
+.topics .btn-container button.statistics{
+  --btn-color: var(--col-topic-statistics);
+  left: 15rem;
+}
+
+
+
+.topics.intersected .btn-container button span{
+  color: var(--btn-color);
+}
+.topics.intersected .btn-container button.calculus{
+  left: -25rem;
+  top: -6rem;
+}
+.topics.intersected .btn-container button.algebra{
+  left: -10rem;
+  top: -2rem;
+}
+.topics.intersected .btn-container button.trigonometry{
+  left: 10rem;
+  top: -2rem;
+}
+.topics.intersected .btn-container button.statistics{
+  left: 25rem;
+  top: -6rem;
+}
+.topics.intersected .btn-container button.graphics{
+  left: -20rem;
+  top: 13rem;
+}
+.topics.intersected .btn-container button.logic{
+  top: 17rem;
+}
+.topics.intersected .btn-container button.measures{
+  left: 20rem;
+  top: 13rem;
+}
+
+
 .topics .blob{
   position: fixed;
-  width: 30rem;
-  height: 30rem;
+  width: 20vw;
+  height: 20vw;
 }
 .topics .blob,
 .topics .blob .layer{

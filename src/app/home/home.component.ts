@@ -11,8 +11,10 @@ export class HomeComponent implements AfterViewInit{
   private renderer=inject(Renderer2)
   private observerCallback= (entries: IntersectionObserverEntry[]) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting)
+      if (entry.isIntersecting){
         this.renderer.addClass(entry.target, 'intersecting')
+        this.renderer.addClass(entry.target, 'intersected')
+      }
       else
         this.renderer.removeClass(entry.target, 'intersecting');
     })
