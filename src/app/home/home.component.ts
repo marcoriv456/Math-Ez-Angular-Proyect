@@ -7,6 +7,7 @@ import {AfterViewInit, Component, ElementRef, inject, Renderer2, ViewChild} from
 })
 export class HomeComponent implements AfterViewInit{
   @ViewChild('topicsSection') topicsSection!:ElementRef;
+  @ViewChild('registerSection') registerSection!:ElementRef;
 
   private renderer=inject(Renderer2)
   private observerCallback= (entries: IntersectionObserverEntry[]) => {
@@ -23,6 +24,7 @@ export class HomeComponent implements AfterViewInit{
 
   ngAfterViewInit() {
     this.intersectionObserver.observe(this.topicsSection.nativeElement)
+    this.intersectionObserver.observe(this.registerSection.nativeElement)
   }
 
 
