@@ -21,7 +21,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy{
         this.renderer.removeClass(entry.target, 'intersecting');
     })
   }
-  private intersectionObserver=new IntersectionObserver(this.observerCallback,{threshold:0.7})
+  private intersectionObserver=new IntersectionObserver(this.observerCallback,{threshold:0.6})
 
   private blobAnimations:BlobAnimation[]=[]
 
