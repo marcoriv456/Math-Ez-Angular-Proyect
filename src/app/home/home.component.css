@@ -243,30 +243,41 @@ section{
   top: 13rem;
 }
 
-
 .topics .blob{
   position: fixed;
   width: 20vw;
   height: 20vw;
 }
-.topics .blob,
-.topics .blob .layer{
-  opacity: 0;
-  transition-property: transform, opacity;
-  transition-duration: var(--long-trans-duration);
-  transition-timing-function: var(--trans-easing-in);
-}
 
 .topics .blob-1{
   bottom: 0;
   left: 0;
-  transform: translate(-100%, 100%);
 }
 .topics .blob-2{
   top: 0;
   right: 0;
-  transform: translate(100% ,-100%);
 }
+
+.topics .blob .layer{
+  transition-property: transform;
+  transition-duration: var(--long-trans-duration);
+  transition-timing-function: var(--trans-easing-in);
+  transition-delay: var(--trans-delay);
+}
+
+.topics.intersecting .blob .layer{
+  transform: translate(0,0);
+  transition-timing-function: var(--trans-easing-out);
+}
+
+.topics .blob .layer path{
+  fill: var(--fill-col);
+  animation-duration: 3s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-delay: var(--anim-delay);
+}
+
 .topics .blob-1 .layer{
   transform: translate(-100%, 100%);
 }
@@ -274,26 +285,52 @@ section{
   transform: translate(100% ,-100%);
 }
 
-.topics .blob .layer-1 path{
-  fill: var(--col-main);
+.topics .blob-2 .layer path{
+  animation-name: right-to-left;
 }
-.topics .blob .layer-2 path{
-  fill: var(--col-main-l1);
+.topics .blob-1 .layer path{
+  animation-name: left-to-right;
 }
-.topics .blob .layer-3 path{
-  fill: var(--col-main-l2);
-}
+
 
 .topics .blob .layer>path:not(.step-1){
   visibility: hidden;
 }
 
-.topics.intersecting .blob,
-.topics.intersecting .blob .layer{
-  opacity: 1;
-  transform: translate(0,0);
-  transition-timing-function: var(--trans-easing-out);
+.topics .blob .layer-1{
+  --anim-delay:0s;
+  --trans-delay:0s;
+  --fill-col:var(--col-main);
 }
+.topics .blob .layer-2{
+  --trans-delay:0.1s;
+  --anim-delay:0.5s;
+  --fill-col:var(--col-main-l1);
+}
+.topics .blob .layer-3{
+  --trans-delay:0.2s;
+  --anim-delay:1s;
+  --fill-col:var(--col-main-l2);
+}
+
+@keyframes right-to-left {
+  0%,100%{
+    translate: 0;
+  }
+  50%{
+    translate: 10%;
+  }
+}
+
+@keyframes left-to-right {
+  0%,100%{
+    translate: 0;
+  }
+  50%{
+    translate: -10%;
+  }
+}
+
 
 
 
