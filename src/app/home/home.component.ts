@@ -28,7 +28,9 @@ export class HomeComponent implements AfterViewInit{
     this.intersectionObserver.observe(this.registerSection.nativeElement)
 
     let blob2Animation=new BlobAnimation('.topics .blobs .blob-2',3,3)
-    blob2Animation.init({duration:1000,layerDelay:500})
+    let blob1Animation=new BlobAnimation('.topics .blobs .blob-1',3,3)
+    blob1Animation.init({duration:2000,layerDelay:500})
+    blob2Animation.init({duration:2000,layerDelay:500})
   }
 
 }
