@@ -10,6 +10,7 @@ import { InputTestingEnvironmentComponent } from './input/input-testing-environm
 import {InputModule} from "./input/input.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { HomeComponent } from './home/home.component';
+import {NgxParticlesModule} from "@tsparticles/angular";
 
 @NgModule({
     declarations: [
@@ -22,7 +23,8 @@ import { HomeComponent } from './home/home.component';
         BrowserModule,
         AppRoutingModule,
         InputModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        NgxParticlesModule
     ],
     providers: [],
     bootstrap: [AppComponent]
