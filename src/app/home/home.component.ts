@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, inject, Renderer2, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, inject, OnDestroy, Renderer2, ViewChild} from '@angular/core';
 import {BlobAnimation} from "./helpers/blob-animator.helper";
 
 @Component({
@@ -6,7 +6,7 @@ import {BlobAnimation} from "./helpers/blob-animator.helper";
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent implements AfterViewInit{
+export class HomeComponent implements AfterViewInit, OnDestroy{
   @ViewChild('topicsSection') topicsSection!:ElementRef;
   @ViewChild('registerSection') registerSection!:ElementRef;
 
@@ -23,14 +23,32 @@ export class HomeComponent implements AfterViewInit{
   }
   private intersectionObserver=new IntersectionObserver(this.observerCallback,{threshold:0.7})
 
+  private blobAnimations:BlobAnimation[]=[]
+
   ngAfterViewInit() {
     this.intersectionObserver.observe(this.topicsSection.nativeElement)
     this.intersectionObserver.observe(this.registerSection.nativeElement)
+    this.createAnimations()
+  }
 
-    let blob2Animation=new BlobAnimation('.topics .blobs .blob-2',3,3)
-    let blob1Animation=new BlobAnimation('.topics .blobs .blob-1',3,3)
-    blob1Animation.init({duration:2000,layerDelay:500})
-    blob2Animation.init({duration:2000,layerDelay:500})
+  ngOnDestroy() {
+    this.blobAnimations.forEach(animation=>animation.stop())
+  }
+
+  private createAnimations(){
+    this.blobAnimations.push(
+      new BlobAnimation('.topics .blobs .blob-2',3,3),
+      new BlobAnimation('.topics .blobs .blob-1',3,3),
+    )
+    this.initAnimations()
+  }
+
+  private initAnimations(){
+    this.blobAnimations.forEach(animation=>animation.init({duration:2000,layerDelay:1000}))
+  }
+
+  private stopAnimations(){
+    this.blobAnimations.forEach(animation=>animation.stop())
   }
 
 }
