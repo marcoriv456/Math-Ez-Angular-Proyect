@@ -274,15 +274,20 @@ section{
   transform: translate(100% ,-100%);
 }
 
-.topics .blob .layer-1{
+.topics .blob .layer-1 path{
   fill: var(--col-main);
 }
-.topics .blob .layer-2{
+.topics .blob .layer-2 path{
   fill: var(--col-main-l1);
 }
-.topics .blob .layer-3{
+.topics .blob .layer-3 path{
   fill: var(--col-main-l2);
 }
+
+.topics .blob .layer>path:not(.step-1){
+  visibility: hidden;
+}
+
 .topics.intersecting .blob,
 .topics.intersecting .blob .layer{
   opacity: 1;

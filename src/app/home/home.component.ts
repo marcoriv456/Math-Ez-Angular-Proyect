@@ -1,4 +1,5 @@
 import {AfterViewInit, Component, ElementRef, inject, Renderer2, ViewChild} from '@angular/core';
+import {BlobAnimation} from "./helpers/blob-animator.helper";
 
 @Component({
   selector: 'app-home',
@@ -25,7 +26,9 @@ export class HomeComponent implements AfterViewInit{
   ngAfterViewInit() {
     this.intersectionObserver.observe(this.topicsSection.nativeElement)
     this.intersectionObserver.observe(this.registerSection.nativeElement)
-  }
 
+    let blob2Animation=new BlobAnimation('.topics .blobs .blob-2',3,3)
+    blob2Animation.init({duration:1000,layerDelay:500})
+  }
 
 }
