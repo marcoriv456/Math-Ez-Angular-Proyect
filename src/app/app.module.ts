@@ -10,12 +10,14 @@ import {InputModule} from "./input/input.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { HomeComponent } from './home/home.component';
 import {NgxParticlesModule} from "@tsparticles/angular";
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         HeaderComponent,
-        HomeComponent
+        HomeComponent,
+        FooterComponent
     ],
     imports: [
         BrowserModule,
