@@ -11,6 +11,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { HomeComponent } from './home/home.component';
 import {NgxParticlesModule} from "@tsparticles/angular";
 import { FooterComponent } from './footer/footer.component';
+import {provideHttpClient} from "@angular/common/http";
 
 @NgModule({
     declarations: [
@@ -24,9 +25,11 @@ import { FooterComponent } from './footer/footer.component';
         AppRoutingModule,
         InputModule,
         BrowserAnimationsModule,
-        NgxParticlesModule
+        NgxParticlesModule,
     ],
-    providers: [],
+    providers: [
+      provideHttpClient()
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

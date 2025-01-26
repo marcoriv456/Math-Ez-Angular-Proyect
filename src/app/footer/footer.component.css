@@ -1,6 +1,126 @@
 footer{
   width: 100%;
   height: 40rem;
-
+  position: relative;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
+footer .logo-container{
+  width: 40rem;
+  height: fit-content;
+}
+
+footer .logo-container svg{
+  width: 100%;
+}
+footer .logo-container svg>*{
+  fill: var(--col-white);
+}
+
+footer .contact-container{
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows: repeat(2,auto);
+  gap: 2rem;
+}
+
+footer .contact-container h4{
+  grid-column: span 2;
+  color: var(--col-white);
+
+  font-family: var(--small-subtitle-family), sans-serif;
+  font-size: var(--small-subtitle-size);
+  font-style: var(--small-subtitle-style);
+  font-weight: var(--small-subtitle-weight);
+  text-transform: uppercase;
+}
+
+footer .contact-container .github-profile{
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  background: #1E2D43;
+  border-radius: 1.5rem;
+}
+
+footer .contact-container .github-profile img{
+  width: 15rem;
+  height: 15rem;
+  border-radius: 50%;
+}
+
+footer .contact-container .github-profile .name{
+  color: var(--col-white);
+  font-family: "Segoe UI", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+footer .contact-container .github-profile .username{
+  color: #FFF;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  text-transform: lowercase;
+}
+
+footer .contact-container .contact-links{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+footer .contact-container .contact-links span{
+  color: var(--col-white);
+  /*text-align: ;*/
+
+  font-family: var(--text-family),sans-serif;
+  font-size: var(--text-size);
+  font-style: var(--text-style);
+  font-weight: var(--text-weight);
+  line-height: var(--text-line-height);
+}
+
+
+.background{
+  z-index: -10;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width:100%;
+  height: 100%;
+  background-color: var(--col-main-d1);
+}
+.background svg{
+  width: 100%;
+  height: 100%;
+}
+
+.background .layer path{
+  animation: bottom-to-top 3s ease-in-out infinite;
+}
+
+.background .layer-3 path{
+  fill: var(--col-main);
+  animation-delay: 0.4s;
+}
+.background .layer-2 path{
+  fill: var(--col-main-d1);
+  animation-delay: 0.2s;
+}
+.background .layer-1 path{
+  fill: var(--col-main-d2);
+}
+
+@keyframes bottom-to-top {
+  0%,100%{
+    translate: 0 0;
+  }
+  50%{
+    translate: 0 10%;
+  }
+}

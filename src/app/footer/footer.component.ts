@@ -1,5 +1,8 @@
 import {AfterViewInit, Component, ElementRef, inject} from '@angular/core';
 import {FooterObserverService} from "./service/footer-observer.service";
+import {HttpClient, HttpRequest} from "@angular/common/http";
+import {firstValueFrom} from "rxjs";
+import {GithubService} from "./service/github/github.service";
 
 @Component({
   selector: 'app-footer',
@@ -17,7 +20,17 @@ export class FooterComponent implements AfterViewInit{
       this.footerService.emit('exit')
   },{threshold:0.7})
 
+  protected gitHubProfileData={img:'',name:'',username:''}
+  private gitHubService=inject(GithubService)
+
   ngAfterViewInit() {
     this.observer.observe(this.ref)
+    this.setGithubProfilePic()
   }
+
+  private async setGithubProfilePic(){
+    this.gitHubProfileData= await this.gitHubService.getGithubProfileData()
+  }
+
+
 }
