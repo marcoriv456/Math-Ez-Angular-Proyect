@@ -62,6 +62,7 @@
 .introduction .input-container app-input{
   font-size: 2rem;
   height: 100%;
+  background-color: var(--col-white);
 }
 
 .introduction .input-container button{
