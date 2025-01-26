@@ -143,4 +143,6 @@
   </section>
 </main>
 
-<ngx-particles id="tsParticles" [options]="particlesOptions" [particlesInit]="initParticles"></ngx-particles>
+<ngx-particles class="layer-1" [id]="'tsParticles1'" [options]="layer1Config" [particlesInit]="initParticles" (particlesLoaded)="onParticlesLoad()"></ngx-particles>
+<ngx-particles class="layer-2" [id]="'tsParticles2'" [options]="layer2Config" [particlesInit]="initParticles" (particlesLoaded)="onParticlesLoad()"></ngx-particles>
+<ngx-particles class="layer-3" [id]="'tsParticles3'" [options]="layer3Config" [particlesInit]="initParticles" (particlesLoaded)="onParticlesLoad()"></ngx-particles>

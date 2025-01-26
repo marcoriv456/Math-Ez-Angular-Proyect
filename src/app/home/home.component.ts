@@ -1,9 +1,7 @@
 import {AfterViewInit, Component, ElementRef, inject, OnDestroy, Renderer2, ViewChild} from '@angular/core';
 import {BlobAnimation} from "./helpers/blob-animator.helper";
-import {IParticlesProps, NgParticlesService} from "@tsparticles/angular";
 import {loadSlim} from "@tsparticles/slim";
-import {bgAnimationConfig} from "./config/bg-animation.config";
-import {loadParallaxMover} from "@tsparticles/move-parallax";
+import {layer1Config, layer2Config, layer3Config} from "./config/bg-animation.config";
 import {Engine} from "@tsparticles/engine";
 
 @Component({
@@ -30,7 +28,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy{
 
   private blobAnimations:BlobAnimation[]=[]
 
-  protected particlesOptions:IParticlesProps = bgAnimationConfig
+  // protected particlesOptions:IParticlesProps = bgAnimationConfig
 
   ngAfterViewInit() {
     this.intersectionObserver.observe(this.topicsSection.nativeElement)
@@ -60,6 +58,15 @@ export class HomeComponent implements AfterViewInit, OnDestroy{
 
   protected async initParticles(engine:Engine){
     await loadSlim(engine)
-    await loadParallaxMover(engine)
+
   }
+
+  protected onParticlesLoad(){
+    console.log('particles loaded')
+  }
+
+  protected readonly layer1Config=layer1Config
+  protected readonly layer2Config=layer2Config
+  protected readonly layer3Config=layer3Config
+
 }

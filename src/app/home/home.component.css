@@ -471,7 +471,7 @@
   }
 }
 
-#tsParticles{
+ngx-particles{
   position: relative;
   z-index: -10;
 }
