@@ -3,6 +3,7 @@ import {BlobAnimation} from "./helpers/blob-animator.helper";
 import {loadSlim} from "@tsparticles/slim";
 import {topLayerConfig, bottomLayerConfig} from "./config/bg-animation.config";
 import {Engine} from "@tsparticles/engine";
+import {FooterObserverService} from "../footer/service/footer-observer.service";
 
 @Component({
   selector: 'app-home',
@@ -14,6 +15,8 @@ export class HomeComponent implements AfterViewInit, OnDestroy{
   @ViewChild('registerSection') registerSection!:ElementRef;
 
   private renderer=inject(Renderer2)
+  private footerObserver=inject(FooterObserverService)
+
   private observerCallback= (entries: IntersectionObserverEntry[]) => {
     entries.forEach(entry => {
       if (entry.isIntersecting){
@@ -31,7 +34,17 @@ export class HomeComponent implements AfterViewInit, OnDestroy{
   ngAfterViewInit() {
     this.intersectionObserver.observe(this.topicsSection.nativeElement)
     this.intersectionObserver.observe(this.registerSection.nativeElement)
+    this.observeFooter()
     this.createAnimations()
+  }
+
+  private observeFooter(){
+    this.footerObserver.subscribe((value)=>{
+      if(value=='enter')
+        this.renderer.addClass(this.registerSection.nativeElement,'footer-intersecting')
+      else
+        this.renderer.removeClass(this.registerSection.nativeElement,'footer-intersecting')
+    })
   }
 
   ngOnDestroy() {

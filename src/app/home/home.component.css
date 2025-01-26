@@ -447,7 +447,8 @@
   transition-property: translate;
 }
 
-.register.intersecting .bottom-blob .layer{
+.register.intersecting .bottom-blob .layer,
+.register.footer-intersecting .bottom-blob .layer{
   translate: 0 0;
 }
 
