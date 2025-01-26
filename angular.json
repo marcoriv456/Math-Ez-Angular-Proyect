@@ -89,11 +89,8 @@
             ],
             "tsConfig": "tsconfig.spec.json",
             "include": [
-              "src/**/*.spec.ts",
+              "src/app/**/*.spec.ts",
               "src/app/**/tests/*.spec.ts"
-            ],
-            "exclude": [
-              "src/app/home/**"
             ],
             "assets": [
               {
