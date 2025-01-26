@@ -13,7 +13,7 @@ export class HeaderComponent implements AfterViewInit,OnDestroy{
 
   ngAfterViewInit() {
     this.bgBlobAnimation=new BlobAnimation('header .background',3,4)
-    this.bgBlobAnimation.init({duration:1000,layerDelay:500})
+    this.bgBlobAnimation.init({duration:3000,layerDelay:500})
   }
   ngOnDestroy() {
     this.bgBlobAnimation.stop()

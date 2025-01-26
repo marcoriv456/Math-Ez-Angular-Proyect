@@ -11,45 +11,16 @@
 header{
   display: flex;
   width: 100%;
-  height: 9.5rem;
+  height: 12rem;
   justify-content: space-between;
-  align-items: center;
+  align-items: start;
   position: relative;
-}
-
-.bg-container{
-  position: absolute;
-  z-index: -10;
-  top: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.background {
-  width: 100%;
-  height: 100%;
-}
-
-.background .layer path:not(.step-1){
-  visibility: hidden;
-}
-
-.background .layer-1 path{
-  fill: var(--col-main);
-}
-.background .layer-2 path{
-  fill: var(--col-main-d1);
-}
-.background .layer-3 path{
-  fill: var(--col-main-d2);
-}
-.background .layer-4 path{
-  fill: var(--col-main-d3);
+  /*padding: 1rem 0;*/
 }
 
 .logo-container{
-  width: 15rem;
-  height: 7.5rem;
+  /*width: 15rem;*/
+  height: 80%;
   flex: 1 0 auto;
 }
 
@@ -59,12 +30,12 @@ header{
 }
 
 .logo-container svg *{
-  fill: var(--col-black);
+  fill: var(--col-white);
 }
 
 ul{
+  height: 80%;
   display: flex;
-  height: 100%;
   justify-content: space-evenly;
   align-items: center;
   flex: 2 0 auto;
@@ -87,4 +58,51 @@ ul li.active-link{
   border-radius: 1rem;
   background: var(--col-white);
   color: var(--col-black);
+}
+
+
+.bg-container{
+  position: absolute;
+  z-index: -10;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.background {
+  width: 100%;
+  height: 100%;
+}
+
+.background .layer path:not(.step-1){
+  visibility: hidden;
+}
+.background .layer path{
+  animation: top-to-bottom 5s infinite ease-in-out;
+}
+
+.background .layer-1 path{
+  fill: var(--col-main);
+}
+.background .layer-2 path{
+  fill: var(--col-main-d1);
+  animation-delay: 0.2s;
+}
+.background .layer-3 path{
+  fill: var(--col-main-d2);
+  animation-delay: 0.4s;
+}
+.background .layer-4 path{
+  fill: var(--col-main-d3);
+  animation-delay: 0.6s;
+}
+
+
+@keyframes top-to-bottom {
+  0%,100%{
+    translate: 0 0;
+  }
+  50%{
+    translate: 0 -10%;
+  }
 }
