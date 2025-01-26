@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, ElementRef, inject, OnDestroy, Renderer2, ViewChild} from '@angular/core';
 import {BlobAnimation} from "./helpers/blob-animator.helper";
 import {loadSlim} from "@tsparticles/slim";
-import {layer1Config, layer2Config, layer3Config} from "./config/bg-animation.config";
+import {topLayerConfig, bottomLayerConfig} from "./config/bg-animation.config";
 import {Engine} from "@tsparticles/engine";
 
 @Component({
@@ -27,8 +27,6 @@ export class HomeComponent implements AfterViewInit, OnDestroy{
   private intersectionObserver=new IntersectionObserver(this.observerCallback,{threshold:0.6})
 
   private blobAnimations:BlobAnimation[]=[]
-
-  // protected particlesOptions:IParticlesProps = bgAnimationConfig
 
   ngAfterViewInit() {
     this.intersectionObserver.observe(this.topicsSection.nativeElement)
@@ -65,8 +63,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy{
     console.log('particles loaded')
   }
 
-  protected readonly layer1Config=layer1Config
-  protected readonly layer2Config=layer2Config
-  protected readonly layer3Config=layer3Config
+  protected readonly topLayerConfig=topLayerConfig
+  protected readonly bottomLayerConfig=bottomLayerConfig
 
 }
