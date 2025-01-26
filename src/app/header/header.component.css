@@ -25,25 +25,25 @@ header{
   height: 100%;
 }
 
-#bg {
+.background {
   width: 100%;
   height: 100%;
 }
 
-#bg g:not(.step-1){
+.background .layer path:not(.step-1){
   visibility: hidden;
 }
 
-#bg g .layer-1{
+.background .layer-1 path{
   fill: var(--col-main);
 }
-#bg g .layer-2{
+.background .layer-2 path{
   fill: var(--col-main-d1);
 }
-#bg g .layer-3{
+.background .layer-3 path{
   fill: var(--col-main-d2);
 }
-#bg g .layer-4{
+.background .layer-4 path{
   fill: var(--col-main-d3);
 }
 

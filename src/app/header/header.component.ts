@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, ElementRef, inject, OnDestroy} from '@angular/core';
 import {interpolate} from "flubber";
 import {FlubberAnimation} from "./helpers/flubber-animation.helper";
+import {BlobAnimation} from "../home/helpers/blob-animator.helper";
 
 @Component({
   selector: 'app-header',
@@ -8,20 +9,13 @@ import {FlubberAnimation} from "./helpers/flubber-animation.helper";
   styleUrl:'./header.component.css'
 })
 export class HeaderComponent implements AfterViewInit,OnDestroy{
-  private flubberAnimations:FlubberAnimation[]=[]
-  private flubberAnimationDuration=2000
-
-  private addFlubberAnimation(layer:number){
-    let animation=new FlubberAnimation(`.step-1 .layer-${layer}`, `.step-2 .layer-${layer}`, `.step-3 .layer-${layer}`)
-    this.flubberAnimations.push(animation)
-    animation.start(this.flubberAnimationDuration)
-  }
+  private bgBlobAnimation!:BlobAnimation;
 
   ngAfterViewInit() {
-    for (let i=1; i<=4; i++)
-      this.addFlubberAnimation(i)
+    this.bgBlobAnimation=new BlobAnimation('header .background',3,4)
+    this.bgBlobAnimation.init({duration:1000,layerDelay:500})
   }
   ngOnDestroy() {
-    this.flubberAnimations.forEach(a=>a.stop())
+    this.bgBlobAnimation.stop()
   }
 }
