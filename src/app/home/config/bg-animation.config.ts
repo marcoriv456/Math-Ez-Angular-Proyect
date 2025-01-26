@@ -7,18 +7,10 @@ const generalParticleMoveConfig: RecursivePartial<IMove> = {
   warp: true
 }
 
-const onDiv:RecursivePartial<SingleOrMultiple<IDivEvent>> = {
-  enable: true,
-  selectors: ['.introduction .left-container', '.introduction .right-container>*'],
-  mode: 'bounce',
-  type: 'rectangle'
-}
-
 export const topLayerConfig: RecursivePartial<IParticlesOptions> = {
   fpsLimit: 120,
   interactivity:{
     events:{
-      onDiv,
       onHover:{
         enable:true,
         mode:'bubble'
