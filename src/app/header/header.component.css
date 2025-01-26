@@ -1,65 +1,108 @@
 :host{
-  width: 100%;
+  --header-link-family: "Gilroy";
+  --header-link-size: 24px;
+  --header-link-size-rem: 1.5rem;
+  --header-link-weight: 800;
+  --header-link-style: normal;
   position: relative;
-  z-index: 100;
+  z-index: 0;
 }
 
 header{
-  height:8rem;
-
-  z-index: 20;
-  grid-column: span 2;
-
   display: flex;
+  width: 100%;
+  height: 12rem;
   justify-content: space-between;
-  align-items: center;
-
-  background-image: linear-gradient(90deg,var(--main),var(--darker));
-  transition:background-color 0.5s cubic-bezier(0,0,0,1);
+  align-items: start;
+  position: relative;
+  /*padding: 1rem 0;*/
 }
 
-header nav{
-  max-width: 50%;
-  margin: 2rem;
-
-  flex-grow: 1.5;
+.logo-container{
+  /*width: 15rem;*/
+  height: 80%;
+  flex: 1 0 auto;
 }
 
-header nav ul{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-header nav ul li{
-  padding: 1rem;
-
-  list-style: none;
-
-  border-radius: 10px;
-
-  background: #FFF;
-
-  transition-property: filter, transform;
-  transition: 0.5s cubic-bezier(0,0,0,1);
-}
-
-header nav ul li:hover{
-  transform: scale(1.05);
-  filter: drop-shadow(5px 5px 0 rgba(0, 0, 0, 0.25));
-}
-
-header nav ul li:hover a{
-  color: #2F3499;
-}
-
-header img{
+.logo-container svg{
+  width: 100%;
   height: 100%;
 }
 
-header nav a{
-  color: black;
+.logo-container svg *{
+  fill: var(--col-white);
+}
 
-  font-size: 1.5rem;
-  text-decoration: none;
+ul{
+  height: 80%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex: 2 0 auto;
+}
+
+ul li{
+  color: var(--col-white);
+  font-family: var(--header-link-family),sans-serif;
+  font-size: var(--header-link-size);
+  font-style: var(--header-link-style);
+  font-weight: var(--header-link-weight);
+  text-transform: uppercase;
+}
+
+ul li.active-link{
+  display: flex;
+  padding: 1rem 1rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1rem;
+  background: var(--col-white);
+  color: var(--col-black);
+}
+
+
+.bg-container{
+  position: absolute;
+  z-index: -10;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.background {
+  width: 100%;
+  height: 100%;
+}
+
+.background .layer path:not(.step-1){
+  visibility: hidden;
+}
+.background .layer path{
+  animation: top-to-bottom 5s infinite ease-in-out;
+}
+
+.background .layer-1 path{
+  fill: var(--col-main);
+}
+.background .layer-2 path{
+  fill: var(--col-main-d1);
+  animation-delay: 0.2s;
+}
+.background .layer-3 path{
+  fill: var(--col-main-d2);
+  animation-delay: 0.4s;
+}
+.background .layer-4 path{
+  fill: var(--col-main-d3);
+  animation-delay: 0.6s;
+}
+
+
+@keyframes top-to-bottom {
+  0%,100%{
+    translate: 0 0;
+  }
+  50%{
+    translate: 0 -10%;
+  }
 }

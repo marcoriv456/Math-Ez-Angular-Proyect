@@ -1,9 +1,479 @@
-:host{
-  --in-easing:cubic-bezier(0,0,0,1);
-  --out-easing:cubic-bezier(0,0,1,0);
+.introduction{
+  height: calc(100vh - 20rem);
+  display: flex;
+  align-items: center;
+}
+.introduction>div{
+  flex: 1 0 50%;
+}
+.introduction .left-container{
+  display: flex;
+  justify-content: center;
+}
 
-  --transition-duration:0.8s;
-  --small-transition-duration:calc(var(--transition-duration)*0.5);
+.introduction .left-container svg{
+  width: 75%;
+  height: 25%;
+}
+.introduction .left-container svg *{
+  fill: var(--col-black);
+}
 
-  --section-height:200vh;
+.introduction .right-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.introduction .right-container h1{
+  color: var(--col-black);
+  text-align: center;
+
+  font-family: var(--big-subtitle-family), sans-serif;
+  font-size: var(--big-subtitle-size);
+  font-style: var(--big-subtitle-style);
+  font-weight: var(--big-subtitle-weight);
+  line-height: var(--big-subtitle-size);
+}
+
+.introduction .right-container p{
+  color: var(--col-black);
+  text-align: center;
+  font-size:  var(--text-size);
+}
+
+.introduction .right-container h2{
+  color: var(--col-black);
+  text-align: center;
+
+  font-family: var(--small-subtitle-family), sans-serif;
+  font-size: var(--small-subtitle-size);
+  font-style: var(--small-subtitle-style);
+  font-weight: var(--small-subtitle-weight);
+  text-transform: uppercase;
+}
+
+.introduction .input-container {
+  width: 70%;
+  height: 4rem;
+  display: flex;
+}
+
+.introduction .input-container app-input{
+  font-size: 2rem;
+  height: 100%;
+  background-color: var(--col-white);
+}
+
+.introduction .input-container button{
+  width: 5rem;
+  height: 100%;
+  display: grid;
+  place-content: center;
+  font-size: 3rem;
+  background-color: var(--col-main-l1);
+  border: none;
+  border-radius: 0.75rem;
+}
+
+.introduction .input-container app-input,
+.introduction .input-container button{
+  flex:1 1 auto
+}
+
+
+.introduction .input-container app-input,
+.introduction .input-container button,
+.introduction .right-container p {
+  font-family:var(--text-family), sans-serif;
+  font-style: var(--text-style);
+  font-weight:var(--text-weight);
+  line-height:var(--text-line-height);
+}
+
+
+
+.topics{
+  position: relative;
+  height: 100vh;
+}
+
+.topics .text-container{
+  max-width: 30rem;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.topics .text-container h3{
+  color: var(--col-black);
+  text-align: center;
+  font-family: var(--big-subtitle-family),sans-serif;
+  font-size: var(--big-subtitle-size);
+  font-style: var(--big-subtitle-style);
+  font-weight: var(--big-subtitle-weight);
+}
+.topics .text-container p{
+  color: var(--col-black);
+  text-align: center;
+
+  font-family: var(--text-family), sans-serif;
+  font-size: var(--text-size);
+  font-style: var(--text-style);
+  font-weight: var(--text-weight);
+  line-height:  var(--text-line-height);
+}
+
+.topics .btn-container{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+}
+
+.topics .btn-container button{
+  --btn-color:none;
+  width: 10rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  background-color: transparent;
+  border: none;
+  translate: -50%;
+  transition-property: top,left,transform;
+  transition-duration: var(--long-trans-duration);
+  transition-timing-function: var(--trans-easing-out);
+  top: 0;
+  left: 0;
+}
+
+
+
+
+.topics .btn-container button .img-container{
+  width: 10rem;
+  height: 10rem;
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  background-color: var(--btn-color);
+}
+
+.topics .btn-container button .img-container img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: invert(1) brightness(100);
+}
+
+.topics .btn-container button span{
+  color: transparent;
+  text-align: center;
+
+  font-family: var(--small-subtitle-family),sans-serif;
+  font-size: var(--small-subtitle-size);
+  font-style: var(--small-subtitle-style);
+  font-weight: var(--small-subtitle-weight);
+  text-transform: uppercase;
+  transition-property: color;
+  transition-duration: var(--long-trans-duration);
+  transition-timing-function: var(--trans-easing-out);
+}
+
+.topics .btn-container button.calculus{
+  --btn-color: var(--col-topic-calculus);
+  left: -15rem;
+}
+.topics .btn-container button.algebra{
+  --btn-color: var(--col-topic-algebra);
+  left: -10rem;
+}
+.topics .btn-container button.graphics{
+  --btn-color: var(--col-topic-graphics);
+  left: -5rem;
+}
+.topics .btn-container button.logic{
+  --btn-color: var(--col-topic-logic);
+  left: 50%;
+}
+.topics .btn-container button.measures{
+  --btn-color: var(--col-topic-measures);
+  left: 5rem;
+}
+.topics .btn-container button.trigonometry{
+  --btn-color: var(--col-topic-trigonometry);
+  left: 10rem;
+}
+.topics .btn-container button.statistics{
+  --btn-color: var(--col-topic-statistics);
+  left: 15rem;
+}
+.topics.intersected .btn-container button span{
+  color: var(--btn-color);
+}
+.topics.intersected .btn-container button.calculus{
+  left: -25rem;
+  top: -6rem;
+}
+.topics.intersected .btn-container button.algebra{
+  left: -10rem;
+  top: -2rem;
+}
+.topics.intersected .btn-container button.trigonometry{
+  left: 10rem;
+  top: -2rem;
+}
+.topics.intersected .btn-container button.statistics{
+  left: 25rem;
+  top: -6rem;
+}
+.topics.intersected .btn-container button.graphics{
+  left: -20rem;
+  top: 13rem;
+}
+.topics.intersected .btn-container button.logic{
+  top: 17rem;
+}
+.topics.intersected .btn-container button.measures{
+  left: 20rem;
+  top: 13rem;
+}
+
+.topics .blob{
+  position: fixed;
+  width: 20vw;
+  height: 20vw;
+}
+
+.topics .blob-1{
+  bottom: 0;
+  left: 0;
+}
+.topics .blob-2{
+  top: 0;
+  right: 0;
+}
+
+.topics .blob .layer{
+  transition-property: transform;
+  transition-duration: var(--long-trans-duration);
+  transition-timing-function: var(--trans-easing-in);
+  transition-delay: var(--trans-delay);
+}
+
+.topics.intersecting .blob .layer{
+  transform: translate(0,0);
+  transition-timing-function: var(--trans-easing-out);
+}
+
+.topics .blob .layer path{
+  fill: var(--fill-col);
+  animation-duration: 3s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-delay: var(--anim-delay);
+}
+
+.topics .blob-1 .layer{
+  transform: translate(-100%, 100%);
+}
+.topics .blob-2 .layer{
+  transform: translate(100% ,-100%);
+}
+
+.topics .blob-2 .layer path{
+  animation-name: right-to-left;
+}
+.topics .blob-1 .layer path{
+  animation-name: left-to-right;
+}
+
+
+.topics .blob .layer>path:not(.step-1){
+  visibility: hidden;
+}
+
+.topics .blob .layer-1{
+  --anim-delay:0s;
+  --trans-delay:0s;
+  --fill-col:var(--col-main);
+}
+.topics .blob .layer-2{
+  --trans-delay:0.1s;
+  --anim-delay:0.5s;
+  --fill-col:var(--col-main-l1);
+}
+.topics .blob .layer-3{
+  --trans-delay:0.2s;
+  --anim-delay:1s;
+  --fill-col:var(--col-main-l2);
+}
+
+@keyframes right-to-left {
+  0%,100%{
+    translate: 0;
+  }
+  50%{
+    translate: 10%;
+  }
+}
+
+@keyframes left-to-right {
+  0%,100%{
+    translate: 0;
+  }
+  50%{
+    translate: -10%;
+  }
+}
+
+
+
+
+.register{
+  height: 100vh;
+  position: relative;
+}
+.register .content-container{
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  translate: -50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+.register .content-container .text-container{
+  max-width: 35rem;
+}
+
+.register .content-container .text-container h3{
+  color: var(--col-black);
+  text-align: center;
+  font-family: var(--big-subtitle-family), sans-serif;
+  font-size: var(--big-subtitle-size);
+  font-style: var(--big-subtitle-style);
+  font-weight: var(--big-subtitle-weight);
+}
+
+.register .content-container .text-container p{
+  color: var(--col-black);
+  text-align: center;
+  font-family: var(--text-family), sans-serif;
+  font-size: var(--text-size);
+  font-weight: var(--text-weight);
+  line-height: var(--text-line-height);
+}
+
+.register .content-container .btn-container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.register .content-container .btn-container button{
+  padding: 1rem 1.5rem;
+  border-radius: 1.5rem;
+  border: none;
+  text-align: center;
+  font-family: var(--small-subtitle-family), sans-serif;
+  font-size: var(--small-subtitle-size);
+  font-style: var(--small-subtitle-style);
+  font-weight: var(--small-subtitle-weight);
+  text-transform: uppercase;
+}
+
+.register .content-container .btn-container button.create-account{
+  color: var(--col-white);
+  background-color: var(--col-main-l1);
+}
+.register .content-container .btn-container button.log-in{
+  color: var(--col-black);
+  background-color: var(--col-main-l2);
+}
+
+.register .bottom-blob{
+  position: sticky;
+  top: calc(100vh - 15rem);
+  width: 100%;
+  height: 15rem;
+}
+
+.register .bottom-blob .layer{
+  translate: 0 100%;
+  transition-duration: var(--long-trans-duration);
+  transition-timing-function: var(--trans-easing-out);
+  transition-property: translate;
+}
+.register .bottom-blob .layer path{
+  animation-name: bottom-to-top;
+  animation-duration: 3s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.register .bottom-blob .layer-1 path{
+  fill: var(--col-main-d1);
+}
+
+.register .bottom-blob .layer-2 path{
+  fill: var(--col-main);
+  animation-delay: 0.2s;
+}
+
+.register .bottom-blob .layer-3 path{
+  fill: var(--col-main-l1);
+  animation-delay: 0.4s;
+}
+
+.register .bottom-images{
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: space-evenly;
+  z-index: -10;
+}
+
+.register .bottom-images img{
+  max-width: 30vw;
+  max-height: 25vw;
+  translate: 0 100%;
+  transition-duration: var(--long-trans-duration);
+  transition-timing-function: var(--trans-easing-out);
+  transition-property: translate;
+}
+
+.register.intersecting .bottom-blob .layer,
+.register.footer-intersecting .bottom-blob .layer{
+  translate: 0 0;
+}
+
+.register.intersecting .bottom-blob .layer-2{
+  transition-delay: 0.1s;
+}
+
+.register.intersecting .bottom-blob .layer-3{
+  transition-delay: 0.2s;
+}
+
+.register.intersecting .bottom-images img{
+  translate: 0 0;
+}
+
+@keyframes bottom-to-top {
+  0%,100%{
+    translate: 0 0;
+  }
+  50%{
+    translate: 0 10%;
+  }
+}
+
+ngx-particles{
+  position: relative;
+  z-index: -10;
 }

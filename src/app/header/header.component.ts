@@ -1,8 +1,21 @@
-import { Component } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, inject, OnDestroy} from '@angular/core';
+import {interpolate} from "flubber";
+import {FlubberAnimation} from "./helpers/flubber-animation.helper";
+import {BlobAnimation} from "../home/helpers/blob-animator.helper";
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css','../../assets/styles/section-color-themes.css']
+  styleUrl:'./header.component.css'
 })
-export class HeaderComponent { }
+export class HeaderComponent implements AfterViewInit,OnDestroy{
+  private bgBlobAnimation!:BlobAnimation;
+
+  ngAfterViewInit() {
+    this.bgBlobAnimation=new BlobAnimation('header .background',3,4)
+    this.bgBlobAnimation.init({duration:3000,layerDelay:500})
+  }
+  ngOnDestroy() {
+    this.bgBlobAnimation.stop()
+  }
+}

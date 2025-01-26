@@ -1,17 +1,36 @@
 import {AfterViewInit, Component, ElementRef, inject} from '@angular/core';
-import {FooterService} from "./footer.service";
+import {FooterObserverService} from "./service/footer-observer.service";
+import {HttpClient, HttpRequest} from "@angular/common/http";
+import {firstValueFrom} from "rxjs";
+import {GithubService} from "./service/github/github.service";
 
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.css','../../assets/styles/section-color-themes.css']
+  styleUrl: './footer.component.css'
 })
 export class FooterComponent implements AfterViewInit{
-  ref=inject(ElementRef)
-  footerService=inject(FooterService)
+  private ref=inject(ElementRef).nativeElement as HTMLElement
+  private footerService=inject(FooterObserverService)
+  private observer=new IntersectionObserver((entries)=>{
+    let self=entries[0]
+    if(self.isIntersecting)
+      this.footerService.emit('enter')
+    else
+      this.footerService.emit('exit')
+  },{threshold:0.7})
+
+  protected gitHubProfileData={img:'',name:'',username:''}
+  private gitHubService=inject(GithubService)
 
   ngAfterViewInit() {
-    this.footerService.footerRef=this.ref
-    this.footerService.footerInitialized.emit()
+    this.observer.observe(this.ref)
+    this.setGithubProfilePic()
   }
+
+  private async setGithubProfilePic(){
+    this.gitHubProfileData= await this.gitHubService.getGithubProfileData()
+  }
+
+
 }
