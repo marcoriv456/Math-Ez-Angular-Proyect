@@ -4,7 +4,7 @@ import {TermValidationMessage} from "../models/term-validation-message.model";
 
 export class RootValidator extends TermValidator{
   private readonly radicandValue:number
-  private readonly indexValue:number|undefined
+  private readonly indexValue:number
   private readonly indexStringValue:string|undefined
   constructor(
     rootComponent:RootComponent
@@ -20,7 +20,7 @@ export class RootValidator extends TermValidator{
     if(!isNaN(this.radicandValue))
       this.validateRadicandValue(messages)
 
-    if(!isNaN(this.indexValue||NaN))
+    if(!isNaN(this.indexValue))
       this.validateIndexValue(messages)
 
     return messages;
