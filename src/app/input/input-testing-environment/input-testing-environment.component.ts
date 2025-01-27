@@ -13,59 +13,61 @@ export class InputTestingEnvironmentComponent implements AfterViewInit{
   input!:InputComponent
 
   ngAfterViewInit() {
-    this.input.setTerms(
-      {char: '1', type: 'char'},
-      {char: '2', type: 'char'},
-      {char: '3', type: 'char'},
-      {char: '4', type: 'char'},
-      {char: '5', type: 'char'},
-      {char: '6', type: 'char'},
-      {char: '7', type: 'char'},
-      {char: '8', type: 'char'},
-      {char: '9', type: 'char'},
-      {char: ' ', type: 'char'},
-      {
-        numeratorChildren: [{char: '1', type: 'char'}, {char: '0', type: 'char'}],
-        denominatorChildren: [{char: '4', type: 'char'}],
-        type: 'fraction'
-      },
-      {char: ' ', type: 'char'},
-      {
-        functionName:'log',
-        functionChildren:[
-          {char: '8', type: 'char'},
-          {char: '1', type: 'char'},
-        ],
-        argumentTerms:[{char: '9', type: 'char'}],
-        type:'function'
-      },
-      {char: ' ', type: 'char'},
-      {
-        rootChildren:[
-          {char: '8', type: 'char'},
-          {char: '1', type: 'char'},
-        ],
-        radicalTerms:[{char:'9',type:'char'}],
-        type:'root'
-      },
-      {char: ' ', type: 'char'},
-      {
-        type:'fraction',
-        numeratorChildren:[
-          {char: '1', type: 'char'}
-        ],
-        denominatorChildren:[
-          {char: '8', type: 'char'},
-        ]
-      },
-      {char: ' ', type: 'char'},
-      {char: '8', type: 'char'},
-      {
-        exponentChildren:[
-          {char: '2', type: 'char'},
-        ],
-        type:'exponent'
-      }
-    )
+    setTimeout(()=>{
+      this.input.setTerms(
+        {char: '1', type: 'char'},
+        {char: '2', type: 'char'},
+        {char: '3', type: 'char'},
+        {char: '4', type: 'char'},
+        {char: '5', type: 'char'},
+        {char: '6', type: 'char'},
+        {char: '7', type: 'char'},
+        {char: '8', type: 'char'},
+        {char: '9', type: 'char'},
+        {char: ' ', type: 'char'},
+        {
+          numeratorChildren: [{char: '1', type: 'char'}, {char: '0', type: 'char'}],
+          denominatorChildren: [{char: '4', type: 'char'}],
+          type: 'fraction'
+        },
+        {char: ' ', type: 'char'},
+        {
+          functionName:'log',
+          functionChildren:[
+            {char: '8', type: 'char'},
+            {char: '1', type: 'char'},
+          ],
+          argumentTerms:[{char: '9', type: 'char'}],
+          type:'function'
+        },
+        {char: ' ', type: 'char'},
+        {
+          rootChildren:[
+            {char: '8', type: 'char'},
+            {char: '1', type: 'char'},
+          ],
+          radicalTerms:[{char:'9',type:'char'}],
+          type:'root'
+        },
+        {char: ' ', type: 'char'},
+        {
+          type:'fraction',
+          numeratorChildren:[
+            {char: '1', type: 'char'}
+          ],
+          denominatorChildren:[
+            {char: '8', type: 'char'},
+          ]
+        },
+        {char: ' ', type: 'char'},
+        {char: '8', type: 'char'},
+        {
+          exponentChildren:[
+            {char: '2', type: 'char'},
+          ],
+          type:'exponent'
+        }
+      )
+    })
   }
 }
