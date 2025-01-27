@@ -6,11 +6,14 @@ describe('CaretPositioningService', () => {
   let service: CharClickedNotifierService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({providers:[CharClickedNotifierService]});
     service = TestBed.inject(CharClickedNotifierService);
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
+  });
+  it('should initialize its event emitter', () => {
+    expect(service.charClicked).toBeTruthy()
   });
 });
