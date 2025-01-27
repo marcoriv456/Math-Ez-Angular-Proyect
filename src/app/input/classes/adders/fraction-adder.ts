@@ -4,7 +4,7 @@ import {ChangeDetectorRef} from "@angular/core";
 import {InputCharData} from "../../models/input-char-data.model";
 import {FractionChildComponent} from "../../components/fraction/fraction-child/fraction-child.component";
 import {InputEditableElement} from "../../directives/input-editable-element/input-editable-element.directive";
-import {SpecialCharFinder} from "../special-char-finder.class";
+import {SpecialCharFinder} from "../special-char-finder/special-char-finder.class";
 
 export class FractionAdder{
   constructor(

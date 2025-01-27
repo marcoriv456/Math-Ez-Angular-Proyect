@@ -24,12 +24,12 @@ import {FractionAdder} from "./classes/adders/fraction-adder";
 import {ParenthesisAdder} from "./classes/adders/parenthesis-adder.class";
 import {FunctionAdder} from "./classes/adders/function-adder";
 import {SimpleAdder} from "./classes/adders/simple-adder.class";
-import {TermDeleter} from "./classes/term-deleter.class";
-import {CharVisibilityManager} from "./classes/char-visibility-manager.class";
+import {TermDeleter} from "./classes/term-deleter/term-deleter.class";
+import {CharVisibilityManager} from "./classes/char-visibility-manager/char-visibility-manager.class";
 import {RootAdder} from "./classes/adders/root-adder.class";
-import {InputContextManager} from "./classes/input-context-manager.class";
+import {InputContextManager} from "./classes/input-context-manager/input-context-manager.class";
 import {InputEditableElement} from "./directives/input-editable-element/input-editable-element.directive";
-import {SpecialCharFinder} from "./classes/special-char-finder.class";
+import {SpecialCharFinder} from "./classes/special-char-finder/special-char-finder.class";
 
 @Component({
   selector: 'app-input',

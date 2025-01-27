@@ -1,7 +1,7 @@
-import {InputEditableElement} from "../directives/input-editable-element/input-editable-element.directive";
+import {InputEditableElement} from "../../directives/input-editable-element/input-editable-element.directive";
 import {QueryList} from "@angular/core";
-import {InputTermDirective} from "../directives/input-term/input-term.directive";
-import {InputCharData} from "../models/input-char-data.model";
+import {InputTermDirective} from "../../directives/input-term/input-term.directive";
+import {InputCharData} from "../../models/input-char-data.model";
 
 export class SpecialCharFinder{
   private readonly renderedChars:QueryList<InputTermDirective>

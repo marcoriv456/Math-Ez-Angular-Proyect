@@ -1,12 +1,12 @@
-import {ParenthesisComponent} from "../components/parenthesis/parenthesis.component";
-import {Term} from "../models/terms/term.model";
-import {EditableTermContainerComponent} from "../components/editable-term-container/editable-term-container.component";
+import {ParenthesisComponent} from "../../components/parenthesis/parenthesis.component";
+import {Term} from "../../models/terms/term.model";
+import {EditableTermContainerComponent} from "../../components/editable-term-container/editable-term-container.component";
 import {ChangeDetectorRef} from "@angular/core";
-import {InputTermDirective} from "../directives/input-term/input-term.directive";
-import {FractionChildComponent} from "../components/fraction/fraction-child/fraction-child.component";
-import {InputCharData} from "../models/input-char-data.model";
-import {FractionComponent} from "../components/fraction/fraction.component";
-import {InputEditableElement} from "../directives/input-editable-element/input-editable-element.directive";
+import {InputTermDirective} from "../../directives/input-term/input-term.directive";
+import {FractionChildComponent} from "../../components/fraction/fraction-child/fraction-child.component";
+import {InputCharData} from "../../models/input-char-data.model";
+import {FractionComponent} from "../../components/fraction/fraction.component";
+import {InputEditableElement} from "../../directives/input-editable-element/input-editable-element.directive";
 
 export class TermDeleter{
   constructor(

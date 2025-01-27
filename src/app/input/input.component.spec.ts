@@ -23,7 +23,7 @@ import {Term} from "./models/terms/term.model";
 import {VariableProvider} from "./models/variable-provider.model";
 import {ExperimentalVariableProviderService} from "./input-testing-environment/experimental-variable-provider.service";
 import {inject, input} from "@angular/core";
-import {SpecialCharFinder} from "./classes/special-char-finder.class";
+import {SpecialCharFinder} from "./classes/special-char-finder/special-char-finder.class";
 import {configureTestbed} from "./tests/config/configure-testbed.helper";
 
 describe('InputComponent', () => {
