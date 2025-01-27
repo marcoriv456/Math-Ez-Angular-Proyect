@@ -8,6 +8,7 @@
   },
   "include": [
     "src/app/**/*.spec.ts",
-    "src/app/**/tests/*.spec.ts"
+    "src/app/**/tests/*.spec.ts",
+    "src/app/input/validation/tests/*.spec.ts"
   ]
 }
