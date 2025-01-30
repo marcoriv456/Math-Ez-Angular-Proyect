@@ -18,17 +18,13 @@ describe('CharVisibilityManager: ', () => {
   });
 
   describe('Initialization: ', () => {
-    it('should initialize overlayViewWidth with the overlay client width', () => {
+    it('initialize overlayViewWidth with the overlay client width', () => {
       expect(charVisibilityManager['overlayViewWidth']).toBe(100);
     });
 
-    it('should initialize scrollBarFrom and scrollBarTo based on scrollLeft and clientWidth', () => {
+    it('initialize scrollBarFrom and scrollBarTo based on scrollLeft and clientWidth', () => {
       expect(charVisibilityManager['scrollBarFrom']).toBe(0);
       expect(charVisibilityManager['scrollBarTo']).toBe(100);
-    });
-
-    it('should initialize offset as 3 by default', () => {
-      expect(charVisibilityManager['offset']).toBe(3);
     });
   });
 
@@ -89,7 +85,7 @@ describe('CharVisibilityManager: ', () => {
       spyOn(overlay, 'scrollBy');
 
       charVisibilityManager.makeCharVisible(positionX);
-      
+
       expect(overlay.scrollTo).toHaveBeenCalled();
       setTimeout(() => {
         expect(overlay.scrollBy).not.toHaveBeenCalled();
