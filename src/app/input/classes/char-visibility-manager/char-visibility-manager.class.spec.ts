@@ -83,13 +83,15 @@ describe('CharVisibilityManager: ', () => {
 
     it('should not scroll slightly to the right if the char is on the left', (done) => {
       const positionX = 10;
+      Object.defineProperty(overlay,'scrollLeft',{value:50})
+      charVisibilityManager=new CharVisibilityManager(overlay)
       spyOn(overlay, 'scrollTo');
       spyOn(overlay, 'scrollBy');
 
       charVisibilityManager.makeCharVisible(positionX);
-
+      
+      expect(overlay.scrollTo).toHaveBeenCalled();
       setTimeout(() => {
-        expect(overlay.scrollTo).not.toHaveBeenCalled();
         expect(overlay.scrollBy).not.toHaveBeenCalled();
         done();
       }, 100);
