@@ -1,6 +1,7 @@
 import {CharValidator} from "../validators/char.validator";
 import {VariableProviderService} from "../../services/variable-provider/variable-provider.service";
 import {TermValidationData} from "../models/term-validation-data.model";
+import {validTermValidation} from "../default-values/valid-term-validation";
 
 describe('Char validator: ', () => {
   const variableProviderMock = {
@@ -8,20 +9,20 @@ describe('Char validator: ', () => {
       return ['A', 'B', 'D']
     }
   } as VariableProviderService;
-  const validData:TermValidationData = {isValid: true, messages: [], type:undefined}
+  const validData:TermValidationData = validTermValidation
 
   const getMockChar = (char: string) => ({char, variableProvider: variableProviderMock})
   const getCharValidatorOf = (char: string) => new CharValidator(getMockChar(char))
 
-  it('Generates a message including the name of the not recognizable variable', () => {
+  it('Generates a message including the variable name', () => {
     const validator = getCharValidatorOf('g')
 
     const validationData = validator.validate()
 
-    expect(validationData.messages[0].message.includes('g')).toBeTrue()
+    expect(validationData.messages[0].message.includes('"g"')).toBeTrue()
   });
 
-  it('Given a not recognizable variable, returns an invalid validation', () => {
+  it('A not recognizable variable is invalid', () => {
     const validator = getCharValidatorOf('g')
 
     const validationData = validator.validate()
@@ -32,19 +33,19 @@ describe('Char validator: ', () => {
   });
 
 
-  it('Given a number, returns a positive validation ', () => {
+  it('A number is valid ', () => {
     const validator = getCharValidatorOf('5')
 
-    const validatorData = validator.validate()
+    const validationData = validator.validate()
 
-    expect(validatorData).toEqual(validData)
+    expect(validationData).toEqual(validData)
   });
 
-  it('Given an operand character, returns a positive validation', () => {
+  it('An operand character is valid', () => {
     const validator = getCharValidatorOf('/')
 
-    const validatorData = validator.validate()
+    const validationData = validator.validate()
 
-    expect(validatorData).toEqual(validData)
+    expect(validationData).toEqual(validData)
   });
 })
