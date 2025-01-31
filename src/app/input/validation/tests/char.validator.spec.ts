@@ -2,6 +2,8 @@ import {CharValidator} from "../validators/char.validator";
 import {VariableProviderService} from "../../services/variable-provider/variable-provider.service";
 import {TermValidationData} from "../models/term-validation-data.model";
 import {validTermValidation} from "../default-values/valid-term-validation";
+import {expectValid} from "./utils/expect-valid.util";
+import {expectInvalid} from "./utils/expect-invalid.util";
 
 describe('Char validator: ', () => {
   const variableProviderMock = {
@@ -27,9 +29,7 @@ describe('Char validator: ', () => {
 
     const validationData = validator.validate()
 
-    expect(validationData.isValid).toBeFalse()
-    expect(validationData.messages.length).toBe(1)
-    expect(validationData.type).toBe('fully-invalid')
+    expectInvalid(validationData)
   });
 
 
@@ -38,7 +38,7 @@ describe('Char validator: ', () => {
 
     const validationData = validator.validate()
 
-    expect(validationData).toEqual(validData)
+    expectValid(validationData)
   });
 
   it('An operand character is valid', () => {
@@ -46,6 +46,6 @@ describe('Char validator: ', () => {
 
     const validationData = validator.validate()
 
-    expect(validationData).toEqual(validData)
+    expectValid(validationData)
   });
 })
