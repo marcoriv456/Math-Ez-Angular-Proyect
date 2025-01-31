@@ -2,6 +2,8 @@ import {ExponentValidator} from "../validators/exponent.validator";
 import {ExponentComponent} from "../../components/exponent/exponent.component";
 import {TermValidationData} from "../models/term-validation-data.model";
 import {validTermValidation} from "../default-values/valid-term-validation";
+import {expectValid} from "./utils/expect-valid.util";
+import {expectPartiallyInvalid} from "./utils/expect-partially-invalid.util";
 
 describe("Exponent validator: ", () => {
   const getExponentComponent=(expValue:string)=>( {
@@ -17,7 +19,7 @@ describe("Exponent validator: ", () => {
 
     const validationData = validator.validate()
 
-    expect(validationData).toEqual(validData)
+    expectValid(validationData)
   });
 
 
@@ -26,7 +28,7 @@ describe("Exponent validator: ", () => {
 
     const validationData = validator.validate()
 
-    expect(validationData).toEqual(validData)
+    expectValid(validationData)
   });
 
   it('One as value is partially invalid', () => {
@@ -34,9 +36,7 @@ describe("Exponent validator: ", () => {
 
     const validationData = validator.validate()
 
-    expect(validationData.isValid).toBeFalse()
-    expect(validationData.type).toBe('partially-invalid')
-    expect(validationData.messages.length).toBe(1)
+    expectPartiallyInvalid(validationData)
   });
 
   it('Zero as value is partially invalid', () => {
@@ -44,8 +44,6 @@ describe("Exponent validator: ", () => {
 
     const validationData= validator.validate()
 
-    expect(validationData.isValid).toBeFalse()
-    expect(validationData.type).toBe('partially-invalid')
-    expect(validationData.messages.length).toBe(1)
+    expectPartiallyInvalid(validationData)
   });
 })
