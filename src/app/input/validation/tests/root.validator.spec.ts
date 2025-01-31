@@ -1,10 +1,11 @@
 import {RootComponent} from "../../components/root/root.component";
 import {RootValidator} from "../validators/root.validator";
-import {TermValidationData} from "../models/term-validation-data.model";
+import {expectPartiallyInvalid} from "./utils/expect-partially-invalid.util";
+import {expectInvalid} from "./utils/expect-invalid.util";
+import {expectValid} from "./utils/expect-valid.util";
 
 describe('Root validator: ', () => {
-  const getRootComponent = (radicand: string, index?: string) => {
-    return {
+  const getRootComponent = (radicand: string, index?: string) => ({
       indexComponent: index ? {
         get toString(): string {
           return index
@@ -15,203 +16,56 @@ describe('Root validator: ', () => {
           return radicand
         }
       }
-    } as unknown as RootComponent
-  }
-  let validator: RootValidator;
-  let validationData: TermValidationData;
+    }) as unknown as RootComponent
 
-  describe('Validator initializing: ', () => {
-    it('should initialize the radicand value', () => {
-      validator = new RootValidator(getRootComponent('12', '2'));
-      expect(validator['radicandValue']).toBe(12);
-    });
+  const getRootValidator=(radicand: string, index?: string)=>new RootValidator(getRootComponent(radicand,index))
 
-    it('should initialize the index value', () => {
-      validator = new RootValidator(getRootComponent('12', '2'));
-      expect(validator['indexValue']).toBe(2);
-    });
+  it('Empty index and radicand are valid', () => {
+    const validator=getRootValidator('','')
 
-    it('should initialize the index string value', () => {
-      validator = new RootValidator(getRootComponent('12', '2'));
-      expect(validator['indexStringValue']).toBe('2');
-    });
+    const validationData = validator.validate()
 
-    it('should not initialize the index value if not provided', () => {
-      validator = new RootValidator(getRootComponent('12'));
-      expect(validator['indexValue']).toBeNaN();
-    });
-
-    it('should not initialize the index string value if not provided', () => {
-      validator = new RootValidator(getRootComponent('12'));
-      expect(validator['indexStringValue']).toBeUndefined();
-    });
-
-    it('should not initialize the radicand value as NaN', () => {
-      validator = new RootValidator(getRootComponent('A+B', '2'));
-      expect(validator['radicandValue']).toBeNaN();
-    });
-
-    it('should not initialize the index value as NaN', () => {
-      validator = new RootValidator(getRootComponent('12', 'A+B'));
-      expect(validator['indexValue']).toBeNaN();
-    });
+    expectValid(validationData)
   });
 
-  describe('Validation on invalid value: ', () => {
-    it('should return an empty array if radicand is NaN', () => {
-      validator = new RootValidator(getRootComponent('A+B', '2'));
-      expect(validator['getValidationMessages']()).toEqual([]);
-    });
+  it('Not numerical index and radicand are valid', () => {
+    const validator=getRootValidator('','')
 
-    it('should return an empty array if index is NaN', () => {
-      validator = new RootValidator(getRootComponent('12', 'A+B'));
-      expect(validator['getValidationMessages']()).toEqual([]);
-    });
+    const validationData = validator.validate()
 
-    it('should not execute the validation if radicand is NaN', () => {
-      validator = new RootValidator(getRootComponent('A+B', '2'));
-      spyOn(validator as any, 'validateRadicandValue');
-      spyOn(validator as any, 'validateIndexValue');
-
-      validator['getValidationMessages']();
-      expect(validator['validateRadicandValue']).not.toHaveBeenCalled();
-      expect(validator['validateIndexValue']).toHaveBeenCalled();
-    });
-
-    it('should not execute the validation if index is NaN', () => {
-      validator = new RootValidator(getRootComponent('12', 'A+B'));
-      spyOn(validator as any, 'validateRadicandValue');
-      spyOn(validator as any, 'validateIndexValue');
-
-      validator['getValidationMessages']();
-      expect(validator['validateRadicandValue']).toHaveBeenCalled();
-      expect(validator['validateIndexValue']).not.toHaveBeenCalled();
-    });
+    expectValid(validationData)
   });
 
-  describe('Validation process: ', () => {
-    describe('Given 1 as radicand value: ', () => {
-      beforeEach(() => {
-        validator = new RootValidator(getRootComponent('1', '2'));
-        validationData = validator.validate();
-      });
+  it('"1" as radicand is partially invalid', () => {
+    const validator=getRootValidator('1','')
 
-      it('should return "isValid" as false', () => {
-        expect(validationData.isValid).toBeFalse();
-      });
+    const validationData = validator.validate()
 
-      it('should return "type" as "partially-invalid"', () => {
-        expect(validationData.type).toBe('partially-invalid');
-      });
+    expectPartiallyInvalid(validationData)
+  });
 
-      it('should return an array of one message', () => {
-        expect(validationData.messages.length).toBe(1);
-      });
+  it('"0" as index is invalid', () => {
+    const validator=getRootValidator('','0')
 
-      it('should return the following message', () => {
-        expect(validationData.messages[0]).toEqual({
-          message: 'La raiz de cualquier indice de 1 siempre sera 1.',
-          type: 'partially-invalid',
-        });
-      });
-    });
+    const validationData = validator.validate()
 
-    describe('Given negative radicand and even index: ', () => {
-      beforeEach(() => {
-        validator = new RootValidator(getRootComponent('-4', '2'));
-        validationData = validator.validate();
-      });
+    expectInvalid(validationData)
+  });
 
-      it('should return "isValid" as false', () => {
-        expect(validationData.isValid).toBeFalse();
-      });
+  it('"1" as index is invalid', () => {
+    const validator=getRootValidator('','1')
 
-      it('should return "type" as "fully-invalid"', () => {
-        expect(validationData.type).toBe('fully-invalid');
-      });
+    const validationData = validator.validate()
 
-      it('should return an array of one message', () => {
-        expect(validationData.messages.length).toBe(1);
-      });
+    expectInvalid(validationData)
+  });
 
-      it('should return the following message', () => {
-        expect(validationData.messages[0]).toEqual({
-          message: 'La raiz de un numero negativo con indice par dara un numero complejo.',
-          type: 'fully-invalid',
-        });
-      });
-    });
+  it('Negative radicand and even index are invalid', () => {
+    const validator=getRootValidator('-10','2')
 
-    describe('Given 1 as index value: ', () => {
-      beforeEach(() => {
-        validator = new RootValidator(getRootComponent('4', '1'));
-        validationData = validator.validate();
-      });
+    const validationData = validator.validate()
 
-      it('should return "isValid" as false', () => {
-        expect(validationData.isValid).toBeFalse();
-      });
-
-      it('should return "type" as "fully-invalid"', () => {
-        expect(validationData.type).toBe('fully-invalid');
-      });
-
-      it('should return an array of one message', () => {
-        expect(validationData.messages.length).toBe(1);
-      });
-
-      it('should return the following message', () => {
-        expect(validationData.messages[0]).toEqual({
-          message: 'No se puede agregar 1 como indice de una raiz.',
-          type: 'fully-invalid',
-        });
-      });
-    });
-
-    describe('Given 0 as index value: ', () => {
-      beforeEach(() => {
-        validator = new RootValidator(getRootComponent('4', '0'));
-        validationData = validator.validate();
-      });
-
-      it('should return "isValid" as false', () => {
-        expect(validationData.isValid).toBeFalse();
-      });
-
-      it('should return "type" as "fully-invalid"', () => {
-        expect(validationData.type).toBe('fully-invalid');
-      });
-
-      it('should return an array of one message', () => {
-        expect(validationData.messages.length).toBe(1);
-      });
-
-      it('should return the following message', () => {
-        expect(validationData.messages[0]).toEqual({
-          message: 'No se puede agregar 0 como indice de una raiz.',
-          type: 'fully-invalid',
-        });
-      });
-    });
-
-    describe('Given empty index value: ', () => {
-      beforeEach(() => {
-        validator = new RootValidator(getRootComponent('4', ''));
-        validationData = validator.validate();
-      });
-
-      it('should return "isValid" as true', () => {
-        expect(validationData.isValid).toBeTrue();
-      });
-
-      it('should not return anything as "type"', () => {
-        expect(validationData.type).not.toBeDefined();
-      });
-
-      it('should return an empty messages array', () => {
-        expect(validationData.messages.length).toBe(0);
-      });
-    });
+    expectInvalid(validationData)
   });
 
 });
