@@ -372,6 +372,30 @@ describe('Input component', () => {
 
         })
       });
+      describe.only('Ctrl + Home and End keys', () => {
+        beforeEach(()=>{
+          view.type('/()')
+          cy.get('parenthesis').click()
+          view.type('{alt}r')
+        })
+
+        it('When ctrl+Home command is pressed, the caret moves to the start of the base context', () => {
+          view.type('{ctrl}{Home}')
+
+          cy.wait(100)
+          getCaretPosition().should('equal',0)
+        });
+
+        it('When ctrl+End command is pressed, the caret move to th eend of the base context', () => {
+          view.type('{ctrl}{End}')
+
+          cy.wait(100)
+
+            getElementFrontPosition('frac').then(position=>{
+            getCaretPosition().should('equal',position)
+          })
+        });
+      });
     });
   })
 });
