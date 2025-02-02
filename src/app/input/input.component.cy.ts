@@ -26,6 +26,54 @@ describe('Input component', () => {
   let view: Chainable<JQuery<HTMLElement>>;
   let component: InputComponent
 
+  const runEditableElementSuite = (name:string, addingCommand:string, focusingElementSelector:string) => {
+    describe(`Char adding inside "${name}" editable element:`, () => {
+      beforeEach(()=>{
+        view.type(addingCommand)
+        cy.get(focusingElementSelector).click()
+      })
+
+      it('Adds letters: ', () => {
+
+        view.type('hello world')
+
+        cy.log('written')
+
+        cy.contains(focusingElementSelector,'hello world').should('exist')
+      });
+
+      it('Adds a fraction', () => {
+        view.type('/')
+
+        cy.get(`${focusingElementSelector} frac`).should('exist').and('be.visible')
+      });
+
+      it('Adds a simple root', () => {
+        view.type('{ctrl}r')
+
+        cy.get(`${focusingElementSelector} root`).should('exist').and('be.visible')
+      });
+
+      it('Adds an editable index root', () => {
+        view.type('{alt}r')
+
+        cy.get(`${focusingElementSelector} root:has(argument)`).should('exist')
+      });
+
+      it('Adds an exponent', () => {
+        view.type('{ctrl}e')
+
+        cy.get(`${focusingElementSelector} exp`).should('exist').and('be.visible')
+      });
+
+      it('Adds a parenthesis', () => {
+        view.type('()')
+
+        cy.get(`${focusingElementSelector} parenthesis`).should('exist').and('be.visible')
+      });
+    })
+  }
+
   beforeEach(() => {
     cy.mount(InputComponent, {
       declarations: [
@@ -91,6 +139,14 @@ describe('Input component', () => {
       cy.get('.insert-something-advice').should('not.exist')
     });
   });
+
+  describe('Term adding in all contexts: ', () => {
+    runEditableElementSuite('Input Base', '{ctrl}', '[data-cy-root]')
+    runEditableElementSuite('Exponent', '{ctrl}e', 'exp')
+    runEditableElementSuite('Root', '{ctrl}r', 'root editable-term-container')
+    runEditableElementSuite('Root index editor', '{alt}r', 'root argument')
+    runEditableElementSuite('Parenthesis', '()', 'parenthesis')
+  })
 });
 
 
