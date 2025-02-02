@@ -226,6 +226,69 @@ describe('Input component', () => {
 
     })
   });
+
+  describe.only("Caret positioning:", () => {
+    const getCaretPosition = () => cy.get('#caret-container')
+      .then(el => Math.floor(el.position().left))
+
+    const getCharPosition = (selector: string) => cy.get(selector)
+      .then(el => Math.floor(el.position().left))
+
+    const getCharFrontPosition = (selector: string) => cy.get(selector)
+      .then(el => Math.floor(el.position().left + (el.width() || 0)))
+
+
+    describe('Shortcuts: ', () => {
+      describe('Arrow keys', () => {
+        beforeEach(()=>{
+          view.click()
+          view.type('hello world')
+        })
+
+        it('The caret moves to the next element when the Right Arrow is pressed', () => {
+          view.type('{Home}')
+
+          view.type('{RightArrow}')
+
+          cy.wait(100)
+          getCharFrontPosition('char:first-child').then(position=>{
+            getCaretPosition().should('equal',position)
+          })
+        });
+
+        it('The caret moves to the previous element when the Left Arrow is pressed', () => {
+          view.type('{LeftArrow}')
+
+          cy.wait(100)
+          getCharPosition('char:last-child').then(position=>{
+            getCaretPosition().should('equal',position)
+          })
+        });
+      });
+      describe('Home and End', () => {
+        beforeEach(() => {
+          view.click()
+          view.type('hello world')
+        })
+
+        it('When pressed Home key, it moves the caret to the first position', () => {
+          view.type('{Home}')
+
+          cy.wait(100)
+          getCaretPosition().should('equal', 0)
+        });
+
+        it('When pressed End key, it moves the caret to the last position', () => {
+          view.type('{Home}')
+
+          view.type('{End}')
+
+          cy.wait(100)
+          getCharFrontPosition('char:last-child').then(position => {
+            getCaretPosition().should('equal', position)
+          })
+        });
+      });
+    });
+  })
 });
-
-
