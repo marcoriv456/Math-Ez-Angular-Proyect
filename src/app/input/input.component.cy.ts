@@ -74,6 +74,8 @@ describe('Input component', () => {
     })
   }
 
+  const wrapInputRef = () => cy.get('[data-cy-root]')
+
   const getPosition = (element: JQuery<HTMLElement>) => Math.floor(element.position().left)
   const getFrontPosition = (element: JQuery<HTMLElement>) => Math.floor(getPosition(element) + (element.width() || 0))
 
@@ -440,6 +442,65 @@ describe('Input component', () => {
 
         cy.contains('char','π').should('exist')
       });
+    });
+  });
+
+  describe('Context changes: ', () => {
+
+    const caretHeight = () => cy.get('#caret-container').then(el=>el.height()||0)
+
+    const expectContexted = (selector:string) => {
+      cy.wait(100)
+      cy.get(selector)
+        .should('have.class','selected')
+        .then(el=>el.height()||0)
+        .then(height=>{
+          caretHeight().should('equal',height)
+        })
+    }
+
+    describe.only('Fraction context changes:', () => {
+      beforeEach(()=>{
+        view.type('/')
+        view.type('{ctrl}{Home}')
+      })
+
+      it('When the caret enters from the left, it contexts the fraction numerator', () => {
+        view.type('{RightArrow}')
+
+        expectContexted('frac-child[type="numerator"]')
+      });
+
+      it('When the caret enters from the right, it contexts the fraction denominator', () => {
+        view.type('{ctrl}{End}')
+
+        view.type('{LeftArrow}')
+
+        expectContexted('frac-child[type="denominator"]')
+      });
+
+      it('Having the caret in the numerator\'s last position, when moving forward, it moves the context to the denominator', () => {
+        cy.get('frac-child[type="numerator"]').click();
+        wrapInputRef()
+        view.type('hello')
+        view.type('{End}')
+
+        view.type('{RightArrow}')
+
+        expectContexted('frac-child[type="denominator"]')
+      });
+
+      it('Having the caret in the numerator\'s first position, when moving backward, it moves the context to the parent element', () => {
+        cy.get('frac-child[type="numerator"]').click()
+        wrapInputRef()
+        view.type('hello')
+        view.type('{Home}')
+
+        view.type('{LeftArrow}')
+
+        expectContexted('[data-cy-root]>.main-overlay>editable-term-container')
+      });
+
     });
   });
 });
