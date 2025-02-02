@@ -291,6 +291,87 @@ describe('Input component', () => {
           })
         });
       });
+      describe('Ctrl + Arrow Keys:', () => {
+
+        describe('on Ctrl+RightArrow', () => {
+
+          it('The caret moves behind the next irregular character', () => {
+            view.type('hello+world*test')
+            view.type('{Home}')
+
+            view.type('{ctrl}{RightArrow}')
+
+            cy.wait(100)
+            getLetterPosition('+').then(position=>{
+              getCaretPosition().should('equal',position)
+            })
+          });
+
+          it('If the caret is already behind an irregular character, it moves next to it', () => {
+            view.type('hello+world*test')
+            view.type('{Home}')
+            view.type('{ctrl}{RightArrow}')
+
+            view.type('{ctrl}{RightArrow}')
+
+            cy.wait(100)
+            getLetterFrontPosition('+').then(position=>{
+              getCaretPosition().should('equal',position)
+            })
+          });
+
+          it('If there is no next irregular character, the caret moves to the last position', () => {
+            view.type('hello')
+            view.type('{Home}')
+
+            view.type('{ctrl}{RightArrow}')
+
+            cy.wait(100)
+            getElementFrontPosition('char:last-child').then(position=>{
+              getCaretPosition().should('equal',position)
+            })
+          });
+
+        });
+        describe('on Ctrl+LeftArrow', () => {
+
+          it('The caret moves next to the previous irregular character', () => {
+            view.type('hello+world*test')
+            view.type('{End}')
+
+            view.type('{ctrl}{LeftArrow}')
+
+            cy.wait(100)
+            getLetterFrontPosition('*').then(position => {
+              getCaretPosition().should('equal', position)
+            })
+          });
+
+          it('If the caret is already next to an irregular character, it moves behind it', () => {
+            view.type('hello+world*test')
+            view.type('{End}')
+            view.type('{ctrl}{LeftArrow}')
+
+            view.type('{ctrl}{LeftArrow}')
+
+            cy.wait(100)
+            getLetterPosition('*').then(position => {
+              getCaretPosition().should('equal', position)
+            })
+          });
+
+          it('If there is no previous irregular character, the caret moves to the first position', () => {
+            view.type('hello')
+            view.type('{End}')
+
+            view.type('{ctrl}{LeftArrow}')
+
+            cy.wait(100)
+            getCaretPosition().should('equal',0)
+          });
+
+        })
+      });
     });
   })
 });
