@@ -26,9 +26,9 @@ describe('Input component', () => {
   let view: Chainable<JQuery<HTMLElement>>;
   let component: InputComponent
 
-  const runEditableElementSuite = (name:string, addingCommand:string, focusingElementSelector:string) => {
+  const runEditableElementSuite = (name: string, addingCommand: string, focusingElementSelector: string) => {
     describe(`Char adding inside "${name}" editable element:`, () => {
-      beforeEach(()=>{
+      beforeEach(() => {
         view.type(addingCommand)
         cy.get(focusingElementSelector).click()
       })
@@ -39,7 +39,7 @@ describe('Input component', () => {
 
         cy.log('written')
 
-        cy.contains(focusingElementSelector,'hello world').should('exist')
+        cy.contains(focusingElementSelector, 'hello world').should('exist')
       });
 
       it('Adds a fraction', () => {
@@ -143,6 +143,8 @@ describe('Input component', () => {
   describe('Term adding in all contexts: ', () => {
     runEditableElementSuite('Input Base', '{ctrl}', '[data-cy-root]')
     runEditableElementSuite('Exponent', '{ctrl}e', 'exp')
+    runEditableElementSuite('Fraction numerator', '/', 'frac frac-child[type="numerator"]')
+    runEditableElementSuite('Fraction denominator', '/', 'frac frac-child[type="denominator"]')
     runEditableElementSuite('Root', '{ctrl}r', 'root editable-term-container')
     runEditableElementSuite('Root index editor', '{alt}r', 'root argument')
     runEditableElementSuite('Parenthesis', '()', 'parenthesis')
