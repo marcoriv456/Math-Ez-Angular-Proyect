@@ -228,15 +228,26 @@ describe('Input component', () => {
   });
 
   describe.only("Caret positioning:", () => {
+
+    const getPosition = (element: JQuery<HTMLElement>) => Math.floor(element.position().left)
+    const getFrontPosition = (element: JQuery<HTMLElement>) => Math.floor(getPosition(element) + (element.width() || 0))
+
     const getCaretPosition = () => cy.get('#caret-container')
-      .then(el => Math.floor(el.position().left))
+      .then(getPosition)
+
 
     const getCharPosition = (selector: string) => cy.get(selector)
-      .then(el => Math.floor(el.position().left))
+      .then(getPosition)
 
     const getCharFrontPosition = (selector: string) => cy.get(selector)
-      .then(el => Math.floor(el.position().left + (el.width() || 0)))
+      .then(getFrontPosition)
 
+
+    const getLetterPosition = (letter: string) => cy.contains('char', letter)
+      .then(getPosition)
+
+    const getLetterFrontPosition = (letter: string) => cy.contains('char', letter)
+      .then(getFrontPosition)
 
     describe('Shortcuts: ', () => {
       describe('Arrow keys', () => {
