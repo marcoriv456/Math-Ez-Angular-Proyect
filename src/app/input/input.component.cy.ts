@@ -74,6 +74,18 @@ describe('Input component', () => {
     })
   }
 
+  const getPosition = (element: JQuery<HTMLElement>) => Math.floor(element.position().left)
+  const getFrontPosition = (element: JQuery<HTMLElement>) => Math.floor(getPosition(element) + (element.width() || 0))
+
+  const getCaretPosition = () => cy.get('#caret-container').then(getPosition)
+
+  const getElementPosition = (selector: string) => cy.get(selector).then(getPosition)
+  const getElementFrontPosition = (selector: string) => cy.get(selector).then(getFrontPosition)
+
+  const getLetterPosition = (letter: string) => cy.contains('char', letter).then(getPosition)
+  const getLetterFrontPosition = (letter: string) => cy.contains('char', letter).then(getFrontPosition)
+
+
   beforeEach(() => {
     cy.mount(InputComponent, {
       declarations: [
@@ -227,221 +239,207 @@ describe('Input component', () => {
     })
   });
 
-  describe("Caret positioning:", () => {
+  describe('Shortcuts: ', () => {
+    describe('Arrow keys', () => {
+      beforeEach(()=>{
+        view.click()
+        view.type('hello world')
+      })
 
-    const getPosition = (element: JQuery<HTMLElement>) => Math.floor(element.position().left)
-    const getFrontPosition = (element: JQuery<HTMLElement>) => Math.floor(getPosition(element) + (element.width() || 0))
+      it('The caret moves to the next element when the Right Arrow is pressed', () => {
+        view.type('{Home}')
 
-    const getCaretPosition = () => cy.get('#caret-container').then(getPosition)
+        view.type('{RightArrow}')
 
-    const getElementPosition = (selector: string) => cy.get(selector).then(getPosition)
-    const getElementFrontPosition = (selector: string) => cy.get(selector).then(getFrontPosition)
-
-    const getLetterPosition = (letter: string) => cy.contains('char', letter).then(getPosition)
-    const getLetterFrontPosition = (letter: string) => cy.contains('char', letter).then(getFrontPosition)
-
-    describe('Shortcuts: ', () => {
-      describe('Arrow keys', () => {
-        beforeEach(()=>{
-          view.click()
-          view.type('hello world')
+        cy.wait(100)
+        getElementFrontPosition('char:first-child').then(position=>{
+          getCaretPosition().should('equal',position)
         })
+      });
 
-        it('The caret moves to the next element when the Right Arrow is pressed', () => {
+      it('The caret moves to the previous element when the Left Arrow is pressed', () => {
+        view.type('{LeftArrow}')
+
+        cy.wait(100)
+        getElementPosition('char:last-child').then(position=>{
+          getCaretPosition().should('equal',position)
+        })
+      });
+    });
+    describe('Backspace key', () => {
+      it('Removes elements when the backspace key is pressed', () => {
+        view.type('hello')
+
+        view.type('{Backspace}')
+        view.should('have.text','hell')
+        cy.log('executed')
+      });
+    });
+    describe('Home and End', () => {
+      beforeEach(() => {
+        view.click()
+        view.type('hello world')
+      })
+
+      it('When pressed Home key, it moves the caret to the first position', () => {
+        view.type('{Home}')
+
+        cy.wait(100)
+        getCaretPosition().should('equal', 0)
+      });
+
+      it('When pressed End key, it moves the caret to the last position', () => {
+        view.type('{Home}')
+
+        view.type('{End}')
+
+        cy.wait(100)
+        getElementFrontPosition('char:last-child').then(position => {
+          getCaretPosition().should('equal', position)
+        })
+      });
+    });
+    describe('Ctrl + Arrow Keys:', () => {
+
+      describe('on Ctrl+RightArrow', () => {
+
+        it('The caret moves behind the next irregular character', () => {
+          view.type('hello+world*test')
           view.type('{Home}')
 
-          view.type('{RightArrow}')
+          view.type('{ctrl}{RightArrow}')
 
           cy.wait(100)
-          getElementFrontPosition('char:first-child').then(position=>{
+          getLetterPosition('+').then(position=>{
             getCaretPosition().should('equal',position)
           })
         });
 
-        it('The caret moves to the previous element when the Left Arrow is pressed', () => {
-          view.type('{LeftArrow}')
+        it('If the caret is already behind an irregular character, it moves next to it', () => {
+          view.type('hello+world*test')
+          view.type('{Home}')
+          view.type('{ctrl}{RightArrow}')
+
+          view.type('{ctrl}{RightArrow}')
 
           cy.wait(100)
-          getElementPosition('char:last-child').then(position=>{
+          getLetterFrontPosition('+').then(position=>{
             getCaretPosition().should('equal',position)
           })
         });
-      });
-      describe('Backspace key', () => {
-        it('Removes elements when the backspace key is pressed', () => {
+
+        it('If there is no next irregular character, the caret moves to the last position', () => {
           view.type('hello')
-
-          view.type('{Backspace}')
-          view.should('have.text','hell')
-          cy.log('executed')
-        });
-      });
-      describe('Home and End', () => {
-        beforeEach(() => {
-          view.click()
-          view.type('hello world')
-        })
-
-        it('When pressed Home key, it moves the caret to the first position', () => {
           view.type('{Home}')
+
+          view.type('{ctrl}{RightArrow}')
 
           cy.wait(100)
-          getCaretPosition().should('equal', 0)
+          getElementFrontPosition('char:last-child').then(position=>{
+            getCaretPosition().should('equal',position)
+          })
         });
 
-        it('When pressed End key, it moves the caret to the last position', () => {
-          view.type('{Home}')
+      });
+      describe('on Ctrl+LeftArrow', () => {
 
+        it('The caret moves next to the previous irregular character', () => {
+          view.type('hello+world*test')
           view.type('{End}')
 
+          view.type('{ctrl}{LeftArrow}')
+
           cy.wait(100)
-          getElementFrontPosition('char:last-child').then(position => {
+          getLetterFrontPosition('*').then(position => {
             getCaretPosition().should('equal', position)
           })
         });
-      });
-      describe('Ctrl + Arrow Keys:', () => {
 
-        describe('on Ctrl+RightArrow', () => {
+        it('If the caret is already next to an irregular character, it moves behind it', () => {
+          view.type('hello+world*test')
+          view.type('{End}')
+          view.type('{ctrl}{LeftArrow}')
 
-          it('The caret moves behind the next irregular character', () => {
-            view.type('hello+world*test')
-            view.type('{Home}')
+          view.type('{ctrl}{LeftArrow}')
 
-            view.type('{ctrl}{RightArrow}')
-
-            cy.wait(100)
-            getLetterPosition('+').then(position=>{
-              getCaretPosition().should('equal',position)
-            })
-          });
-
-          it('If the caret is already behind an irregular character, it moves next to it', () => {
-            view.type('hello+world*test')
-            view.type('{Home}')
-            view.type('{ctrl}{RightArrow}')
-
-            view.type('{ctrl}{RightArrow}')
-
-            cy.wait(100)
-            getLetterFrontPosition('+').then(position=>{
-              getCaretPosition().should('equal',position)
-            })
-          });
-
-          it('If there is no next irregular character, the caret moves to the last position', () => {
-            view.type('hello')
-            view.type('{Home}')
-
-            view.type('{ctrl}{RightArrow}')
-
-            cy.wait(100)
-            getElementFrontPosition('char:last-child').then(position=>{
-              getCaretPosition().should('equal',position)
-            })
-          });
-
+          cy.wait(100)
+          getLetterPosition('*').then(position => {
+            getCaretPosition().should('equal', position)
+          })
         });
-        describe('on Ctrl+LeftArrow', () => {
 
-          it('The caret moves next to the previous irregular character', () => {
-            view.type('hello+world*test')
-            view.type('{End}')
+        it('If there is no previous irregular character, the caret moves to the first position', () => {
+          view.type('hello')
+          view.type('{End}')
 
-            view.type('{ctrl}{LeftArrow}')
-
-            cy.wait(100)
-            getLetterFrontPosition('*').then(position => {
-              getCaretPosition().should('equal', position)
-            })
-          });
-
-          it('If the caret is already next to an irregular character, it moves behind it', () => {
-            view.type('hello+world*test')
-            view.type('{End}')
-            view.type('{ctrl}{LeftArrow}')
-
-            view.type('{ctrl}{LeftArrow}')
-
-            cy.wait(100)
-            getLetterPosition('*').then(position => {
-              getCaretPosition().should('equal', position)
-            })
-          });
-
-          it('If there is no previous irregular character, the caret moves to the first position', () => {
-            view.type('hello')
-            view.type('{End}')
-
-            view.type('{ctrl}{LeftArrow}')
-
-            cy.wait(100)
-            getCaretPosition().should('equal',0)
-          });
-
-        })
-      });
-      describe('Ctrl + Home and End keys', () => {
-        beforeEach(()=>{
-          view.type('/()')
-          cy.get('parenthesis').click()
-          view.type('{alt}r')
-        })
-
-        it('When ctrl+Home command is pressed, the caret moves to the start of the base context', () => {
-          view.type('{ctrl}{Home}')
+          view.type('{ctrl}{LeftArrow}')
 
           cy.wait(100)
           getCaretPosition().should('equal',0)
         });
 
-        it('When ctrl+End command is pressed, the caret move to th eend of the base context', () => {
-          view.type('{ctrl}{End}')
+      })
+    });
+    describe('Ctrl + Home and End keys', () => {
+      beforeEach(()=>{
+        view.type('/()')
+        cy.get('parenthesis').click()
+        view.type('{alt}r')
+      })
 
-          cy.wait(100)
+      it('When ctrl+Home command is pressed, the caret moves to the start of the base context', () => {
+        view.type('{ctrl}{Home}')
 
-            getElementFrontPosition('frac').then(position=>{
-            getCaretPosition().should('equal',position)
-          })
-        });
+        cy.wait(100)
+        getCaretPosition().should('equal',0)
       });
-      describe('Ctrl + Backspace', () => {
 
-        it('Removes all the characters between the caret and the previous irregular character', () => {
-          view.type('hello+world')
+      it('When ctrl+End command is pressed, the caret move to th eend of the base context', () => {
+        view.type('{ctrl}{End}')
 
-          view.type('{ctrl}{Backspace}')
+        cy.wait(100)
 
-          view.should('contain.text','hello+')
-        });
-
-        it('If the caret is next to an irregular character, it removes it', () => {
-          view.type('hello+')
-
-          view.type('{ctrl}{Backspace}')
-
-          view.should('contain.text','hello')
-        });
-
-        it('If there is no previous irregular character, it removes all the text', () => {
-          view.type('hello')
-
-          view.type('{ctrl}{Backspace}')
-
-          view.should('not.contain.text')
-        });
-
-        afterEach(()=>{
-          cy.log('end')
+        getElementFrontPosition('frac').then(position=>{
+          getCaretPosition().should('equal',position)
         })
       });
-      describe('Special math characters shortcuts', () => {
-        it('Adds pi number when ctrl+p command gets pressed ', () => {
-          view.type('{ctrl}p')
+    });
+    describe('Ctrl + Backspace', () => {
 
-          cy.contains('char','π').should('exist')
-        });
+      it('Removes all the characters between the caret and the previous irregular character', () => {
+        view.type('hello+world')
+
+        view.type('{ctrl}{Backspace}')
+
+        view.should('contain.text','hello+')
+      });
+
+      it('If the caret is next to an irregular character, it removes it', () => {
+        view.type('hello+')
+
+        view.type('{ctrl}{Backspace}')
+
+        view.should('contain.text','hello')
+      });
+
+      it('If there is no previous irregular character, it removes all the text', () => {
+        view.type('hello')
+
+        view.type('{ctrl}{Backspace}')
+
+        view.should('not.contain.text')
+      });
+
+      afterEach(()=>{
+        cy.log('end')
+      })
+    });
+    describe('Special math characters shortcuts', () => {
+      it('Adds pi number when ctrl+p command gets pressed ', () => {
+        view.type('{ctrl}p')
+
+        cy.contains('char','π').should('exist')
       });
     });
-  })
+  });
 });
