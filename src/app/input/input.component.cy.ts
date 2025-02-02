@@ -267,6 +267,15 @@ describe('Input component', () => {
           })
         });
       });
+      describe('Backspace key', () => {
+        it('Removes elements when the backspace key is pressed', () => {
+          view.type('hello')
+
+          view.type('{Backspace}')
+          view.should('have.text','hell')
+          cy.log('executed')
+        });
+      });
       describe('Home and End', () => {
         beforeEach(() => {
           view.click()
@@ -372,7 +381,7 @@ describe('Input component', () => {
 
         })
       });
-      describe.only('Ctrl + Home and End keys', () => {
+      describe('Ctrl + Home and End keys', () => {
         beforeEach(()=>{
           view.type('/()')
           cy.get('parenthesis').click()
