@@ -227,7 +227,7 @@ describe('Input component', () => {
     })
   });
 
-  describe.only("Caret positioning:", () => {
+  describe("Caret positioning:", () => {
 
     const getPosition = (element: JQuery<HTMLElement>) => Math.floor(element.position().left)
     const getFrontPosition = (element: JQuery<HTMLElement>) => Math.floor(getPosition(element) + (element.width() || 0))
@@ -434,6 +434,13 @@ describe('Input component', () => {
         afterEach(()=>{
           cy.log('end')
         })
+      });
+      describe('Special math characters shortcuts', () => {
+        it('Adds pi number when ctrl+p command gets pressed ', () => {
+          view.type('{ctrl}p')
+
+          cy.contains('char','π').should('exist')
+        });
       });
     });
   })
