@@ -161,7 +161,7 @@ describe('Input component', () => {
         view.type('/')
 
         cy.get('frac-child[type="numerator"]').should('have.text', 'hello')
-        cy.get('frac-child[type="denominator"]').should('have.text', 'world').and('have.class','selected')
+        cy.get('frac-child[type="denominator"]').should('have.text', 'world').and('have.class', 'selected')
       });
 
       it('Placing the caret next to a group of characters, it autocompletes the numerator with those characters', () => {
@@ -170,7 +170,7 @@ describe('Input component', () => {
         view.type('/')
 
         cy.get('frac-child[type="numerator"]').should('have.text', 'helloworld')
-        cy.get('frac-child[type="denominator"]').should('not.have.text').and('have.class','selected')
+        cy.get('frac-child[type="denominator"]').should('not.have.text').and('have.class', 'selected')
       });
 
       it('Placing the caret behind a gruop of characters, it autocompletes the denominator with those characters', () => {
@@ -178,12 +178,11 @@ describe('Input component', () => {
 
         view.type('/')
 
-        cy.get('frac-child[type="numerator"]').should('not.have.text').and('have.class','selected')
+        cy.get('frac-child[type="numerator"]').should('not.have.text').and('have.class', 'selected')
         cy.get('frac-child[type="denominator"]').should('have.text', 'helloworld')
       });
 
     });
-
     describe('Parenthesis autocompletion: ', () => {
 
       it('When the parenthesis gets closed, it wraps the existing text into the two parenthesis', () => {
@@ -191,7 +190,7 @@ describe('Input component', () => {
 
         view.type(')')
 
-        cy.get('parenthesis term-container').should('have.text','hello world')
+        cy.get('parenthesis term-container').should('have.text', 'hello world')
       });
 
       it('When theres a closing parenthesis and an opening parenthesis is added, it wraps the existing text into the two parenthesis', () => {
@@ -200,8 +199,8 @@ describe('Input component', () => {
 
         view.type('(')
 
-        cy.get('parenthesis term-container').should('have.text','hello world')
-        cy.get('parenthesis').should('have.class','selected')
+        cy.get('parenthesis term-container').should('have.text', 'hello world')
+        cy.get('parenthesis').should('have.class', 'selected')
       });
 
 
@@ -210,8 +209,8 @@ describe('Input component', () => {
 
         view.type(')')
 
-        view.should('have.text','(((hello world)')
-        cy.get('parenthesis term-container').should('have.text','hello world')
+        view.should('have.text', '(((hello world)')
+        cy.get('parenthesis term-container').should('have.text', 'hello world')
       });
 
       it('Looks for the closest closing parenthesis to wrap the text', () => {
@@ -220,9 +219,9 @@ describe('Input component', () => {
 
         view.type('(')
 
-        view.should('have.text','(hello world)))')
-        cy.get('parenthesis term-container').should('have.text','hello world')
-        cy.get('parenthesis').should('have.class','selected')
+        view.should('have.text', '(hello world)))')
+        cy.get('parenthesis term-container').should('have.text', 'hello world')
+        cy.get('parenthesis').should('have.class', 'selected')
       });
 
     })
