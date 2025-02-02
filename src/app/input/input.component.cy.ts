@@ -232,22 +232,13 @@ describe('Input component', () => {
     const getPosition = (element: JQuery<HTMLElement>) => Math.floor(element.position().left)
     const getFrontPosition = (element: JQuery<HTMLElement>) => Math.floor(getPosition(element) + (element.width() || 0))
 
-    const getCaretPosition = () => cy.get('#caret-container')
-      .then(getPosition)
+    const getCaretPosition = () => cy.get('#caret-container').then(getPosition)
 
+    const getElementPosition = (selector: string) => cy.get(selector).then(getPosition)
+    const getElementFrontPosition = (selector: string) => cy.get(selector).then(getFrontPosition)
 
-    const getCharPosition = (selector: string) => cy.get(selector)
-      .then(getPosition)
-
-    const getCharFrontPosition = (selector: string) => cy.get(selector)
-      .then(getFrontPosition)
-
-
-    const getLetterPosition = (letter: string) => cy.contains('char', letter)
-      .then(getPosition)
-
-    const getLetterFrontPosition = (letter: string) => cy.contains('char', letter)
-      .then(getFrontPosition)
+    const getLetterPosition = (letter: string) => cy.contains('char', letter).then(getPosition)
+    const getLetterFrontPosition = (letter: string) => cy.contains('char', letter).then(getFrontPosition)
 
     describe('Shortcuts: ', () => {
       describe('Arrow keys', () => {
@@ -262,7 +253,7 @@ describe('Input component', () => {
           view.type('{RightArrow}')
 
           cy.wait(100)
-          getCharFrontPosition('char:first-child').then(position=>{
+          getElementFrontPosition('char:first-child').then(position=>{
             getCaretPosition().should('equal',position)
           })
         });
@@ -271,7 +262,7 @@ describe('Input component', () => {
           view.type('{LeftArrow}')
 
           cy.wait(100)
-          getCharPosition('char:last-child').then(position=>{
+          getElementPosition('char:last-child').then(position=>{
             getCaretPosition().should('equal',position)
           })
         });
@@ -295,7 +286,7 @@ describe('Input component', () => {
           view.type('{End}')
 
           cy.wait(100)
-          getCharFrontPosition('char:last-child').then(position => {
+          getElementFrontPosition('char:last-child').then(position => {
             getCaretPosition().should('equal', position)
           })
         });
