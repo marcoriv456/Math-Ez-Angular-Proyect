@@ -405,6 +405,36 @@ describe('Input component', () => {
           })
         });
       });
+      describe('Ctrl + Backspace', () => {
+
+        it('Removes all the characters between the caret and the previous irregular character', () => {
+          view.type('hello+world')
+
+          view.type('{ctrl}{Backspace}')
+
+          view.should('contain.text','hello+')
+        });
+
+        it('If the caret is next to an irregular character, it removes it', () => {
+          view.type('hello+')
+
+          view.type('{ctrl}{Backspace}')
+
+          view.should('contain.text','hello')
+        });
+
+        it('If there is no previous irregular character, it removes all the text', () => {
+          view.type('hello')
+
+          view.type('{ctrl}{Backspace}')
+
+          view.should('not.contain.text')
+        });
+
+        afterEach(()=>{
+          cy.log('end')
+        })
+      });
     });
   })
 });
