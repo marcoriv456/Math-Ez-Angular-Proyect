@@ -149,6 +149,42 @@ describe('Input component', () => {
     runEditableElementSuite('Root index editor', '{alt}r', 'root argument')
     runEditableElementSuite('Parenthesis', '()', 'parenthesis')
   })
+
+  describe('Term autocompletion: ', () => {
+    describe('Fraction autocompletion:  ', () => {
+      beforeEach(() => {
+        view.type('helloworld')
+      })
+
+      it('Placing the caret in the middle of a group of characters, it autocompletes the denominator and numerator with those characters', () => {
+        cy.contains('w').click()
+        view.type('/')
+
+        cy.get('frac-child[type="numerator"]').should('have.text', 'hello')
+        cy.get('frac-child[type="denominator"]').should('have.text', 'world').and('have.class','selected')
+      });
+
+      it('Placing the caret next to a group of characters, it autocompletes the numerator with those characters', () => {
+        view.type('{ctrl}{End}')
+
+        view.type('/')
+
+        cy.get('frac-child[type="numerator"]').should('have.text', 'helloworld')
+        cy.get('frac-child[type="denominator"]').should('not.have.text').and('have.class','selected')
+      });
+
+      it('Placing the caret behind a gruop of characters, it autocompletes the denominator with those characters', () => {
+        view.type('{ctrl}{Home}')
+
+        view.type('/')
+
+        cy.get('frac-child[type="numerator"]').should('not.have.text').and('have.class','selected')
+        cy.get('frac-child[type="denominator"]').should('have.text', 'helloworld')
+      });
+
+    });
+
+  });
 });
 
 
