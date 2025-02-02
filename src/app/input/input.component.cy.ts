@@ -184,6 +184,48 @@ describe('Input component', () => {
 
     });
 
+    describe('Parenthesis autocompletion: ', () => {
+
+      it('When the parenthesis gets closed, it wraps the existing text into the two parenthesis', () => {
+        view.type('(hello world')
+
+        view.type(')')
+
+        cy.get('parenthesis term-container').should('have.text','hello world')
+      });
+
+      it('When theres a closing parenthesis and an opening parenthesis is added, it wraps the existing text into the two parenthesis', () => {
+        view.type('hello world)')
+        view.type('{ctrl}{Home}')
+
+        view.type('(')
+
+        cy.get('parenthesis term-container').should('have.text','hello world')
+        cy.get('parenthesis').should('have.class','selected')
+      });
+
+
+      it('Looks for the closest opening parenthesis to wrap the text', () => {
+        view.type('(((hello world')
+
+        view.type(')')
+
+        view.should('have.text','(((hello world)')
+        cy.get('parenthesis term-container').should('have.text','hello world')
+      });
+
+      it('Looks for the closest closing parenthesis to wrap the text', () => {
+        view.type('hello world)))')
+        view.type('{ctrl}{Home}')
+
+        view.type('(')
+
+        view.should('have.text','(hello world)))')
+        cy.get('parenthesis term-container').should('have.text','hello world')
+        cy.get('parenthesis').should('have.class','selected')
+      });
+
+    })
   });
 });
 
