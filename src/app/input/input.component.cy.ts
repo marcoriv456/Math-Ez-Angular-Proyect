@@ -87,6 +87,20 @@ describe('Input component', () => {
   const getLetterPosition = (letter: string) => cy.contains('char', letter).then(getPosition)
   const getLetterFrontPosition = (letter: string) => cy.contains('char', letter).then(getFrontPosition)
 
+  const expectCaretIsBehindOf = (selector:string) =>{
+    cy.wait(100)
+    getElementPosition(selector).then(position=>{
+      getCaretPosition().should('equal',position)
+    })
+  }
+
+  const expectCaretIsInFrontOf = (selector:string) => {
+    cy.wait(100)
+    getElementFrontPosition(selector).then(position=>{
+      getCaretPosition().should('equal',position)
+    })
+  }
+
 
   beforeEach(() => {
     cy.mount(InputComponent, {
@@ -462,7 +476,6 @@ describe('Input component', () => {
     describe('Fraction context changes:', () => {
       beforeEach(()=>{
         view.type('/')
-        view.type('{ctrl}{Home}')
       })
 
       describe('On caret entry:', () => {
@@ -544,6 +557,39 @@ describe('Input component', () => {
           view.type('{RightArrow}')
 
           expectContexted('editable-term-container:first-of-type')
+        });
+      });
+
+    });
+
+    describe.only('Exponent context changes:', () => {
+      beforeEach(()=>{
+        view.type('{ctrl}e')
+      })
+
+      describe('On caret entry: ', () => {
+        beforeEach(()=>{
+          cy.get('exp').click()
+          selectView()
+          view.type('hello')
+
+        })
+        it('When the caret enters from the left, it contexts the exponent and moves to its first position', () => {
+          view.type('{ctrl}{Home}')
+
+          view.type('{RightArrow}')
+
+          expectContexted('exp')
+          expectCaretIsBehindOf('char:first-child')
+        });
+
+        it('When the caret enters from the right, it contexts the exponent and moves to its last position', () => {
+          view.type('{ctrl}{End}')
+
+          view.type('{LeftArrow}')
+
+          expectContexted('exp')
+          expectCaretIsInFrontOf('char:last-child')
         });
       });
 
