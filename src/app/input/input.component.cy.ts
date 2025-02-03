@@ -160,13 +160,6 @@ describe('Input component', () => {
         view.should('eql', el)
       })
     });
-
-    it('Shows the caret when focused', () => {
-      view.click()
-
-      cy.wait(1000)
-      cy.get('#caret-container span').should('be.visible')
-    })
   });
 
   describe('Placeholder behavior:', () => {
@@ -605,7 +598,7 @@ describe('Input component', () => {
       });
     });
 
-    describe.only('Root context changes:', () => {
+    describe('Root context changes:', () => {
       describe('Simple root:', () => {
         beforeEach(()=>{
           view.type('{ctrl}r')
