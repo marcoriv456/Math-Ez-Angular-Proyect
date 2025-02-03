@@ -515,6 +515,7 @@ describe('Input component', () => {
           view.type('{LeftArrow}')
 
           expectContexted('editable-term-container:first-of-type')
+          expectCaretIsBehindOf('frac')
         });
 
       });
@@ -576,6 +577,31 @@ describe('Input component', () => {
         });
       });
 
+      describe('On caret exit:', () => {
+        beforeEach(()=>{
+          view.type('hello')
+        })
+
+        it('Having the caret in the first position, when moving backward, it moves the context to the parent element', () => {
+          view.type('{Home}')
+
+          view.type('{LeftArrow}')
+
+          expectContexted('editable-term-container:first-of-type')
+          expectCaretIsBehindOf('exp')
+        });
+
+        it('Having the caret in the last position, then moving forward, it moves the context to the parent element', () => {
+          view.type('{End}')
+
+          view.type('{RightArrow}')
+
+          expectContexted('editable-term-container:first-of-type')
+          expectCaretIsInFrontOf('exp')
+        });
+
+
+      });
     });
   });
 });
