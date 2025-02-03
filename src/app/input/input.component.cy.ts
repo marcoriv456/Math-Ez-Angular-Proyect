@@ -820,7 +820,7 @@ describe('Input component', () => {
 
     });
 
-    describe.only('Function context changes', () => {
+    describe('Function context changes', () => {
       describe('Normal function', () => {
         beforeEach(()=>{
           view.type('sen')
@@ -867,6 +867,88 @@ describe('Input component', () => {
           });
         });
 
+      });
+
+      describe('Function with argument: ', () => {
+        beforeEach(()=>{
+          view.type('log')
+          cy.get('function>argument').click()
+          selectView().type('hello')
+          cy.get('function>editable-term-container').click()
+          selectView().type('hello')
+        })
+
+        describe('On caret entry:', () => {
+          it('When caret enters from the left, it contexts the function base and moves to the first position', () => {
+            view.type('{ctrl}{Home}')
+
+            view.type('{RightArrow}')
+
+            expectContexted('function>argument')
+            expectCaretIsBehindOf('function>argument char:first-child')
+          });
+
+          it('When caret enters from the right, it contexts the function argument and moves to the last position', () => {
+            view.type('{ctrl}{End}')
+
+            view.type('{LeftArrow}')
+
+            expectContexted('function>editable-term-container')
+            expectCaretIsInFrontOf('function>editable-term-container char:last-child')
+          });
+        });
+
+        describe('On caret exit:', () => {
+          describe('In the function base:', () => {
+            beforeEach(()=>{
+              cy.get('function>argument').click()
+              selectView()
+            })
+
+            it('Having the caret in the first position, when moving backward, it contexts the parent element', () => {
+              view.type('{Home}')
+
+              view.type('{LeftArrow}')
+
+              expectContexted('editable-term-container:first-of-type')
+              expectCaretIsBehindOf('function')
+            });
+
+            it('Having the caret in the last position, when moving forward, it contexts the function argument', () => {
+              view.type('{End}')
+
+              view.type('{RightArrow}')
+
+              expectContexted('function>editable-term-container')
+              expectCaretIsBehindOf('function>editable-term-container char:first-child')
+            });
+          });
+
+          describe('In the function argument:', () => {
+            beforeEach(()=>{
+              cy.get('function>editable-term-container').click()
+              selectView()
+            })
+
+            it('Having the caret in the first position, when moving backward, it contexts the function base', () => {
+              view.type('{Home}')
+
+              view.type('{LeftArrow}')
+
+              expectContexted('function>argument')
+              expectCaretIsInFrontOf('function>argument char:last-child')
+            });
+
+            it('Having the caret in the last position, when moving forward, it contexts the parent', () => {
+              view.type('{End}')
+
+              view.type('{RightArrow}')
+
+              expectContexted('editable-term-container:first-of-type')
+              expectCaretIsInFrontOf('function')
+            });
+          });
+        });
       });
     });
   });
