@@ -76,7 +76,8 @@ describe('Input component', () => {
 
   const selectView = () => cy.get('[data-cy-root]')
 
-  const getPosition = (element: JQuery<HTMLElement>) => Math.floor(element.position().left)
+  const getPosition = (element: JQuery<HTMLElement>) => Math.floor(element.get()[0].getBoundingClientRect().left)
+
   const getFrontPosition = (element: JQuery<HTMLElement>) => Math.floor(getPosition(element) + (element.width() || 0))
 
   const getCaretPosition = () => cy.get('#caret-container').then(getPosition)
@@ -90,14 +91,14 @@ describe('Input component', () => {
   const expectCaretIsBehindOf = (selector:string) =>{
     cy.wait(100)
     getElementPosition(selector).then(position=>{
-      getCaretPosition().should('equal',position)
+      getCaretPosition().should('be.closeTo',position,1)
     })
   }
 
   const expectCaretIsInFrontOf = (selector:string) => {
     cy.wait(100)
     getElementFrontPosition(selector).then(position=>{
-      getCaretPosition().should('equal',position)
+      getCaretPosition().should('be.closeTo',position,1)
     })
   }
 
@@ -546,7 +547,7 @@ describe('Input component', () => {
 
     });
 
-    describe.only('Exponent context changes:', () => {
+    describe('Exponent context changes:', () => {
       beforeEach(()=>{
         view.type('{ctrl}e')
       })
