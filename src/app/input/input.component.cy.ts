@@ -74,7 +74,7 @@ describe('Input component', () => {
     })
   }
 
-  const wrapInputRef = () => cy.get('[data-cy-root]')
+  const selectView = () => cy.get('[data-cy-root]')
 
   const getPosition = (element: JQuery<HTMLElement>) => Math.floor(element.position().left)
   const getFrontPosition = (element: JQuery<HTMLElement>) => Math.floor(getPosition(element) + (element.width() || 0))
@@ -459,7 +459,7 @@ describe('Input component', () => {
         })
     }
 
-    describe.only('Fraction context changes:', () => {
+    describe('Fraction context changes:', () => {
       beforeEach(()=>{
         view.type('/')
         view.type('{ctrl}{Home}')
@@ -479,26 +479,54 @@ describe('Input component', () => {
         expectContexted('frac-child[type="denominator"]')
       });
 
-      it('Having the caret in the numerator\'s last position, when moving forward, it moves the context to the denominator', () => {
-        cy.get('frac-child[type="numerator"]').click();
-        wrapInputRef()
-        view.type('hello')
-        view.type('{End}')
+      describe('Having the caret in the numerator:', () => {
 
-        view.type('{RightArrow}')
+        beforeEach(()=>{
+          cy.get('frac-child[type="numerator"]').click();
+          selectView()
+          view.type('hello')
+        })
 
-        expectContexted('frac-child[type="denominator"]')
+        it('In the last position, when moving forward, it moves the context to the denominator', () => {
+          view.type('{End}')
+
+          view.type('{RightArrow}')
+
+          expectContexted('frac-child[type="denominator"]')
+        });
+
+        it('In the first position, when moving backward, it moves the context to the parent element', () => {
+          view.type('{Home}')
+
+          view.type('{LeftArrow}')
+
+          expectContexted('editable-term-container:first-of-type')
+        });
+
       });
 
-      it('Having the caret in the numerator\'s first position, when moving backward, it moves the context to the parent element', () => {
-        cy.get('frac-child[type="numerator"]').click()
-        wrapInputRef()
-        view.type('hello')
-        view.type('{Home}')
+      describe('Having the caret in the denominator:', () => {
+        beforeEach(()=>{
+          cy.get('frac-child[type="denominator"]').click()
+          selectView()
+          view.type('hello')
+        })
 
-        view.type('{LeftArrow}')
+        it('In the first position, when moving backward, it moves the context to the numerator', () => {
+          view.type('{Home}')
 
-        expectContexted('[data-cy-root]>.main-overlay>editable-term-container')
+          view.type('{LeftArrow}')
+
+          expectContexted('frac-child[type="numerator"]')
+        });
+
+        it('In the last position, when moving forward, it moves the context to the parent element', () => {
+          view.type('{End}')
+
+          view.type('{RightArrow}')
+
+          expectContexted('editable-term-container:first-of-type')
+        });
       });
 
     });
