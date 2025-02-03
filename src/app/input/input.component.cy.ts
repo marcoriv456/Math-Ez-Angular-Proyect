@@ -149,6 +149,12 @@ describe(`Input component`, () => {
   });
 
   describe('Term validation:', () => {
+    const expectValid = (selector:string) => {
+      cy.get(selector)
+        .should('not.have.class','partially-invalid')
+        .should('not.have.class','fully-invalid')
+    }
+
     const expectPartiallyInvalid = (selector:string) => {
       cy.get(selector).should('have.class','partially-invalid')
     }
@@ -173,7 +179,7 @@ describe(`Input component`, () => {
         expectFullyInvalid('frac')
       });
 
-      it('Invalidates 0 as numerator', () => {
+      it('Partially invalidates 0 as numerator', () => {
         clickAndType('frac frac-child[type="numerator"]','0')
 
         expectPartiallyInvalid('frac frac-child[type="numerator"]')
@@ -184,6 +190,45 @@ describe(`Input component`, () => {
 
         expectFullyInvalid('frac frac-child[type="denominator"]')
       });
+    });
+
+    describe.only('In roots: ', () => {
+      beforeEach(()=>{
+        view.type('{alt}r')
+      })
+
+      it('Invalidates negative radicand and odd index', () => {
+        clickAndType('root argument','4')
+        clickAndType('root editable-term-container','-10')
+
+        expectFullyInvalid('root')
+      });
+
+      it('Not invalidates negative radicand if index is not odd', () => {
+        clickAndType('root argument','3')
+        clickAndType('root editable-term-container','-10')
+
+        expectValid('root')
+      });
+
+      it('Partially invalidates 1 as radicand value', () => {
+        clickAndType('root editable-term-container','1')
+
+        expectPartiallyInvalid('root')
+      });
+
+      it('Invalidates 1 as index value', () => {
+        clickAndType('root argument', '1')
+
+        expectFullyInvalid('root')
+      });
+
+      it('Invalidates 0 as index value', () => {
+        clickAndType('root argument', '0')
+
+        expectFullyInvalid('root')
+      });
+
     });
   });
 
