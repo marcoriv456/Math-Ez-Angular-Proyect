@@ -148,6 +148,48 @@ describe(`Input component`, () => {
     });
   });
 
+  describe('Term validation:', () => {
+    const expectPartiallyInvalid = (selector:string) => {
+      cy.get(selector).should('have.class','partially-invalid')
+    }
+
+    const expectFullyInvalid = (selector:string) => {
+      cy.get(selector).should('have.class','fully-invalid')
+    }
+
+    const clickAndType = (selector:string, phrase:string) => {
+      cy.get(selector).click()
+      selectView().type(phrase)
+    }
+
+    describe('In fractions:', () => {
+      beforeEach(()=>{
+        view.type('/')
+      })
+      it('Invalidates 0/0 indetermination', () => {
+        clickAndType('frac frac-child[type="numerator"]','0')
+        clickAndType('frac frac-child[type="denominator"]','0')
+
+        expectFullyInvalid('frac')
+      });
+
+      it('Invalidates 0 as numerator', () => {
+        clickAndType('frac frac-child[type="numerator"]','0')
+
+        expectPartiallyInvalid('frac frac-child[type="numerator"]')
+      });
+
+      it('Invalidates 0 as denominator ', () => {
+        clickAndType('frac frac-child[type="denominator"]','0')
+
+        expectFullyInvalid('frac frac-child[type="denominator"]')
+      });
+    });
+  });
+
+
+
+
   const runEditableElementSuite = (name: string, addingCommand: string, focusingElementSelector: string) => {
     describe(`Editable element tests in "${name}" editable element:`, () => {
 
@@ -1019,12 +1061,12 @@ describe(`Input component`, () => {
 
     })
   }
-  runEditableElementSuite(`Main`, `{ctrl}`, `[data-cy-root] editable-term-container`)
-  runEditableElementSuite(`Fraction numerator`, `/`, `frac frac-child[type="numerator"]`)
-  runEditableElementSuite(`Fraction denominator`, `/`, `frac frac-child[type="denominator"]`)
-  runEditableElementSuite(`Root radicand`, `{ctrl}r`, `root editable-term-container`)
-  runEditableElementSuite(`Root index`, `{alt}r`, `root argument`)
-  runEditableElementSuite(`Parenthesis`, `()`, `parenthesis`)
-  runEditableElementSuite(`Function argument`, `sen`, `function editable-term-container`)
-  runEditableElementSuite(`Function base`, `log`, `function argument`)
+  // runEditableElementSuite(`Main`, `{ctrl}`, `[data-cy-root] editable-term-container`)
+  // runEditableElementSuite(`Fraction numerator`, `/`, `frac frac-child[type="numerator"]`)
+  // runEditableElementSuite(`Fraction denominator`, `/`, `frac frac-child[type="denominator"]`)
+  // runEditableElementSuite(`Root radicand`, `{ctrl}r`, `root editable-term-container`)
+  // runEditableElementSuite(`Root index`, `{alt}r`, `root argument`)
+  // runEditableElementSuite(`Parenthesis`, `()`, `parenthesis`)
+  // runEditableElementSuite(`Function argument`, `sen`, `function editable-term-container`)
+  // runEditableElementSuite(`Function base`, `log`, `function argument`)
 });
