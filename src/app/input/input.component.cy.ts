@@ -650,6 +650,88 @@ describe('Input component', () => {
           });
         });
       });
+
+      describe.only('Editable index root', () => {
+        beforeEach(()=>{
+          view.type('{alt}r')
+          cy.get('root>argument').click()
+          selectView().type('hello')
+          cy.get('root>editable-term-container').click()
+          selectView().type('hello')
+        })
+
+        describe('On caret entry', () => {
+          it('When the caret enters from the left, it contexts the root index editor and moves to the first position', () => {
+            view.type('{ctrl}{Home}')
+
+            view.type('{RightArrow}')
+
+            expectContexted('root>argument')
+            expectCaretIsBehindOf('root>argument char:first-child')
+          });
+
+          it('When the caret enter from the right, it moves the context to the radicand container and moves to the last position', () => {
+            view.type('{ctrl}{End}')
+
+            view.type('{LeftArrow}')
+
+            expectContexted('root>editable-term-container')
+            expectCaretIsInFrontOf('root>editable-term-container char:last-child')
+          });
+        });
+
+        describe('On caret exit: ', () => {
+          describe('In the index editor:', () => {
+            beforeEach(()=>{
+              cy.get('root>argument').click()
+              selectView()
+            })
+
+            it('Having the caret in the first position, when moving backwards, it moves the context to the parent', () => {
+              view.type('{Home}')
+
+              view.type('{LeftArrow}')
+
+              expectContexted('editable-term-container:first-of-type')
+              expectCaretIsBehindOf('root')
+            });
+
+            it('Having the caret in the last position, when moving forward, it moves the context to the radicand container and moves to the first position ', () => {
+              view.type('{End}')
+
+              view.type('{RightArrow}')
+
+              expectContexted('root>editable-term-container')
+              expectCaretIsBehindOf('root>editable-term-container char:first-child')
+            });
+          });
+
+          describe('In the radicand container:', () => {
+            beforeEach(()=>{
+              cy.get('root>editable-term-container').click()
+              selectView()
+            })
+
+            it('Having the caret in the first position, when moving backwards, it moves the context to the index editor', () => {
+              view.type('{Home}')
+
+              view.type('{LeftArrow}')
+
+              expectContexted('root>argument')
+              expectCaretIsInFrontOf('root>argument char:last-child')
+            });
+
+            it('Having the caret in the last position, when moving forward, it moves the context to the parent', () => {
+              view.type('{End}')
+
+              view.type('{RightArrow}')
+
+              expectContexted('editable-term-container:first-of-type')
+              expectCaretIsInFrontOf('root')
+            });
+          });
+        });
+      });
     });
   });
 });
