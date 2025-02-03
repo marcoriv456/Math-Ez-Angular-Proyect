@@ -101,6 +101,20 @@ describe('Input component', () => {
     })
   }
 
+  const expectCaretIsBehindOfLetter = (letter:string) => {
+    cy.wait(100)
+    getLetterPosition(letter).then(position=>{
+      getCaretPosition().should('equal',position)
+    })
+  }
+
+  const expectCaretIsInFrontOfLetter = (letter:string) => {
+    cy.wait(100)
+    getLetterFrontPosition(letter).then(position=>{
+      getCaretPosition().should('equal',position)
+    })
+  }
+
 
   beforeEach(() => {
     cy.mount(InputComponent, {
@@ -149,7 +163,7 @@ describe('Input component', () => {
     it('Shows the caret when focused', () => {
       view.click()
 
-      cy.wait(50)
+      cy.wait(1000)
       cy.get('#caret-container span').should('be.visible')
     })
   });
@@ -267,19 +281,13 @@ describe('Input component', () => {
 
         view.type('{RightArrow}')
 
-        cy.wait(100)
-        getElementFrontPosition('char:first-child').then(position=>{
-          getCaretPosition().should('equal',position)
-        })
+        expectCaretIsInFrontOf('char:first-child')
       });
 
       it('The caret moves to the previous element when the Left Arrow is pressed', () => {
         view.type('{LeftArrow}')
 
-        cy.wait(100)
-        getElementPosition('char:last-child').then(position=>{
-          getCaretPosition().should('equal',position)
-        })
+        expectCaretIsBehindOf('char:last-child')
       });
     });
     describe('Backspace key', () => {
@@ -309,10 +317,7 @@ describe('Input component', () => {
 
         view.type('{End}')
 
-        cy.wait(100)
-        getElementFrontPosition('char:last-child').then(position => {
-          getCaretPosition().should('equal', position)
-        })
+        expectCaretIsInFrontOf('char:last-child')
       });
     });
     describe('Ctrl + Arrow Keys:', () => {
@@ -325,10 +330,7 @@ describe('Input component', () => {
 
           view.type('{ctrl}{RightArrow}')
 
-          cy.wait(100)
-          getLetterPosition('+').then(position=>{
-            getCaretPosition().should('equal',position)
-          })
+          expectCaretIsBehindOfLetter('+')
         });
 
         it('If the caret is already behind an irregular character, it moves next to it', () => {
@@ -338,10 +340,7 @@ describe('Input component', () => {
 
           view.type('{ctrl}{RightArrow}')
 
-          cy.wait(100)
-          getLetterFrontPosition('+').then(position=>{
-            getCaretPosition().should('equal',position)
-          })
+          expectCaretIsInFrontOfLetter('+')
         });
 
         it('If there is no next irregular character, the caret moves to the last position', () => {
@@ -351,9 +350,7 @@ describe('Input component', () => {
           view.type('{ctrl}{RightArrow}')
 
           cy.wait(100)
-          getElementFrontPosition('char:last-child').then(position=>{
-            getCaretPosition().should('equal',position)
-          })
+          expectCaretIsInFrontOf('char:last-child')
         });
 
       });
@@ -365,10 +362,7 @@ describe('Input component', () => {
 
           view.type('{ctrl}{LeftArrow}')
 
-          cy.wait(100)
-          getLetterFrontPosition('*').then(position => {
-            getCaretPosition().should('equal', position)
-          })
+          expectCaretIsInFrontOfLetter('*')
         });
 
         it('If the caret is already next to an irregular character, it moves behind it', () => {
@@ -378,10 +372,7 @@ describe('Input component', () => {
 
           view.type('{ctrl}{LeftArrow}')
 
-          cy.wait(100)
-          getLetterPosition('*').then(position => {
-            getCaretPosition().should('equal', position)
-          })
+          expectCaretIsBehindOfLetter('*')
         });
 
         it('If there is no previous irregular character, the caret moves to the first position', () => {
@@ -415,9 +406,7 @@ describe('Input component', () => {
 
         cy.wait(100)
 
-        getElementFrontPosition('frac').then(position=>{
-          getCaretPosition().should('equal',position)
-        })
+        expectCaretIsInFrontOf('frac')
       });
     });
     describe('Ctrl + Backspace', () => {
@@ -488,9 +477,7 @@ describe('Input component', () => {
           view.type('{RightArrow}')
 
           expectContexted('frac-child[type="numerator"]')
-          getElementPosition('char:first-child').then(position=>{
-            getCaretPosition().should('equal',position)
-          })
+          expectCaretIsBehindOf('char:first-child')
         });
 
         it('When the caret enters from the right, it contexts the fraction denominator', () => {
@@ -502,13 +489,9 @@ describe('Input component', () => {
           view.type('{LeftArrow}')
 
           expectContexted('frac-child[type="denominator"]')
-          getElementFrontPosition('char:last-child').then(position=>{
-            getCaretPosition().should('equal',position)
-          })
+          expectCaretIsInFrontOf('char:last-child')
         });
-
       });
-
 
       describe('Having the caret in the numerator:', () => {
 
