@@ -465,19 +465,37 @@ describe('Input component', () => {
         view.type('{ctrl}{Home}')
       })
 
-      it('When the caret enters from the left, it contexts the fraction numerator', () => {
-        view.type('{RightArrow}')
+      describe('On caret entry:', () => {
+        it('When the caret enters from the left, it contexts the fraction numerator', () => {
+          cy.get('frac-child[type="numerator"]').click()
+          selectView()
+          view.type('hello')
+          view.type('{ctrl}{Home}')
 
-        expectContexted('frac-child[type="numerator"]')
+          view.type('{RightArrow}')
+
+          expectContexted('frac-child[type="numerator"]')
+          getElementPosition('char:first-child').then(position=>{
+            getCaretPosition().should('equal',position)
+          })
+        });
+
+        it('When the caret enters from the right, it contexts the fraction denominator', () => {
+          cy.get('frac-child[type="denominator"]').click()
+          selectView()
+          view.type('hello')
+          view.type('{ctrl}{End}')
+
+          view.type('{LeftArrow}')
+
+          expectContexted('frac-child[type="denominator"]')
+          getElementFrontPosition('char:last-child').then(position=>{
+            getCaretPosition().should('equal',position)
+          })
+        });
+
       });
 
-      it('When the caret enters from the right, it contexts the fraction denominator', () => {
-        view.type('{ctrl}{End}')
-
-        view.type('{LeftArrow}')
-
-        expectContexted('frac-child[type="denominator"]')
-      });
 
       describe('Having the caret in the numerator:', () => {
 
