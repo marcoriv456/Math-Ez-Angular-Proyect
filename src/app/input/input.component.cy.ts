@@ -604,5 +604,58 @@ describe('Input component', () => {
 
       });
     });
+
+    describe.only('Root context changes:', () => {
+      describe('Simple root:', () => {
+        beforeEach(()=>{
+          view.type('{ctrl}r')
+        })
+
+        describe('On caret entry:', () => {
+          beforeEach(()=>{
+            view.type('hello')
+            view.type('{ctrl}{Home}')
+          })
+
+          it('When the caret enters from the left, it contexts the root and moves to the first position ', () => {
+            view.type('{RightArrow}')
+
+            expectCaretIsBehindOf('root char:first-child')
+          });
+
+          it('When the caret enters from the right, it context the root and moves to the last position', () => {
+            view.type('{ctrl}{End}')
+
+            view.type('{LeftArrow}')
+
+            expectCaretIsInFrontOf('root char:last-child')
+          });
+        });
+
+        describe('On caret exit:', () => {
+          beforeEach(()=>{
+            view.type('hello')
+          })
+
+          it('Having the caret in the first position, when moving backwards, it moves the context to the parent element', () => {
+            view.type('{Home}')
+
+            view.type('{LeftArrow}')
+
+            expectContexted('editable-term-container:first-of-type')
+            expectCaretIsBehindOf('root')
+          });
+
+          it('Having the caret in the last position, when moving forwards, it moves the context to the parent element', () => {
+            view.type('{End}')
+
+            view.type('{RightArrow}')
+
+            expectContexted('editable-term-container:first-of-type')
+            expectCaretIsInFrontOf('root')
+          });
+        });
+      });
+    });
   });
 });
