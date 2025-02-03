@@ -20,7 +20,7 @@ export class RootValidator extends TermValidator{
     if(!isNaN(this.radicandValue))
       this.validateRadicandValue(messages)
 
-    if(!isNaN(this.indexValue||NaN))
+    if(this.indexValue!==undefined&&!isNaN(this.indexValue))
       this.validateIndexValue(messages)
 
     return messages;
