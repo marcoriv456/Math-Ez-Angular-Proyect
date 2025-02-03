@@ -71,6 +71,39 @@ describe('Input component', () => {
 
         cy.get(`${focusingElementSelector} parenthesis`).should('exist').and('be.visible')
       });
+
+      it('Adds a sen function', () => {
+        view.type('sen')
+
+        cy.get(`${focusingElementSelector} function`).should('exist').and('be.visible').and('contain.text','sen')
+      });
+
+      it('Adds a cos function', () => {
+        view.type('cos')
+
+        cy.get(`${focusingElementSelector} function`).should('exist').and('be.visible').and('contain.text','cos')
+      });
+
+      it('Adds a tan function', () => {
+        view.type('tan')
+
+        cy.get(`${focusingElementSelector} function`).should('exist').and('be.visible').and('contain.text','tan')
+      });
+
+      it('Adds a log function', () => {
+        view.type('log')
+
+        cy.get(`${focusingElementSelector} function`).should('exist').and('be.visible').and('contain.text','log')
+      });
+
+      it('Adds a ln function', () => {
+        view.type('ln')
+
+        cy.get(`${focusingElementSelector} function`).should('exist').and('be.visible').and('contain.text','ln')
+      });
+
+
+
     })
   }
 
@@ -734,7 +767,7 @@ describe('Input component', () => {
       });
     });
 
-    describe.only('Parenthesis context changes', () => {
+    describe('Parenthesis context changes', () => {
       beforeEach(()=>{
         view.type('(hello)')
       })
