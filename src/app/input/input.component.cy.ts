@@ -294,6 +294,32 @@ describe('Input component', () => {
       });
 
     })
+    describe('Function autocompletion', () => {
+      beforeEach(()=>{
+        view.type('(hello)')
+      })
+
+      it('When a function is added behind a parenthesis, the function wraps the parenthesis terms as its arguments', () => {
+        view.type('{Home}')
+
+        view.type('sen')
+
+        cy.get('parenthesis').should('not.exist')
+        cy.contains('function','sen(hello)').should('exist')
+        cy.contains('function>editable-term-container','hello').should('exist')
+      });
+
+      it('When an editable base function is added behind a parenthesis, the function wraps the parenthesis terms as its arguments', () => {
+        view.type('{Home}')
+
+        view.type('log')
+
+        cy.get('parenthesis').should('not.exist')
+        cy.contains('function','log(hello)').should('exist')
+        cy.contains('function>editable-term-container','hello').should('exist')
+
+      });
+    });
   });
 
   describe('Shortcuts: ', () => {
