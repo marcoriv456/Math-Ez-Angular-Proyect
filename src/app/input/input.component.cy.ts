@@ -651,7 +651,7 @@ describe('Input component', () => {
         });
       });
 
-      describe.only('Editable index root', () => {
+      describe('Editable index root', () => {
         beforeEach(()=>{
           view.type('{alt}r')
           cy.get('root>argument').click()
@@ -732,6 +732,59 @@ describe('Input component', () => {
           });
         });
       });
+    });
+
+    describe.only('Parenthesis context changes', () => {
+      beforeEach(()=>{
+        view.type('(hello)')
+      })
+
+      describe('On caret entry:', () => {
+
+        it('when the caret enters from the left, it contexts the parenthesis and moves to the first position', () => {
+          view.type('{ctrl}{Home}')
+
+          view.type('{RightArrow}')
+
+          expectContexted('parenthesis')
+          expectCaretIsBehindOf('parenthesis char:first-child')
+        });
+        it('when the caret enters from the right, it contexts the parenthesis and moves to the last position', () => {
+          view.type('{ctrl}{End}')
+
+          view.type('{LeftArrow}')
+
+          expectContexted('parenthesis')
+          expectCaretIsInFrontOf('parenthesis char:last-child')
+        });
+
+      });
+
+      describe('On caret exit:', () => {
+        beforeEach(()=>{
+          cy.get('parenthesis').click()
+          selectView()
+        })
+
+        it('When the caret is in the first position, when moving backward, it moves the context to the parent element', () => {
+          view.type('{Home}')
+
+          view.type('{LeftArrow}')
+
+          expectContexted('editable-term-container:first-child')
+          expectCaretIsBehindOf('parenthesis')
+        });
+
+        it('When the caret it in the last position, when moving forward, it moves the context to the parent element', () => {
+          view.type('{End}')
+
+          view.type('{RightArrow}')
+
+          expectContexted('editable-term-container:first-child')
+          expectCaretIsInFrontOf('parenthesis')
+        });
+      });
+
     });
   });
 });
