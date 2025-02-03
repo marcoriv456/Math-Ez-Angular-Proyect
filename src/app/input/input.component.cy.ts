@@ -443,14 +443,15 @@ describe('Input component', () => {
   });
 
   describe('Context changes: ', () => {
+    const getHeight = (el:JQuery<HTMLElement>) => Math.floor(el.outerHeight()||0)
 
-    const caretHeight = () => cy.get('#caret-container').then(el=>el.height()||0)
+    const caretHeight = () => cy.get('#caret-container').then(getHeight)
 
     const expectContexted = (selector:string) => {
       cy.wait(100)
       cy.get(selector)
         .should('have.class','selected')
-        .then(el=>el.height()||0)
+        .then(getHeight)
         .then(height=>{
           caretHeight().should('equal',height)
         })
