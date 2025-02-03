@@ -819,5 +819,55 @@ describe('Input component', () => {
       });
 
     });
+
+    describe.only('Function context changes', () => {
+      describe('Normal function', () => {
+        beforeEach(()=>{
+          view.type('sen')
+          view.type('hello')
+        })
+
+        describe('On caret entry: ', () => {
+          it('When caret enters from the left, it should context the function and move to the first position', () => {
+            view.type('{ctrl}{Home}')
+
+            view.type('{RightArrow}')
+
+            expectContexted('function>editable-term-container')
+            expectCaretIsBehindOf('function char:first-child')
+          });
+
+          it('When caret enters from the right, it should context the function and move to the last position', () => {
+            view.type('{ctrl}{End}')
+
+            view.type('{LeftArrow}')
+
+            expectContexted('function>editable-term-container')
+            expectCaretIsInFrontOf('function char:last-child')
+          });
+        });
+
+        describe('On caret exit: ', () => {
+          it('When caret is on the first position, when moving backward, it should move the context to the parent', () => {
+            view.type('{Home}')
+
+            view.type('{LeftArrow}')
+
+            expectContexted('editable-term-container:first-child')
+            expectCaretIsBehindOf('function')
+          });
+
+          it('When caret is on the last position, when moving forward, it should move the context to the parent', () => {
+            view.type('{End}')
+
+            view.type('{RightArrow}')
+
+            expectContexted('editable-term-container:first-child')
+            expectCaretIsInFrontOf('function')
+          });
+        });
+
+      });
+    });
   });
 });
