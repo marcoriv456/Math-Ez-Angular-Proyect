@@ -231,7 +231,7 @@ describe(`Input component`, () => {
 
     });
 
-    describe.only('In exponents: ', () => {
+    describe('In exponents: ', () => {
       beforeEach(()=>{
         view.type('{ctrl}e')
       })
@@ -246,6 +246,49 @@ describe(`Input component`, () => {
         clickAndType('exp','0')
 
         expectPartiallyInvalid('exp')
+      });
+
+    });
+
+    describe.only('In logarithms:', () => {
+      beforeEach(()=>{
+        view.type('log')
+      })
+
+      it('Partially invalidates 10 as base', () => {
+        clickAndType('function argument','10')
+
+        expectPartiallyInvalid('function')
+      });
+
+      it('Invalidates 1 as base', () => {
+        clickAndType('function argument','1')
+
+        expectFullyInvalid('function')
+      });
+
+      it('Invalidates 0 as base', () => {
+        clickAndType('function argument','0')
+
+        expectFullyInvalid('function')
+      });
+
+      it('Invalidates negative numbers as base', () => {
+        clickAndType('function argument','-1')
+
+        expectFullyInvalid('function')
+      });
+
+      it('Invalidates 0 as argument', () => {
+        clickAndType('function editable-term-container','0')
+
+        expectFullyInvalid('function')
+      });
+
+      it('Invalidates negative arguments', () => {
+        clickAndType('function editable-term-container','-1')
+
+        expectFullyInvalid('function')
       });
     });
 
