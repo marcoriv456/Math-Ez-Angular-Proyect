@@ -168,27 +168,41 @@ describe(`Input component`, () => {
       selectView().type(phrase)
     }
 
+    const expectWarningToBeDisplayed = (invalidElementSelector:string) => {
+      cy.get(invalidElementSelector)
+        .trigger('mouseover')
+
+      cy.get('.warning-container')
+        .should('exist').and('be.visible')
+    }
+
     describe('In fractions:', () => {
       beforeEach(()=>{
         view.type('/')
       })
+
       it('Invalidates 0/0 indetermination', () => {
         clickAndType('frac frac-child[type="numerator"]','0')
         clickAndType('frac frac-child[type="denominator"]','0')
 
         expectFullyInvalid('frac')
+        expectWarningToBeDisplayed('frac')
       });
 
       it('Partially invalidates 0 as numerator', () => {
-        clickAndType('frac frac-child[type="numerator"]','0')
+        const numerator='frac frac-child[type="numerator"]'
+        clickAndType(numerator,'0')
 
-        expectPartiallyInvalid('frac frac-child[type="numerator"]')
+        expectPartiallyInvalid(numerator)
+        expectWarningToBeDisplayed(numerator)
       });
 
       it('Invalidates 0 as denominator ', () => {
-        clickAndType('frac frac-child[type="denominator"]','0')
+        const denominator='frac frac-child[type="denominator"]'
+        clickAndType(denominator,'0')
 
-        expectFullyInvalid('frac frac-child[type="denominator"]')
+        expectFullyInvalid(denominator)
+        expectWarningToBeDisplayed(denominator)
       });
     });
 
@@ -202,6 +216,7 @@ describe(`Input component`, () => {
         clickAndType('root editable-term-container','-10')
 
         expectFullyInvalid('root')
+        expectWarningToBeDisplayed('root')
       });
 
       it('Not invalidates negative radicand if index is not odd', () => {
@@ -215,18 +230,21 @@ describe(`Input component`, () => {
         clickAndType('root editable-term-container','1')
 
         expectPartiallyInvalid('root')
+        expectWarningToBeDisplayed('root')
       });
 
       it('Invalidates 1 as index value', () => {
         clickAndType('root argument', '1')
 
         expectFullyInvalid('root')
+        expectWarningToBeDisplayed('root')
       });
 
       it('Invalidates 0 as index value', () => {
         clickAndType('root argument', '0')
 
         expectFullyInvalid('root')
+        expectWarningToBeDisplayed('root')
       });
 
     });
@@ -234,6 +252,10 @@ describe(`Input component`, () => {
     describe('In exponents: ', () => {
       beforeEach(()=>{
         view.type('{ctrl}e')
+      })
+
+      afterEach(()=>{
+        expectWarningToBeDisplayed('exp')
       })
 
       it('Partially invalidates 1 as exponent', () => {
@@ -250,9 +272,13 @@ describe(`Input component`, () => {
 
     });
 
-    describe.only('In logarithms:', () => {
+    describe('In logarithms:', () => {
       beforeEach(()=>{
         view.type('log')
+      })
+
+      afterEach(()=>{
+        expectWarningToBeDisplayed('function')
       })
 
       it('Partially invalidates 10 as base', () => {
@@ -291,7 +317,6 @@ describe(`Input component`, () => {
         expectFullyInvalid('function')
       });
     });
-
 
   });
 
