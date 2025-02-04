@@ -348,7 +348,29 @@ describe(`Input component`, () => {
 
   });
 
+  describe.only('Caret positioning on clicks:', () => {
+    beforeEach(()=>{
+      view.type('a')
+    })
 
+    it('Moves the caret next to the character', () => {
+      cy.get('char').then(el=>{
+        const width=el.width()||0
+        cy.get('char').click((width/2)+5,0)
+      })
+
+      expectCaretIsInFrontOf('char')
+    });
+
+    it('Moves the caret behind the character', () => {
+      cy.get('char').then(el=>{
+        const width=el.width()||0
+        cy.get('char').click((width/2)-5,0)
+      })
+
+      expectCaretIsBehindOf('char')
+    });
+  });
 
 
   const runEditableElementSuite = (name: string, addingCommand: string, focusingElementSelector: string) => {
@@ -1219,7 +1241,15 @@ describe(`Input component`, () => {
         });
       });
 
+      describe(`Click events in ${name}: `, () => {
+        it('Contexts the element when it is empty', () => {
+          view.type(addingCommand)
 
+          cy.get(focusingElementSelector).click()
+
+          expectContexted(focusingElementSelector)
+        });
+      });
     })
   }
   // runEditableElementSuite(`Main`, `{ctrl}`, `[data-cy-root] editable-term-container`)
