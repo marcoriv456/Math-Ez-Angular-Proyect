@@ -348,7 +348,7 @@ describe(`Input component`, () => {
 
   });
 
-  describe.only('Caret positioning on clicks:', () => {
+  describe('Caret positioning on clicks:', () => {
     beforeEach(()=>{
       view.type('a')
     })
@@ -453,6 +453,65 @@ describe(`Input component`, () => {
         });
 
       })
+
+      describe.only(`Term deleting in ${name}:`, () => {
+        beforeEach(() => {
+          view.type(addingCommand)
+          cy.get(focusingElementSelector).click()
+          selectView()
+        })
+
+        describe('Character removal: ', () => {
+          it('Removes chars', () => {
+            view.type('shop')
+
+            view.type('{Backspace}')
+
+            cy.contains('char','p').should('not.exist')
+            cy.get(focusingElementSelector)
+              .should('contain.text','sho')
+              .and('not.contain.text','shop')
+            expectCaretIsInFrontOfLetter('o')
+          });
+        });
+
+        describe('Fraction removal: ', () => {
+          beforeEach(()=>{
+            view.type('12/34')
+            view.type('{RightArrow}')
+          })
+
+          it('Removes the whole fraction', () => {
+            view.type('{End}')
+
+            view.type('{Backspace}')
+
+            cy.get('frac').should('not.exist')
+            expectCaretIsBehindOf(focusingElementSelector)
+          });
+
+          it('Removes the fraction but the content stays there and the caret moves next to the numerator content', () => {
+            cy.get(`${focusingElementSelector} frac frac-child[type="denominator"]`).click()
+            selectView().type('{Home}')
+
+            view.type('{Backspace}')
+
+            cy.get(focusingElementSelector).should('contain.text','1234')
+            expectCaretIsInFrontOfLetter('2')
+          });
+
+          it('Removes the fraction but the content stays there and the caret moves to the beginning', () => {
+            cy.get(`${focusingElementSelector} frac frac-child[type="numerator"]`).click()
+            selectView().type('{Home}')
+
+            view.type('{Backspace}')
+
+            cy.get(focusingElementSelector).should('contain.text','1234')
+            expectCaretIsBehindOfLetter('1')
+          });
+
+        });
+      });
 
       describe(`Term autocompletion: in ${name}:`, () => {
         beforeEach(()=>{
@@ -1252,7 +1311,7 @@ describe(`Input component`, () => {
       });
     })
   }
-  // runEditableElementSuite(`Main`, `{ctrl}`, `[data-cy-root] editable-term-container`)
+  runEditableElementSuite(`Main`, `{ctrl}`, `[data-cy-root] editable-term-container`)
   // runEditableElementSuite(`Fraction numerator`, `/`, `frac frac-child[type="numerator"]`)
   // runEditableElementSuite(`Fraction denominator`, `/`, `frac frac-child[type="denominator"]`)
   // runEditableElementSuite(`Root radicand`, `{ctrl}r`, `root editable-term-container`)
