@@ -511,6 +511,32 @@ describe(`Input component`, () => {
           });
 
         });
+
+        describe('Exponent removal: ', () => {
+          beforeEach(()=>{
+            view.type('{ctrl}e').type('1234')
+          })
+
+          it('Remove the whole exponent', () => {
+            view.type('{RightArrow}')
+
+            view.type('{Backspace}')
+
+            cy.get(focusingElementSelector).should('not.contain.text','1234')
+            cy.get('exp').should('not.exist')
+            expectCaretIsBehindOf(focusingElementSelector)
+          });
+
+          it('Removes the exponent but the terms remain there', () => {
+            view.type('{Home}')
+
+            view.type('{Backspace}')
+
+            cy.get(focusingElementSelector).should('contain.text','1234')
+            cy.get('exp').should('not.exist')
+            expectCaretIsBehindOfLetter('1')
+          })
+        });
       });
 
       describe(`Term autocompletion: in ${name}:`, () => {
