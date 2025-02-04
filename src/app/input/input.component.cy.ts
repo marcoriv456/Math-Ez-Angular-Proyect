@@ -192,7 +192,7 @@ describe(`Input component`, () => {
       });
     });
 
-    describe.only('In roots: ', () => {
+    describe('In roots: ', () => {
       beforeEach(()=>{
         view.type('{alt}r')
       })
@@ -230,6 +230,26 @@ describe(`Input component`, () => {
       });
 
     });
+
+    describe.only('In exponents: ', () => {
+      beforeEach(()=>{
+        view.type('{ctrl}e')
+      })
+
+      it('Partially invalidates 1 as exponent', () => {
+        clickAndType('exp','1')
+
+        expectPartiallyInvalid('exp')
+      });
+
+      it('Partially invalidates 0 as exponent', () => {
+        clickAndType('exp','0')
+
+        expectPartiallyInvalid('exp')
+      });
+    });
+
+
   });
 
 
