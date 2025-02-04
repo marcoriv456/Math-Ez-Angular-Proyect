@@ -176,6 +176,34 @@ describe(`Input component`, () => {
         .should('exist').and('be.visible')
     }
 
+    describe('In characters:', () => {
+      it('Invalidates a character if it is no declared as a variable', () => {
+        view.type('A')
+
+        expectFullyInvalid('char')
+        expectWarningToBeDisplayed('char')
+      });
+
+      it('Not invalidates a character if it is declared as a variable', () => {
+        view.type('eπ')
+
+        expectValid('char')
+      });
+
+      it('Not invalidates aa character if it is a number', () => {
+        view.type('12345678')
+
+        expectValid('char')
+      });
+
+      it('Not invalidates a character if it is an operand', () => {
+        view.type('+-*=')
+
+        expectValid('char')
+      });
+
+    });
+
     describe('In fractions:', () => {
       beforeEach(()=>{
         view.type('/')
