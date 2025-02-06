@@ -454,7 +454,7 @@ describe(`Input component`, () => {
 
       })
 
-      describe.only(`Term deleting in ${name}:`, () => {
+      describe(`Term deleting in ${name}:`, () => {
         beforeEach(() => {
           view.type(addingCommand)
           cy.get(focusingElementSelector).click()
