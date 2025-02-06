@@ -574,6 +574,44 @@ describe(`Input component`, () => {
             cy.get(focusingElementSelector).should('not.contain.text','5678')
           });
         });
+
+        describe('Function removal: ', () => {
+          beforeEach(()=>{
+            view.type('log')
+            clickAndType(`${focusingElementSelector} function argument`,'1234')
+            clickAndType(`${focusingElementSelector} function editable-term-container`,'5678')
+            selectView().type('{RightArrow}')
+          })
+
+          it('Removes the whole function', () => {
+            view.type('{End}')
+
+            view.type('{Backspace}')
+
+            cy.get(`${focusingElementSelector} function`).should('not.exist')
+            expectCaretIsBehindOf(focusingElementSelector)
+          });
+
+          it('Removes the function, but the main terms remain there', () => {
+            clickAndType(`${focusingElementSelector} function editable-term-container`,'{Home}')
+
+            view.type('{Backspace}')
+
+            cy.get(focusingElementSelector).should('contain.text','5678')
+            cy.get(`${focusingElementSelector} function`).should('not.exist')
+            expectCaretIsBehindOfLetter('5')
+          });
+
+          it('Removes the function, but the base elements remain there', () => {
+            clickAndType(`${focusingElementSelector} function argument`, '{Home}')
+
+            view.type('{Backspace}')
+
+            cy.get(focusingElementSelector).should('contain.text','1234')
+            cy.get(`${focusingElementSelector} function`).should('not.exist')
+            expectCaretIsBehindOfLetter('1')
+          });
+        });
       });
 
       describe(`Term autocompletion: in ${name}:`, () => {
