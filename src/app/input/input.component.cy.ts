@@ -372,6 +372,27 @@ describe(`Input component`, () => {
     });
   });
 
+  describe.only('Auto scrolling when caret is not visible', () => {
+    it('Scrolls the component to the right', () => {
+      view.type('wwwwwwwwwwwwwwwwwwwwwwwwwww')
+
+      cy.wait(500)
+
+      cy.get('[data-cy-root] .main-overlay')
+        .then(elements=>elements[0].scrollLeft)
+        .should('be.closeTo',100,10)
+    });
+
+    it('Scrolls the component to the left', () => {
+      view.type('wwwwwwwwwwwwwwwwwwwwwwwwwww').type('{Home}')
+
+      cy.wait(500)
+
+      cy.get('[data-cy-root] .main-overlay')
+        .then(elements=>elements[0].scrollLeft)
+        .should('be.closeTo',0,10)
+    });
+  });
 
   const runEditableElementSuite = (name: string, addingCommand: string, focusingElementSelector: string) => {
     describe(`Editable element tests in "${name}" editable element:`, () => {
