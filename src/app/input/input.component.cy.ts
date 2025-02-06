@@ -89,6 +89,11 @@ describe(`Input component`, () => {
       .type('{Home}')
   }
 
+  const clickAndType = (selector:string, phrase:string) => {
+    cy.get(selector).click()
+    selectView().type(phrase)
+  }
+
   beforeEach(() => {
     cy.mount(InputComponent, {
       declarations: [
@@ -161,11 +166,6 @@ describe(`Input component`, () => {
 
     const expectFullyInvalid = (selector:string) => {
       cy.get(selector).should('have.class','fully-invalid')
-    }
-
-    const clickAndType = (selector:string, phrase:string) => {
-      cy.get(selector).click()
-      selectView().type(phrase)
     }
 
     const expectWarningToBeDisplayed = (invalidElementSelector:string) => {
@@ -523,7 +523,7 @@ describe(`Input component`, () => {
             view.type('{Backspace}')
 
             cy.get(focusingElementSelector).should('not.contain.text','1234')
-            cy.get('exp').should('not.exist')
+            cy.get(`${focusingElementSelector} exp`).should('not.exist')
             expectCaretIsBehindOf(focusingElementSelector)
           });
 
@@ -533,7 +533,7 @@ describe(`Input component`, () => {
             view.type('{Backspace}')
 
             cy.get(focusingElementSelector).should('contain.text','1234')
-            cy.get('exp').should('not.exist')
+            cy.get(`${focusingElementSelector} exp`).should('not.exist')
             expectCaretIsBehindOfLetter('1')
           })
         });
