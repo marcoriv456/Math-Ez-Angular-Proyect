@@ -537,6 +537,43 @@ describe(`Input component`, () => {
             expectCaretIsBehindOfLetter('1')
           })
         });
+
+        describe('Root removal', () => {
+          beforeEach(()=>{
+            view.type('{alt}r')
+            clickAndType(`${focusingElementSelector} root argument`,'1234')
+            clickAndType(`${focusingElementSelector} root editable-term-container`,'5678')
+            view.type('{RightArrow}')
+          })
+
+          it('Removes the whole root', () => {
+            view.type('{End}')
+
+            view.type('{Backspace}')
+
+            cy.get(`${focusingElementSelector} root`).should('not.exist')
+          });
+
+          it('Removes the root, but the radicand terms still being there ', () => {
+            clickAndType(`${focusingElementSelector} root editable-term-container`,'{Home}')
+
+            view.type('{Backspace}')
+
+            cy.get(`${focusingElementSelector} root`).should('not.exist')
+            cy.get(focusingElementSelector).should('contain.text','5678')
+            cy.get(focusingElementSelector).should('not.contain.text','1234')
+          });
+
+          it('Removes the root, but the index terms still being there', () => {
+            clickAndType(`${focusingElementSelector} root argument`,'{Home}')
+
+            view.type('{Backspace}')
+
+            cy.get(`${focusingElementSelector} root`).should('not.exist')
+            cy.get(focusingElementSelector).should('contain.text','1234')
+            cy.get(focusingElementSelector).should('not.contain.text','5678')
+          });
+        });
       });
 
       describe(`Term autocompletion: in ${name}:`, () => {
