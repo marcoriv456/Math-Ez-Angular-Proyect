@@ -612,6 +612,32 @@ describe(`Input component`, () => {
             expectCaretIsBehindOfLetter('1')
           });
         });
+
+        describe('Parenthesis removal', ()=>{
+          beforeEach(()=>{
+            view.type('(1234)')
+          })
+
+          it('Removes the component, but the elements and opening parenthesis remains there', () => {
+            view.type('{End}')
+
+            view.type('{Backspace}')
+
+            cy.get(focusingElementSelector).should('contain.text','(1234')
+            cy.get(`${focusingElementSelector} parenthesis`).should('not.exist')
+            expectCaretIsInFrontOfLetter('4')
+          });
+
+          it('Removes the component, but just the elements remain there', () => {
+            view.type('{LeftArrow}').type('{Home}')
+
+            view.type('{Backspace}')
+
+            cy.get(focusingElementSelector).should('contain.text','1234')
+            cy.get(`${focusingElementSelector} parenthesis`).should('not.exist')
+            expectCaretIsBehindOf(`${focusingElementSelector} char:first-child`)
+          });
+        })
       });
 
       describe(`Term autocompletion: in ${name}:`, () => {
