@@ -26,6 +26,7 @@
 pre{
   font-family: "Times New Roman", sans-serif;
   color: #000;
+  line-height: 0;
 }
 @keyframes new-char {
   from{
