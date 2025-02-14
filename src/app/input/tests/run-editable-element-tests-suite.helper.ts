@@ -34,41 +34,41 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
   let view: Chainable<JQuery<HTMLElement>>;
   let component: InputComponent
 
-  beforeEach(() => {
-    cy.mount(InputComponent, {
-      declarations: [
-        InputComponent,
-        InputTestingEnvironmentComponent,
-        CharComponent,
-        FractionComponent,
-        InputTermDirective,
-        FractionChildComponent,
-        ExponentComponent,
-        RootComponent,
-        FunctionComponent,
-        TermContainerComponent,
-        TermArgumentComponent,
-        EditableTermContainerComponent,
-        ParenthesisComponent,
-        TermValidationWarningComponent
-      ],
-      imports: [
-        CommonModule,
-        BrowserAnimationsModule
-      ],
-      providers: [
-        CharClickedNotifierService,
-        WarningsService,
-        VariableProviderService,
-      ]
-    })
-      .then((response) => {
-        component = response.component
-        view = cy.wrap(response.fixture.elementRef.nativeElement)
-      })
-  })
-
   describe(`Editable element tests in "${name}" editable element:`, () => {
+
+    beforeEach(() => {
+      cy.mount(InputComponent, {
+        declarations: [
+          InputComponent,
+          InputTestingEnvironmentComponent,
+          CharComponent,
+          FractionComponent,
+          InputTermDirective,
+          FractionChildComponent,
+          ExponentComponent,
+          RootComponent,
+          FunctionComponent,
+          TermContainerComponent,
+          TermArgumentComponent,
+          EditableTermContainerComponent,
+          ParenthesisComponent,
+          TermValidationWarningComponent
+        ],
+        imports: [
+          CommonModule,
+          BrowserAnimationsModule
+        ],
+        providers: [
+          CharClickedNotifierService,
+          WarningsService,
+          VariableProviderService,
+        ]
+      })
+        .then((response) => {
+          component = response.component
+          view = cy.wrap(response.fixture.elementRef.nativeElement)
+        })
+    })
 
     describe(`Term adding in ${name}:`, () => {
 
@@ -180,7 +180,7 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
           view.type('{Backspace}')
 
-          cy.get('frac').should('not.exist')
+          cy.get(`${focusingElementSelector} frac`).should('not.exist')
           expectCaretIsBehindOf(focusingElementSelector)
         });
 
@@ -578,6 +578,7 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
         beforeEach(() => {
           view.type(`/()`)
           cy.get(`${focusingElementSelector} parenthesis`).click()
+          selectView()
           view.type(`{alt}r`)
         })
 
