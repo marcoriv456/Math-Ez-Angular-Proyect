@@ -306,7 +306,7 @@ describe(`Input component`, () => {
     });
   });
 
-  describe.only('Auto scrolling when caret is not visible', () => {
+  describe('Auto scrolling when caret is not visible', () => {
     it('Scrolls the component to the right', () => {
       view.type('wwwwwwwwwwwwwwwwwwwwwwwwwww')
 
