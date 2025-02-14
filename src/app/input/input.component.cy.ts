@@ -332,5 +332,4 @@ describe(`Input component`, () => {
 
 
   // runEditableElementSuite(`Parenthesis`, `()`, `parenthesis`)
-  // runEditableElementSuite(`Function base`, `log`, `function argument`)
 });

@@ -2,4 +2,5 @@ import {runEditableElementSuite} from "../../tests/run-editable-element-tests-su
 
 describe('Function component: ', () => {
   runEditableElementSuite(`Function argument`, `sen`, `function editable-term-container`)
+  runEditableElementSuite(`Function base`, `log`, `function argument`)
 });
