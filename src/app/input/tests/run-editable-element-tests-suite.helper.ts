@@ -944,7 +944,7 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
             view.type(`{RightArrow}`)
 
-            expectContexted(`${focusingElementSelector} parenthesis`)
+            expectContexted(`${focusingElementSelector} parenthesis>editable-term-container`)
             expectCaretIsBehindOf(`${focusingElementSelector} parenthesis char:first-child`)
           });
           it(`when the caret enters from the right, it contexts the parenthesis and moves to the last position`, () => {
@@ -952,7 +952,7 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
             view.type(`{LeftArrow}`)
 
-            expectContexted(`${focusingElementSelector} parenthesis`)
+            expectContexted(`${focusingElementSelector} parenthesis>editable-term-container`)
             expectCaretIsInFrontOf(`${focusingElementSelector} parenthesis char:last-child`)
           });
 

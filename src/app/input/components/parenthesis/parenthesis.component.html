@@ -1,6 +1,9 @@
-<span #leftParenthesis>(</span>
-<term-container
+<span>(</span>
+<editable-term-container
+  #editableTermContainerComponent
+  [index]="0"
   [parent]="this"
   [terms]="terms"
-></term-container>
+  [inputTerm]="{char:'\\main\\',index:0,editableElementRef:editableTermContainerComponent,parent:this}"
+></editable-term-container>
 <span>)</span>

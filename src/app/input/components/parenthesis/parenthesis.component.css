@@ -13,7 +13,7 @@ span{
   transition: color var(--highlighting-transition-duration) var(--highlighting-transition-easing);
 }
 
-:host.selected{
+:host>editable-term-container.selected{
   --outline-color: var(--selection-color);
   --inner-line-color: var(--selection-color);
 }
