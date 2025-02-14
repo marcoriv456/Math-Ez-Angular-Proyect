@@ -329,8 +329,7 @@ describe(`Input component`, () => {
   });
 
   runEditableElementSuite(`Main`, `{ctrl}`, `[data-cy-root] editable-term-container`)
-  // runEditableElementSuite(`Fraction numerator`, `/`, `frac frac-child[type="numerator"]`)
-  // runEditableElementSuite(`Fraction denominator`, `/`, `frac frac-child[type="denominator"]`)
+
   // runEditableElementSuite(`Root radicand`, `{ctrl}r`, `root editable-term-container`)
   // runEditableElementSuite(`Root index`, `{alt}r`, `root argument`)
   // runEditableElementSuite(`Parenthesis`, `()`, `parenthesis`)
