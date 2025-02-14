@@ -329,7 +329,4 @@ describe(`Input component`, () => {
   });
 
   runEditableElementSuite(`Main`, `{ctrl}`, `[data-cy-root] editable-term-container`)
-
-
-  // runEditableElementSuite(`Parenthesis`, `()`, `parenthesis`)
 });
