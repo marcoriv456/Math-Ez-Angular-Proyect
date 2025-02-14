@@ -330,8 +330,7 @@ describe(`Input component`, () => {
 
   runEditableElementSuite(`Main`, `{ctrl}`, `[data-cy-root] editable-term-container`)
 
-  // runEditableElementSuite(`Root radicand`, `{ctrl}r`, `root editable-term-container`)
-  // runEditableElementSuite(`Root index`, `{alt}r`, `root argument`)
+
   // runEditableElementSuite(`Parenthesis`, `()`, `parenthesis`)
   // runEditableElementSuite(`Function argument`, `sen`, `function editable-term-container`)
   // runEditableElementSuite(`Function base`, `log`, `function argument`)
