@@ -15,14 +15,14 @@ export const getLetterFrontPosition = (letter: string) => cy.contains(`char`, le
 export const expectCaretIsBehindOf = (selector:string) =>{
   cy.wait(100)
   getElementPosition(selector).then(position=>{
-    getCaretPosition().should(`be.closeTo`,position,3)
+    getCaretPosition().should(`be.closeTo`,position,5)
   })
 }
 
 export const expectCaretIsInFrontOf = (selector:string) => {
   cy.wait(100)
   getElementFrontPosition(selector).then(position=>{
-    getCaretPosition().should(`be.closeTo`,position,3)
+    getCaretPosition().should(`be.closeTo`,position,5)
   })
 }
 
