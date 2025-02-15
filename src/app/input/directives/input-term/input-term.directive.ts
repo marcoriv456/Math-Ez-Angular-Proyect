@@ -1,27 +1,14 @@
-import {
-  AfterViewInit,
-  Directive,
-  ElementRef, HostBinding,
-  HostListener,
-  inject, Input, OnDestroy, OnInit,
-} from '@angular/core';
+import {Directive, ElementRef, HostListener, inject, Input,} from '@angular/core';
 import {CharClickedNotifierService} from "../../services/char-clicked-notifier/char-clicked-notifier.service";
 import {InputCharData} from "../../models/input-char-data.model";
 import {InputEditableElement} from "../input-editable-element/input-editable-element.directive";
-import {TermValidator} from "../../validation/abstracts/validator.abstract";
-import {CharValidator} from "../../validation/validators/char.validator";
-import {VariableProviderService} from "../../services/variable-provider/variable-provider.service";
-import {CharComponent} from "../../components/char/char.component";
-import {WarningsService} from "../../services/warnings/warnings.service";
-import {TermValidationData} from "../../validation/models/term-validation-data.model";
-import {validTermValidation} from "../../validation/default-values/valid-term-validation";
 
 @Directive({
   selector: '[inputTerm]'
 })
 export class InputTermDirective {
   @Input('inputTerm')
-  input!:{char:string, index:number,editableElementRef?:InputEditableElement,charClassRef?:CharComponent,parent:InputEditableElement}
+  input!:{char:string, index:number,editableElementRef?:InputEditableElement,parent:InputEditableElement}
   ref=inject(ElementRef).nativeElement as HTMLElement
   charClickedNotifier=inject(CharClickedNotifierService)
 
@@ -35,10 +22,6 @@ export class InputTermDirective {
 
   get rightPosition(){
     return this.leftPosition+this.ref.offsetWidth
-  }
-
-  get topPosition(){
-    return this.ref.getBoundingClientRect().top
   }
 
   get index(){
