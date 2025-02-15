@@ -8,7 +8,7 @@ import {VariableProvider} from "../../models/variable-provider.model";
 
 export class CharValidator extends TermValidator{
 
-  private static readonly letterRegex=/^[^0-9+\-*/=()]$/
+  private static readonly letterRegex=/^[^0-9+\-*=() ]$/
   private static variableProvider:VariableProviderService
 
   public static setVariableProvider(variableProvider:VariableProviderService){
