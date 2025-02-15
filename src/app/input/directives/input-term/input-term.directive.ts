@@ -50,15 +50,10 @@ export class InputTermDirective {
     return leftPosition
   }
 
-  protected get absoluteLeftPosition(){
-    return this.ref.getBoundingClientRect().left
-  }
-
-
   @HostListener('click',['$event'])
   private onClick(event:MouseEvent){
     event.stopPropagation()
-    const clickPosition=event.clientX-this.absoluteLeftPosition
+    const clickPosition=event.offsetX
 
     let dataToSend:InputCharData
 
