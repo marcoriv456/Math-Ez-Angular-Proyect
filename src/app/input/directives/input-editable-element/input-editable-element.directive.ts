@@ -32,7 +32,6 @@ export abstract class InputEditableElement{
   }
 
   public readonly validationRequester=new Subject<void>()
-  protected validatorClass!:{ new (component: any): TermValidator }|undefined
 
 
   public append(terms:Term[], index:number){
@@ -88,12 +87,6 @@ export abstract class InputEditableElement{
 
   public get toString(){
     return this.terms.map(child=> child.type=='char' ? child.char :'~').join('')
-  }
-
-  public get validator(){
-    if(this.validatorClass)
-      return new this.validatorClass(this)
-    return;
   }
 
   public updateValidation(){

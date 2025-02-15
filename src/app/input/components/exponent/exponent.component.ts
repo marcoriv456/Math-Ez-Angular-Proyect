@@ -11,6 +11,4 @@ import {ExponentValidator} from "../../validation/validators/exponent.validator"
 export class ExponentComponent extends InputEditableElement{
   @ViewChild(TermContainerComponent)
   termContainer!: TermContainerComponent;
-
-  override validatorClass=ExponentValidator
 }

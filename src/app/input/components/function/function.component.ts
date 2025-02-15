@@ -14,7 +14,7 @@ import {
   templateUrl: './function.component.html',
   styleUrls: ['./function.component.css','../../assets/editable-elements-styles.css']
 })
-export class FunctionComponent extends InputNonEditableElement implements OnInit{
+export class FunctionComponent extends InputNonEditableElement{
   @Input()
   functionName!:string
   @ViewChild('functionNameLabel')
@@ -29,11 +29,5 @@ export class FunctionComponent extends InputNonEditableElement implements OnInit
   @ViewChild('functionBaseComponent')
   baseComponent!:EditableTermContainerComponent
 
-  ngOnInit() {
-    switch (this.functionName){
-      case "log":
-        this.validatorClass=LogarithmValidator
-    }
-  }
 }
 

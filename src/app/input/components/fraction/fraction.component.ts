@@ -27,6 +27,4 @@ export class FractionComponent extends InputNonEditableElement{
   get denominatorComponent() {
     return this.renderedChars.get(1) as InputTermDirective
   }
-
-  override validatorClass=FractionValidator
 }

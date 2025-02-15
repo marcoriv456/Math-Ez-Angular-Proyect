@@ -27,6 +27,5 @@ export class RootComponent extends InputNonEditableElement{
   override get renderedChars(): QueryList<InputTermDirective> {
     return this._renderedChars;
   }
-  override validatorClass=RootValidator
 }
 

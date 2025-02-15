@@ -37,17 +37,11 @@ export class FractionValidator extends TermValidator{
   }
 
   private restoreChildrenValidation(){
-    const {numeratorComponent,denominatorComponent}=this.fractionComponent
-
-    numeratorComponent.updateValidation()
-    denominatorComponent.updateValidation()
+    
   }
 
   private removeChildrenValidation(){
-    const {numeratorComponent,denominatorComponent}=this.fractionComponent
 
-    numeratorComponent.validationData=validTermValidation
-    denominatorComponent.validationData=validTermValidation
   }
 
 }

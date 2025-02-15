@@ -8,7 +8,7 @@ import {AuxiliaryEditableElement} from "../../../classes/auxiliar-editable-eleme
   templateUrl: './fraction-child.component.html',
   styleUrls: ['./fraction-child.component.css','../../../assets/editable-elements-styles.css']
 })
-export class FractionChildComponent extends AuxiliaryEditableElement implements OnInit{
+export class FractionChildComponent extends AuxiliaryEditableElement{
   @Input()
   type!:'numerator'|'denominator'
 
@@ -16,9 +16,5 @@ export class FractionChildComponent extends AuxiliaryEditableElement implements 
     if(this.terms.length==0)
       return super.positionX+this.ref.offsetWidth/2
     return this.renderedChars.get(0)?.leftPosition||0
-  }
-
-  ngOnInit() {
-    this.validatorClass = this.type=="numerator" ? FractionNumeratorValidator : FractionDenominatorValidator
   }
 }
