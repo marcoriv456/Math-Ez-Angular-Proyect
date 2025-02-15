@@ -2,6 +2,7 @@ import {Component, Input, QueryList, ViewChildren} from '@angular/core';
 import {Term} from "../../models/terms/term.model";
 import {InputTermDirective} from "../../directives/input-term/input-term.directive";
 import {InputEditableElement} from "../../directives/input-editable-element/input-editable-element.directive";
+import {CharValidator} from "../../validation/validators/char.validator";
 
 @Component({
   selector: 'term-container',
@@ -16,4 +17,5 @@ export class TermContainerComponent {
   @ViewChildren(InputTermDirective)
   renderedChars!: QueryList<InputTermDirective>
 
+  protected readonly CharValidator = CharValidator;
 }

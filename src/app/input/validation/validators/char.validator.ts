@@ -2,18 +2,30 @@ import {TermValidator} from "../abstracts/validator.abstract";
 import {TermValidationMessage} from "../models/term-validation-message.model";
 import {VariableProviderService} from "../../services/variable-provider/variable-provider.service";
 import {CharComponent} from "../../components/char/char.component";
+import {Term} from "../../models/terms/term.model";
+import {CharTerm} from "../../models/terms/char-term.model";
+import {VariableProvider} from "../../models/variable-provider.model";
 
 export class CharValidator extends TermValidator{
-  private readonly letterRegex=/^[^0-9+\-*/=()]$/
-  private readonly invalidReferenceMessage:TermValidationMessage
-  private variableProvider:VariableProviderService
 
-  constructor(
-    private charComponent:CharComponent,
-  ) {
+  private static readonly letterRegex=/^[^0-9+\-*/=()]$/
+  private static variableProvider:VariableProviderService
+
+  public static setVariableProvider(variableProvider:VariableProviderService){
+    if(!this.variableProvider)
+      this.variableProvider=variableProvider
+  }
+
+  private readonly char:string
+  private readonly invalidReferenceMessage:TermValidationMessage
+
+  constructor(charTerm:Term) {
     super()
-    this.invalidReferenceMessage={message:`No se reconoce a la variable "${charComponent.char}"`,type:"fully-invalid"}
-    this.variableProvider=charComponent.variableProvider
+    if(charTerm.type!=='char')
+      throw new Error("Unable to create a validator with the provided term. \nExpected type: 'char' \nProvided: "+charTerm.type)
+
+    this.char=charTerm.char
+    this.invalidReferenceMessage={message:`No se reconoce a la variable "${charTerm.char}"`,type:"fully-invalid"}
   }
 
   protected override getValidationMessages(): TermValidationMessage[] {
@@ -28,11 +40,14 @@ export class CharValidator extends TermValidator{
   }
 
   private isVariableReferenceValid(){
-    return this.variableProvider.variableNames.includes(this.charComponent.char)
+    let r= CharValidator.variableProvider.variableNames.includes(this.char)
+    console.log(r)
+    return r
+
   }
 
   private isCharALetter(){
-    return this.letterRegex.test(this.charComponent.char)
+    return CharValidator.letterRegex.test(this.char)
   }
 
 }

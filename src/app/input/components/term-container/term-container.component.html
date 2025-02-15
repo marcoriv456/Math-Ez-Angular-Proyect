@@ -4,6 +4,7 @@
     *ngIf="term.type=='char'"
     [char]="term.char"
     [inputTerm]="{char:term.char,index:i,charClassRef:charComponent,parent}"
+    [inputTermValidation]="{term,validatorClass:CharValidator}"
   ></char>
   <frac
     #fractionComponent

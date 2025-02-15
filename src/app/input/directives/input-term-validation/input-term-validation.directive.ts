@@ -1,21 +1,22 @@
-import {Directive, ElementRef, HostBinding, HostListener, inject, Input, OnDestroy} from '@angular/core';
+import {Directive, ElementRef, HostBinding, HostListener, inject, Input, OnDestroy, OnInit} from '@angular/core';
 import {TermValidationData} from "../../validation/models/term-validation-data.model";
 import {TermValidator} from "../../validation/abstracts/validator.abstract";
 import {WarningsService} from "../../services/warnings/warnings.service";
 import {Term} from "../../models/terms/term.model";
 import {Subject} from "rxjs";
+import {VariableProviderService} from "../../services/variable-provider/variable-provider.service";
+import {validTermValidation} from "../../validation/default-values/valid-term-validation";
 
 @Directive({
   selector: '[inputTermValidation]'
 })
-export class InputTermValidationDirective implements OnDestroy{
+export class InputTermValidationDirective implements OnInit, OnDestroy{
 // --------------VALIDATION LOGIC------------------
   @Input('inputTermValidation')
-  protected input!:{term:Term, validatorClass:{new (term:Term):TermValidator},validationRequester?:Subject<void>}
+  public input!:{term:Term, validatorClass:{new (term:Term):TermValidator},validationRequester?:Subject<void>}
 
   private readonly ref=inject(ElementRef).nativeElement as HTMLElement
   private readonly warningsService=inject(WarningsService)
-
 
   private validationData!:TermValidationData
   private isMouseOver=false
@@ -40,6 +41,14 @@ export class InputTermValidationDirective implements OnDestroy{
     return this.ref.getBoundingClientRect().top
   }
 
+  ngOnInit() {
+    this.updateValidation()
+  }
+
+  ngOnDestroy() {
+    if(this.isMouseOver)
+      this.emitHideWarning()
+  }
 
   @HostBinding('class')
   private get validityClassBinding(){
@@ -60,11 +69,6 @@ export class InputTermValidationDirective implements OnDestroy{
       return;
     this.emitHideWarning()
     this.isMouseOver=false
-  }
-
-  ngOnDestroy() {
-    if(this.isMouseOver)
-      this.emitHideWarning()
   }
 
   public updateValidation(){
