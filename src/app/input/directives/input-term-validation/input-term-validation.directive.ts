@@ -21,7 +21,7 @@ export class InputTermValidationDirective implements OnDestroy{
   private isMouseOver=false
 
 
-  private get validatorInstance():TermValidator|undefined{
+  private get validatorInstance():TermValidator{
     return new this.validatorClass(this.term)
   }
   private get validatorClass(){
@@ -68,8 +68,6 @@ export class InputTermValidationDirective implements OnDestroy{
   }
 
   public updateValidation(){
-    if(!this.validatorInstance)
-      return;
     this.setValidationData(this.validatorInstance.validate())
     if(this.isMouseOver)
       this.validationData.isValid ? this.emitHideWarning() : this.emitShowWarning()
