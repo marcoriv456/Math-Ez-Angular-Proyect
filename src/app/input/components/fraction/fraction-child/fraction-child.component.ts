@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FractionNumeratorValidator} from "../../../validation/validators/fraction/fraction-numerator.validator";
-import {FractionDenominatorValidator} from "../../../validation/validators/fraction/fraction-denominator.validator";
+import {FractionDenominatorValidator} from "../../../validation/validators/fraction/fraction-denominator/fraction-denominator.validator";
 import {AuxiliaryEditableElement} from "../../../classes/auxiliar-editable-element.class";
 
 @Component({
