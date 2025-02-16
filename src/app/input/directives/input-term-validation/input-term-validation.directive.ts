@@ -22,6 +22,10 @@ export class InputTermValidationDirective implements OnInit, OnDestroy{
   private isMouseOver=false
 
 
+  private get validationRequester(){
+    return this.input.validationRequester
+  }
+
   private get validatorInstance():TermValidator{
     return new this.validatorClass(this.term)
   }
@@ -43,6 +47,7 @@ export class InputTermValidationDirective implements OnInit, OnDestroy{
 
   ngOnInit() {
     this.updateValidation()
+    this.validationRequester?.subscribe(()=>this.updateValidation())
   }
 
   ngOnDestroy() {
