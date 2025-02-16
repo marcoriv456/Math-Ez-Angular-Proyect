@@ -4,6 +4,7 @@ import {InputTermDirective} from "../../directives/input-term/input-term.directi
 import {InputEditableElement} from "../../directives/input-editable-element/input-editable-element.directive";
 import {CharValidator} from "../../validation/validators/char/char.validator";
 import {ExponentValidator} from "../../validation/validators/exponent/exponent.validator";
+import {FractionValidator} from "../../validation/validators/fraction/fraction-validator";
 
 @Component({
   selector: 'term-container',
@@ -20,4 +21,5 @@ export class TermContainerComponent {
 
   protected readonly ExponentValidator = ExponentValidator;
   protected readonly CharValidator = CharValidator;
+  protected readonly FractionValidator = FractionValidator;
 }

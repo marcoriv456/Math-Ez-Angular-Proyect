@@ -13,6 +13,7 @@
     [index]="i"
     [inputTerm]="{char:'\\frac',editableElementRef:fractionComponent,index:i,parent}"
     [parent]="parent"
+    [inputTermValidation]="{term,validatorClass:FractionValidator,validationRequester:fractionComponent.validationRequester}"
   ></frac>
   <exp
     #exponentComponent
