@@ -1,13 +1,18 @@
-import {FractionChildComponent} from "../../../../components/fraction/fraction-child/fraction-child.component";
 import {TermValidationMessage} from "../../../models/term-validation-message.model";
 import {TermValidator} from "../../../abstracts/validator.abstract";
+import {Term} from "../../../../models/terms/term.model";
+import {TermUtils} from "../../../../classes/term-utils";
+import {UnexpectedTermTypeError} from "../../../errors/unexpected-term-type.error";
 
 export class FractionDenominatorValidator extends TermValidator{
   denominatorValue:number
   denominatorStringValue:string
-  constructor(denominatorComponent:FractionChildComponent) {
+  constructor(term:Term) {
     super()
-    this.denominatorStringValue = denominatorComponent.toString
+    if(term.type!=='fraction')
+      throw new UnexpectedTermTypeError("fraction",term.type)
+
+    this.denominatorStringValue = TermUtils.toString(term.denominatorChildren)
     this.denominatorValue = +this.denominatorStringValue
   }
 
