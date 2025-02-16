@@ -21,13 +21,13 @@
 
 }
 
-:host:has(.selected){
+:host:has(>.selected){
   --inner-line-color: var(--selection-color);
 }
-:host:has(.partially-invalid){
+:host:has(>.partially-invalid){
   --inner-line-color: var(--partially-invalid-color);
 }
-:host:has(.fully-invalid){
+:host:has(>.fully-invalid){
   --inner-line-color: var(--fully-invalid-color);
 }
 
