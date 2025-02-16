@@ -1,6 +1,6 @@
-import {TermValidator} from "../abstracts/validator.abstract";
-import {TermValidationMessage} from "../models/term-validation-message.model";
-import {ExponentComponent} from "../../components/exponent/exponent.component";
+import {TermValidator} from "../../abstracts/validator.abstract";
+import {TermValidationMessage} from "../../models/term-validation-message.model";
+import {ExponentComponent} from "../../../components/exponent/exponent.component";
 
 export class ExponentValidator extends TermValidator{
   private readonly value:number
