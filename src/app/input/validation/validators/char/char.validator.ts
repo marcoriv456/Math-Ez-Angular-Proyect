@@ -1,10 +1,10 @@
-import {TermValidator} from "../abstracts/validator.abstract";
-import {TermValidationMessage} from "../models/term-validation-message.model";
-import {VariableProviderService} from "../../services/variable-provider/variable-provider.service";
-import {CharComponent} from "../../components/char/char.component";
-import {Term} from "../../models/terms/term.model";
-import {CharTerm} from "../../models/terms/char-term.model";
-import {VariableProvider} from "../../models/variable-provider.model";
+import {TermValidator} from "../../abstracts/validator.abstract";
+import {TermValidationMessage} from "../../models/term-validation-message.model";
+import {VariableProviderService} from "../../../services/variable-provider/variable-provider.service";
+import {CharComponent} from "../../../components/char/char.component";
+import {Term} from "../../../models/terms/term.model";
+import {CharTerm} from "../../../models/terms/char-term.model";
+import {VariableProvider} from "../../../models/variable-provider.model";
 
 export class CharValidator extends TermValidator{
 
