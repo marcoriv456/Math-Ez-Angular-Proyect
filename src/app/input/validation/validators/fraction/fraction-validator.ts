@@ -3,6 +3,9 @@ import {TermValidationMessage} from "../../models/term-validation-message.model"
 import {FractionComponent} from "../../../components/fraction/fraction.component";
 import {validTermValidation} from "../../default-values/valid-term-validation";
 import {TermValidationData} from "../../models/term-validation-data.model";
+import {Term} from "../../../models/terms/term.model";
+import {TermUtils} from "../../../classes/term-utils";
+import {UnexpectedTermTypeError} from "../../errors/unexpected-term-type.error";
 
 export class FractionValidator extends TermValidator{
   private readonly numeratorValue:number
@@ -11,10 +14,13 @@ export class FractionValidator extends TermValidator{
   private readonly denominatorStringValue:string
 
 
-  constructor(private fractionComponent: FractionComponent) {
+  constructor(term: Term) {
     super();
-    this.numeratorStringValue = (fractionComponent.numeratorComponent.asEditableElement?.toString ||"")
-    this.denominatorStringValue = (fractionComponent.denominatorComponent.asEditableElement?.toString ||"")
+    if(term.type!=='fraction')
+      throw new UnexpectedTermTypeError("fraction",term.type)
+
+    this.numeratorStringValue = TermUtils.toString(term.numeratorChildren)
+    this.denominatorStringValue = TermUtils.toString(term.denominatorChildren)
     this.numeratorValue = +this.numeratorStringValue
     this.denominatorValue = +this.denominatorStringValue
   }
@@ -27,21 +33,9 @@ export class FractionValidator extends TermValidator{
     return messages;
   }
 
-  private invalidateIndetermination(messages:TermValidationMessage[]){
-    if(this.numeratorValue==0 && this.denominatorValue==0 && this.numeratorStringValue!=='' && this.denominatorStringValue!==''){
-      messages.push({message:"Dividir 0 sobre 0 da un resultado indeterminado.", type:'fully-invalid'})
-      this.removeChildrenValidation()
-    }
-    else
-      this.restoreChildrenValidation()
-  }
-
-  private restoreChildrenValidation(){
-    
-  }
-
-  private removeChildrenValidation(){
+  private invalidateIndetermination(messages:TermValidationMessage[]) {
+    if (this.numeratorValue == 0 && this.denominatorValue == 0 && this.numeratorStringValue !== '' && this.denominatorStringValue !== '')
+      messages.push({message: "Dividir 0 sobre 0 da un resultado indeterminado.", type: 'fully-invalid'})
 
   }
-
 }
