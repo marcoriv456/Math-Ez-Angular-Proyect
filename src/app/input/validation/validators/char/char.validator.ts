@@ -40,10 +40,7 @@ export class CharValidator extends TermValidator{
   }
 
   private isVariableReferenceValid(){
-    let r= CharValidator.variableProvider.variableNames.includes(this.char)
-    console.log(r)
-    return r
-
+    return CharValidator.variableProvider.variableNames.includes(this.char)
   }
 
   private isCharALetter(){
