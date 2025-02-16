@@ -1,4 +1,5 @@
 import {TermValidationData} from "../../models/term-validation-data.model";
+import {expect} from 'chai'
 
 export const expectPartiallyInvalid = (validationData:TermValidationData) => {
   expect(validationData.isValid).to.be.false;
