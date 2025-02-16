@@ -21,6 +21,7 @@
     [index]="i"
     [terms]="term.exponentChildren"
     [parent]="parent"
+    [inputTermValidation]="{term,validatorClass:ExponentValidator,validationRequester:exponentComponent.validationRequester}"
   ></exp>
   <root
     #rootComponent
