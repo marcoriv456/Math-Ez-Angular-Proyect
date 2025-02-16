@@ -1,6 +1,8 @@
 import {CharValidator} from "./char.validator";
 import {VariableProviderService} from "../../../services/variable-provider/variable-provider.service";
 import {expect} from "chai"
+import {expectInvalid} from "../test/expect-invalid.util";
+import {expectValid} from "../test/expect-valid.util";
 describe('Char validator: ', () => {
   beforeEach(()=>{
     CharValidator['variableProvider']={
@@ -16,7 +18,7 @@ describe('Char validator: ', () => {
 
     const data=validator.validate()
 
-     expect(data.type).to.equal("fully-invalid")
+     expectInvalid(data)
   });
 
   it('Invalidates characters in a case-sensitive way', () => {
@@ -24,7 +26,7 @@ describe('Char validator: ', () => {
 
     const data=validator.validate()
 
-    expect(data.type).to.equal("fully-invalid")
+    expectInvalid(data)
   });
 
   it('Returns one fully invalid message', () => {
@@ -45,5 +47,19 @@ describe('Char validator: ', () => {
     expect(data.messages[0].message).to.contain('"F"')
   });
 
+  it('Validates numbers', () => {
+    const validator=new CharValidator({type:'char',char:'7'})
 
+    const data=validator.validate();
+
+    expectValid(data)
+  });
+
+  it('Validates special characters', () => {
+    const validator=new CharValidator({type:'char',char:'*'})
+
+    const data=validator.validate();
+
+    expectValid(data)
+  });
 });
