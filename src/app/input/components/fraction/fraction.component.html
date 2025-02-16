@@ -16,6 +16,7 @@
   [index]="1"
   (change)="updateValidation()"
   type="denominator"
+  [inputTermValidation]="{term:{type:'fraction', numeratorChildren, denominatorChildren},validatorClass:FractionDenominatorValidator,validationRequester}"
 >
 </frac-child>
 

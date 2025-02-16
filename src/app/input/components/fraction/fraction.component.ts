@@ -7,6 +7,9 @@ import {FractionValidator} from "../../validation/validators/fraction/fraction.v
 import {
   InputNonEditableElement
 } from "../../directives/input-non-editable-element/input-non-editable-element.directive";
+import {
+  FractionDenominatorValidator
+} from "../../validation/validators/fraction/fraction-denominator/fraction-denominator.validator";
 
 @Component({
   selector: 'frac',
@@ -27,4 +30,6 @@ export class FractionComponent extends InputNonEditableElement{
   get denominatorComponent() {
     return this.renderedChars.get(1) as InputTermDirective
   }
+
+  protected readonly FractionDenominatorValidator = FractionDenominatorValidator;
 }
