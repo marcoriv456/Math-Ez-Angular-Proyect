@@ -1,6 +1,6 @@
-import {TermValidationMessage} from "../../models/term-validation-message.model";
-import {FractionChildComponent} from "../../../components/fraction/fraction-child/fraction-child.component";
-import {TermValidator} from "../../abstracts/validator.abstract";
+import {TermValidationMessage} from "../../../models/term-validation-message.model";
+import {FractionChildComponent} from "../../../../components/fraction/fraction-child/fraction-child.component";
+import {TermValidator} from "../../../abstracts/validator.abstract";
 
 export class FractionNumeratorValidator extends TermValidator{
   private readonly numeratorValue:number
