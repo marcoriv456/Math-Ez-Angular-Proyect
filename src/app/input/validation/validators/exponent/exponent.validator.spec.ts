@@ -1,6 +1,7 @@
 import {ExponentValidator} from "./exponent.validator";
 import {Term} from "../../../models/terms/term.model";
 import {expect} from "chai";
+import {expectPartiallyInvalid} from "../test/expect-partially-invalid.util";
 
 describe('Exponent validator', () => {
 
@@ -10,8 +11,7 @@ describe('Exponent validator', () => {
 
     const data=exponentValidator.validate()
 
-    expect(data.messages).to.have.length(1)
-    expect(data.type).to.equal('partially-invalid')
+    expectPartiallyInvalid(data)
   });
 
   it('Partially invalidates "1" as exponent', () => {
@@ -20,7 +20,6 @@ describe('Exponent validator', () => {
 
     const data=exponentValidator.validate()
 
-    expect(data.messages).to.have.length(1)
-    expect(data.type).to.equal("partially-invalid")
+    expectPartiallyInvalid(data)
   });
 });

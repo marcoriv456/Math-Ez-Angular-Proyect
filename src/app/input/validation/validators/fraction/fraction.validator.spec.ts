@@ -1,6 +1,7 @@
 import {FractionValidator} from "./fraction.validator";
 import {Term} from "../../../models/terms/term.model";
 import {expect} from 'chai'
+import {expectInvalid} from "../test/expect-invalid.util";
 
 
 describe('Fraction validator: ', () => {
@@ -10,7 +11,6 @@ describe('Fraction validator: ', () => {
 
     const data=validator.validate()
 
-    expect(data.messages).to.have.length(1)
-    expect(data.type).to.equal("fully-invalid")
+    expectInvalid(data)
   });
 });

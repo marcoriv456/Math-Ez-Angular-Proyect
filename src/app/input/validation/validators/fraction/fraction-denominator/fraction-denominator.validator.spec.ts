@@ -2,6 +2,8 @@ import {TermValidator} from "../../../abstracts/validator.abstract";
 import {FractionDenominatorValidator} from "./fraction-denominator.validator";
 import {Term} from "../../../../models/terms/term.model";
 import {expect} from 'chai'
+import {expectPartiallyInvalid} from "../../test/expect-partially-invalid.util";
+import {expectInvalid} from "../../test/expect-invalid.util";
 
 
 describe('Fraction denominator validator:', () => {
@@ -11,8 +13,7 @@ describe('Fraction denominator validator:', () => {
 
     const data=validator.validate()
 
-    expect(data.messages).to.have.length(1)
-    expect(data.type).to.equal("partially-invalid")
+    expectPartiallyInvalid(data)
   });
 
   it('Fully invalidates "0" as denominator', () => {
@@ -21,8 +22,7 @@ describe('Fraction denominator validator:', () => {
 
     const data=validator.validate()
 
-    expect(data.messages).to.have.length(1)
-    expect(data.type).to.equal("fully-invalid")
+    expectInvalid(data)
   });
 
 });
