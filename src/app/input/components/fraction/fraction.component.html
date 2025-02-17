@@ -6,6 +6,7 @@
   [index]="0"
   (change)="updateValidation()"
   type="numerator"
+  [inputTermValidation]="{term:{type:'fraction', numeratorChildren, denominatorChildren},validatorClass:FractionNumeratorValidator,validationRequester}"
 ></frac-child>
 <span class="frac-bar"></span>
 <frac-child

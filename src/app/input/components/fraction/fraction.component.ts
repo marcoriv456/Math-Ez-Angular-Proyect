@@ -10,6 +10,9 @@ import {
 import {
   FractionDenominatorValidator
 } from "../../validation/validators/fraction/fraction-denominator/fraction-denominator.validator";
+import {
+  FractionNumeratorValidator
+} from "../../validation/validators/fraction/fraction-numerator/fraction-numerator.validator";
 
 @Component({
   selector: 'frac',
@@ -32,4 +35,5 @@ export class FractionComponent extends InputNonEditableElement{
   }
 
   protected readonly FractionDenominatorValidator = FractionDenominatorValidator;
+  protected readonly FractionNumeratorValidator = FractionNumeratorValidator;
 }
