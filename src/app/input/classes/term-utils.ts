@@ -4,4 +4,8 @@ export class TermUtils {
   public static toString(terms:Term[]){
     return terms.map(t=>t.type=="char" ? t.char:'~').join('')
   }
+
+  public static parse(phrase:string):Term[]{
+    return [...phrase].map(char=>({type:'char',char}))
+  }
 }
