@@ -4,6 +4,7 @@ import {Term} from "../../../../models/terms/term.model";
 import {expect} from 'chai'
 import {expectPartiallyInvalid} from "../../test/expect-partially-invalid.util";
 import {expectInvalid} from "../../test/expect-invalid.util";
+import {expectValid} from "../../test/expect-valid.util";
 
 
 describe('Fraction denominator validator:', () => {
@@ -25,4 +26,12 @@ describe('Fraction denominator validator:', () => {
     expectInvalid(data)
   });
 
+  it('Empty values are valid', () => {
+    const term:Term = {type: 'fraction', numeratorChildren: [], denominatorChildren: []}
+    const validator=new FractionDenominatorValidator(term)
+
+    const data=validator.validate()
+
+    expectValid(data)
+  });
 });

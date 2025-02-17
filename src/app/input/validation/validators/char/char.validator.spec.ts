@@ -47,7 +47,7 @@ describe('Char validator: ', () => {
     expect(data.messages[0].message).to.contain('"F"')
   });
 
-  it('Validates numbers', () => {
+  it('Numbers are valid', () => {
     const validator=new CharValidator({type:'char',char:'7'})
 
     const data=validator.validate();
@@ -55,7 +55,7 @@ describe('Char validator: ', () => {
     expectValid(data)
   });
 
-  it('Validates special characters', () => {
+  it('Special characters are valid', () => {
     const validator=new CharValidator({type:'char',char:'*'})
 
     const data=validator.validate();
