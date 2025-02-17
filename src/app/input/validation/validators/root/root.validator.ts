@@ -33,7 +33,7 @@ export class RootValidator extends TermValidator{
   }
 
   private validateRadicandValue(messages:TermValidationMessage[]) {
-    this.invalidateOneAsRadicandValue(messages)
+    this.warnOneAsRadicandValue(messages)
     this.invalidateNegativeRadicandAndOddIndex(messages)
   }
 
@@ -48,7 +48,7 @@ export class RootValidator extends TermValidator{
       messages.push({message:'La raiz de un numero negativo con indice par dara un numero complejo.', type:'fully-invalid'})
   }
 
-  private invalidateOneAsRadicandValue(messages:TermValidationMessage[]) {
+  private warnOneAsRadicandValue(messages:TermValidationMessage[]) {
     if(this.radicandValue==1)
       messages.push({message:'La raiz de cualquier indice de 1 siempre sera 1.',type:'partially-invalid'})
   }
