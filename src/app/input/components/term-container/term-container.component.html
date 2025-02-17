@@ -42,6 +42,7 @@
     [baseTerms]="term.argumentTerms"
     [inputTerm]="{char:'\\function',editableElementRef:functionComponent,index:i,parent}"
     [functionName]="term.functionName"
+    [inputTermValidation]="{term,validatorClass:getFunctionValidator(term.functionName),validationRequester:functionComponent.validationRequester}"
   ></function>
   <parenthesis
     #parenthesisComponent
