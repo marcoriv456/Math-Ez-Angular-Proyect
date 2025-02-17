@@ -1,6 +1,6 @@
-import {RootComponent} from "../../components/root/root.component";
-import {TermValidator} from "../abstracts/validator.abstract";
-import {TermValidationMessage} from "../models/term-validation-message.model";
+import {RootComponent} from "../../../components/root/root.component";
+import {TermValidator} from "../../abstracts/validator.abstract";
+import {TermValidationMessage} from "../../models/term-validation-message.model";
 
 export class RootValidator extends TermValidator{
   private readonly radicandValue:number

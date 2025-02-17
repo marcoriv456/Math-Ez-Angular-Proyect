@@ -5,7 +5,7 @@ import {TermContainerComponent} from "../term-container/term-container.component
 import {EditableTermContainerComponent} from "../editable-term-container/editable-term-container.component";
 import {TermArgumentComponent} from "../term-argument/term-argument.component";
 import {InputEditableElement} from "../../directives/input-editable-element/input-editable-element.directive";
-import {RootValidator} from "../../validation/validators/root.validator";
+import {RootValidator} from "../../validation/validators/root/root.validator";
 import {
   InputNonEditableElement
 } from "../../directives/input-non-editable-element/input-non-editable-element.directive";
