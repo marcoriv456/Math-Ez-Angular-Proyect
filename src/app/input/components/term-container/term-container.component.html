@@ -32,6 +32,7 @@
     [index]="i"
     [parent]="parent"
     [inputTerm]="{char:'\\root',editableElementRef:rootComponent,index:i,parent}"
+    [inputTermValidation]="{term,validatorClass:RootValidator,validationRequester:rootComponent.validationRequester}"
   ></root>
   <function
     #functionComponent

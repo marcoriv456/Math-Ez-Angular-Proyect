@@ -6,6 +6,7 @@ import {CharValidator} from "../../validation/validators/char/char.validator";
 import {ExponentValidator} from "../../validation/validators/exponent/exponent.validator";
 import {FractionValidator} from "../../validation/validators/fraction/fraction.validator";
 import {getFunctionValidator} from "../../validation/validators/functions/get-function-validator.helper";
+import {RootValidator} from "../../validation/validators/root/root.validator";
 
 @Component({
   selector: 'term-container',
@@ -24,4 +25,5 @@ export class TermContainerComponent {
   protected readonly CharValidator = CharValidator;
   protected readonly FractionValidator = FractionValidator;
     protected readonly getFunctionValidator = getFunctionValidator;
+  protected readonly RootValidator = RootValidator;
 }
