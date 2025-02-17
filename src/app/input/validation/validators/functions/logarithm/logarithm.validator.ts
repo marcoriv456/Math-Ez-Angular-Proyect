@@ -1,6 +1,9 @@
-import {TermValidator} from "../../abstracts/validator.abstract";
-import {TermValidationMessage} from "../../models/term-validation-message.model";
-import {FunctionComponent} from "../../../components/function/function.component";
+import {TermValidator} from "../../../abstracts/validator.abstract";
+import {TermValidationMessage} from "../../../models/term-validation-message.model";
+import {FunctionComponent} from "../../../../components/function/function.component";
+import {Term} from "../../../../models/terms/term.model";
+import {UnexpectedTermTypeError} from "../../../errors/unexpected-term-type.error";
+import {TermUtils} from "../../../../classes/term-utils";
 
 export class LogarithmValidator extends TermValidator{
 
@@ -9,10 +12,13 @@ export class LogarithmValidator extends TermValidator{
   private readonly baseStringValue:string
   private readonly argumentStringValue:string
 
-  constructor(functionComponent:FunctionComponent) {
+  constructor(term:Term) {
     super();
-    this.baseStringValue = functionComponent.baseComponent.toString
-    this.argumentStringValue = functionComponent.argumentContainer.toString
+    if (term.type!=='function' || term.functionName!=='log')
+      throw new UnexpectedTermTypeError("log function",`${term.type=='function' ? term.functionName:''} ${term.type}`)
+
+    this.baseStringValue = TermUtils.toString(term.argumentTerms||[])
+    this.argumentStringValue = TermUtils.toString(term.functionChildren)
     this.baseValue = +this.baseStringValue
     this.argumentValue = +this.argumentStringValue
   }

@@ -4,7 +4,7 @@ import {Term} from "../../models/terms/term.model";
 import {TermContainerComponent} from "../term-container/term-container.component";
 import {EditableTermContainerComponent} from "../editable-term-container/editable-term-container.component";
 import {InputEditableElement} from "../../directives/input-editable-element/input-editable-element.directive";
-import {LogarithmValidator} from "../../validation/validators/functions/logarithm.validator";
+import {LogarithmValidator} from "../../validation/validators/functions/logarithm/logarithm.validator";
 import {
   InputNonEditableElement
 } from "../../directives/input-non-editable-element/input-non-editable-element.directive";
