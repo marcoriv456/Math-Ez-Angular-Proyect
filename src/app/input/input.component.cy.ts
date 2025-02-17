@@ -22,6 +22,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NgxParticlesModule} from "@tsparticles/angular";
 import {runEditableElementSuite} from "./tests/run-editable-element-tests-suite.helper";
 import {clickAndType, expectCaretIsBehindOf, expectCaretIsInFrontOf} from "./tests/test-functions.util";
+import {InputTermValidationDirective} from "./directives/input-term-validation/input-term-validation.directive";
 
 describe(`Input component`, () => {
   let view: Chainable<JQuery<HTMLElement>>;
@@ -44,7 +45,8 @@ describe(`Input component`, () => {
         TermArgumentComponent,
         EditableTermContainerComponent,
         ParenthesisComponent,
-        TermValidationWarningComponent
+        TermValidationWarningComponent,
+        InputTermValidationDirective
       ],
       imports: [
         CommonModule,
@@ -112,7 +114,7 @@ describe(`Input component`, () => {
 
     describe('In characters:', () => {
       it('Invalidates a character if it is no declared as a variable', () => {
-        view.type('A')
+        view.type('F')
 
         expectFullyInvalid('char')
         expectWarningToBeDisplayed('char')
