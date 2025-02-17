@@ -1,17 +1,23 @@
 import {RootComponent} from "../../../components/root/root.component";
 import {TermValidator} from "../../abstracts/validator.abstract";
 import {TermValidationMessage} from "../../models/term-validation-message.model";
+import {Term} from "../../../models/terms/term.model";
+import {UnexpectedTermTypeError} from "../../errors/unexpected-term-type.error";
+import {TermUtils} from "../../../classes/term-utils";
 
 export class RootValidator extends TermValidator{
   private readonly radicandValue:number
   private readonly indexValue:number|undefined
   private readonly indexStringValue:string|undefined
   constructor(
-    rootComponent:RootComponent
+    term:Term
   ) {
     super()
-    this.indexStringValue = rootComponent.indexComponent?.toString
-    this.radicandValue = +rootComponent.radicandComponent.toString
+    if(term.type!=='root')
+      throw new UnexpectedTermTypeError("root",term.type)
+
+    this.indexStringValue = TermUtils.toString(term.radicalTerms||[])
+    this.radicandValue = +TermUtils.toString(term.rootChildren)
     this.indexValue = +this.indexStringValue
   }
 
