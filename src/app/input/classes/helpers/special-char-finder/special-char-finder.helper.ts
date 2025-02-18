@@ -1,4 +1,4 @@
-import {Term} from "../models/terms/term.model";
+import {Term} from "../../../models/terms/term.model";
 
 export class SpecialCharFinder{
   private readonly irregularCharRegexp=/[^a-zA-Z\d]/
