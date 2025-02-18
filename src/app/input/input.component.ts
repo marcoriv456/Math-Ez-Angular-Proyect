@@ -29,7 +29,7 @@ import {CharVisibilityManager} from "./classes/char-visibility-manager.class";
 import {RootAdder} from "./classes/adders/root-adder.class";
 import {InputContextManager} from "./classes/input-context-manager.class";
 import {InputEditableElement} from "./directives/input-editable-element/input-editable-element.directive";
-import {SpecialCharFinder} from "./classes/special-char-finder.class";
+import {SpecialCharFinder} from "./classes/special-char-finder.helper";
 
 @Component({
   selector: 'app-input',
@@ -183,24 +183,34 @@ export class InputComponent implements AfterViewInit,OnInit {
   }
 
   private moveToNextSpecialChar(){
-    this.moveCaretTo(this.getCharFinder().getNextSpecialCharFixedData())
+    const charFinder=this.getCharFinder()
+
+    const index=charFinder.findNextIndexToMoveAt()
+    const charData=this.currentElement.getCharData(index)
+
+    this.moveCaretTo(charData||this.currentElement.lastCharData)
   }
 
   private moveToPrevSpecialChar(){
-    this.moveCaretTo(this.getCharFinder().getPrevSpecialCharFixedData())
+    const charFinder=this.getCharFinder()
+
+    const index=charFinder.findPreviousIndexToMoveAt()
+    const charData=this.currentElement.getCharData(index)
+
+    this.moveCaretTo(charData||this.currentElement.noCharData)
   }
 
   private deleteTermsUntilPrevSpecialChar(){
     const charFinder=this.getCharFinder()
 
-    const startIndex=charFinder.getPrevSpecialCharFixedData().index+1,
-          deleteCount= this.currentElement.caretIndex-charFinder.getPrevSpecialCharFixedData().index
+    const startIndex=charFinder.findPreviousIndexToMoveAt() + 1
+    const deleteCount= this.currentElement.caretIndex-charFinder.findPreviousIndexToMoveAt()
 
     this.deleteTerms(startIndex,deleteCount)
   }
 
   private getCharFinder(){
-    return new SpecialCharFinder(this.currentElement)
+    return new SpecialCharFinder(this.currentElement.caretIndex,this.currentElement.terms)
   }
 
   // -----------CARET CONTEXT LOGIC------------
