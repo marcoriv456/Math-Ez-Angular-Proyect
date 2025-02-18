@@ -8,14 +8,12 @@ import {
   InputNonEditableElement
 } from "../../directives/input-non-editable-element/input-non-editable-element.directive";
 import {InputTermDirective} from "../../directives/input-term/input-term.directive";
+import {InputMathElement} from "../../directives/input-math-element/input-math-element.abstract";
+import {ParenthesisTerm} from "../../models/terms/parenthesis-term.model";
 
 @Component({
   selector: 'parenthesis',
   templateUrl: './parenthesis.component.html',
   styleUrls: ['./parenthesis.component.css','../../assets/editable-elements-styles.css']
 })
-export class ParenthesisComponent extends InputNonEditableElement{
-  override get renderedChars(): QueryList<InputTermDirective> {
-    return this._renderedChars;
-  }
-}
+export class ParenthesisComponent extends InputMathElement<ParenthesisTerm>{ }
