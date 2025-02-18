@@ -71,7 +71,7 @@ describe('Special char finder: ', () => {
 
       const next=finder.findNext()
 
-      expect(next).to.equal(11)
+      expect(next).to.equal(10)
     });
 
     it('Returns the previous irregular character index', () => {

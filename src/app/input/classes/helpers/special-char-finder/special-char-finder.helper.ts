@@ -9,12 +9,14 @@ export class SpecialCharFinder{
   ){}
 
   public findNextIndexToMoveAt(){
-    const result=this.findNext()-1
+    const result=this.findNext()
 
-    const isIndexBehindAnIrregularCharacter=this.index===result
+    const isIndexBehindAnIrregularCharacter=this.index===result-1
+    const isResultTheLastCharacter =result==this.terms.length-1
 
-    if(isIndexBehindAnIrregularCharacter)
-      return result+1
+    if(!isIndexBehindAnIrregularCharacter && !isResultTheLastCharacter){
+      return result-1
+    }
 
     return result
   }
@@ -37,7 +39,7 @@ export class SpecialCharFinder{
       if (term && this.isTermIrregular(term))
         return i
     }
-    return this.terms.length;
+    return this.terms.length-1;
   }
 
   public findPrevious(){
