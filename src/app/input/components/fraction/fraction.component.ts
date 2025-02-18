@@ -13,27 +13,15 @@ import {
 import {
   FractionNumeratorValidator
 } from "../../validation/validators/fraction/fraction-numerator/fraction-numerator.validator";
+import {InputMathElement} from "../../directives/input-math-element/input-math-element.abstract";
+import {FractionTerm} from "../../models/terms/fraction-term.model";
 
 @Component({
   selector: 'frac',
   templateUrl: './fraction.component.html',
   styleUrls: ['./fraction.component.css','../../assets/editable-elements-styles.css']
 })
-export class FractionComponent extends InputNonEditableElement{
-  @Input()
-  numeratorChildren!:Term[]
-  @Input()
-  denominatorChildren!:Term[]
-  override get renderedChars(){
-    return this._renderedChars
-  }
-  get numeratorComponent() {
-    return this.renderedChars.get(0) as InputTermDirective
-  }
-  get denominatorComponent() {
-    return this.renderedChars.get(1) as InputTermDirective
-  }
-
+export class FractionComponent extends InputMathElement<FractionTerm>{
   protected readonly FractionDenominatorValidator = FractionDenominatorValidator;
   protected readonly FractionNumeratorValidator = FractionNumeratorValidator;
 }

@@ -20,6 +20,28 @@
   transition: background-color var(--highlighting-transition-duration) var(--highlighting-transition-easing);
 
 }
+editable-term-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 50%;
+  font-size: 0.5em;
+}
+
+
+editable-term-container:not(.partially-invalid,.fully-invalid).selected{
+  --outline-color: var(--selection-color);
+}
+
+:host:not(.fully-invalid) editable-term-container.partially-invalid{
+  --outline-color: var(--partially-invalid-color);
+}
+
+:host:not(.fully-invalid) editable-term-container.fully-invalid {
+  --outline-color: var(--fully-invalid-color);
+}
+
 
 :host:has(>.selected){
   --inner-line-color: var(--selection-color);

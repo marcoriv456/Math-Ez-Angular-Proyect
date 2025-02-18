@@ -1,23 +1,15 @@
-<frac-child
-  #numeratorComponent
-  [inputTerm]="{char:'/num',index:0,editableElementRef:numeratorComponent,parent:this}"
-  [terms]="numeratorChildren"
-  [parent]="this"
+<editable-term-container
+  inputTerm
   [index]="0"
-  (change)="updateValidation()"
-  type="numerator"
-  [inputTermValidation]="{term:{type:'fraction', numeratorChildren, denominatorChildren},validatorClass:FractionNumeratorValidator,validationRequester}"
-></frac-child>
+  [parent]="parent"
+  [terms]="term.numeratorChildren"
+  [inputTermValidation]="{term,validatorClass:FractionNumeratorValidator,validationRequester}"
+></editable-term-container>
 <span class="frac-bar"></span>
-<frac-child
-  #denominatorComponent
-  [inputTerm]="{char:'/den',index:1,editableElementRef:denominatorComponent,parent:this}"
-  [terms]="denominatorChildren"
-  [parent]="this"
+<editable-term-container
+  inputTerm
   [index]="1"
-  (change)="updateValidation()"
-  type="denominator"
-  [inputTermValidation]="{term:{type:'fraction', numeratorChildren, denominatorChildren},validatorClass:FractionDenominatorValidator,validationRequester}"
->
-</frac-child>
-
+  [parent]="parent"
+  [terms]="term.denominatorChildren"
+  [inputTermValidation]="{term,validatorClass:FractionDenominatorValidator,validationRequester}"
+></editable-term-container>
