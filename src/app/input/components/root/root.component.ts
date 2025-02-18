@@ -9,23 +9,13 @@ import {RootValidator} from "../../validation/validators/root/root.validator";
 import {
   InputNonEditableElement
 } from "../../directives/input-non-editable-element/input-non-editable-element.directive";
+import {InputMathElement} from "../../directives/input-math-element/input-math-element.abstract";
+import {RootTerm} from "../../models/terms/root-term.model";
 
 @Component({
   selector: 'root',
   templateUrl: './root.component.html',
   styleUrls: ['./root.component.css','../../assets/editable-elements-styles.css']
 })
-export class RootComponent extends InputNonEditableElement{
-  @Input()
-  radicalTerms?:Term[]
-
-  @ViewChild('radicandComponent')
-  radicandComponent!:EditableTermContainerComponent
-  @ViewChild('indexComponent')
-  indexComponent!:TermArgumentComponent
-
-  override get renderedChars(): QueryList<InputTermDirective> {
-    return this._renderedChars;
-  }
-}
+export class RootComponent extends InputMathElement<RootTerm>{ }
 

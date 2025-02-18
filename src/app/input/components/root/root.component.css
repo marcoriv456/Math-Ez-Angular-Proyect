@@ -16,11 +16,15 @@ svg{
   stroke-width: 1em;
   transition: stroke var(--highlighting-transition-duration) var(--highlighting-transition-easing);
 }
-argument{
+.index-container{
+  font-size: 0.5em;
+  width: fit-content;
+  position: relative;
+  height: 1em;
   align-self: start;
 }
 
-:host editable-term-container{
+.radicand-container{
   transition: border-top-color var(--highlighting-transition-duration) var(--highlighting-transition-easing);
   border-top: 0.1em solid var(--inner-line-color);
 }
