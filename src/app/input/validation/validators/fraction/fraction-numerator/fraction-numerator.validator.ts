@@ -1,5 +1,4 @@
 import {TermValidationMessage} from "../../../models/term-validation-message.model";
-import {FractionChildComponent} from "../../../../components/fraction/fraction-child/fraction-child.component";
 import {TermValidator} from "../../../abstracts/validator.abstract";
 import {Term} from "../../../../models/terms/term.model";
 import {UnexpectedTermTypeError} from "../../../errors/unexpected-term-type.error";

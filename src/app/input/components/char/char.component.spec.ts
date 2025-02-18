@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { CharComponent } from './char.component';
+import {CharComponent} from './char.component';
 
 describe('CharComponent', () => {
   let component: CharComponent;

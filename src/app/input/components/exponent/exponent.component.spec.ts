@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ExponentComponent } from './exponent.component';
+import {ExponentComponent} from './exponent.component';
 
 describe('PowerComponent', () => {
   let component: ExponentComponent;

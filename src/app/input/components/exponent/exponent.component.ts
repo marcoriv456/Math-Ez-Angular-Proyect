@@ -1,7 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
-import {TermContainerComponent} from "../term-container/term-container.component";
-import {InputEditableElement} from "../../directives/input-editable-element/input-editable-element.directive";
-import {ExponentValidator} from "../../validation/validators/exponent/exponent.validator";
+import {Component} from '@angular/core';
 import {InputMathElement} from "../../directives/input-math-element/input-math-element.abstract";
 import {ExponentTerm} from "../../models/terms/exponent-term";
 

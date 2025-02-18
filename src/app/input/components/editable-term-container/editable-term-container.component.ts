@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, inject, Input, Output, ViewChild} from '@angular/core';
+import {Component} from '@angular/core';
 import {AuxiliaryEditableElement} from "../../classes/auxiliar-editable-element.class";
 
 @Component({

@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { FractionComponent } from './fraction.component';
+import {FractionComponent} from './fraction.component';
 
 describe('FractionComponent', () => {
   let component: FractionComponent;

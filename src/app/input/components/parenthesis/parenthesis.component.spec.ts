@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ParenthesisComponent } from './parenthesis.component';
+import {ParenthesisComponent} from './parenthesis.component';
 
 describe('ParenthesisComponent', () => {
   let component: ParenthesisComponent;
