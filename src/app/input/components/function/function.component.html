@@ -1,20 +1,16 @@
-<span #functionNameLabel>{{functionName}}</span>
-<argument
-  #functionBaseComponent
-  *ngIf="baseTerms"
-  [parent]="this"
-  [terms]="baseTerms"
+<span>{{term.functionName}}</span>
+<editable-term-container
+  class="base-container"
+  *ngIf="term.argumentTerms"
+  [parent]="parent"
+  [terms]="term.argumentTerms"
   [index]="0"
-  [inputTerm]="{char:'\\arg\\',index:0,editableElementRef:functionBaseComponent,parent:this}"
-  (change)="this.updateValidation()"
-></argument>
+></editable-term-container>
 <span>(</span>
 <editable-term-container
-  #functionArgumentContainer
-  [index]="baseTerms ? 1:0"
-  [terms]="terms"
-  [parent]="this"
-  [inputTerm]="{char:'\\f-main\\',index:baseTerms? 1:0,editableElementRef:functionArgumentContainer,parent:this}"
-  (change)="this.updateValidation()"
+  class="argument-container"
+  [index]="term.argumentTerms ? 1:0"
+  [terms]="term.functionChildren"
+  [parent]="parent"
 ></editable-term-container>
 <span>)</span>

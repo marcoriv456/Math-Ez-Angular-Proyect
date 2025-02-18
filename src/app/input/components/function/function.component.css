@@ -12,11 +12,18 @@ span{
   color: var(--inner-line-color);
   transition: color var(--highlighting-transition-duration) var(--highlighting-transition-easing);
 }
-argument{
+
+.base-container{
   align-self: end;
+  font-size: 0.5em;
+  width: fit-content;
+  position: relative;
+  height: 1em;
 }
-editable-term-container{
+
+.argument-container{
   font-size: 0.8em;
+  justify-content: center;
 }
 
 :host:not(.partially-invalid,.fully-invalid):has(>.selected)>*{
