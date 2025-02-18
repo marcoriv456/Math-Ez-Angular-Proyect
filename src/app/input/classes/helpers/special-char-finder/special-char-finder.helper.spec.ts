@@ -32,6 +32,14 @@ describe('Special char finder: ', () => {
       expect(indexToMoveAt).to.equal(9)
     });
 
+    it('It behaves normally moving forward even if the first character is irregular', () => {
+      const finder=generateFinder(-1,'+')
+
+      const indexToMoveAt=finder.findNextIndexToMoveAt()
+
+      expect(indexToMoveAt).to.equal(0)
+    });
+
     it('Returns the index next to the previous irregular character if the input index is not already next to it', () => {
       const finder=generateFinder(10,"hello+world")
 
@@ -50,6 +58,14 @@ describe('Special char finder: ', () => {
 
     it('Returns the first position if there is no previous irregular character', () => {
       const finder=generateFinder(9, "helloworld")
+
+      const indexToMoveAt=finder.findPreviousIndexToMoveAt()
+
+      expect(indexToMoveAt).to.equal(-1)
+    });
+
+    it('It behaves normally moving backwards even if the first character is irregular', () => {
+      const finder=generateFinder(0,'+')
 
       const indexToMoveAt=finder.findPreviousIndexToMoveAt()
 
