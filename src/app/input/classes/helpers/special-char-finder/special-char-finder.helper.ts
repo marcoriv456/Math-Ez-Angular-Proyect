@@ -9,10 +9,12 @@ export class SpecialCharFinder{
   ){}
 
   public findNextIndexToMoveAt(){
-    const result=this.findNext()
+    const result=this.findNext()-1
 
-     if(result && result-1!==this.index)
-      return result-1
+    const isIndexBehindAnIrregularCharacter=this.index===result
+
+    if(isIndexBehindAnIrregularCharacter)
+      return result+1
 
     return result
   }
@@ -20,7 +22,9 @@ export class SpecialCharFinder{
   public findPreviousIndexToMoveAt(){
     let result=this.findPrevious()
 
-    if(result&&result==this.index)
+    const isIndexAlreadyInAnIrregularCharacter=this.index===result
+
+    if(isIndexAlreadyInAnIrregularCharacter)
        return result-1
 
     return result
