@@ -19,11 +19,11 @@ span{
   width: fit-content;
   position: relative;
   height: 1em;
+  justify-content: center;
 }
 
 .argument-container{
   font-size: 0.8em;
-  justify-content: center;
 }
 
 :host:not(.partially-invalid,.fully-invalid):has(>.selected)>*{
