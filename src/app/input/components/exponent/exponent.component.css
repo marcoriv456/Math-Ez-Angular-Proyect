@@ -10,7 +10,7 @@ term-container{
   min-width: 1ch;
 }
 
-:host:not(.partially-invalid,.fully-invalid).selected{
+:host:not(.partially-invalid,.fully-invalid):has(editable-term-container.selected){
   --outline-color: var(--selection-color);
 }
 
