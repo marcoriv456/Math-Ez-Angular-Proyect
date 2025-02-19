@@ -1,56 +1,47 @@
 <ng-container *ngFor="let term of terms; let i=index">
   <char
     *ngIf="term.type=='char'"
+    inputTerm
     [char]="term.char"
-    [inputTerm]="{char:term.char,index:i,parent}"
+    [index]="i"
     [inputTermValidation]="{term,validatorClass:CharValidator}"
   ></char>
   <frac
     #fractionComponent
     *ngIf="term.type=='fraction'"
-    [numeratorChildren]="term.numeratorChildren"
-    [denominatorChildren]="term.denominatorChildren"
+    inputTerm
+    [term]="term"
     [index]="i"
-    [inputTerm]="{char:'\\frac',editableElementRef:fractionComponent,index:i,parent}"
-    [parent]="parent"
     [inputTermValidation]="{term,validatorClass:FractionValidator,validationRequester:fractionComponent.validationRequester}"
   ></frac>
   <exp
     #exponentComponent
     *ngIf="term.type=='exponent'"
-    [inputTerm]="{char:'\\exp',index:i,editableElementRef:exponentComponent,parent}"
+    inputTerm
     [index]="i"
-    [terms]="term.exponentChildren"
-    [parent]="parent"
+    [term]="term"
     [inputTermValidation]="{term,validatorClass:ExponentValidator,validationRequester:exponentComponent.validationRequester}"
   ></exp>
   <root
     #rootComponent
     *ngIf="term.type=='root'"
-    [terms]="term.rootChildren"
-    [radicalTerms]="term.radicalTerms"
+    inputTerm
+    [term]="term"
     [index]="i"
-    [parent]="parent"
-    [inputTerm]="{char:'\\root',editableElementRef:rootComponent,index:i,parent}"
     [inputTermValidation]="{term,validatorClass:RootValidator,validationRequester:rootComponent.validationRequester}"
   ></root>
   <function
     #functionComponent
     *ngIf="term.type=='function'"
-    [terms]="term.functionChildren"
+    inputTerm
+    [term]="term"
     [index]="i"
-    [parent]="parent"
-    [baseTerms]="term.argumentTerms"
-    [inputTerm]="{char:'\\function',editableElementRef:functionComponent,index:i,parent}"
-    [functionName]="term.functionName"
     [inputTermValidation]="{term,validatorClass:getFunctionValidator(term.functionName),validationRequester:functionComponent.validationRequester}"
   ></function>
   <parenthesis
-    #parenthesisComponent
     *ngIf="term.type=='parenthesis'"
-    [terms]="term.parenthesisChildren"
+    inputTerm
+    [term]="term"
     [index]="i"
-    [parent]="parent"
-    [inputTerm]="{char:'\\function',editableElementRef:parenthesisComponent,index:i,parent}"
   ></parenthesis>
 </ng-container>
