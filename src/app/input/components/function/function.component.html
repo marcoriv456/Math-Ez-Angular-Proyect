@@ -2,7 +2,6 @@
 <editable-term-container
   class="base-container"
   *ngIf="term.argumentTerms"
-  [parent]="parent"
   [terms]="term.argumentTerms"
   [index]="0"
 ></editable-term-container>
@@ -11,6 +10,5 @@
   class="argument-container"
   [index]="term.argumentTerms ? 1:0"
   [terms]="term.functionChildren"
-  [parent]="parent"
 ></editable-term-container>
 <span>)</span>
