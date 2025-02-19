@@ -3,6 +3,10 @@ import {TermContainerComponent} from "../term-container/term-container.component
 import {Term} from "../../models/terms/term.model";
 import {InputMathElement} from "../../directives/input-math-element/input-math-element.abstract";
 import {Subject} from "rxjs";
+import {ContainerLocation} from "../../models/container-location.model";
+import {TermLocation} from "../../models/term-location.model";
+import {InputTermLocation} from "../../models/location/input-term-location.model";
+import {LayeredTermLocation} from "../../models/location/input-layer-location.model";
 
 @Component({
   selector: 'editable-term-container',
@@ -76,6 +80,21 @@ export class EditableTermContainerComponent{
     return this.ref.getBoundingClientRect().top;
   }
 
+  private get location():ContainerLocation{
+    return this.mathElement.getContainerLocation(this.index)
+  }
+
+  public getTermLocation(index: number): LayeredTermLocation {
+    return {
+      character: {
+        prev: this.terms[index - 1].type,
+        actual: this.terms[index].type,
+        next: this.terms[index + 1].type
+      },
+      container:this.location
+    }
+  }
+  
   private emitChange(){
     this.changeEmitter.next()
   }

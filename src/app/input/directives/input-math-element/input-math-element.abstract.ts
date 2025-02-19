@@ -3,6 +3,7 @@ import {Subject} from "rxjs";
 import {
   EditableTermContainerComponent
 } from "../../components/editable-term-container/editable-term-container.component";
+import {ContainerLocation} from "../../models/container-location.model";
 
 @Directive()
 export abstract class InputMathElement<TermType> implements AfterViewInit{
@@ -34,6 +35,12 @@ export abstract class InputMathElement<TermType> implements AfterViewInit{
     return this.editableSections.get(this.currentSection-1)
   }
 
+  public getContainerLocation(index:number):ContainerLocation{
+    return {
+      nextExist:!!this.sectionAt(index-1),
+      prevExist:!!this.sectionAt(index+1)
+    }
+  }
 
   ngAfterViewInit() {
     this.editableSections.forEach(section=>{
