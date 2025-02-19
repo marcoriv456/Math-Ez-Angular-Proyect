@@ -7,6 +7,7 @@ import {ExponentValidator} from "../../validation/validators/exponent/exponent.v
 import {FractionValidator} from "../../validation/validators/fraction/fraction.validator";
 import {getFunctionValidator} from "../../validation/validators/functions/get-function-validator.helper";
 import {RootValidator} from "../../validation/validators/root/root.validator";
+import {EditableTermContainerComponent} from "../editable-term-container/editable-term-container.component";
 
 @Component({
   selector: 'term-container',
@@ -17,7 +18,7 @@ export class TermContainerComponent {
   @Input()
   terms!:Term[]
   @Input()
-  parent!:InputEditableElement
+  parent!:EditableTermContainerComponent
   @ViewChildren(InputTermDirective)
   renderedChars!: QueryList<InputTermDirective>
 
