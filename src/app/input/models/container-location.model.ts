@@ -1,4 +1,5 @@
 export interface ContainerLocation {
-  prevExist:boolean,
-  nextExist:boolean
+  prevExist?:boolean,
+  nextExist?:boolean
+  isThisMain?:boolean
 }

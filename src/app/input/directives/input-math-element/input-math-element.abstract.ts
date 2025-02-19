@@ -11,7 +11,7 @@ export abstract class InputMathElement<TermType> implements AfterViewInit{
   @Input() public term!:TermType
   @Input() public index!:number
 
-  private currentSection=0
+  public currentSection=0
   public validationRequester=new Subject<void>()
   constructor(@SkipSelf() public parent:EditableTermContainerComponent) { }
 
@@ -37,8 +37,8 @@ export abstract class InputMathElement<TermType> implements AfterViewInit{
 
   public getContainerLocation(index:number):ContainerLocation{
     return {
-      nextExist:!!this.sectionAt(index-1),
-      prevExist:!!this.sectionAt(index+1)
+      nextExist:!!this.sectionAt(index+1),
+      prevExist:!!this.sectionAt(index-1)
     }
   }
 

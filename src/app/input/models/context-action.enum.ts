@@ -1,11 +1,13 @@
 
 export enum ContextAction {
+  MoveToLastChar,
+  MoveToFirstChar,
   MoveToNextChar,
   MoveToPrevChar,
   ContextNextTerm,
   ContextActualTerm,
   ContextPrevContainer,
   ContextNextContainer,
-  ContextOut
-
+  ContextOutByRight,
+  ContextOutByLeft
 }

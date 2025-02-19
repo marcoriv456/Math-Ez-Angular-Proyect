@@ -66,7 +66,7 @@ export class EditableTermContainerComponent{
     return this.ref.offsetHeight
   }
 
-  public get positionX(): number {
+  public get positionX(): number{
     let parent=this.ref.parentElement
     let leftPosition=this.ref.offsetLeft
     while(parent && !(parent.tagName=='APP-INPUT')){
@@ -81,20 +81,24 @@ export class EditableTermContainerComponent{
   }
 
   private get location():ContainerLocation{
-    return this.mathElement.getContainerLocation(this.index)
+    return this.mathElement?.getContainerLocation(this.index)||{isThisMain:true}
   }
 
   public getTermLocation(index: number): LayeredTermLocation {
     return {
       character: {
-        prev: this.terms[index - 1].type,
-        actual: this.terms[index].type,
-        next: this.terms[index + 1].type
+        prev: this.terms[index - 1]?.type,
+        actual: this.terms[index]?.type,
+        next: this.terms[index + 1]?.type
       },
       container:this.location
     }
   }
-  
+
+  public getElement(index:number){
+    return this.termContainer.renderedChars.get(index)?.asMathElement
+  }
+
   private emitChange(){
     this.changeEmitter.next()
   }
