@@ -1,16 +1,25 @@
-import {Directive, ElementRef, HostListener, inject, Input,} from '@angular/core';
+import {Directive, ElementRef, Host, HostListener, inject, Input, Optional, SkipSelf,} from '@angular/core';
 import {CharClickedNotifierService} from "../../services/char-clicked-notifier/char-clicked-notifier.service";
 import {InputCharData} from "../../models/input-char-data.model";
 import {InputEditableElement} from "../input-editable-element/input-editable-element.directive";
+import {InputMathElement} from "../input-math-element/input-math-element.abstract";
+import {
+  EditableTermContainerComponent
+} from "../../components/editable-term-container/editable-term-container.component";
 
 @Directive({
   selector: '[inputTerm]'
 })
 export class InputTermDirective {
-  @Input('inputTerm')
-  input!:{char:string, index:number,editableElementRef?:InputEditableElement,parent:InputEditableElement}
-  ref=inject(ElementRef).nativeElement as HTMLElement
-  charClickedNotifier=inject(CharClickedNotifierService)
+  @Input() index!:number
+
+  constructor(
+    @Host() @Optional() public asMathElement:InputMathElement<any>|null,
+    @SkipSelf() public parent:EditableTermContainerComponent
+  ) { }
+
+  private ref=inject(ElementRef).nativeElement as HTMLElement
+  private charClickedNotifier=inject(CharClickedNotifierService)
 
   get data():InputCharData{
     return {
@@ -22,22 +31,6 @@ export class InputTermDirective {
 
   get rightPosition(){
     return this.leftPosition+this.ref.offsetWidth
-  }
-
-  get index(){
-    return this.input.index
-  }
-
-  get parent(){
-    return this.input.parent
-  }
-
-  get char(){
-    return this.input.char
-  }
-
-  get asEditableElement(){
-    return this.input.editableElementRef
   }
 
   get leftPosition(){
@@ -57,8 +50,8 @@ export class InputTermDirective {
 
     let dataToSend:InputCharData
 
-    if(this.asEditableElement && this.asEditableElement.editable)
-      dataToSend=this.asEditableElement.noCharData
+    if(this.asMathElement)
+      dataToSend=this.asMathElement.firstSection.noCharData
     else
       dataToSend=this.getClickedCharData(clickPosition)
 
