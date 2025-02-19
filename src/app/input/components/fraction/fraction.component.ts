@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, forwardRef} from '@angular/core';
 import {
   FractionDenominatorValidator
 } from "../../validation/validators/fraction/fraction-denominator/fraction-denominator.validator";
@@ -11,7 +11,8 @@ import {FractionTerm} from "../../models/terms/fraction-term.model";
 @Component({
   selector: 'frac',
   templateUrl: './fraction.component.html',
-  styleUrls: ['./fraction.component.css','../../assets/editable-elements-styles.css']
+  styleUrls: ['./fraction.component.css','../../assets/editable-elements-styles.css'],
+  providers: [{provide:InputMathElement, useExisting:forwardRef(()=>FractionComponent)}]
 })
 export class FractionComponent extends InputMathElement<FractionTerm>{
   protected readonly FractionDenominatorValidator = FractionDenominatorValidator;
