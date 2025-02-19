@@ -1,44 +1,43 @@
-import {AfterViewInit, Directive, Input, OnInit, QueryList, ViewChildren} from "@angular/core";
-import {InputEditableElement} from "../input-editable-element/input-editable-element.directive";
+import {AfterViewInit, Directive, InjectionToken, Input, QueryList, SkipSelf, ViewChildren} from "@angular/core";
 import {Subject} from "rxjs";
-import {Term} from "../../models/terms/term.model";
-
+import {
+  EditableTermContainerComponent
+} from "../../components/editable-term-container/editable-term-container.component";
 
 @Directive()
 export abstract class InputMathElement<TermType> implements AfterViewInit{
-
-  @ViewChildren(InputEditableElement) private editableSections!:QueryList<InputEditableElement>;
-  @Input() public parent!:InputEditableElement
+  @ViewChildren(EditableTermContainerComponent) private editableSections!:QueryList<EditableTermContainerComponent>;
   @Input() public term!:TermType
   @Input() public index!:number
 
   private currentSection=0
   public validationRequester=new Subject<void>()
+  constructor(@SkipSelf() public parent:EditableTermContainerComponent) { }
 
   public get firstSection(){
-    return this.editableSections.get(0) as InputEditableElement
+    return this.editableSections.get(0) as EditableTermContainerComponent
   }
 
   public get lastSection(){
-    return this.editableSections.get(this.editableSections.length-1) as InputEditableElement
+    return this.editableSections.get(this.editableSections.length-1) as EditableTermContainerComponent
   }
 
   public sectionAt(index:number){
-    return this.editableSections.get(index) as InputEditableElement
+    return this.editableSections.get(index)
   }
 
   get nextSection(){
-    return this.editableSections.get(this.currentSection+1) as InputEditableElement
+    return this.editableSections.get(this.currentSection+1)
   }
 
   get previousSection(){
-    return this.editableSections.get(this.currentSection-1) as InputEditableElement
+    return this.editableSections.get(this.currentSection-1)
   }
 
 
   ngAfterViewInit() {
     this.editableSections.forEach(section=>{
-      section.validationRequester.subscribe(() => this.validationRequester.next())
+      section.addChangesListener(() => this.validationRequester.next())
     })
   }
 }
