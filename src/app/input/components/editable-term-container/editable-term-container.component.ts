@@ -5,8 +5,7 @@ import {InputMathElement} from "../../directives/input-math-element/input-math-e
 import {Subject} from "rxjs";
 import {ContainerLocation} from "../../models/container-location.model";
 import {TermLocation} from "../../models/term-location.model";
-import {InputTermLocation} from "../../models/location/input-term-location.model";
-import {LayeredTermLocation} from "../../models/location/input-layer-location.model";
+import {InputElementLocation} from "../../models/input-element-location.model";
 
 @Component({
   selector: 'editable-term-container',
@@ -40,7 +39,7 @@ export class EditableTermContainerComponent{
     this.emitChange()
   }
 
-  public replace(from:number, deleteCount=1,terms:Term[]){
+  public replace(from:number, deleteCount=1,...terms:Term[]){
     this.terms.splice(from,deleteCount,...terms)
     this.emitChange()
   }
@@ -84,7 +83,7 @@ export class EditableTermContainerComponent{
     return this.mathElement?.getContainerLocation(this.index)||{isThisMain:true}
   }
 
-  public getTermLocation(index: number): LayeredTermLocation {
+  public getTermLocation(index: number): InputElementLocation {
     return {
       character: {
         prev: this.terms[index - 1]?.type,
