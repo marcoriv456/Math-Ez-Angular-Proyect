@@ -43,8 +43,8 @@ export class EditableTermContainerComponent{
     this.changeEmitter.subscribe(callback)
   }
 
-  public append(terms:Term[], index:number){
-    this.terms.splice(index,0,...terms)
+  public append(from:number,...terms:Term[]){
+    this.terms.splice(from,0,...terms)
     this.emitChange()
   }
 

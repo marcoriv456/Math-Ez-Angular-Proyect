@@ -1,11 +1,12 @@
 import {inject, Injectable} from '@angular/core';
 import {Term} from "../../models/terms/term.model";
 import {FractionTerm} from "../../models/terms/fraction-term.model";
-import {FractionAdder} from "../../classes/adders/fraction-adder";
+import {FractionAdder} from "../../classes/adders/fraction.adder";
 import {ContextHandlerService} from "../context-handler/context-handler.service";
 import {InputMathElement} from "../../directives/input-math-element/input-math-element.abstract";
 import {CaretHandlerService} from "../caret-handler/caret-handler.service";
 import {CaretIndexService} from "../caret-index/caret-index.service";
+import {TermAdder} from "../../models/term.adder";
 
 @Injectable()
 export class WritingHandlerService {
@@ -23,7 +24,6 @@ export class WritingHandlerService {
 
   public handleKey(key:string, ctrlKey:boolean,altKey:boolean){
     console.log(key)
-
     if(key=='/')
       this.appendFraction()
     // else if(key=='e' && ctrlKey)
@@ -41,18 +41,21 @@ export class WritingHandlerService {
     // this.lookForMathFunctionReferences()
   }
 
-  public appendFraction(){
-    const adder=new FractionAdder(this.currentElement.terms,this.caretIndex)
-    const {term,replaceCount,replaceFrom,containerToMoveAt}=adder.add()
-    console.log(adder.add())
 
+  private appendFraction(){
+    const adder=new FractionAdder(this.currentElement.terms,this.caretIndex)
+    this.append(adder)
+  }
+
+  private append(adder:TermAdder){
+    const {term,replaceFrom,replaceCount,containerToMoveAt}=adder.add()
     this.currentElement.replace(replaceFrom,replaceCount,term)
 
-    const moveAt=this.getPlaceToMoveAtAfterAddingAFraction(replaceFrom,containerToMoveAt)
+    const moveAt=this.getPlaceToMoveAtAfterAddingATerm(replaceFrom,containerToMoveAt)
     this.caretHandler.move(moveAt||this.currentElement.lastCharData)
   }
 
-  private getPlaceToMoveAtAfterAddingAFraction(renderedElementIndex:number,sectionToMoveAt:number|'outside'){
+  private getPlaceToMoveAtAfterAddingATerm(renderedElementIndex:number,sectionToMoveAt:number|'outside'){
     this.currentElement.refresh()
     if(sectionToMoveAt=='outside')
       return this.currentElement.getCharData(renderedElementIndex)
