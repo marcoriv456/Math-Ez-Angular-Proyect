@@ -20,6 +20,7 @@ import { CaretComponent } from './components/caret/caret.component';
 import {ContextHandlerService} from "./services/context-handler/context-handler.service";
 import {CaretHandlerService} from "./services/caret-handler/caret-handler.service";
 import {CaretIndexService} from "./services/caret-index/caret-index.service";
+import {WritingHandlerService} from "./services/wrting-handler/writing-handler.service";
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import {CaretIndexService} from "./services/caret-index/caret-index.service";
     VariableProviderService,
     ContextHandlerService,
     CaretHandlerService,
+    WritingHandlerService,
     CaretIndexService
   ]
 })

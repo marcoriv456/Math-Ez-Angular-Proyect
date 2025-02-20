@@ -1,57 +1,43 @@
 import {Term} from "../../models/terms/term.model";
-import {FractionComponent} from "../../components/fraction/fraction.component";
-import {ChangeDetectorRef} from "@angular/core";
-import {InputCharData} from "../../models/input-char-data.model";
-import {FractionChildComponent} from "../../components/fraction/fraction-child/fraction-child.component";
-import {InputEditableElement} from "../../directives/input-editable-element/input-editable-element.directive";
 import {SpecialCharFinder} from "../helpers/special-char-finder/special-char-finder.helper";
+import {FractionAdderInstructions} from "../../models/fraction-adder-instructions.model";
 
 export class FractionAdder{
-  constructor(
-    private currentElement:InputEditableElement,
-    private cdr:ChangeDetectorRef
-  ) {
-    this.setupFractionData()
-  }
+  private readonly origin!:number
+  private readonly from!:number
+  private readonly to!:number
+  private readonly numeratorChars!:Term[]
+  private readonly denominatorChars!:Term[]
+  constructor(terms:Term[], index:number) {
+    this.origin=index+1
 
-  private origin!:number
-  private from!:number
-  private to!:number
-  private numeratorChars!:Term[]
-  private denominatorChars!:Term[]
-
-  private setupFractionData(){
-    this.origin=this.currentElement.nextIndex
-
-    const charFinder=new SpecialCharFinder(this.currentElement.nextIndex,this.currentElement.terms)
+    const charFinder=new SpecialCharFinder(index,terms)
     this.from=charFinder.findPrevious()+1
-    this.to=charFinder.findNext()+1
+    this.to=charFinder.findNext()
 
-    this.numeratorChars=this.currentElement.terms.slice(this.from,this.origin)
-    this.denominatorChars=this.currentElement.terms.slice(this.origin,this.to)
+    this.numeratorChars=terms.slice(this.from,this.origin)
+    this.denominatorChars=terms.slice(this.origin,this.to)
   }
 
-  public appendFraction():InputCharData{
-    this.appendFractionToCurrentElement()
-
-    this.cdr.detectChanges()
-
-    return this.moveCaretToFractionChild()
+  public add():FractionAdderInstructions{
+    return {
+      replaceFrom: this.from,
+      replaceTo: this.to - this.from,
+      fraction: {
+        numeratorChildren: this.numeratorChars,
+        denominatorChildren: this.denominatorChars,
+        type: 'fraction'
+      },
+      moveTo:this.moveTo()
+    }
   }
 
-  private appendFractionToCurrentElement(){
-    this.currentElement.replace(this.from, this.to-this.from,[{
-      numeratorChildren:this.numeratorChars,
-      denominatorChildren:this.denominatorChars,
-      type:'fraction'
-    }])
-  }
-
-  private moveCaretToFractionChild(){
-    let appendedFrac=this.currentElement.getRenderedChar(this.from)?.asEditableElement as FractionComponent
-    if(!this.numeratorChars.length)
-      return (appendedFrac.numeratorComponent.asEditableElement as FractionChildComponent).noCharData
-    return (appendedFrac.denominatorComponent.asEditableElement as FractionChildComponent).noCharData
+  private moveTo(){
+    if(this.numeratorChars.length==0)
+      return 'numerator'
+    if(this.denominatorChars.length==0)
+      return 'denominator'
+    return 'outside'
   }
 
 }

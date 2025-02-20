@@ -1,10 +1,19 @@
-import {Component, ElementRef, HostBinding, inject, Input, Optional, SkipSelf, ViewChild} from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  HostBinding,
+  inject,
+  Input,
+  Optional,
+  SkipSelf,
+  ViewChild
+} from '@angular/core';
 import {TermContainerComponent} from "../term-container/term-container.component";
 import {Term} from "../../models/terms/term.model";
 import {InputMathElement} from "../../directives/input-math-element/input-math-element.abstract";
 import {Subject} from "rxjs";
 import {ContainerLocation} from "../../models/container-location.model";
-import {TermLocation} from "../../models/term-location.model";
 import {InputElementLocation} from "../../models/input-element-location.model";
 
 @Component({
@@ -22,6 +31,7 @@ export class EditableTermContainerComponent{
 
   private readonly changeEmitter = new Subject<void>()
   private readonly ref=inject(ElementRef).nativeElement as HTMLElement
+  private readonly cdr=inject(ChangeDetectorRef)
 
   @HostBinding('class.selected') public selected=false
   @HostBinding('class.empty')
@@ -93,6 +103,10 @@ export class EditableTermContainerComponent{
     }
   }
 
+  public refresh(){
+    this.cdr.detectChanges()
+  }
+
   public getElement(index:number){
     return this.termContainer.renderedChars.get(index)?.asMathElement
   }
@@ -100,7 +114,4 @@ export class EditableTermContainerComponent{
   private emitChange(){
     this.changeEmitter.next()
   }
-
-
-
 }

@@ -28,6 +28,11 @@ export class ContextHandlerService {
       this.currentElement.mathElement.currentSection=element.index
   }
 
+  public getCurrentElement(){
+    return this.currentElement
+  }
+
+
   public requestForwardContextData(){
     const contextManager=this.getContextManager()
 
