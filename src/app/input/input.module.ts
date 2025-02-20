@@ -17,6 +17,9 @@ import { ParenthesisComponent } from './components/parenthesis/parenthesis.compo
 import { TermValidationWarningComponent } from './components/term-validation-warning/term-validation-warning.component';
 import { InputTermValidationDirective } from './directives/input-term-validation/input-term-validation.directive';
 import { CaretComponent } from './components/caret/caret.component';
+import {ContextHandlerService} from "./services/context-handler/context-handler.service";
+import {CaretHandlerService} from "./services/caret-handler/caret-handler.service";
+import {CaretIndexService} from "./services/caret-index/caret-index.service";
 
 @NgModule({
   declarations: [
@@ -45,6 +48,9 @@ import { CaretComponent } from './components/caret/caret.component';
     CharClickedNotifierService,
     WarningsService,
     VariableProviderService,
+    ContextHandlerService,
+    CaretHandlerService,
+    CaretIndexService
   ]
 })
 export class InputModule { }

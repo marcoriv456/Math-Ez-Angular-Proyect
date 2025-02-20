@@ -17,7 +17,6 @@ export class EditableTermContainerComponent{
   @Input() index!:number
 
   @ViewChild(TermContainerComponent) private termContainer!:TermContainerComponent
-  public caretIndex:number=-1
 
   constructor(@SkipSelf() @Optional() public mathElement:InputMathElement<any>) {}
 
