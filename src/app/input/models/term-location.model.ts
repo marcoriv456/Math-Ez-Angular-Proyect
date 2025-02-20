@@ -1,5 +1,5 @@
 export interface TermLocation {
-  prev:string|undefined
-  actual:string|undefined
-  next:string|undefined
+  prev?:string
+  actual?:string
+  next?:string
 }

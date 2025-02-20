@@ -11,8 +11,6 @@ export class InputContextManager {
   private readonly actualContainerIsMain?: boolean
 
   constructor({character, container}: InputElementLocation,) {
-    console.log({character,container})
-
     this.nextCharType = character.next
     this.actualCharType = character.actual
 
