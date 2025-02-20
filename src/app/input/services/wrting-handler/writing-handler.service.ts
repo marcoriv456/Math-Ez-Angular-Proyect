@@ -43,22 +43,19 @@ export class WritingHandlerService {
 
   public appendFraction(){
     const adder=new FractionAdder(this.currentElement.terms,this.caretIndex)
-    const {fraction,replaceTo,replaceFrom,moveTo}=adder.add()
+    const {term,replaceCount,replaceFrom,containerToMoveAt}=adder.add()
+    console.log(adder.add())
 
-    this.currentElement.replace(replaceFrom,replaceTo,fraction)
+    this.currentElement.replace(replaceFrom,replaceCount,term)
 
-    const moveAt=this.getPlaceToMoveAtAfterAddingAFraction(replaceFrom,moveTo)
-    this.caretHandler.move(moveAt)
+    const moveAt=this.getPlaceToMoveAtAfterAddingAFraction(replaceFrom,containerToMoveAt)
+    this.caretHandler.move(moveAt||this.currentElement.lastCharData)
   }
 
-  private getPlaceToMoveAtAfterAddingAFraction(renderedElementIndex:number,moveTo:'numerator'|'denominator'|'outside'){
+  private getPlaceToMoveAtAfterAddingAFraction(renderedElementIndex:number,sectionToMoveAt:number|'outside'){
     this.currentElement.refresh()
-    const renderedFraction=this.currentElement.getElement(renderedElementIndex) as InputMathElement<FractionTerm>
-    if(moveTo=='numerator')
-      return renderedFraction.firstSection.noCharData
-    if(moveTo=='denominator')
-      return renderedFraction.lastSection.noCharData
-
-    return this.currentElement.getCharData(renderedFraction.index)||this.currentElement.lastCharData
+    if(sectionToMoveAt=='outside')
+      return this.currentElement.getCharData(renderedElementIndex)
+    return this.currentElement.getElement(renderedElementIndex)?.sectionAt(sectionToMoveAt)?.noCharData
   }
 }
