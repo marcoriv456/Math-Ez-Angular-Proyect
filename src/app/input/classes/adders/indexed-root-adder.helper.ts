@@ -1,14 +1,14 @@
 import {TermAdder} from "../../models/term.adder";
 import {TermAdderInstructions} from "../../models/term-adder-instructions.model";
 
-export class RootAdder implements TermAdder {
+export class IndexedRootAdder implements TermAdder {
   constructor(private index: number) {
   }
 
   add(): TermAdderInstructions {
     return {
       replaceFrom: this.index + 1,
-      term: {type: 'root', rootChildren: []},
+      term: {type: 'root', rootChildren: [], radicalTerms: []},
       replaceCount: 0,
       containerToMoveAt: 0
     }

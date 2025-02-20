@@ -8,6 +8,8 @@ import {CaretHandlerService} from "../caret-handler/caret-handler.service";
 import {CaretIndexService} from "../caret-index/caret-index.service";
 import {TermAdder} from "../../models/term.adder";
 import {ExponentAdder} from "../../classes/adders/exponent-adder.helper";
+import {RootAdder} from "../../classes/adders/root-adder.class";
+import {IndexedRootAdder} from "../../classes/adders/indexed-root-adder.helper";
 
 @Injectable()
 export class WritingHandlerService {
@@ -29,10 +31,10 @@ export class WritingHandlerService {
       this.appendFraction()
     else if(key=='e' && ctrlKey)
       this.appendExponent()
-    // else if(key=='r' && ctrlKey)
-    //   this.appendSimpleRoot()
-    // else if(key=='r' && altKey)
-    //   this.appendEditableRadicalRoot()
+    else if(key=='r' && ctrlKey)
+      this.appendRoot()
+    else if(key=='r' && altKey)
+      this.appendIndexedRoot()
     // else if(key=='p' && ctrlKey)
     //   this.appendSingleChar('π')
     // else if(key=='(' || key==')')
@@ -40,6 +42,16 @@ export class WritingHandlerService {
     // else
     //   this.appendSingleChar(key)
     // this.lookForMathFunctionReferences()
+  }
+
+  private appendIndexedRoot(){
+    const adder=new IndexedRootAdder(this.caretIndex)
+    this.append(adder)
+  }
+
+  private appendRoot(){
+    const adder=new RootAdder(this.caretIndex)
+    this.append(adder)
   }
 
   private appendExponent(){
