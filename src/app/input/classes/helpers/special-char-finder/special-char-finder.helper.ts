@@ -39,7 +39,7 @@ export class SpecialCharFinder{
       if (term && this.isTermIrregular(term))
         return i
     }
-    return this.terms.length-1;
+    return this.terms.length;
   }
 
   public findPrevious(){
