@@ -35,13 +35,18 @@ export class WritingHandlerService {
       this.appendRoot()
     else if(key=='r' && altKey)
       this.appendIndexedRoot()
-    // else if(key=='p' && ctrlKey)
-    //   this.appendSingleChar('π')
+    else if(key=='p' && ctrlKey)
+      this.appendChar('π')
     // else if(key=='(' || key==')')
     //   this.appendParenthesis(key)
-    // else
-    //   this.appendSingleChar(key)
+    else
+      this.appendChar(key)
     // this.lookForMathFunctionReferences()
+  }
+  private appendChar(char:string){
+    this.currentElement.append(this.caretIndex+1,{type:'char',char})
+    this.currentElement.refresh()
+    this.caretHandler.move(this.currentElement.getCharData(this.caretIndex+1)||this.currentElement.noCharData)
   }
 
   private appendIndexedRoot(){
