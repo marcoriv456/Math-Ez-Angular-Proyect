@@ -1,5 +1,5 @@
-import {LayeredTermLocation} from "../models/location/input-layer-location.model";
-import {ContextAction} from "../models/context-action.enum";
+import {InputElementLocation} from "../../../models/input-element-location.model";
+import {ContextAction} from "../../../models/context-action.enum";
 
 export class InputContextManager {
   private readonly nextCharType: string | undefined
@@ -10,7 +10,9 @@ export class InputContextManager {
 
   private readonly actualContainerIsMain?: boolean
 
-  constructor({character, container}: LayeredTermLocation,) {
+  constructor({character, container}: InputElementLocation,) {
+    console.log({character,container})
+
     this.nextCharType = character.next
     this.actualCharType = character.actual
 
