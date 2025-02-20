@@ -1,7 +1,6 @@
 import {Directive, ElementRef, Host, HostListener, inject, Input, Optional, SkipSelf,} from '@angular/core';
 import {CharClickedNotifierService} from "../../services/char-clicked-notifier/char-clicked-notifier.service";
 import {InputCharData} from "../../models/input-char-data.model";
-import {InputEditableElement} from "../input-editable-element/input-editable-element.directive";
 import {InputMathElement} from "../input-math-element/input-math-element.abstract";
 import {
   EditableTermContainerComponent

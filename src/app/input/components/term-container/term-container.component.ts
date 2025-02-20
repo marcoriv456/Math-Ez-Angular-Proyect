@@ -1,7 +1,6 @@
 import {Component, Input, QueryList, ViewChildren} from '@angular/core';
 import {Term} from "../../models/terms/term.model";
 import {InputTermDirective} from "../../directives/input-term/input-term.directive";
-import {InputEditableElement} from "../../directives/input-editable-element/input-editable-element.directive";
 import {CharValidator} from "../../validation/validators/char/char.validator";
 import {ExponentValidator} from "../../validation/validators/exponent/exponent.validator";
 import {FractionValidator} from "../../validation/validators/fraction/fraction.validator";

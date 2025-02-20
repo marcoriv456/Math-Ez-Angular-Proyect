@@ -15,7 +15,6 @@ import { TermContainerComponent } from './components/term-container/term-contain
 import { EditableTermContainerComponent } from './components/editable-term-container/editable-term-container.component';
 import { ParenthesisComponent } from './components/parenthesis/parenthesis.component';
 import { TermValidationWarningComponent } from './components/term-validation-warning/term-validation-warning.component';
-import {InputEditableElement} from "./directives/input-editable-element/input-editable-element.directive";
 import { InputTermValidationDirective } from './directives/input-term-validation/input-term-validation.directive';
 
 @NgModule({
