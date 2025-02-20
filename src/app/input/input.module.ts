@@ -16,6 +16,7 @@ import { EditableTermContainerComponent } from './components/editable-term-conta
 import { ParenthesisComponent } from './components/parenthesis/parenthesis.component';
 import { TermValidationWarningComponent } from './components/term-validation-warning/term-validation-warning.component';
 import { InputTermValidationDirective } from './directives/input-term-validation/input-term-validation.directive';
+import { CaretComponent } from './components/caret/caret.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { InputTermValidationDirective } from './directives/input-term-validation
     EditableTermContainerComponent,
     ParenthesisComponent,
     TermValidationWarningComponent,
-    InputTermValidationDirective
+    InputTermValidationDirective,
+    CaretComponent
   ],
   imports: [
     CommonModule
