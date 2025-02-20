@@ -7,6 +7,7 @@ import {InputMathElement} from "../../directives/input-math-element/input-math-e
 import {CaretHandlerService} from "../caret-handler/caret-handler.service";
 import {CaretIndexService} from "../caret-index/caret-index.service";
 import {TermAdder} from "../../models/term.adder";
+import {ExponentAdder} from "../../classes/adders/exponent-adder.helper";
 
 @Injectable()
 export class WritingHandlerService {
@@ -26,8 +27,8 @@ export class WritingHandlerService {
     console.log(key)
     if(key=='/')
       this.appendFraction()
-    // else if(key=='e' && ctrlKey)
-    //   this.appendExponent()
+    else if(key=='e' && ctrlKey)
+      this.appendExponent()
     // else if(key=='r' && ctrlKey)
     //   this.appendSimpleRoot()
     // else if(key=='r' && altKey)
@@ -41,6 +42,10 @@ export class WritingHandlerService {
     // this.lookForMathFunctionReferences()
   }
 
+  private appendExponent(){
+    const adder=new ExponentAdder(this.caretIndex)
+    this.append(adder)
+  }
 
   private appendFraction(){
     const adder=new FractionAdder(this.currentElement.terms,this.caretIndex)
