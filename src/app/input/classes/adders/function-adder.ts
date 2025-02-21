@@ -1,69 +1,57 @@
 import {Term} from "../../models/terms/term.model";
-import {FunctionComponent} from "../../components/function/function.component";
-import {ChangeDetectorRef} from "@angular/core";
-import {InputEditableElement} from "../../directives/input-editable-element/input-editable-element.directive";
+import {TermAdder} from "../../models/term.adder";
+import {TermAdderInstructions} from "../../models/term-adder-instructions.model";
+import {TermUtils} from "../term-utils";
 
-export class FunctionAdder{
-  constructor(
-    private recognizableFunctions:string[],
-    private currentElement:InputEditableElement,
-    private cdr:ChangeDetectorRef
-  ) { }
+export class FunctionAdder implements TermAdder{
+  constructor(private terms:Term[], recognizableFunctions:string[]) {
+      const regexpString=`${recognizableFunctions.join('|')}`
+      this.functionsRegexp =  new RegExp(regexpString,'gd');
 
+      this.termsString=TermUtils.toString(terms)
+  }
+
+  private readonly termsString:string
+  private readonly functionsRegexp:RegExp
   private from!:number
   private to!:number
-  private functionCoincidenceIndices:RegExpIndicesArray|undefined
   private foundFunctionName!:string
-  private functionArgumentTerms:Term[]|undefined
+  private functionArgumentTerms?:Term[]
+  private moveTo:number|'outside'=0
 
-  public appendFunction(){
+  add(): TermAdderInstructions {
+    this.lookForFunctionCoincidence()
     this.checkParenthesisAutofillAvailability()
-    this.currentElement.replace(this.from,this.to-this.from+1,[this.generateFunctionTerm()])
-    this.cdr.detectChanges()
-
-    if(this.functionArgumentTerms)
-      return this.currentElement.nextCharData
-
-    const renderedFunction=this.currentElement.getRenderedChar(this.currentElement.nextIndex-this.foundFunctionName.length)?.asEditableElement as FunctionComponent,
-          elementToContextAt=renderedFunction.baseComponent || renderedFunction.argumentContainer
-    return elementToContextAt.noCharData
-  }
-
-  public searchFunctionWrittenReferences(){
-    this.foundFunctionCoincidenceIndices()
-    this.setupValues()
-    return !!this.functionCoincidenceIndices
-  }
-
-  private setupValues(){
-    if(!this.functionCoincidenceIndices)
-      return;
-
-    this.from=this.functionCoincidenceIndices[0][0]
-    this.to=this.functionCoincidenceIndices[0][1]-1
-  }
-
-  private foundFunctionCoincidenceIndices(){
-    let coincidence:RegExpExecArray|null=null,
-      foundFunction='',
-      currentElementValue=this.currentElement.toString
-    for(let functionName of this.recognizableFunctions){
-      let functionRegexp=new RegExp(functionName,'id')
-      coincidence=functionRegexp.exec(currentElementValue)
-      foundFunction=functionName
-      if(coincidence)
-        break;
+    return {
+      replaceFrom:this.from,
+      replaceCount:this.to-this.from + 1,
+      term:this.generateFunctionTerm(),
+      containerToMoveAt:this.moveTo
     }
-    this.functionCoincidenceIndices=coincidence?.indices
-    this.foundFunctionName=foundFunction
+  }
+
+  private lookForFunctionCoincidence(){
+    let coincidence=this.functionsRegexp.exec(this.termsString)
+    if(!coincidence || !coincidence.indices)
+        throw new Error("Didn't found any function")
+
+    this.from=coincidence.indices[0][0]
+    this.to=coincidence.indices[0][1]-1
+    this.foundFunctionName=coincidence[0]
   }
 
   private checkParenthesisAutofillAvailability(){
-    const nextTerm= this.currentElement.terms[this.to+1]
+    const nextTerm= this.terms[this.to+1]
     if(!nextTerm || nextTerm.type!=='parenthesis')
       return;
+
     this.to++
     this.functionArgumentTerms=nextTerm.parenthesisChildren
+    this.moveTo=this.functionBase ? 0:'outside'
+  }
+
+  private get functionBase(){
+    return this.foundFunctionName == 'log' ? []:undefined
   }
 
   private generateFunctionTerm():Term{
@@ -71,8 +59,7 @@ export class FunctionAdder{
       type:"function",
       functionName:this.foundFunctionName,
       functionChildren:this.functionArgumentTerms||[],
-      argumentTerms:this.foundFunctionName=='log' ? [] : undefined
+      argumentTerms:this.functionBase
     }
   }
-
 }

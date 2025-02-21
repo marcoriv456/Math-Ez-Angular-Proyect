@@ -8,13 +8,16 @@ import {ExponentAdder} from "../../classes/adders/exponent-adder.helper";
 import {RootAdder} from "../../classes/adders/root-adder.class";
 import {IndexedRootAdder} from "../../classes/adders/indexed-root-adder.helper";
 import {ParenthesisAdder} from "../../classes/adders/parenthesis/parenthesis-adder.helper";
+import {RecognizableFunctionsService} from "../recognizable-functions/recognizable-functions.service";
+import {FunctionAdder} from "../../classes/adders/function-adder";
 
 @Injectable()
 export class WritingHandlerService {
-
   private contextHandler=inject(ContextHandlerService)
   private caretHandler=inject(CaretHandlerService)
   private indexService=inject(CaretIndexService)
+  private functionsService=inject(RecognizableFunctionsService)
+
   private get currentElement(){
     return this.contextHandler.getCurrentElement()
   }
@@ -39,12 +42,12 @@ export class WritingHandlerService {
       this.appendParenthesis(key)
     else
       this.appendChar(key)
-    // this.lookForMathFunctionReferences()
   }
   private appendChar(char:string){
     this.currentElement.append(this.caretIndex+1,{type:'char',char})
     this.currentElement.refresh()
     this.caretHandler.move(this.currentElement.getCharData(this.caretIndex+1)||this.currentElement.noCharData)
+    this.lookForMathFunctionReferences()
   }
 
   private appendParenthesis(parenthesis:'('|')'){
@@ -75,6 +78,14 @@ export class WritingHandlerService {
     const adder=new FractionAdder(this.currentElement.terms,this.caretIndex)
     this.append(adder)
   }
+
+  private lookForMathFunctionReferences(){
+    const adder=new FunctionAdder(this.currentElement.terms,this.functionsService.recognizableFunctions)
+    try{
+      this.append(adder)
+    }catch (error){}
+  }
+
 
   private append(adder:TermAdder){
     const {term,replaceFrom,replaceCount,containerToMoveAt}=adder.add()
