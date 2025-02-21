@@ -1,15 +1,13 @@
 import {inject, Injectable} from '@angular/core';
-import {Term} from "../../models/terms/term.model";
-import {FractionTerm} from "../../models/terms/fraction-term.model";
 import {FractionAdder} from "../../classes/adders/fraction.adder";
 import {ContextHandlerService} from "../context-handler/context-handler.service";
-import {InputMathElement} from "../../directives/input-math-element/input-math-element.abstract";
 import {CaretHandlerService} from "../caret-handler/caret-handler.service";
 import {CaretIndexService} from "../caret-index/caret-index.service";
 import {TermAdder} from "../../models/term.adder";
 import {ExponentAdder} from "../../classes/adders/exponent-adder.helper";
 import {RootAdder} from "../../classes/adders/root-adder.class";
 import {IndexedRootAdder} from "../../classes/adders/indexed-root-adder.helper";
+import {ParenthesisAdder} from "../../classes/adders/parenthesis/parenthesis-adder.helper";
 
 @Injectable()
 export class WritingHandlerService {
@@ -37,8 +35,8 @@ export class WritingHandlerService {
       this.appendIndexedRoot()
     else if(key=='p' && ctrlKey)
       this.appendChar('π')
-    // else if(key=='(' || key==')')
-    //   this.appendParenthesis(key)
+    else if(key=='(' || key==')')
+      this.appendParenthesis(key)
     else
       this.appendChar(key)
     // this.lookForMathFunctionReferences()
@@ -47,6 +45,15 @@ export class WritingHandlerService {
     this.currentElement.append(this.caretIndex+1,{type:'char',char})
     this.currentElement.refresh()
     this.caretHandler.move(this.currentElement.getCharData(this.caretIndex+1)||this.currentElement.noCharData)
+  }
+
+  private appendParenthesis(parenthesis:'('|')'){
+    const adder=new ParenthesisAdder(this.caretIndex, this.currentElement.terms,parenthesis)
+    try{
+      this.append(adder)
+    }catch (matchingParenthesisNotFound){
+      this.appendChar(parenthesis)
+    }
   }
 
   private appendIndexedRoot(){
@@ -81,6 +88,6 @@ export class WritingHandlerService {
     this.currentElement.refresh()
     if(sectionToMoveAt=='outside')
       return this.currentElement.getCharData(renderedElementIndex)
-    return this.currentElement.getElement(renderedElementIndex)?.sectionAt(sectionToMoveAt)?.noCharData
+    return this.currentElement.getElement(renderedElementIndex)?.sectionAt(sectionToMoveAt)?.lastCharData
   }
 }

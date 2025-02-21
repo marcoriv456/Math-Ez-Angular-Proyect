@@ -1,6 +1,6 @@
-import {Term} from "../../models/terms/term.model";
-import {TermAdder} from "../../models/term.adder";
-import {TermAdderInstructions} from "../../models/term-adder-instructions.model";
+import {Term} from "../../../models/terms/term.model";
+import {TermAdder} from "../../../models/term.adder";
+import {TermAdderInstructions} from "../../../models/term-adder-instructions.model";
 
 export class ParenthesisAdder implements TermAdder{
   private removeFrom!:number
@@ -21,7 +21,7 @@ export class ParenthesisAdder implements TermAdder{
         type:'parenthesis',
         parenthesisChildren:this.terms.slice(this.sliceFrom,this.sliceTo),
       },
-      containerToMoveAt:0
+      containerToMoveAt: this.parenthesis==')' ? "outside":0
     }
   }
 
