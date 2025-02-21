@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {FractionAdder} from "../../classes/adders/fraction.adder";
+import {FractionAdder} from "../../classes/adders/fraction/fraction-adder.helper";
 import {ContextHandlerService} from "../context-handler/context-handler.service";
 import {CaretHandlerService} from "../caret-handler/caret-handler.service";
 import {CaretIndexService} from "../caret-index/caret-index.service";
