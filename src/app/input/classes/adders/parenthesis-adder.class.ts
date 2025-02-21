@@ -1,95 +1,77 @@
-import {ChangeDetectorRef} from "@angular/core";
 import {Term} from "../../models/terms/term.model";
-import {InputCharData} from "../../models/input-char-data.model";
-import {InputEditableElement} from "../../directives/input-editable-element/input-editable-element.directive";
+import {TermAdder} from "../../models/term.adder";
+import {TermAdderInstructions} from "../../models/term-adder-instructions.model";
 
-export class ParenthesisAdder{
-  constructor(
-    private currentElement:InputEditableElement,
-    private cdr:ChangeDetectorRef,
-    private parenthesis:string
-  ) {
-    this.setup()
+export class ParenthesisAdder implements TermAdder{
+  private removeFrom!:number
+  private removeTo!:number
+
+  private sliceFrom!:number
+  private sliceTo!:number
+
+  constructor(private index:number, private terms:Term[],private parenthesis:'('|')') { }
+
+  add(): TermAdderInstructions {
+    this.setupAutocompletion()
+    const replaceCount=this.removeTo-this.removeFrom
+    return {
+      replaceCount,
+      replaceFrom:this.removeFrom,
+      term:{
+        type:'parenthesis',
+        parenthesisChildren:this.terms.slice(this.sliceFrom,this.sliceTo),
+      },
+      containerToMoveAt:0
+    }
   }
 
-  private data!:{
-    from:number,
-    to:number
-    terms:Term[]
+  private setupAutocompletion(){
+    if(this.parenthesis=='(')
+      this.scanForward()
+
+    if(this.parenthesis==')')
+      this.setupWithOpenParenthesis();
   }
 
-  public appendParenthesis(){
-    let {from,to,terms}=this.data
+  private setupWithOpenParenthesis() {
+    const openParenthesisIndex = this.findOpenParenthesisIndex()
+    if (openParenthesisIndex === undefined)
+      throw new Error("Not matching parenthesis found")
 
-    this.currentElement.replace(from,to-from,[{type:'parenthesis',parenthesisChildren:terms}])
-    this.cdr.detectChanges()
+    this.sliceFrom = openParenthesisIndex + 1
+    this.sliceTo = this.index + 1
 
-    if(this.parenthesis=="(")
-      return this.getAddedParenthesis()?.noCharData || this.currentElement.noCharData
-
-    return this.currentElement.getCharData(from) ||this.currentElement. noCharData
+    this.removeFrom = openParenthesisIndex
+    this.removeTo = this.index + 1
   }
 
-  public isThereAMatchingParenthesis(){
-    return !!this.data;
+  private scanForward(){
+    const closedParenthesisIndex=this.findClosedParenthesisIndex()
+    if(closedParenthesisIndex === undefined)
+      throw new Error("Not matching parenthesis found")
+
+    this.sliceFrom = this.index + 1
+    this.sliceTo=closedParenthesisIndex
+
+    this.removeFrom=this.index + 1
+    this.removeTo=closedParenthesisIndex + 1
   }
 
-  private setup(){
-    let data=this.scan()
-    if(!data)
-      return;
-    this.setData(data)
-  }
-
-  private scan(){
-    if(this.parenthesis=="(")
-      return this.scanForwards()
-    else
-      return this.scanBackwards()
-  }
-
-  private setData(data:{from: number, to: number, terms: Term[]}){
-    this.data=data
-  }
-
-  private scanForwards(){
-    let nextParenthesis=this.findNextParenthesisChar()
-    if(!nextParenthesis)
-      return;
-    let from=this.currentElement.nextIndex,
-        to=nextParenthesis.index+1;
-    return { from, to, terms:this.currentElement.terms.slice(from,to-1) }
-  }
-
-  private findNextParenthesisChar(){
-    for(let i=this.currentElement.caretIndex; i<this.currentElement.terms.length; i++){
-      let term=this.currentElement.getRenderedChar(i)
-      if(term&&term.char==')')
-        return term
+  private findClosedParenthesisIndex() {
+    for (let i = this.index; i < this.terms.length; i++) {
+      let term = this.terms[i]
+      if (term && term.type=='char' && term.char == ')')
+        return i
     }
     return;
   }
 
-  private scanBackwards(){
-    let prevParenthesis=this.findPrevParenthesisChar()
-    if(!prevParenthesis)
-      return;
-    let from=prevParenthesis.index,
-        to=this.currentElement.nextIndex;
-    return{ from, to, terms:this.currentElement.terms.slice(from+1,to) }
-  }
-
-  private findPrevParenthesisChar(){
-    for(let i=this.currentElement.caretIndex; i>=0; i--){
-      let term=this.currentElement.getRenderedChar(i)
-      if(term&&term.char=='(')
-        return term
+  private findOpenParenthesisIndex() {
+    for (let i = this.index; i >= 0; i--) {
+      let term = this.terms[i]
+      if (term && term.type=='char' && term.char == '(')
+        return i
     }
     return;
   }
-
-  private getAddedParenthesis(){
-    return this.currentElement.getRenderedChar(this.currentElement.caretIndex+1)?.asEditableElement
-  }
-
 }
