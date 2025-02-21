@@ -1,7 +1,7 @@
-import {Term} from "../../models/terms/term.model";
-import {TermAdder} from "../../models/term.adder";
-import {TermAdderInstructions} from "../../models/term-adder-instructions.model";
-import {TermUtils} from "../term-utils";
+import {Term} from "../../../models/terms/term.model";
+import {TermAdder} from "../../../models/term.adder";
+import {TermAdderInstructions} from "../../../models/term-adder-instructions.model";
+import {TermUtils} from "../../term-utils";
 
 export class FunctionAdder implements TermAdder{
   constructor(private terms:Term[], recognizableFunctions:string[]) {

@@ -9,7 +9,7 @@ import {RootAdder} from "../../classes/adders/root-adder.class";
 import {IndexedRootAdder} from "../../classes/adders/indexed-root-adder.helper";
 import {ParenthesisAdder} from "../../classes/adders/parenthesis/parenthesis-adder.helper";
 import {RecognizableFunctionsService} from "../recognizable-functions/recognizable-functions.service";
-import {FunctionAdder} from "../../classes/adders/function-adder";
+import {FunctionAdder} from "../../classes/adders/function/function-adder.helper";
 
 @Injectable()
 export class WritingHandlerService {
