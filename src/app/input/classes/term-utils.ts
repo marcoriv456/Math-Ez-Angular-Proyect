@@ -1,4 +1,5 @@
 import {Term} from "../models/terms/term.model";
+import {TermAdderInstructions} from "../models/term-adder-instructions.model";
 
 export class TermUtils {
   public static toString(terms:Term[]){
@@ -7,5 +8,9 @@ export class TermUtils {
 
   public static parse(phrase:string):Term[]{
     return [...phrase].map(char=>({type:'char',char}))
+  }
+
+  public static performInstructions(terms:Term[], {replaceFrom,replaceCount,term}:TermAdderInstructions){
+    terms.splice(replaceFrom,replaceCount,term)
   }
 }
