@@ -15,11 +15,6 @@ export class ContextHandlerService {
   private caretIndex=inject(CaretIndexService)
 
   public contextElement(element:EditableTermContainerComponent){
-    if(!this.currentElement){
-      this.currentElement=element
-      this.mainElement=element
-    }
-
     this.currentElement.selected=false
     this.currentElement=element
     this.currentElement.selected=true
@@ -28,10 +23,16 @@ export class ContextHandlerService {
       this.currentElement.mathElement.currentSection=element.index
   }
 
+  public setMainElement(element:EditableTermContainerComponent){
+    if(this.mainElement)
+      return;
+    this.mainElement=element
+    this.currentElement=element
+  }
+
   public getCurrentElement(){
     return this.currentElement
   }
-
 
   public requestForwardContextData(){
     const contextManager=this.getContextManager()
