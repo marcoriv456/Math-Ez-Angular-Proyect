@@ -10,7 +10,7 @@ export class TermUtils {
     return [...phrase].map(char=>({type:'char',char}))
   }
 
-  public static performInstructions(terms:Term[], {replaceFrom,replaceCount,term}:TermAdderInstructions){
+  public static performAdderInstructions(terms:Term[], {replaceFrom,replaceCount,term}:TermAdderInstructions){
     terms.splice(replaceFrom,replaceCount,term)
   }
 }

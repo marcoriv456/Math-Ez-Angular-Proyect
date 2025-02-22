@@ -28,7 +28,7 @@ describe('Parenthesis adder: ', () => {
       const adder=new ParenthesisAdder(0,terms,')')
 
       const instructions=adder.add()
-      TermUtils.performInstructions(terms,instructions)
+      TermUtils.performAdderInstructions(terms,instructions)
 
       expect(terms).to.deep.equal([{type:'parenthesis', parenthesisChildren:[]}])
       expect(instructions.containerToMoveAt).to.equal('outside')
@@ -39,7 +39,7 @@ describe('Parenthesis adder: ', () => {
       const adder=new ParenthesisAdder(-1,terms,'(')
 
       const instructions=adder.add()
-      TermUtils.performInstructions(terms,instructions)
+      TermUtils.performAdderInstructions(terms,instructions)
 
       expect(terms).to.deep.equal([{type:'parenthesis', parenthesisChildren:[]}])
       expect(instructions.containerToMoveAt).to.equal(0)
@@ -51,7 +51,7 @@ describe('Parenthesis adder: ', () => {
       const adder=new ParenthesisAdder(5,terms,')')
 
       const instructions=adder.add()
-      TermUtils.performInstructions(terms,instructions)
+      TermUtils.performAdderInstructions(terms,instructions)
 
       expect(terms).to.deep.equal([{type:'parenthesis', parenthesisChildren:TermUtils.parse('hello')}])
       expect(instructions.containerToMoveAt).to.equal('outside')
@@ -62,7 +62,7 @@ describe('Parenthesis adder: ', () => {
       const adder=new ParenthesisAdder(-1,terms,'(')
 
       const instructions=adder.add()
-      TermUtils.performInstructions(terms,instructions)
+      TermUtils.performAdderInstructions(terms,instructions)
 
       expect(terms).to.deep.equal([{type:'parenthesis', parenthesisChildren:TermUtils.parse('hello')}])
       expect(instructions.containerToMoveAt).to.equal(0)

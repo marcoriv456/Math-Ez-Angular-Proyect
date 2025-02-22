@@ -10,7 +10,7 @@ describe('Fraction adder: ', () => {
         const adder=new FractionAdder(terms,-1)
 
         const instructions=adder.add()
-        TermUtils.performInstructions(terms,instructions)
+        TermUtils.performAdderInstructions(terms,instructions)
 
         expect(terms).to.deep.equal([{type: 'fraction', numeratorChildren: [], denominatorChildren: []}])
         expect(instructions.containerToMoveAt).to.equal(0)
@@ -21,7 +21,7 @@ describe('Fraction adder: ', () => {
         const adder=new FractionAdder(terms,0)
 
         const instructions=adder.add()
-        TermUtils.performInstructions(terms,instructions)
+        TermUtils.performAdderInstructions(terms,instructions)
 
         expect(terms).to.deep.equal([{type:'char',char:'+'},{type: 'fraction', numeratorChildren: [], denominatorChildren: []},{type:'char',char:'-'}])
         expect(instructions.containerToMoveAt).to.equal(0)
@@ -34,7 +34,7 @@ describe('Fraction adder: ', () => {
       const adder=new FractionAdder(terms,4)
 
       const instructions=adder.add()
-      TermUtils.performInstructions(terms,instructions)
+      TermUtils.performAdderInstructions(terms,instructions)
 
       expect(terms).to.deep.equal([{type: 'fraction', numeratorChildren: TermUtils.parse('hello'), denominatorChildren: []}])
       expect(instructions.containerToMoveAt).to.equal(1)
@@ -44,7 +44,7 @@ describe('Fraction adder: ', () => {
       const adder=new FractionAdder(terms,5)
 
       const instructions=adder.add()
-      TermUtils.performInstructions(terms,instructions)
+      TermUtils.performAdderInstructions(terms,instructions)
 
       expect(terms).to.deep.equal([{type:'char',char:'+'},{type: 'fraction', numeratorChildren: TermUtils.parse('hello'), denominatorChildren: []}])
       expect(instructions.containerToMoveAt).to.equal(1)
@@ -57,7 +57,7 @@ describe('Fraction adder: ', () => {
       const adder=new FractionAdder(terms,-1)
 
       const instructions=adder.add()
-      TermUtils.performInstructions(terms,instructions)
+      TermUtils.performAdderInstructions(terms,instructions)
 
       expect(terms).to.deep.equal([{type: 'fraction', numeratorChildren:[], denominatorChildren:TermUtils.parse('hello')}])
       expect(instructions.containerToMoveAt).to.equal(0)
@@ -68,7 +68,7 @@ describe('Fraction adder: ', () => {
       const adder=new FractionAdder(terms,-1)
 
       const instructions=adder.add()
-      TermUtils.performInstructions(terms,instructions)
+      TermUtils.performAdderInstructions(terms,instructions)
 
       expect(terms).to.deep.equal([{type: 'fraction', numeratorChildren:[], denominatorChildren:TermUtils.parse('hello')},{type:'char',char:'+'}])
       expect(instructions.containerToMoveAt).to.equal(0)
@@ -82,7 +82,7 @@ describe('Fraction adder: ', () => {
       const adder=new FractionAdder(terms,4)
 
       const instructions=adder.add()
-      TermUtils.performInstructions(terms,instructions)
+      TermUtils.performAdderInstructions(terms,instructions)
 
       expect(terms).to.deep.equal([{type: 'fraction', numeratorChildren:TermUtils.parse('hello'), denominatorChildren:TermUtils.parse('world')}])
       expect(instructions.containerToMoveAt).to.equal('outside')
@@ -93,7 +93,7 @@ describe('Fraction adder: ', () => {
       const adder=new FractionAdder(terms,5)
 
       const instructions=adder.add()
-      TermUtils.performInstructions(terms,instructions)
+      TermUtils.performAdderInstructions(terms,instructions)
 
       expect(terms).to.deep.equal([{type:'char',char:'+'},{type: 'fraction', numeratorChildren:TermUtils.parse('hello'), denominatorChildren:TermUtils.parse('world')},{type:'char',char:'+'}])
       expect(instructions.containerToMoveAt).to.equal('outside')

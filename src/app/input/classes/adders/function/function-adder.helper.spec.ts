@@ -8,7 +8,7 @@ describe('Function adder: ', () => {
 
   describe('Adding functions: ', () => {
     const funNames=['sen','cos','tan','log']
-    
+
     describe('In case of not finding any reference', () => {
 
       it("Throws an error if it doesn't find any function reference", () => {
@@ -27,7 +27,7 @@ describe('Function adder: ', () => {
         const adder=new FunctionAdder(terms,funNames)
 
         const instructions=adder.add()
-        TermUtils.performInstructions(terms,instructions)
+        TermUtils.performAdderInstructions(terms,instructions)
 
         expect(terms).to.deep.equal([{type:'function', functionName:'cos', functionChildren:[],argumentTerms:undefined}])
         expect(instructions.containerToMoveAt).to.equal(0)
@@ -38,7 +38,7 @@ describe('Function adder: ', () => {
         const adder=new FunctionAdder(terms,funNames)
 
         const instructions=adder.add()
-        TermUtils.performInstructions(terms,instructions)
+        TermUtils.performAdderInstructions(terms,instructions)
 
         expect(terms).to.deep.equal([{type:'function', functionName:'log', functionChildren:[],argumentTerms:[]}])
         expect(instructions.containerToMoveAt).to.equal(0)
@@ -53,7 +53,7 @@ describe('Function adder: ', () => {
         const adder=new FunctionAdder(terms,funNames)
 
         const instructions=adder.add()
-        TermUtils.performInstructions(terms,instructions)
+        TermUtils.performAdderInstructions(terms,instructions)
 
         expect(terms).to.deep.equal([{type:'function', functionName:'cos', functionChildren:TermUtils.parse('hello'), argumentTerms:undefined}])
         expect(instructions.containerToMoveAt).to.equal('outside')
@@ -64,7 +64,7 @@ describe('Function adder: ', () => {
         const adder=new FunctionAdder(terms,funNames)
 
         const instructions=adder.add()
-        TermUtils.performInstructions(terms,instructions)
+        TermUtils.performAdderInstructions(terms,instructions)
 
         expect(terms).to.deep.equal([{type:'function', functionName:'log', functionChildren:TermUtils.parse('hello'), argumentTerms:[]}])
         expect(instructions.containerToMoveAt).to.equal(0)
