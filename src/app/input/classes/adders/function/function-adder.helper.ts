@@ -47,7 +47,8 @@ export class FunctionAdder implements TermAdder{
 
     this.to++
     this.functionArgumentTerms=nextTerm.parenthesisChildren
-    this.moveTo=this.functionBase ? 0:'outside'
+    if(!this.functionBase)
+      this.moveTo='outside'
   }
 
   private get functionBase(){
