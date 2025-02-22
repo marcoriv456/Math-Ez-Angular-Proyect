@@ -10,6 +10,13 @@ import {IndexedRootAdder} from "../../classes/adders/indexed-root-adder.helper";
 import {ParenthesisAdder} from "../../classes/adders/parenthesis/parenthesis-adder.helper";
 import {RecognizableFunctionsService} from "../recognizable-functions/recognizable-functions.service";
 import {FunctionAdder} from "../../classes/adders/function/function-adder.helper";
+import {OutsideTermRemover} from "../../classes/removers/outside-term-remover.helper";
+import {InsideTermRemover} from "../../classes/removers/inside-term-remover.helper";
+import {TermRemover} from "../../models/term-remover.model";
+import {
+  EditableTermContainerComponent
+} from "../../components/editable-term-container/editable-term-container.component";
+import {CtrlRemover} from "../../classes/removers/ctrl-remover.helper";
 
 @Injectable()
 export class WritingHandlerService {
@@ -24,7 +31,6 @@ export class WritingHandlerService {
   private get caretIndex(){
     return this.indexService.index
   }
-
 
   public handleKey(key:string, ctrlKey:boolean,altKey:boolean){
     console.log(key)
@@ -43,6 +49,47 @@ export class WritingHandlerService {
     else
       this.appendChar(key)
   }
+
+  public remove(ctrlKey:boolean):void{
+    if(this.caretIndex===-1 && this.currentElement.mathElement===null)
+      return;
+    if(this.caretIndex===-1)
+      return this.removeFromInside()
+    else if(ctrlKey)
+      return this.doCtrlRemove()
+
+    return this.removeFromOutside()
+  }
+
+  private removeFromInside(){
+    const container=this.currentElement
+    const mathElement=container.mathElement
+    const parent=mathElement.parent
+    const parentTerm=parent.terms[mathElement.index]
+
+    const remover = new InsideTermRemover(container.terms, parentTerm, container.index, mathElement.index)
+
+    this.removeWith(remover,parent)
+  }
+
+  private removeFromOutside() {
+    const remover = new OutsideTermRemover(this.currentElement.terms, this.caretIndex)
+    this.removeWith(remover,this.currentElement)
+  }
+
+  private doCtrlRemove(){
+    const remover = new CtrlRemover(this.currentElement.terms, this.caretIndex)
+    this.removeWith(remover,this.currentElement)
+  }
+
+  private removeWith(remover:TermRemover, element:EditableTermContainerComponent){
+    const {index,count,remainingTerms,moveTo} = remover.remove()
+
+    element.replace(index,count,...remainingTerms||[])
+    element.refresh()
+    this.caretHandler.move(element.getCharData(moveTo)||element.noCharData)
+  }
+
   private appendChar(char:string){
     this.currentElement.append(this.caretIndex+1,{type:'char',char})
     this.currentElement.refresh()
