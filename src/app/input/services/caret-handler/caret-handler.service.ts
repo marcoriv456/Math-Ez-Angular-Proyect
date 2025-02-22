@@ -18,23 +18,36 @@ export class CaretHandlerService {
   private readonly charClickedNotifier=inject(CharClickedNotifierService)
 
   public handleKey(key:string, ctrlKey:boolean){
+    if(ctrlKey)
+      this.handleCtrlKey(key)
+    else
+      this.handleNormalKey(key)
+  }
 
-    if(key=='ArrowLeft' && ctrlKey)
-      this.moveToPrevIrregular()
-    else if(key=='ArrowRight' && ctrlKey)
-      this.moveToNextIrregular()
-    else if(key=='Home' && ctrlKey)
-      this.moveToFirstInMain()
-    else if(key=='End' && ctrlKey)
-      this.moveToLastInMain()
-    else if(key=="ArrowLeft")
-      this.moveBackward()
-    else if(key=='ArrowRight')
-      this.moveForward()
-    else if(key=='Home')
-      this.moveToFirst()
-    else if(key=='End')
-      this.moveToLast()
+  private handleNormalKey(key: string) {
+    switch (key) {
+      case "ArrowLeft":
+        return this.moveBackward();
+      case "ArrowRight":
+        return this.moveForward();
+      case "Home":
+        return this.moveToFirst();
+      case "End":
+        return this.moveToLast();
+    }
+  }
+
+  private handleCtrlKey(key: string) {
+    switch (key) {
+      case 'ArrowLeft':
+        return this.moveToPrevIrregular();
+      case 'ArrowRight':
+        return this.moveToNextIrregular();
+      case 'Home':
+        return this.moveToFirstInMain();
+      case 'End':
+        return this.moveToLastInMain();
+    }
   }
 
   public moveForward(){

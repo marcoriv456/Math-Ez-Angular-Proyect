@@ -50,12 +50,14 @@ export class WritingHandlerService {
       this.appendChar(key)
   }
 
-  public remove(ctrlKey:boolean):void{
+  public handleRemove(ctrlKey:boolean){
     if(this.caretIndex===-1 && this.currentElement.mathElement===null)
       return;
+
     if(this.caretIndex===-1)
       return this.removeFromInside()
-    else if(ctrlKey)
+
+    if(ctrlKey)
       return this.doCtrlRemove()
 
     return this.removeFromOutside()
