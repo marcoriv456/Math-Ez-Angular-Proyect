@@ -11,7 +11,7 @@ import {ParenthesisAdder} from "../../classes/adders/parenthesis/parenthesis-add
 import {RecognizableFunctionsService} from "../recognizable-functions/recognizable-functions.service";
 import {FunctionAdder} from "../../classes/adders/function/function-adder.helper";
 import {OutsideTermRemover} from "../../classes/removers/outside/outside-term-remover.helper";
-import {InsideTermRemover} from "../../classes/removers/inside-term-remover.helper";
+import {InsideTermRemover} from "../../classes/removers/inside/inside-term-remover.helper";
 import {TermRemover} from "../../models/term-remover.model";
 import {
   EditableTermContainerComponent

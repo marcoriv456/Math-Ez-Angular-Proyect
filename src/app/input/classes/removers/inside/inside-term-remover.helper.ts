@@ -1,6 +1,6 @@
-import {Term} from "../../models/terms/term.model";
-import {TermRemoverInstructions} from "../../models/term-remover-instructions.model";
-import {FractionTerm} from "../../models/terms/fraction-term.model";
+import {Term} from "../../../models/terms/term.model";
+import {TermRemoverInstructions} from "../../../models/term-remover-instructions.model";
+import {FractionTerm} from "../../../models/terms/fraction-term.model";
 
 export class InsideTermRemover{
   constructor(
