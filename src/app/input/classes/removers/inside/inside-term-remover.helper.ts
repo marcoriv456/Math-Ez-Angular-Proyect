@@ -5,13 +5,13 @@ import {FractionTerm} from "../../../models/terms/fraction-term.model";
 export class InsideTermRemover{
   constructor(
     private terms:Term[],
-    private parentTerm:Term,
+    private mathElementTerm:Term,
     private containerIndex:number,
     private mathElementIndex:number){ }
 
   public remove(count=1):TermRemoverInstructions{
-    if(this.parentTerm.type=='fraction')
-      return this.removeFraction(this.parentTerm)
+    if(this.mathElementTerm.type=='fraction')
+      return this.removeFraction(this.mathElementTerm)
 
     return {
       index:this.mathElementIndex,
