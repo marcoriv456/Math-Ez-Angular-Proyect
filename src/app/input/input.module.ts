@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {InputComponent} from "./input.component";
-import {InputTestingEnvironmentComponent} from "./input-testing-environment/input-testing-environment.component";
 import { CharComponent } from './components/char/char.component';
 import { FractionComponent } from './components/fraction/fraction.component';
 import {CharClickedNotifierService} from "./services/char-clicked-notifier/char-clicked-notifier.service";
@@ -24,7 +23,6 @@ import {WritingHandlerService} from "./services/wrting-handler/writing-handler.s
 @NgModule({
   declarations: [
     InputComponent,
-    InputTestingEnvironmentComponent,
     CharComponent,
     FractionComponent,
     InputTermDirective,

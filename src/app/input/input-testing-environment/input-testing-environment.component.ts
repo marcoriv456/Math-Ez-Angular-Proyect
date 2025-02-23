@@ -1,21 +1,31 @@
 import {AfterViewInit, Component, inject, ViewChild, ViewChildren} from '@angular/core';
 import {ExperimentalVariableProviderService} from "./experimental-variable-provider.service";
 import {InputComponent} from "../input.component";
+import {Term} from "../models/terms/term.model";
+import {InputModule} from "../input.module";
 
 @Component({
   selector: 'app-input-testing-environment',
   templateUrl: './input-testing-environment.component.html',
-  styleUrl: './input-testing-environment.component.css'
+  styleUrl: './input-testing-environment.component.css',
+  standalone:true,
+  imports:[
+    InputModule
+  ],
+  providers:[
+    ExperimentalVariableProviderService
+  ]
 })
 export class InputTestingEnvironmentComponent implements AfterViewInit {
   expVariableProvider = inject(ExperimentalVariableProviderService)
-  @ViewChild(InputComponent)
-  input!: InputComponent
+  terms: Term[] = []
+
+  @ViewChild(InputComponent) inputComponent!: InputComponent
 
   ngAfterViewInit() {
     setTimeout(() => {
-
-      this.input.setTerms(
+      this.inputComponent.variableHandler.setVariableProvider(this.expVariableProvider)
+      this.inputComponent.setTerms(
         {char: '1', type: 'char'},
         {char: '2', type: 'char'},
         {char: '3', type: 'char'},
