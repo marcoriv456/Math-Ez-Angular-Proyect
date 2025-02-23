@@ -24,6 +24,7 @@ import {InputElementLocation} from "../../models/locations/input-element-locatio
 export class EditableTermContainerComponent{
   @Input() terms!:Term[]
   @Input() index!:number
+  @Input() centered!:boolean
 
   @ViewChild(TermContainerComponent) private termContainer!:TermContainerComponent
 
@@ -66,7 +67,11 @@ export class EditableTermContainerComponent{
   }
 
   public get noCharData(){
-    return {index:-1,positionX:this.positionX, parent:this}
+    let positionX=this.positionX
+    if(this.centered)
+      positionX= this.termContainer.renderedChars.get(0)?.leftPosition || positionX + this.ref.offsetWidth/2
+
+    return {index:-1,positionX, parent:this}
   }
 
   public get lastCharData(){
