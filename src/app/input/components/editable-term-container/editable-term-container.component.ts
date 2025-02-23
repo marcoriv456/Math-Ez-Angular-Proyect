@@ -45,16 +45,19 @@ export class EditableTermContainerComponent{
 
   public append(from:number,...terms:Term[]){
     this.terms.splice(from,0,...terms)
+    this.refresh()
     this.emitChange()
   }
 
   public replace(from:number, deleteCount=1,...terms:Term[]){
     this.terms.splice(from,deleteCount,...terms)
+    this.refresh()
     this.emitChange()
   }
 
   public delete(from:number,deleteCount=1){
     this.terms.splice(from,deleteCount)
+    this.refresh()
     this.emitChange()
   }
 
@@ -103,7 +106,7 @@ export class EditableTermContainerComponent{
     }
   }
 
-  public refresh(){
+  private refresh(){
     this.cdr.detectChanges()
   }
 

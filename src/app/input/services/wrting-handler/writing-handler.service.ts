@@ -88,13 +88,11 @@ export class WritingHandlerService {
     const {index,count,remainingTerms,moveTo} = remover.remove()
 
     element.replace(index,count,...remainingTerms||[])
-    element.refresh()
     this.caretHandler.move(element.getCharData(moveTo)||element.noCharData)
   }
 
   private appendChar(char:string){
     this.currentElement.append(this.caretIndex+1,{type:'char',char})
-    this.currentElement.refresh()
     this.caretHandler.move(this.currentElement.getCharData(this.caretIndex+1)||this.currentElement.noCharData)
     this.lookForMathFunctionReferences()
   }
@@ -145,7 +143,6 @@ export class WritingHandlerService {
   }
 
   private getPlaceToMoveAtAfterAddingATerm(renderedElementIndex:number,sectionToMoveAt:number|'outside'){
-    this.currentElement.refresh()
     if(sectionToMoveAt=='outside')
       return this.currentElement.getCharData(renderedElementIndex)
     return this.currentElement.getElement(renderedElementIndex)?.sectionAt(sectionToMoveAt)?.lastCharData
