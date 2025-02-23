@@ -10,7 +10,7 @@ export class CtrlRemover implements TermRemover{
 
   constructor(terms:Term[], indexToSearchAt:number){
     const finder=new SpecialCharFinder(indexToSearchAt,terms)
-    const prevIrregularCharIndex=finder.findPrevious()
+    const prevIrregularCharIndex=finder.findPreviousIndexToMoveAt()+1
 
     this.prevIrregularCharIndex=prevIrregularCharIndex
     this.count = indexToSearchAt - prevIrregularCharIndex + 1
