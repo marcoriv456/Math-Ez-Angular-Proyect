@@ -1,7 +1,7 @@
-import {TermRemover} from "../../models/term-remover.model";
-import {Term} from "../../models/terms/term.model";
-import {TermRemoverInstructions} from "../../models/term-remover-instructions.model";
-import {SpecialCharFinder} from "../helpers/special-char-finder/special-char-finder.helper";
+import {TermRemover} from "../../../models/term-remover.model";
+import {Term} from "../../../models/terms/term.model";
+import {TermRemoverInstructions} from "../../../models/term-remover-instructions.model";
+import {SpecialCharFinder} from "../../helpers/special-char-finder/special-char-finder.helper";
 
 export class CtrlRemover implements TermRemover{
 

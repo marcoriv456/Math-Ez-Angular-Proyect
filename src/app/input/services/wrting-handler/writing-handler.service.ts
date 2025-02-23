@@ -16,7 +16,7 @@ import {TermRemover} from "../../models/term-remover.model";
 import {
   EditableTermContainerComponent
 } from "../../components/editable-term-container/editable-term-container.component";
-import {CtrlRemover} from "../../classes/removers/ctrl-remover.helper";
+import {CtrlRemover} from "../../classes/removers/ctrl/ctrl-remover.helper";
 
 @Injectable()
 export class WritingHandlerService {
