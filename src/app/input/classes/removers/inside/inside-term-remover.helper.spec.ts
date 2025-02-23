@@ -1,5 +1,5 @@
 import {Term} from "../../../models/terms/term.model";
-import {TermUtils} from "../../term-utils";
+import {TermUtils} from "../../term-utils.util";
 import {InsideTermRemover} from "./inside-term-remover.helper";
 import {expect} from "chai";
 

@@ -1,6 +1,6 @@
 import {FractionAdder} from "./fraction-adder.helper";
 import {Term} from "../../../models/terms/term.model";
-import {TermUtils} from "../../term-utils";
+import {TermUtils} from "../../term-utils.util";
 import {expect} from "chai";
 
 describe('Fraction adder: ', () => {

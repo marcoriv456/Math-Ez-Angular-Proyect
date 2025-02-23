@@ -3,7 +3,7 @@ import {TermValidator} from "../../abstracts/validator.abstract";
 import {TermValidationMessage} from "../../models/term-validation-message.model";
 import {Term} from "../../../models/terms/term.model";
 import {UnexpectedTermTypeError} from "../../errors/unexpected-term-type.error";
-import {TermUtils} from "../../../classes/term-utils";
+import {TermUtils} from "../../../classes/term-utils.util";
 
 export class RootValidator extends TermValidator{
   private readonly radicandValue:number

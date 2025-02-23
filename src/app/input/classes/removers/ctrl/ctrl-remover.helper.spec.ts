@@ -1,4 +1,4 @@
-import {TermUtils} from "../../term-utils";
+import {TermUtils} from "../../term-utils.util";
 import {CtrlRemover} from "./ctrl-remover.helper";
 import {expect} from "chai";
 

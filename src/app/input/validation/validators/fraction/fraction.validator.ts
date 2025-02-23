@@ -4,7 +4,7 @@ import {FractionComponent} from "../../../components/fraction/fraction.component
 import {validTermValidation} from "../../default-values/valid-term-validation";
 import {TermValidationData} from "../../models/term-validation-data.model";
 import {Term} from "../../../models/terms/term.model";
-import {TermUtils} from "../../../classes/term-utils";
+import {TermUtils} from "../../../classes/term-utils.util";
 import {UnexpectedTermTypeError} from "../../errors/unexpected-term-type.error";
 
 export class FractionValidator extends TermValidator{

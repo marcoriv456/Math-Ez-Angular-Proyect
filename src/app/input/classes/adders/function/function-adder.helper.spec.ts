@@ -1,4 +1,4 @@
-import {TermUtils} from "../../term-utils";
+import {TermUtils} from "../../term-utils.util";
 import {FunctionAdder} from "./function-adder.helper";
 import {expect} from 'chai'
 import {Term} from "../../../models/terms/term.model";

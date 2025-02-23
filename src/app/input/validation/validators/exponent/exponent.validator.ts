@@ -3,7 +3,7 @@ import {TermValidationMessage} from "../../models/term-validation-message.model"
 import {ExponentComponent} from "../../../components/exponent/exponent.component";
 import {Term} from "../../../models/terms/term.model";
 import {UnexpectedTermTypeError} from "../../errors/unexpected-term-type.error";
-import {TermUtils} from "../../../classes/term-utils";
+import {TermUtils} from "../../../classes/term-utils.util";
 
 export class ExponentValidator extends TermValidator{
   private readonly exponentValue:number

@@ -1,5 +1,5 @@
 import {SpecialCharFinder} from "./special-char-finder.helper";
-import {TermUtils} from "../../term-utils";
+import {TermUtils} from "../../term-utils.util";
 import {expect} from 'chai'
 
 describe('Special char finder: ', () => {

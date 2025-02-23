@@ -1,4 +1,4 @@
-import {TermUtils} from "../../term-utils";
+import {TermUtils} from "../../term-utils.util";
 import {OutsideTermRemover} from "./outside-term-remover.helper";
 import {expect} from "chai";
 import {Term} from "../../../models/terms/term.model";

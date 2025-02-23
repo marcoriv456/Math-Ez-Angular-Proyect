@@ -2,7 +2,7 @@ import {TermValidationMessage} from "../../../models/term-validation-message.mod
 import {TermValidator} from "../../../abstracts/validator.abstract";
 import {Term} from "../../../../models/terms/term.model";
 import {UnexpectedTermTypeError} from "../../../errors/unexpected-term-type.error";
-import {TermUtils} from "../../../../classes/term-utils";
+import {TermUtils} from "../../../../classes/term-utils.util";
 
 export class FractionNumeratorValidator extends TermValidator{
   private readonly numeratorValue:number

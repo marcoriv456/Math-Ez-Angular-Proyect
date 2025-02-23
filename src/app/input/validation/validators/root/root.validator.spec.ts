@@ -1,5 +1,5 @@
 import {RootValidator} from "./root.validator";
-import {TermUtils} from "../../../classes/term-utils";
+import {TermUtils} from "../../../classes/term-utils.util";
 import {expectValid} from "../test/expect-valid.util";
 import {expectPartiallyInvalid} from "../test/expect-partially-invalid.util";
 import {expectInvalid} from "../test/expect-invalid.util";
