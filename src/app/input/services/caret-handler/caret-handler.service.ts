@@ -1,14 +1,23 @@
-import {inject, Injectable} from '@angular/core';
+import {ElementRef, inject, Injectable} from '@angular/core';
 import {Subject} from "rxjs";
 import {InputCharData} from "../../models/input-char-data.model";
 import {ContextHandlerService} from "../context-handler/context-handler.service";
 import {CharClickedNotifierService} from "../char-clicked-notifier/char-clicked-notifier.service";
 import {CaretIndexService} from "../caret-index/caret-index.service";
+import {CaretVisibilityChecker} from "../../classes/caret-visibility-checker.helper";
 
 @Injectable()
 export class CaretHandlerService {
+  private overlayRef!:ElementRef
+
   constructor() {
     this.charClickedNotifier.charClicked.subscribe(charClickedData=>this.move(charClickedData))
+  }
+
+  public setInputOverlayRef(overlay:ElementRef){
+    if(this.overlayRef)
+      throw new Error("Overlay is already defined.")
+    this.overlayRef=overlay
   }
 
   private readonly movementEmitter=new Subject<InputCharData>()
@@ -92,9 +101,22 @@ export class CaretHandlerService {
     this.movementEmitter.next(data)
     this.contextHandler.contextElement(data.parent)
     this.indexService.index=data.index
+    this.makeCaretVisible(data.positionX)
   }
 
   public listenMoves(callback:(data:InputCharData)=>void){
     this.movementEmitter.subscribe(callback)
+  }
+
+  private makeCaretVisible(positionX:number){
+    const overlay=this.overlayRef.nativeElement as HTMLElement
+    const {clientWidth,scrollLeft}=overlay
+
+    const visibilityChecker=new CaretVisibilityChecker(clientWidth,scrollLeft)
+    const scrollToOptions=visibilityChecker.makeCharVisible(positionX)
+
+    overlay.scrollTo(scrollToOptions)
+    if(visibilityChecker.scrollNeedsAdjustment)
+      setTimeout(()=>overlay.scrollBy({left:3}),100)
   }
 }
