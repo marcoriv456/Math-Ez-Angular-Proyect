@@ -33,7 +33,6 @@ export class WritingHandlerService {
   }
 
   public handleKey(key:string, ctrlKey:boolean,altKey:boolean){
-    console.log(key)
     if(key=='/')
       this.appendFraction()
     else if(key=='e' && ctrlKey)
