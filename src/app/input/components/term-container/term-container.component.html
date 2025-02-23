@@ -4,39 +4,35 @@
     inputTerm
     [char]="term.char"
     [index]="i"
-    [inputTermValidation]="{term,validatorClass:CharValidator}"
+    [inputTermValidation]="CharValidator"
   ></char>
   <frac
-    #fractionComponent
     *ngIf="term.type=='fraction'"
     inputTerm
     [term]="term"
     [index]="i"
-    [inputTermValidation]="{term,validatorClass:FractionValidator,validationRequester:fractionComponent.validationRequester}"
+    [inputTermValidation]="FractionValidator"
   ></frac>
   <exp
-    #exponentComponent
     *ngIf="term.type=='exponent'"
     inputTerm
     [index]="i"
     [term]="term"
-    [inputTermValidation]="{term,validatorClass:ExponentValidator,validationRequester:exponentComponent.validationRequester}"
+    [inputTermValidation]="ExponentValidator"
   ></exp>
   <root
-    #rootComponent
     *ngIf="term.type=='root'"
     inputTerm
     [term]="term"
     [index]="i"
-    [inputTermValidation]="{term,validatorClass:RootValidator,validationRequester:rootComponent.validationRequester}"
+    [inputTermValidation]="RootValidator"
   ></root>
   <function
-    #functionComponent
     *ngIf="term.type=='function'"
     inputTerm
     [term]="term"
     [index]="i"
-    [inputTermValidation]="{term,validatorClass:getFunctionValidator(term.functionName),validationRequester:functionComponent.validationRequester}"
+    [inputTermValidation]="getFunctionValidator(term.functionName)"
   ></function>
   <parenthesis
     *ngIf="term.type=='parenthesis'"

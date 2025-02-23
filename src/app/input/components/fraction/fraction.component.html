@@ -1,11 +1,11 @@
 <editable-term-container
   [index]="0"
   [terms]="term.numeratorChildren"
-  [inputTermValidation]="{term,validatorClass:FractionNumeratorValidator,validationRequester}"
+  [inputTermValidation]="FractionNumeratorValidator"
 ></editable-term-container>
 <span class="frac-bar"></span>
 <editable-term-container
   [index]="1"
   [terms]="term.denominatorChildren"
-  [inputTermValidation]="{term,validatorClass:FractionDenominatorValidator,validationRequester}"
+  [inputTermValidation]="FractionDenominatorValidator"
 ></editable-term-container>

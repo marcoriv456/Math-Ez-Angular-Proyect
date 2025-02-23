@@ -1,40 +1,60 @@
-import {Directive, ElementRef, HostBinding, HostListener, inject, Input, OnDestroy, OnInit} from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  Host,
+  HostBinding,
+  HostListener,
+  inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  Optional
+} from '@angular/core';
 import {TermValidationData} from "../../validation/models/term-validation-data.model";
 import {TermValidator} from "../../validation/abstracts/validator.abstract";
 import {WarningsService} from "../../services/warnings/warnings.service";
 import {Term} from "../../models/terms/term.model";
 import {Subject} from "rxjs";
-import {VariableHandlerService} from "../../services/variable-handler/variable-handler.service";
-import {validTermValidation} from "../../validation/default-values/valid-term-validation";
+import {InputMathElement} from "../input-math-element/input-math-element.abstract";
+import {CharComponent} from "../../components/char/char.component";
+import {
+  EditableTermContainerComponent
+} from "../../components/editable-term-container/editable-term-container.component";
 
 @Directive({
   selector: '[inputTermValidation]'
 })
 export class InputTermValidationDirective implements OnInit, OnDestroy{
-// --------------VALIDATION LOGIC------------------
   @Input('inputTermValidation')
-  public input!:{term:Term, validatorClass:{new (term:Term):TermValidator},validationRequester?:Subject<void>}
+  public validatorClass!:{new (term:Term):TermValidator}
+
+  private term!:Term
+  private validationRequester?:Subject<void>
+  private validationData!:TermValidationData
+  private isMouseOver=false
 
   private readonly ref=inject(ElementRef).nativeElement as HTMLElement
   private readonly warningsService=inject(WarningsService)
 
-  private validationData!:TermValidationData
-  private isMouseOver=false
+  constructor(
+    @Host() @Optional() private mathElementHost:InputMathElement<any>|null,
+    @Host() @Optional() private containerHost:EditableTermContainerComponent|null,
+    @Host() @Optional() private charHost:CharComponent|null
+  ) { }
 
+  ngOnInit() {
+    this.setupWithHostData()
+    this.updateValidation()
+    this.validationRequester?.subscribe(()=>this.updateValidation())
+  }
 
-  private get validationRequester(){
-    return this.input.validationRequester
+  ngOnDestroy() {
+    if(this.isMouseOver)
+      this.emitHideWarning()
   }
 
   private get validatorInstance():TermValidator{
     return new this.validatorClass(this.term)
-  }
-  private get validatorClass(){
-    return this.input.validatorClass
-  }
-
-  private get term(){
-    return this.input.term
   }
 
   private get left(){
@@ -45,14 +65,22 @@ export class InputTermValidationDirective implements OnInit, OnDestroy{
     return this.ref.getBoundingClientRect().top
   }
 
-  ngOnInit() {
-    this.updateValidation()
-    this.validationRequester?.subscribe(()=>this.updateValidation())
-  }
+  private setupWithHostData(){
+    if(!this.charHost && !this.mathElementHost && !this.containerHost)
+      throw new Error('Misplaced directive, host is not a Math Term, Container nor a character')
 
-  ngOnDestroy() {
-    if(this.isMouseOver)
-      this.emitHideWarning()
+    if(this.charHost)
+      this.term= {type:'char', char:this.charHost.char}
+
+    else if(this.mathElementHost) {
+      this.term=this.mathElementHost.term
+      this.validationRequester=this.mathElementHost.validationRequester
+    }
+
+    else if(this.containerHost){
+      this.term=this.containerHost.mathElement.term
+      this.validationRequester=this.containerHost.mathElement.validationRequester
+    }
   }
 
   @HostBinding('class')
@@ -76,8 +104,8 @@ export class InputTermValidationDirective implements OnInit, OnDestroy{
     this.isMouseOver=false
   }
 
-  public updateValidation(){
-    this.setValidationData(this.validatorInstance.validate())
+  private updateValidation(){
+    this.validationData=this.validatorInstance.validate()
     if(this.isMouseOver)
       this.validationData.isValid ? this.emitHideWarning() : this.emitShowWarning()
   }
@@ -92,8 +120,4 @@ export class InputTermValidationDirective implements OnInit, OnDestroy{
     this.warningsService.hideWarning.emit()
   }
 
-  private setValidationData(data:TermValidationData){
-    this.validationData=data
-  }
-  // --------------VALIDATION LOGIC------------------
 }
