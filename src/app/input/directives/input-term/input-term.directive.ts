@@ -46,13 +46,7 @@ export class InputTermDirective {
   private onClick(event:MouseEvent){
     event.stopPropagation()
     const clickPosition=event.offsetX
-
-    let dataToSend:InputCharData
-
-    if(this.asMathElement)
-      dataToSend=this.asMathElement.firstSection.noCharData
-    else
-      dataToSend=this.getClickedCharData(clickPosition)
+    const dataToSend=this.getClickedCharData(clickPosition)
 
     this.charClickedNotifier.notifyClick(dataToSend)
   }

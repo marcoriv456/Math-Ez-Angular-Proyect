@@ -2,7 +2,7 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
-  HostBinding,
+  HostBinding, HostListener,
   inject,
   Input,
   Optional,
@@ -15,6 +15,7 @@ import {InputMathElement} from "../../directives/input-math-element/input-math-e
 import {Subject} from "rxjs";
 import {ContainerLocation} from "../../models/locations/container-location.model";
 import {InputElementLocation} from "../../models/locations/input-element-location.model";
+import {CharClickedNotifierService} from "../../services/char-clicked-notifier/char-clicked-notifier.service";
 
 @Component({
   selector: 'editable-term-container',
@@ -33,11 +34,18 @@ export class EditableTermContainerComponent{
   private readonly changeEmitter = new Subject<void>()
   private readonly ref=inject(ElementRef).nativeElement as HTMLElement
   private readonly cdr=inject(ChangeDetectorRef)
+  private readonly clickNotifier=inject(CharClickedNotifierService)
 
   @HostBinding('class.selected') public selected=false
   @HostBinding('class.empty')
   private get isEmpty(){
     return this.terms && this.terms.length==0
+  }
+
+  @HostListener('click',['$event'])
+  private onClick(event:MouseEvent){
+    event.stopPropagation()
+    this.clickNotifier.notifyClick(this.lastCharData)
   }
 
   public addChangesListener(callback:()=>void){
@@ -111,13 +119,14 @@ export class EditableTermContainerComponent{
     }
   }
 
+  public getElement(index:number){
+    return this.termContainer.renderedChars.get(index)?.asMathElement
+  }
+
   private refresh(){
     this.cdr.detectChanges()
   }
 
-  public getElement(index:number){
-    return this.termContainer.renderedChars.get(index)?.asMathElement
-  }
 
   private emitChange(){
     this.changeEmitter.next()
