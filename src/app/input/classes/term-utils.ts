@@ -1,6 +1,6 @@
 import {Term} from "../models/terms/term.model";
-import {TermAdderInstructions} from "../models/term-adder-instructions.model";
-import {TermRemoverInstructions} from "../models/term-remover-instructions.model";
+import {TermAdderInstructions} from "../models/actions/term-adder-instructions.model";
+import {TermRemoverInstructions} from "../models/actions/term-remover-instructions.model";
 
 export class TermUtils {
   public static toString(terms:Term[]){

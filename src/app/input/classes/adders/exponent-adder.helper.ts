@@ -1,5 +1,5 @@
 import {Term} from "../../models/terms/term.model";
-import {TermAdderInstructions} from "../../models/term-adder-instructions.model";
+import {TermAdderInstructions} from "../../models/actions/term-adder-instructions.model";
 import {TermAdder} from "../../models/term.adder";
 
 export class ExponentAdder implements TermAdder{

@@ -1,5 +1,5 @@
 import {InputElementLocation} from "../../../models/input-element-location.model";
-import {ContextAction} from "../../../models/context-action.enum";
+import {ContextAction} from "../../../models/actions/context-action.enum";
 
 export class InputContextManager {
   private readonly nextCharType: string | undefined

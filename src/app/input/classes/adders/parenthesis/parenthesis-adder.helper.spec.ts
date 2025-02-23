@@ -1,4 +1,4 @@
-import {TermAdderInstructions} from "../../../models/term-adder-instructions.model";
+import {TermAdderInstructions} from "../../../models/actions/term-adder-instructions.model";
 import {Term} from "../../../models/terms/term.model";
 import {TermUtils} from "../../term-utils";
 import {ParenthesisAdder} from "./parenthesis-adder.helper";

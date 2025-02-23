@@ -1,4 +1,4 @@
-import {Term} from "./terms/term.model";
+import {Term} from "../terms/term.model";
 
 export interface TermRemoverInstructions {
   index: number;
