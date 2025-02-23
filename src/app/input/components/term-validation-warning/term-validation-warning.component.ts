@@ -1,25 +1,14 @@
 import {Component, ElementRef, inject, OnInit} from '@angular/core';
 import {WarningsService} from "../../services/warnings/warnings.service";
 import {TermValidationWarningRenderData} from "../../validation/models/term-validation-warning-render-data.model";
-import {animate, style, transition, trigger} from "@angular/animations";
 import {TermValidationMessage} from "../../validation/models/term-validation-message.model";
+import {warningAdviceAnimation} from "../../animations/warning-advice.animation";
 
 @Component({
   selector: 'term-validation-warning',
   templateUrl: './term-validation-warning.component.html',
   styleUrl: './term-validation-warning.component.css',
-  animations:[
-    trigger('warning-animations',[
-      transition(':enter',[
-        style({transform:'translateY(-100%)',opacity:0}),
-        animate('500ms cubic-bezier(0,0,0,1)',style({transform:'translateY(0)',opacity:1}))
-      ]),
-      transition(':leave',[
-        animate('500ms cubic-bezier(0,0,0,1)',style({transform:'translateY(-100%)',opacity:0}))
-      ]),
-
-    ]),
-  ]
+  animations: [warningAdviceAnimation]
 })
 export class TermValidationWarningComponent implements OnInit{
   protected showingWarning=false
