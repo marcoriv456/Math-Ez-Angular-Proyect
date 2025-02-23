@@ -54,7 +54,7 @@ export class InputTermDirective {
     else
       dataToSend=this.getClickedCharData(clickPosition)
 
-    this.charClickedNotifier.charClicked.emit(dataToSend)
+    this.charClickedNotifier.notifyClick(dataToSend)
   }
 
   private getClickedCharData(clickPosition:number){

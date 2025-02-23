@@ -1,9 +1,16 @@
-import {EventEmitter, Injectable} from '@angular/core';
-import {InputComponent} from "../../input.component";
-import {Term} from "../../models/terms/term.model";
+import {Injectable} from '@angular/core';
 import {InputCharData} from "../../models/input-char-data.model";
+import {Subject} from "rxjs";
 
 @Injectable()
 export class CharClickedNotifierService {
-  charClicked=new EventEmitter<InputCharData>
+  private charClicked=new Subject<InputCharData>
+
+  public notifyClick(data:InputCharData){
+    this.charClicked.next(data)
+  }
+
+  public subscribe(callback:(data:InputCharData)=>void){
+    this.charClicked.subscribe(callback)
+  }
 }

@@ -11,7 +11,7 @@ export class CaretHandlerService {
   private overlayRef!:ElementRef
 
   constructor() {
-    this.charClickedNotifier.charClicked.subscribe(charClickedData=>this.move(charClickedData))
+    this.charClickedNotifier.subscribe(charClickedData=>this.move(charClickedData))
   }
 
   public setInputOverlayRef(overlay:ElementRef){
