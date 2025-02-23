@@ -3,7 +3,7 @@ import {FractionAdder} from "../../classes/adders/fraction/fraction-adder.helper
 import {ContextHandlerService} from "../context-handler/context-handler.service";
 import {CaretHandlerService} from "../caret-handler/caret-handler.service";
 import {CaretIndexService} from "../caret-index/caret-index.service";
-import {TermAdderModel} from "../../models/term-adder.model";
+import {TermAdder} from "../../models/term-adder.model";
 import {ExponentAdder} from "../../classes/adders/exponent-adder.helper";
 import {RootAdder} from "../../classes/adders/root-adder.class";
 import {IndexedRootAdder} from "../../classes/adders/indexed-root-adder.helper";
@@ -136,7 +136,7 @@ export class WritingHandlerService {
   }
 
 
-  private append(adder:TermAdderModel){
+  private append(adder:TermAdder){
     const {term,replaceFrom,replaceCount,containerToMoveAt}=adder.add()
     this.currentElement.replace(replaceFrom,replaceCount,term)
 
