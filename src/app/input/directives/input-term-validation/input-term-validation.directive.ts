@@ -4,7 +4,7 @@ import {TermValidator} from "../../validation/abstracts/validator.abstract";
 import {WarningsService} from "../../services/warnings/warnings.service";
 import {Term} from "../../models/terms/term.model";
 import {Subject} from "rxjs";
-import {VariableProviderService} from "../../services/variable-provider/variable-provider.service";
+import {VariableHandlerService} from "../../services/variable-handler/variable-handler.service";
 import {validTermValidation} from "../../validation/default-values/valid-term-validation";
 
 @Directive({

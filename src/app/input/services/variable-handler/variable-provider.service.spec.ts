@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { VariableProviderService } from './variable-provider.service';
+import { VariableHandlerService } from './variable-handler.service';
 
 describe('VariableProviderService', () => {
-  let service: VariableProviderService;
+  let service: VariableHandlerService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(VariableProviderService);
+    service = TestBed.inject(VariableHandlerService);
   });
 
   it('should be created', () => {

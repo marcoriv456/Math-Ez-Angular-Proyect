@@ -9,7 +9,7 @@ import {CommonModule} from "@angular/common";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {CharClickedNotifierService} from "../../services/char-clicked-notifier/char-clicked-notifier.service";
 import {WarningsService} from "../../services/warnings/warnings.service";
-import {VariableProviderService} from "../../services/variable-provider/variable-provider.service";
+import {VariableHandlerService} from "../../services/variable-handler/variable-handler.service";
 import {ComponentFixture} from "@angular/core/testing";
 import {Term} from "../../models/terms/term.model";
 import {FractionChildComponent} from "../fraction/fraction-child/fraction-child.component";
@@ -48,7 +48,7 @@ describe('Term container: ', () => {
       providers: [
         CharClickedNotifierService,
         WarningsService,
-        VariableProviderService
+        VariableHandlerService
       ]
     }).then(response=>{
       fixture=response.fixture

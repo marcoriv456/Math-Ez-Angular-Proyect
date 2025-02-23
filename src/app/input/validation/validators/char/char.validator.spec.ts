@@ -1,5 +1,5 @@
 import {CharValidator} from "./char.validator";
-import {VariableProviderService} from "../../../services/variable-provider/variable-provider.service";
+import {VariableHandlerService} from "../../../services/variable-handler/variable-handler.service";
 import {expect} from "chai"
 import {expectInvalid} from "../test/expect-invalid.util";
 import {expectValid} from "../test/expect-valid.util";
@@ -9,7 +9,7 @@ describe('Char validator: ', () => {
       get variableNames(): string[] {
         return ['A','B','C']
       }
-    } as VariableProviderService
+    } as VariableHandlerService
   })
 
 

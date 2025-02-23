@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import {VariableProvider} from "../../models/variable-provider.model";
 import {CharValidator} from "../../validation/validators/char/char.validator";
 
-@Injectable()
-export class VariableProviderService {
+@Injectable({
+  providedIn:'root'
+})
+export class VariableHandlerService {
   variableProvider!:VariableProvider
   defaultVariables=new Map<string,any>([
     ['e',Math.exp(1)],

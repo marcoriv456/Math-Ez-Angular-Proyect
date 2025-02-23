@@ -1,6 +1,6 @@
 import {TermValidator} from "../../abstracts/validator.abstract";
 import {TermValidationMessage} from "../../models/term-validation-message.model";
-import {VariableProviderService} from "../../../services/variable-provider/variable-provider.service";
+import {VariableHandlerService} from "../../../services/variable-handler/variable-handler.service";
 import {CharComponent} from "../../../components/char/char.component";
 import {Term} from "../../../models/terms/term.model";
 import {CharTerm} from "../../../models/terms/char-term.model";
@@ -10,9 +10,9 @@ import {UnexpectedTermTypeError} from "../../errors/unexpected-term-type.error";
 export class CharValidator extends TermValidator{
 
   private static readonly letterRegex=/^[^0-9+\-*=() ]$/
-  private static variableProvider:VariableProviderService
+  private static variableProvider:VariableHandlerService
 
-  public static setVariableProvider(variableProvider:VariableProviderService){
+  public static setVariableProvider(variableProvider:VariableHandlerService){
     if(!this.variableProvider)
       this.variableProvider=variableProvider
   }

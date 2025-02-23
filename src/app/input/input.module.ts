@@ -9,7 +9,6 @@ import { InputTermDirective } from './directives/input-term/input-term.directive
 import { ExponentComponent } from './components/exponent/exponent.component';
 import { RootComponent } from './components/root/root.component';
 import {WarningsService} from "./services/warnings/warnings.service";
-import {VariableProviderService} from "./services/variable-provider/variable-provider.service";
 import { FunctionComponent } from './components/function/function.component';
 import { TermContainerComponent } from './components/term-container/term-container.component';
 import { EditableTermContainerComponent } from './components/editable-term-container/editable-term-container.component';
@@ -48,7 +47,6 @@ import {WritingHandlerService} from "./services/wrting-handler/writing-handler.s
   providers:[
     CharClickedNotifierService,
     WarningsService,
-    VariableProviderService,
     ContextHandlerService,
     CaretHandlerService,
     WritingHandlerService,

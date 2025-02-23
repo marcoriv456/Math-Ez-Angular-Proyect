@@ -1,5 +1,5 @@
 import {Component, inject, Input} from '@angular/core';
-import {VariableProviderService} from "../../services/variable-provider/variable-provider.service";
+import {VariableHandlerService} from "../../services/variable-handler/variable-handler.service";
 
 @Component({
   selector: 'char',
@@ -9,6 +9,6 @@ import {VariableProviderService} from "../../services/variable-provider/variable
 export class CharComponent{
   @Input()
   public char!:string
-  public variableProvider=inject(VariableProviderService)
+  public variableProvider=inject(VariableHandlerService)
 }
 
