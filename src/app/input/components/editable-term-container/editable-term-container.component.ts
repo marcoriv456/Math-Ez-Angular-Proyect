@@ -13,8 +13,8 @@ import {TermContainerComponent} from "../term-container/term-container.component
 import {Term} from "../../models/terms/term.model";
 import {InputMathElement} from "../../directives/input-math-element/input-math-element.abstract";
 import {Subject} from "rxjs";
-import {ContainerLocation} from "../../models/container-location.model";
-import {InputElementLocation} from "../../models/input-element-location.model";
+import {ContainerLocation} from "../../models/locations/container-location.model";
+import {InputElementLocation} from "../../models/locations/input-element-location.model";
 
 @Component({
   selector: 'editable-term-container',

@@ -1,4 +1,4 @@
-import {InputElementLocation} from "../../../models/input-element-location.model";
+import {InputElementLocation} from "../../../models/locations/input-element-location.model";
 import {ContextAction} from "../../../models/actions/context-action.enum";
 import {InputContextManager} from "./input-context-manager.helper";
 import {expect} from 'chai'

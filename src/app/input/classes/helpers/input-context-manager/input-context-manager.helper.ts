@@ -1,4 +1,4 @@
-import {InputElementLocation} from "../../../models/input-element-location.model";
+import {InputElementLocation} from "../../../models/locations/input-element-location.model";
 import {ContextAction} from "../../../models/actions/context-action.enum";
 
 export class InputContextManager {
