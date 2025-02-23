@@ -1,5 +1,5 @@
 import {TermAdderInstructions} from "./actions/term-adder-instructions.model";
 
-export interface TermAdder {
+export interface TermAdderModel {
   add():TermAdderInstructions
 }

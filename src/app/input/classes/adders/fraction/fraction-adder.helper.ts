@@ -1,9 +1,9 @@
 import {Term} from "../../../models/terms/term.model";
 import {SpecialCharFinder} from "../../helpers/special-char-finder/special-char-finder.helper";
 import {TermAdderInstructions} from "../../../models/actions/term-adder-instructions.model";
-import {TermAdder} from "../../../models/term.adder";
+import {TermAdderModel} from "../../../models/term-adder.model";
 
-export class FractionAdder implements TermAdder{
+export class FractionAdder implements TermAdderModel{
   private readonly origin!:number
   private readonly from!:number
   private readonly to!:number

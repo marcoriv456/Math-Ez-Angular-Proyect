@@ -1,7 +1,7 @@
-import {TermAdder} from "../../models/term.adder";
+import {TermAdderModel} from "../../models/term-adder.model";
 import {TermAdderInstructions} from "../../models/actions/term-adder-instructions.model";
 
-export class IndexedRootAdder implements TermAdder {
+export class IndexedRootAdder implements TermAdderModel {
   constructor(private index: number) {
   }
 

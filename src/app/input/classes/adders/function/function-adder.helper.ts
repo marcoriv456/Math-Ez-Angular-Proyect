@@ -1,9 +1,9 @@
 import {Term} from "../../../models/terms/term.model";
-import {TermAdder} from "../../../models/term.adder";
+import {TermAdderModel} from "../../../models/term-adder.model";
 import {TermAdderInstructions} from "../../../models/actions/term-adder-instructions.model";
 import {TermUtils} from "../../term-utils";
 
-export class FunctionAdder implements TermAdder{
+export class FunctionAdder implements TermAdderModel{
   constructor(private terms:Term[], recognizableFunctions:string[]) {
       const regexpString=`${recognizableFunctions.join('|')}`
       this.functionsRegexp =  new RegExp(regexpString,'gd');

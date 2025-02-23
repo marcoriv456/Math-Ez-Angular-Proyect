@@ -1,8 +1,8 @@
 import {Term} from "../../../models/terms/term.model";
-import {TermAdder} from "../../../models/term.adder";
+import {TermAdderModel} from "../../../models/term-adder.model";
 import {TermAdderInstructions} from "../../../models/actions/term-adder-instructions.model";
 
-export class ParenthesisAdder implements TermAdder{
+export class ParenthesisAdder implements TermAdderModel{
   private removeFrom!:number
   private removeTo!:number
 
