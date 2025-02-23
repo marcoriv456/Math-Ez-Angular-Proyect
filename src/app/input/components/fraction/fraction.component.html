@@ -1,11 +1,13 @@
 <editable-term-container
   [index]="0"
   [terms]="term.numeratorChildren"
+  [centered]="true"
   [inputTermValidation]="FractionNumeratorValidator"
 ></editable-term-container>
 <span class="frac-bar"></span>
 <editable-term-container
   [index]="1"
   [terms]="term.denominatorChildren"
+  [centered]="true"
   [inputTermValidation]="FractionDenominatorValidator"
 ></editable-term-container>
