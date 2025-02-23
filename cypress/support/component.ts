@@ -35,5 +35,13 @@ declare global {
 
 Cypress.Commands.add('mount', mount)
 
+const lazyLoadModules = async () => {
+  await import('../../src/app/input/directives/input-math-element/input-math-element.abstract');
+  await import('../../src/app/input/components/editable-term-container/editable-term-container.component');
+}
+
+lazyLoadModules().then(() => {
+  console.log('Todos los módulos fueron cargados antes de los tests');
+});
 // Example use:
 // cy.mount(MyComponent)
