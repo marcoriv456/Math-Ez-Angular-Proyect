@@ -1,28 +1,35 @@
 import {InputComponent} from "./input.component";
-import {InputTestingEnvironmentComponent} from "./input-testing-environment/input-testing-environment.component";
 import {CharComponent} from "./components/char/char.component";
 import {FractionComponent} from "./components/fraction/fraction.component";
 import {InputTermDirective} from "./directives/input-term/input-term.directive";
-import {FractionChildComponent} from "./components/fraction/fraction-child/fraction-child.component";
 import {ExponentComponent} from "./components/exponent/exponent.component";
 import {RootComponent} from "./components/root/root.component";
 import {FunctionComponent} from "./components/function/function.component";
 import {TermContainerComponent} from "./components/term-container/term-container.component";
-import {TermArgumentComponent} from "./components/term-argument/term-argument.component";
 import {EditableTermContainerComponent} from "./components/editable-term-container/editable-term-container.component";
 import {ParenthesisComponent} from "./components/parenthesis/parenthesis.component";
 import {TermValidationWarningComponent} from "./components/term-validation-warning/term-validation-warning.component";
 import {CommonModule} from "@angular/common";
 import {CharClickedNotifierService} from "./services/char-clicked-notifier/char-clicked-notifier.service";
 import {WarningsService} from "./services/warnings/warnings.service";
-import {VariableHandlerService} from "./services/variable-handler/variable-handler.service";
-import Chainable = Cypress.Chainable;
-import {ComponentFixture} from "@angular/core/testing";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {NgxParticlesModule} from "@tsparticles/angular";
 import {runEditableElementSuite} from "./tests/run-editable-element-tests-suite.helper";
 import {clickAndType, expectCaretIsBehindOf, expectCaretIsInFrontOf} from "./tests/test-functions.util";
 import {InputTermValidationDirective} from "./directives/input-term-validation/input-term-validation.directive";
+import {CaretComponent} from "./components/caret/caret.component";
+import {ContextHandlerService} from "./services/context-handler/context-handler.service";
+import {CaretHandlerService} from "./services/caret-handler/caret-handler.service";
+import {WritingHandlerService} from "./services/wrting-handler/writing-handler.service";
+import {CaretIndexService} from "./services/caret-index/caret-index.service";
+import {BrowserModule} from "@angular/platform-browser";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import Chainable = Cypress.Chainable;
+import {
+  expSelector,
+  fracDenominatorSelector,
+  fracNumeratorSelector,
+  functionSelector,
+  rootIndexSelector, rootRadicandSelector
+} from "./tests/test-selectors.util";
 
 describe(`Input component`, () => {
   let view: Chainable<JQuery<HTMLElement>>;
@@ -33,29 +40,31 @@ describe(`Input component`, () => {
     cy.mount(InputComponent, {
       declarations: [
         InputComponent,
-        InputTestingEnvironmentComponent,
         CharComponent,
         FractionComponent,
         InputTermDirective,
-        FractionChildComponent,
         ExponentComponent,
         RootComponent,
         FunctionComponent,
         TermContainerComponent,
-        TermArgumentComponent,
         EditableTermContainerComponent,
         ParenthesisComponent,
         TermValidationWarningComponent,
-        InputTermValidationDirective
+        InputTermValidationDirective,
+        CaretComponent
       ],
       imports: [
         CommonModule,
+        BrowserModule,
         BrowserAnimationsModule
       ],
-      providers: [
+      providers:[
         CharClickedNotifierService,
         WarningsService,
-        VariableHandlerService,
+        ContextHandlerService,
+        CaretHandlerService,
+        WritingHandlerService,
+        CaretIndexService
       ]
     })
       .then((response) => {
@@ -146,27 +155,25 @@ describe(`Input component`, () => {
       })
 
       it('Invalidates 0/0 indetermination', () => {
-        clickAndType('frac frac-child[type="numerator"]','0')
-        clickAndType('frac frac-child[type="denominator"]','0')
+        clickAndType(fracNumeratorSelector,'0')
+        clickAndType(fracDenominatorSelector,'0')
 
         expectFullyInvalid('frac')
         expectWarningToBeDisplayed('frac')
       });
 
       it('Partially invalidates 0 as numerator', () => {
-        const numerator='frac frac-child[type="numerator"]'
-        clickAndType(numerator,'0')
+        clickAndType(fracNumeratorSelector,'0')
 
-        expectPartiallyInvalid(numerator)
-        expectWarningToBeDisplayed(numerator)
+        expectPartiallyInvalid(fracNumeratorSelector)
+        expectWarningToBeDisplayed(fracNumeratorSelector)
       });
 
       it('Invalidates 0 as denominator ', () => {
-        const denominator='frac frac-child[type="denominator"]'
-        clickAndType(denominator,'0')
+        clickAndType(fracDenominatorSelector,'0')
 
-        expectFullyInvalid(denominator)
-        expectWarningToBeDisplayed(denominator)
+        expectFullyInvalid(fracDenominatorSelector)
+        expectWarningToBeDisplayed(fracDenominatorSelector)
       });
     });
 
@@ -176,36 +183,36 @@ describe(`Input component`, () => {
       })
 
       it('Invalidates negative radicand and odd index', () => {
-        clickAndType('root argument','4')
-        clickAndType('root editable-term-container','-10')
+        clickAndType(rootIndexSelector,'4')
+        clickAndType(rootRadicandSelector,'-10')
 
         expectFullyInvalid('root')
         expectWarningToBeDisplayed('root')
       });
 
       it('Not invalidates negative radicand if index is not odd', () => {
-        clickAndType('root argument','3')
-        clickAndType('root editable-term-container','-10')
+        clickAndType(rootIndexSelector,'3')
+        clickAndType(rootRadicandSelector,'-10')
 
         expectValid('root')
       });
 
       it('Partially invalidates 1 as radicand value', () => {
-        clickAndType('root editable-term-container','1')
+        clickAndType(rootRadicandSelector,'1')
 
         expectPartiallyInvalid('root')
         expectWarningToBeDisplayed('root')
       });
 
       it('Invalidates 1 as index value', () => {
-        clickAndType('root argument', '1')
+        clickAndType(rootIndexSelector, '1')
 
         expectFullyInvalid('root')
         expectWarningToBeDisplayed('root')
       });
 
       it('Invalidates 0 as index value', () => {
-        clickAndType('root argument', '0')
+        clickAndType(rootIndexSelector, '0')
 
         expectFullyInvalid('root')
         expectWarningToBeDisplayed('root')
@@ -219,19 +226,19 @@ describe(`Input component`, () => {
       })
 
       afterEach(()=>{
-        expectWarningToBeDisplayed('exp')
+        expectWarningToBeDisplayed(expSelector)
       })
 
       it('Partially invalidates 1 as exponent', () => {
-        clickAndType('exp','1')
+        clickAndType(expSelector,'1')
 
-        expectPartiallyInvalid('exp')
+        expectPartiallyInvalid(expSelector)
       });
 
       it('Partially invalidates 0 as exponent', () => {
-        clickAndType('exp','0')
+        clickAndType(expSelector,'0')
 
-        expectPartiallyInvalid('exp')
+        expectPartiallyInvalid(expSelector)
       });
 
     });
@@ -242,43 +249,46 @@ describe(`Input component`, () => {
       })
 
       afterEach(()=>{
-        expectWarningToBeDisplayed('function')
+        expectWarningToBeDisplayed(functionSelector)
       })
 
-      it('Partially invalidates 10 as base', () => {
-        clickAndType('function argument','10')
+      const baseSelector='function editable-term-container:first-of-type'
+      const argumentSelector='function editable-term-container:last-of-type'
 
-        expectPartiallyInvalid('function')
+      it('Partially invalidates 10 as base', () => {
+        clickAndType(baseSelector,'10')
+
+        expectPartiallyInvalid(functionSelector)
       });
 
       it('Invalidates 1 as base', () => {
-        clickAndType('function argument','1')
+        clickAndType(baseSelector,'1')
 
-        expectFullyInvalid('function')
+        expectFullyInvalid(functionSelector)
       });
 
       it('Invalidates 0 as base', () => {
-        clickAndType('function argument','0')
+        clickAndType(baseSelector,'0')
 
-        expectFullyInvalid('function')
+        expectFullyInvalid(functionSelector)
       });
 
       it('Invalidates negative numbers as base', () => {
-        clickAndType('function argument','-1')
+        clickAndType(baseSelector,'-1')
 
-        expectFullyInvalid('function')
+        expectFullyInvalid(functionSelector)
       });
 
       it('Invalidates 0 as argument', () => {
-        clickAndType('function editable-term-container','0')
+        clickAndType(argumentSelector,'0')
 
-        expectFullyInvalid('function')
+        expectFullyInvalid(functionSelector)
       });
 
       it('Invalidates negative arguments', () => {
-        clickAndType('function editable-term-container','-1')
+        clickAndType(argumentSelector,'-1')
 
-        expectFullyInvalid('function')
+        expectFullyInvalid(functionSelector)
       });
     });
 
