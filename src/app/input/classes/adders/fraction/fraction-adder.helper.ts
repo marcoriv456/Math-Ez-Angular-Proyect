@@ -36,9 +36,7 @@ export class FractionAdder implements TermAdder{
   private moveTo(){
     if(this.numeratorChars.length==0)
       return 0
-    if(this.denominatorChars.length==0)
-      return 1
-    return 'outside'
+    return 1
   }
 
 }
