@@ -1,67 +1,88 @@
 import {InputComponent} from "../input.component";
-import {InputTestingEnvironmentComponent} from "../input-testing-environment/input-testing-environment.component";
 import {CharComponent} from "../components/char/char.component";
 import {FractionComponent} from "../components/fraction/fraction.component";
 import {InputTermDirective} from "../directives/input-term/input-term.directive";
-import {FractionChildComponent} from "../components/fraction/fraction-child/fraction-child.component";
 import {ExponentComponent} from "../components/exponent/exponent.component";
 import {RootComponent} from "../components/root/root.component";
 import {FunctionComponent} from "../components/function/function.component";
 import {TermContainerComponent} from "../components/term-container/term-container.component";
-import {TermArgumentComponent} from "../components/term-argument/term-argument.component";
-import {EditableTermContainerComponent} from "../components/editable-term-container/editable-term-container.component";
 import {ParenthesisComponent} from "../components/parenthesis/parenthesis.component";
 import {TermValidationWarningComponent} from "../components/term-validation-warning/term-validation-warning.component";
 import {CommonModule} from "@angular/common";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {CharClickedNotifierService} from "../services/char-clicked-notifier/char-clicked-notifier.service";
 import {WarningsService} from "../services/warnings/warnings.service";
-import {VariableHandlerService} from "../services/variable-handler/variable-handler.service";
-import Chainable = Cypress.Chainable;
 import {
   clickAndType,
-  expectContexted,
-  expectCaretIsBehindOf,
-  expectCaretIsInFrontOf,
   contextParent,
+  expectCaretIsBehindOf,
   expectCaretIsBehindOfLetter,
+  expectCaretIsInFrontOf,
   expectCaretIsInFrontOfLetter,
-  selectView,
-  getCaretPosition
+  expectContexted,
+  getCaretPosition,
+  selectView
 } from "./test-functions.util";
+import {InputTermValidationDirective} from "../directives/input-term-validation/input-term-validation.directive";
+import {CaretComponent} from "../components/caret/caret.component";
+import {ContextHandlerService} from "../services/context-handler/context-handler.service";
+import {CaretHandlerService} from "../services/caret-handler/caret-handler.service";
+import {WritingHandlerService} from "../services/wrting-handler/writing-handler.service";
+import {CaretIndexService} from "../services/caret-index/caret-index.service";
+import {BrowserModule} from "@angular/platform-browser";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {EditableTermContainerComponent} from "../components/editable-term-container/editable-term-container.component";
+import {
+  charSelector, expContainerSelector,
+  fracDenominatorSelector,
+  fracNumeratorSelector,
+  fracSelector,
+  functionArgumentSelector,
+  functionBaseSelector,
+  functionSelector, parenthesisContainerSelector, parenthesisSelector,
+  rootIndexSelector,
+  rootRadicandSelector,
+  rootSelector
+} from "./test-selectors.util";
+import Chainable = Cypress.Chainable;
 
 export const runEditableElementSuite = (name: string, addingCommand: string, focusingElementSelector: string) => {
   let view: Chainable<JQuery<HTMLElement>>;
   let component: InputComponent
 
-  describe(`Editable element tests in "${name}" editable element:`, () => {
 
+
+
+
+  describe(`Editable element tests in "${name}" editable element:`, () => {
     beforeEach(() => {
       cy.mount(InputComponent, {
         declarations: [
           InputComponent,
-          InputTestingEnvironmentComponent,
           CharComponent,
           FractionComponent,
           InputTermDirective,
-          FractionChildComponent,
           ExponentComponent,
           RootComponent,
           FunctionComponent,
           TermContainerComponent,
-          TermArgumentComponent,
           EditableTermContainerComponent,
           ParenthesisComponent,
-          TermValidationWarningComponent
+          TermValidationWarningComponent,
+          InputTermValidationDirective,
+          CaretComponent
         ],
         imports: [
           CommonModule,
+          BrowserModule,
           BrowserAnimationsModule
         ],
-        providers: [
+        providers:[
           CharClickedNotifierService,
           WarningsService,
-          VariableHandlerService,
+          ContextHandlerService,
+          CaretHandlerService,
+          WritingHandlerService,
+          CaretIndexService
         ]
       })
         .then((response) => {
@@ -89,19 +110,20 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
       it(`Adds a fraction`, () => {
         view.type(`/`)
 
-        cy.get(`${focusingElementSelector} frac`).should(`exist`).and(`be.visible`)
+        cy.get(`${focusingElementSelector} ${fracSelector}`).should(`exist`).and(`be.visible`)
       });
 
       it(`Adds a simple root`, () => {
         view.type(`{ctrl}r`)
 
-        cy.get(`${focusingElementSelector} root`).should(`exist`).and(`be.visible`)
+        cy.get(`${focusingElementSelector} ${rootSelector}`).should(`exist`).and(`be.visible`)
       });
 
       it(`Adds an editable index root`, () => {
         view.type(`{alt}r`)
 
-        cy.get(`${focusingElementSelector} root:has(argument)`).should(`exist`)
+
+        cy.get(`${focusingElementSelector}:has(${rootIndexSelector}):has(${rootRadicandSelector})`).should(`exist`)
       });
 
       it(`Adds an exponent`, () => {
@@ -113,37 +135,37 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
       it(`Adds a parenthesis`, () => {
         view.type(`()`)
 
-        cy.get(`${focusingElementSelector} parenthesis`).should(`exist`).and(`be.visible`)
+        cy.get(`${focusingElementSelector} ${parenthesisSelector}`).should(`exist`).and(`be.visible`)
       });
 
       it(`Adds a sen function`, () => {
         view.type(`sen`)
 
-        cy.get(`${focusingElementSelector} function`).should(`exist`).and(`be.visible`).and(`contain.text`, `sen`)
+        cy.get(`${focusingElementSelector} ${functionSelector}`).should(`exist`).and(`be.visible`).and(`contain.text`, `sen`)
       });
 
       it(`Adds a cos function`, () => {
         view.type(`cos`)
 
-        cy.get(`${focusingElementSelector} function`).should(`exist`).and(`be.visible`).and(`contain.text`, `cos`)
+        cy.get(`${focusingElementSelector} ${functionSelector}`).should(`exist`).and(`be.visible`).and(`contain.text`, `cos`)
       });
 
       it(`Adds a tan function`, () => {
         view.type(`tan`)
 
-        cy.get(`${focusingElementSelector} function`).should(`exist`).and(`be.visible`).and(`contain.text`, `tan`)
+        cy.get(`${focusingElementSelector} ${functionSelector}`).should(`exist`).and(`be.visible`).and(`contain.text`, `tan`)
       });
 
       it(`Adds a log function`, () => {
         view.type(`log`)
 
-        cy.get(`${focusingElementSelector} function`).should(`exist`).and(`be.visible`).and(`contain.text`, `log`)
+        cy.get(`${focusingElementSelector} ${functionSelector}`).should(`exist`).and(`be.visible`).and(`contain.text`, `log`)
       });
 
       it(`Adds a ln function`, () => {
         view.type(`ln`)
 
-        cy.get(`${focusingElementSelector} function`).should(`exist`).and(`be.visible`).and(`contain.text`, `ln`)
+        cy.get(`${focusingElementSelector} ${functionSelector}`).should(`exist`).and(`be.visible`).and(`contain.text`, `ln`)
       });
 
     })
@@ -161,7 +183,7 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
           view.type('{Backspace}')
 
-          cy.contains('char','p').should('not.exist')
+          cy.contains(`${charSelector}`,'p').should('not.exist')
           cy.get(focusingElementSelector)
             .should('contain.text','sho')
             .and('not.contain.text','shop')
@@ -170,6 +192,8 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
       });
 
       describe('Fraction removal: ', () => {
+
+
         beforeEach(()=>{
           view.type('12/34')
           view.type('{RightArrow}')
@@ -180,13 +204,12 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
           view.type('{Backspace}')
 
-          cy.get(`${focusingElementSelector} frac`).should('not.exist')
+          cy.get(`${focusingElementSelector} ${fracSelector}`).should('not.exist')
           expectCaretIsBehindOf(focusingElementSelector)
         });
 
         it('Removes the fraction but the content stays there and the caret moves next to the numerator content', () => {
-          cy.get(`${focusingElementSelector} frac frac-child[type="denominator"]`).click()
-          selectView().type('{Home}')
+          clickAndType(`${focusingElementSelector} ${fracDenominatorSelector}`,'{Home}')
 
           view.type('{Backspace}')
 
@@ -195,8 +218,7 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
         });
 
         it('Removes the fraction but the content stays there and the caret moves to the beginning', () => {
-          cy.get(`${focusingElementSelector} frac frac-child[type="numerator"]`).click()
-          selectView().type('{Home}')
+          clickAndType(`${focusingElementSelector} ${fracNumeratorSelector}`,'{Home}')
 
           view.type('{Backspace}')
 
@@ -233,10 +255,13 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
       });
 
       describe('Root removal', () => {
+
+
+
         beforeEach(()=>{
           view.type('{alt}r')
-          clickAndType(`${focusingElementSelector} root argument`,'1234')
-          clickAndType(`${focusingElementSelector} root editable-term-container`,'5678')
+          clickAndType(`${focusingElementSelector} ${rootIndexSelector}`,'1234')
+          clickAndType(`${focusingElementSelector} ${rootRadicandSelector}`,'5678')
           view.type('{RightArrow}')
         })
 
@@ -245,35 +270,37 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
           view.type('{Backspace}')
 
-          cy.get(`${focusingElementSelector} root`).should('not.exist')
+          cy.get(`${focusingElementSelector} ${rootSelector}`).should('not.exist')
         });
 
         it('Removes the root, but the radicand terms still being there ', () => {
-          clickAndType(`${focusingElementSelector} root editable-term-container`,'{Home}')
+          clickAndType(`${focusingElementSelector} ${rootRadicandSelector}`,'{Home}')
 
           view.type('{Backspace}')
 
-          cy.get(`${focusingElementSelector} root`).should('not.exist')
+          cy.get(`${focusingElementSelector} ${rootSelector}`).should('not.exist')
           cy.get(focusingElementSelector).should('contain.text','5678')
           cy.get(focusingElementSelector).should('not.contain.text','1234')
         });
 
         it('Removes the root, but the index terms still being there', () => {
-          clickAndType(`${focusingElementSelector} root argument`,'{Home}')
+          clickAndType(`${focusingElementSelector} ${rootIndexSelector}`,'{Home}')
 
           view.type('{Backspace}')
 
-          cy.get(`${focusingElementSelector} root`).should('not.exist')
+          cy.get(`${focusingElementSelector} ${rootSelector}`).should('not.exist')
           cy.get(focusingElementSelector).should('contain.text','1234')
           cy.get(focusingElementSelector).should('not.contain.text','5678')
         });
       });
 
       describe('Function removal: ', () => {
+
+
         beforeEach(()=>{
           view.type('log')
-          clickAndType(`${focusingElementSelector} function argument`,'1234')
-          clickAndType(`${focusingElementSelector} function editable-term-container`,'5678')
+          clickAndType(`${focusingElementSelector} ${functionBaseSelector}`,'1234')
+          clickAndType(`${focusingElementSelector} ${functionArgumentSelector}`,'5678')
           selectView().type('{RightArrow}')
         })
 
@@ -282,27 +309,27 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
           view.type('{Backspace}')
 
-          cy.get(`${focusingElementSelector} function`).should('not.exist')
+          cy.get(`${focusingElementSelector} ${functionSelector}`).should('not.exist')
           expectCaretIsBehindOf(focusingElementSelector)
         });
 
         it('Removes the function, but the main terms remain there', () => {
-          clickAndType(`${focusingElementSelector} function editable-term-container`,'{Home}')
+          clickAndType(`${focusingElementSelector} ${functionArgumentSelector}`,'{Home}')
 
           view.type('{Backspace}')
 
           cy.get(focusingElementSelector).should('contain.text','5678')
-          cy.get(`${focusingElementSelector} function`).should('not.exist')
+          cy.get(`${focusingElementSelector} ${functionSelector}`).should('not.exist')
           expectCaretIsBehindOfLetter('5')
         });
 
         it('Removes the function, but the base elements remain there', () => {
-          clickAndType(`${focusingElementSelector} function argument`, '{Home}')
+          clickAndType(`${focusingElementSelector} ${functionBaseSelector}`, '{Home}')
 
           view.type('{Backspace}')
 
           cy.get(focusingElementSelector).should('contain.text','1234')
-          cy.get(`${focusingElementSelector} function`).should('not.exist')
+          cy.get(`${focusingElementSelector} ${functionSelector}`).should('not.exist')
           expectCaretIsBehindOfLetter('1')
         });
       });
@@ -318,7 +345,7 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
           view.type('{Backspace}')
 
           cy.get(focusingElementSelector).should('contain.text','(1234')
-          cy.get(`${focusingElementSelector} parenthesis`).should('not.exist')
+          cy.get(`${focusingElementSelector} ${parenthesisSelector}`).should('not.exist')
           expectCaretIsInFrontOfLetter('4')
         });
 
@@ -328,8 +355,8 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
           view.type('{Backspace}')
 
           cy.get(focusingElementSelector).should('contain.text','1234')
-          cy.get(`${focusingElementSelector} parenthesis`).should('not.exist')
-          expectCaretIsBehindOf(`${focusingElementSelector} char:first-child`)
+          cy.get(`${focusingElementSelector} ${parenthesisSelector}`).should('not.exist')
+          expectCaretIsBehindOf(`${focusingElementSelector} ${charSelector}:first-child`)
         });
       })
     });
@@ -354,8 +381,8 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
           view.type(`/`)
 
-          cy.get(`${focusingElementSelector} frac-child[type="numerator"]`).should(`have.text`, `hello`)
-          cy.get(`${focusingElementSelector} frac-child[type="denominator"]`).should(`have.text`, `world`).and(`have.class`, `selected`)
+          cy.get(`${focusingElementSelector} ${fracNumeratorSelector}`).should(`have.text`, `hello`)
+          cy.get(`${focusingElementSelector} ${fracDenominatorSelector}`).should(`have.text`, `world`).and(`have.class`, `selected`)
         });
 
         it(`Placing the caret next to a group of characters, it autocompletes the numerator with those characters`, () => {
@@ -363,8 +390,8 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
           view.type(`/`)
 
-          cy.get(`${focusingElementSelector} frac-child[type="numerator"]`).should(`have.text`, `helloworld`)
-          cy.get(`${focusingElementSelector} frac-child[type="denominator"]`).should(`not.have.text`).and(`have.class`, `selected`)
+          cy.get(`${focusingElementSelector} ${fracNumeratorSelector}`).should(`have.text`, `helloworld`)
+          cy.get(`${focusingElementSelector} ${fracDenominatorSelector}`).should(`not.have.text`).and(`have.class`, `selected`)
         });
 
         it(`Placing the caret behind a gruop of characters, it autocompletes the denominator with those characters`, () => {
@@ -372,8 +399,8 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
           view.type(`/`)
 
-          cy.get(`${focusingElementSelector} frac-child[type="numerator"]`).should(`not.have.text`).and(`have.class`, `selected`)
-          cy.get(`${focusingElementSelector} frac-child[type="denominator"]`).should(`have.text`, `helloworld`)
+          cy.get(`${focusingElementSelector} ${fracNumeratorSelector}`).should(`not.have.text`).and(`have.class`, `selected`)
+          cy.get(`${focusingElementSelector} ${fracDenominatorSelector}`).should(`have.text`, `helloworld`)
         });
 
       });
@@ -383,8 +410,7 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
           view.type(`(hello world`)
 
           view.type(`)`)
-
-          cy.get(`${focusingElementSelector} parenthesis term-container`).should(`have.text`, `hello world`)
+          cy.get(`${focusingElementSelector} ${parenthesisContainerSelector}`).should(`have.text`, `hello world`)
         });
 
         it(`When theres a closing parenthesis and an opening parenthesis is added, it wraps the existing text into the two parenthesis`, () => {
@@ -393,8 +419,7 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
           view.type(`(`)
 
-          cy.get(`${focusingElementSelector} parenthesis term-container`).should(`have.text`, `hello world`)
-          cy.get(`${focusingElementSelector} parenthesis`).should(`have.class`, `selected`)
+          cy.get(`${focusingElementSelector} ${parenthesisContainerSelector}`).should(`have.text`, `hello world`)
         });
 
 
@@ -403,8 +428,7 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
           view.type(`)`)
 
-          // cy.get(focusingElementSelector).should(`have.text`, `(((hello world)`)
-          cy.get(`${focusingElementSelector} parenthesis term-container`).should(`contain.text`, `hello world`)
+          cy.get(`${focusingElementSelector} ${parenthesisContainerSelector}`).should(`contain.text`, `hello world`)
         });
 
         it(`Looks for the closest closing parenthesis to wrap the text`, () => {
@@ -413,12 +437,12 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
           view.type(`(`)
 
-          // cy.get(focusingElementSelector).should(`have.text`, `(hello world)))`)
-          cy.get(`${focusingElementSelector} parenthesis term-container`).should(`contain.text`, `hello world`)
-          cy.get(`${focusingElementSelector} parenthesis`).should(`have.class`, `selected`)
+          cy.get(`${focusingElementSelector} ${parenthesisContainerSelector}`).should(`contain.text`, `hello world`)
+          cy.get(`${focusingElementSelector} ${parenthesisContainerSelector}`).should(`have.class`, `selected`)
         });
 
       })
+
       describe(`Function autocompletion`, () => {
         beforeEach(() => {
           view.type(`(hello)`)
@@ -429,9 +453,9 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
           view.type(`sen`)
 
-          cy.get(`${focusingElementSelector} parenthesis`).should(`not.exist`)
-          cy.contains(`${focusingElementSelector} function`, `sen(hello)`).should(`exist`)
-          cy.contains(`${focusingElementSelector} function>editable-term-container`, `hello`).should(`exist`)
+          cy.get(`${focusingElementSelector} ${parenthesisSelector}`).should(`not.exist`)
+          cy.contains(`${focusingElementSelector} ${functionSelector}`, `sen(hello)`).should(`exist`)
+          cy.contains(`${focusingElementSelector} ${functionArgumentSelector}`, `hello`).should(`exist`)
         });
 
         it(`When an editable base function is added behind a parenthesis, the function wraps the parenthesis terms as its arguments`, () => {
@@ -439,9 +463,9 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
           view.type(`log`)
 
-          cy.get(`${focusingElementSelector} parenthesis`).should(`not.exist`)
-          cy.contains(`${focusingElementSelector} function`, `log(hello)`).should(`exist`)
-          cy.contains(`${focusingElementSelector} function>editable-term-container`, `hello`).should(`exist`)
+          cy.get(`${focusingElementSelector} ${parenthesisSelector}`).should(`not.exist`)
+          cy.contains(`${focusingElementSelector} ${functionSelector}`, `log(hello)`).should(`exist`)
+          cy.contains(`${focusingElementSelector} ${functionArgumentSelector}`, `hello`).should(`exist`)
 
         });
       });
@@ -450,7 +474,7 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
     describe(`Shortcuts in ${name}: `, () => {
       beforeEach(()=>{
         view.type(addingCommand)
-        cy.get(focusingElementSelector).click({force:true})
+        cy.get(focusingElementSelector).click()
         selectView().type(`{Home}`)
       })
 
@@ -465,13 +489,13 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
           view.type(`{RightArrow}`)
 
-          expectCaretIsInFrontOf(`${focusingElementSelector} char:first-child`)
+          expectCaretIsInFrontOf(`${focusingElementSelector} ${charSelector}:first-child`)
         });
 
         it(`The caret moves to the previous element when the Left Arrow is pressed`, () => {
           view.type(`{LeftArrow}`)
 
-          expectCaretIsBehindOf(`${focusingElementSelector} char:last-child`)
+          expectCaretIsBehindOf(`${focusingElementSelector} ${charSelector}:last-child`)
         });
       });
       describe(`Backspace key`, () => {
@@ -494,7 +518,7 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
           view.type(`{Home}`)
 
 
-          expectCaretIsBehindOf(`${focusingElementSelector} char:first-child`)
+          expectCaretIsBehindOf(`${focusingElementSelector} ${charSelector}:first-child`)
           // cy.wait(100)
           // getCaretPosition().should(`equal`, 0)
         });
@@ -504,7 +528,7 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
           view.type(`{End}`)
 
-          expectCaretIsInFrontOf(`${focusingElementSelector} char:last-child`)
+          expectCaretIsInFrontOf(`${focusingElementSelector} ${charSelector}:last-child`)
         });
       });
       describe(`Ctrl + Arrow Keys:`, () => {
@@ -536,7 +560,7 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
             view.type(`{ctrl}{RightArrow}`)
 
-            expectCaretIsInFrontOf(`${focusingElementSelector} char:last-child`)
+            expectCaretIsInFrontOf(`${focusingElementSelector} ${charSelector}:last-child`)
           });
 
         });
@@ -569,7 +593,7 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
             // cy.wait(100)
             // getCaretPosition().should(`equal`, 0)
-            expectCaretIsBehindOf(`${focusingElementSelector} char:first-child`)
+            expectCaretIsBehindOf(`${focusingElementSelector} ${charSelector}:first-child`)
           });
 
         })
@@ -577,7 +601,7 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
       describe(`Ctrl + Home and End keys`, () => {
         beforeEach(() => {
           view.type(`/()`)
-          cy.get(`${focusingElementSelector} parenthesis`).click()
+          cy.get(`${focusingElementSelector} ${parenthesisSelector}`).click()
           selectView()
           view.type(`{alt}r`)
         })
@@ -629,7 +653,7 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
         it(`Adds pi number when ctrl+p command gets pressed `, () => {
           view.type(`{ctrl}p`)
 
-          cy.contains(`${focusingElementSelector} char`, `π`).should(`exist`)
+          cy.contains(`${focusingElementSelector} ${charSelector}`, `π`).should(`exist`)
         });
       });
     });
@@ -648,22 +672,30 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
         describe(`On caret entry:`, () => {
           beforeEach(()=>{
-            cy.get(`${focusingElementSelector} frac-child[type="numerator"]`).click()
+            cy.get(`${focusingElementSelector} ${fracNumeratorSelector}`).click()
             selectView()
             view.type(`hello`)
-            cy.get(`${focusingElementSelector} frac-child[type="denominator"]`).click()
+            cy.get(`${focusingElementSelector} ${fracDenominatorSelector}`).click()
             selectView()
             view.type(`hello`)
-            contextParent()
+
+            selectView()
+              .type('{End}')
+              .type('{RightArrow}')
+              .type('{Home}')
+
+            selectView()
           })
 
           it(`When the caret enters from the left, it contexts the fraction numerator`, () => {
+            cy.get('.caret-container')
+            selectView()
             view.type('{Home}')
 
             view.type(`{RightArrow}`)
 
-            expectContexted(`${focusingElementSelector} frac-child[type="numerator"]`)
-            expectCaretIsBehindOf(`${focusingElementSelector} char:first-child`)
+            expectContexted(`${focusingElementSelector} ${fracNumeratorSelector}`)
+            expectCaretIsBehindOf(`${focusingElementSelector} ${fracNumeratorSelector} ${charSelector}:first-child`)
           });
 
           it(`When the caret enters from the right, it contexts the fraction denominator`, () => {
@@ -674,15 +706,15 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
             view.type(`{LeftArrow}`)
 
-            expectContexted(`${focusingElementSelector} frac-child[type="denominator"]`)
-            expectCaretIsInFrontOf(`${focusingElementSelector} char:last-child`)
+            expectContexted(`${focusingElementSelector} ${fracDenominatorSelector}`)
+            expectCaretIsInFrontOf(`${focusingElementSelector} ${charSelector}:last-child`)
           });
         });
 
         describe(`Having the caret in the numerator:`, () => {
 
           beforeEach(() => {
-            cy.get(`${focusingElementSelector} frac-child[type="numerator"]`).click();
+            cy.get(`${focusingElementSelector} ${fracNumeratorSelector}`).click();
             selectView()
             view.type(`hello`)
           })
@@ -692,7 +724,7 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
             view.type(`{RightArrow}`)
 
-            expectContexted(`${focusingElementSelector} frac-child[type="denominator"]`)
+            expectContexted(`${focusingElementSelector} ${fracDenominatorSelector}`)
           });
 
           it(`In the first position, when moving backward, it moves the context to the parent element`, () => {
@@ -701,14 +733,14 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
             view.type(`{LeftArrow}`)
 
             expectContexted(focusingElementSelector)
-            expectCaretIsBehindOf(`${focusingElementSelector} frac`)
+            expectCaretIsBehindOf(`${focusingElementSelector} ${fracSelector}`)
           });
 
         });
 
         describe(`Having the caret in the denominator:`, () => {
           beforeEach(() => {
-            cy.get(`${focusingElementSelector} frac-child[type="denominator"]`).click()
+            cy.get(`${focusingElementSelector} ${fracDenominatorSelector}`).click()
             selectView()
             view.type(`hello`)
           })
@@ -718,7 +750,7 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
             view.type(`{LeftArrow}`)
 
-            expectContexted(`${focusingElementSelector} frac-child[type="numerator"]`)
+            expectContexted(`${focusingElementSelector} ${fracNumeratorSelector}`)
           });
 
           it(`In the last position, when moving forward, it moves the context to the parent element`, () => {
@@ -727,7 +759,7 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
             view.type(`{RightArrow}`)
 
             expectContexted(focusingElementSelector)
-            expectCaretIsInFrontOf(`${focusingElementSelector} frac`)
+            expectCaretIsInFrontOf(`${focusingElementSelector} ${fracSelector}`)
           });
         });
 
@@ -750,8 +782,8 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
             view.type(`{RightArrow}`)
 
-            expectContexted(`${focusingElementSelector} exp`)
-            expectCaretIsBehindOf(`${focusingElementSelector} char:first-child`)
+            expectContexted(`${focusingElementSelector} ${expContainerSelector}`)
+            expectCaretIsBehindOf(`${focusingElementSelector} ${charSelector}:first-child`)
           });
 
           it(`When the caret enters from the right, it contexts the exponent and moves to its last position`, () => {
@@ -760,8 +792,8 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
             view.type(`{LeftArrow}`)
 
-            expectContexted(`${focusingElementSelector} exp`)
-            expectCaretIsInFrontOf(`${focusingElementSelector} char:last-child`)
+            expectContexted(`${focusingElementSelector} ${expContainerSelector}`)
+            expectCaretIsInFrontOf(`${focusingElementSelector} ${charSelector}:last-child`)
           });
         });
 
@@ -776,7 +808,7 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
             view.type(`{LeftArrow}`)
 
             expectContexted(focusingElementSelector)
-            expectCaretIsBehindOf(`${focusingElementSelector} exp`)
+            expectCaretIsBehindOf(`${focusingElementSelector} ${expContainerSelector}`)
           });
 
           it(`Having the caret in the last position, then moving forward, it moves the context to the parent element`, () => {
@@ -785,7 +817,7 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
             view.type(`{RightArrow}`)
 
             expectContexted(focusingElementSelector)
-            expectCaretIsInFrontOf(`${focusingElementSelector} exp`)
+            expectCaretIsInFrontOf(`${focusingElementSelector} ${expContainerSelector}`)
           });
 
 
@@ -793,6 +825,7 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
       });
 
       describe(`Root context changes:`, () => {
+
         describe(`Simple root:`, () => {
           beforeEach(() => {
             view.type(`{ctrl}r`)
@@ -801,24 +834,24 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
           describe(`On caret entry:`, () => {
             beforeEach(() => {
               view.type(`hello`)
+                .type('{RightArrow}')
+                .type('{Home}')
             })
 
             it(`When the caret enters from the left, it contexts the root and moves to the first position `, () => {
-              contextParent()
               view.type(`{Home}`)
 
               view.type(`{RightArrow}`)
 
-              expectCaretIsBehindOf(`${focusingElementSelector} root char:first-child`)
+              expectCaretIsBehindOf(`${focusingElementSelector} ${rootRadicandSelector} ${charSelector}:first-child`)
             });
 
             it(`When the caret enters from the right, it context the root and moves to the last position`, () => {
-              contextParent()
               view.type(`{End}`)
 
               view.type(`{LeftArrow}`)
 
-              expectCaretIsInFrontOf(`${focusingElementSelector} root char:last-child`)
+              expectCaretIsInFrontOf(`${focusingElementSelector} ${rootRadicandSelector} ${charSelector}:last-child`)
             });
           });
 
@@ -833,7 +866,7 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
               view.type(`{LeftArrow}`)
 
               expectContexted(focusingElementSelector)
-              expectCaretIsBehindOf(`${focusingElementSelector} root`)
+              expectCaretIsBehindOf(`${focusingElementSelector} ${rootSelector}`)
             });
 
             it(`Having the caret in the last position, when moving forwards, it moves the context to the parent element`, () => {
@@ -842,7 +875,7 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
               view.type(`{RightArrow}`)
 
               expectContexted(focusingElementSelector)
-              expectCaretIsInFrontOf(`${focusingElementSelector} root`)
+              expectCaretIsInFrontOf(`${focusingElementSelector} ${rootSelector}`)
             });
           });
         });
@@ -850,9 +883,9 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
         describe(`Editable index root`, () => {
           beforeEach(() => {
             view.type(`{alt}r`)
-            cy.get(`${focusingElementSelector} root>argument`).click()
+            cy.get(`${focusingElementSelector} ${rootIndexSelector}`).click()
             selectView().type(`hello`)
-            cy.get(`${focusingElementSelector} root>editable-term-container`).click()
+            cy.get(`${focusingElementSelector} ${rootRadicandSelector}`).click()
             selectView().type(`hello`)
           })
 
@@ -863,8 +896,8 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
               view.type(`{RightArrow}`)
 
-              expectContexted(`${focusingElementSelector} root>argument`)
-              expectCaretIsBehindOf(`${focusingElementSelector} root>argument char:first-child`)
+              expectContexted(`${focusingElementSelector} ${rootIndexSelector}`)
+              expectCaretIsBehindOf(`${focusingElementSelector} ${rootIndexSelector} ${charSelector}:first-child`)
             });
 
             it(`When the caret enter from the right, it moves the context to the radicand container and moves to the last position`, () => {
@@ -873,15 +906,15 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
               view.type(`{LeftArrow}`)
 
-              expectContexted(`${focusingElementSelector} root>editable-term-container`)
-              expectCaretIsInFrontOf(`${focusingElementSelector} root>editable-term-container char:last-child`)
+              expectContexted(`${focusingElementSelector} ${rootRadicandSelector}`)
+              expectCaretIsInFrontOf(`${focusingElementSelector} ${rootRadicandSelector} ${charSelector}:last-child`)
             });
           });
 
           describe(`On caret exit: `, () => {
             describe(`In the index editor:`, () => {
               beforeEach(() => {
-                cy.get(`${focusingElementSelector} root>argument`).click()
+                cy.get(`${focusingElementSelector} ${rootIndexSelector}`).click()
                 selectView()
               })
 
@@ -891,7 +924,7 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
                 view.type(`{LeftArrow}`)
 
                 expectContexted(focusingElementSelector)
-                expectCaretIsBehindOf(`${focusingElementSelector} root`)
+                expectCaretIsBehindOf(`${focusingElementSelector} ${rootSelector}`)
               });
 
               it(`Having the caret in the last position, when moving forward, it moves the context to the radicand container and moves to the first position `, () => {
@@ -899,14 +932,14 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
                 view.type(`{RightArrow}`)
 
-                expectContexted(`${focusingElementSelector} root>editable-term-container`)
-                expectCaretIsBehindOf(`${focusingElementSelector} root>editable-term-container char:first-child`)
+                expectContexted(`${focusingElementSelector} ${rootRadicandSelector}`)
+                expectCaretIsBehindOf(`${focusingElementSelector} ${rootRadicandSelector} ${charSelector}:first-child`)
               });
             });
 
             describe(`In the radicand container:`, () => {
               beforeEach(() => {
-                cy.get(`${focusingElementSelector} root>editable-term-container`).click()
+                cy.get(`${focusingElementSelector} ${rootRadicandSelector}`).click()
                 selectView()
               })
 
@@ -915,8 +948,8 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
                 view.type(`{LeftArrow}`)
 
-                expectContexted(`${focusingElementSelector} root>argument`)
-                expectCaretIsInFrontOf(`${focusingElementSelector} root>argument char:last-child`)
+                expectContexted(`${focusingElementSelector} ${rootIndexSelector}`)
+                expectCaretIsInFrontOf(`${focusingElementSelector} ${rootIndexSelector} ${charSelector}:last-child`)
               });
 
               it(`Having the caret in the last position, when moving forward, it moves the context to the parent`, () => {
@@ -925,7 +958,7 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
                 view.type(`{RightArrow}`)
 
                 expectContexted(focusingElementSelector)
-                expectCaretIsInFrontOf(`${focusingElementSelector} root`)
+                expectCaretIsInFrontOf(`${focusingElementSelector} ${rootSelector}`)
               });
             });
           });
@@ -944,23 +977,23 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
             view.type(`{RightArrow}`)
 
-            expectContexted(`${focusingElementSelector} parenthesis>editable-term-container`)
-            expectCaretIsBehindOf(`${focusingElementSelector} parenthesis char:first-child`)
+            expectContexted(`${focusingElementSelector} ${parenthesisContainerSelector}`)
+            expectCaretIsBehindOf(`${focusingElementSelector} ${parenthesisSelector} ${charSelector}:first-child`)
           });
           it(`when the caret enters from the right, it contexts the parenthesis and moves to the last position`, () => {
             view.type(`{End}`)
 
             view.type(`{LeftArrow}`)
 
-            expectContexted(`${focusingElementSelector} parenthesis>editable-term-container`)
-            expectCaretIsInFrontOf(`${focusingElementSelector} parenthesis char:last-child`)
+            expectContexted(`${focusingElementSelector} ${parenthesisContainerSelector}`)
+            expectCaretIsInFrontOf(`${focusingElementSelector} ${parenthesisSelector} ${charSelector}:last-child`)
           });
 
         });
 
         describe(`On caret exit:`, () => {
           beforeEach(() => {
-            cy.get(`${focusingElementSelector} parenthesis`).click()
+            cy.get(`${focusingElementSelector} ${parenthesisSelector}`).click()
             selectView()
           })
 
@@ -970,7 +1003,7 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
             view.type(`{LeftArrow}`)
 
             expectContexted(focusingElementSelector)
-            expectCaretIsBehindOf(`${focusingElementSelector} parenthesis`)
+            expectCaretIsBehindOf(`${focusingElementSelector} ${parenthesisSelector}`)
           });
 
           it(`When the caret it in the last position, when moving forward, it moves the context to the parent element`, () => {
@@ -979,7 +1012,7 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
             view.type(`{RightArrow}`)
 
             expectContexted(focusingElementSelector)
-            expectCaretIsInFrontOf(`${focusingElementSelector} parenthesis`)
+            expectCaretIsInFrontOf(`${focusingElementSelector} ${parenthesisSelector}`)
           });
         });
 
@@ -999,8 +1032,8 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
               view.type(`{RightArrow}`)
 
-              expectContexted(`${focusingElementSelector} function>editable-term-container`)
-              expectCaretIsBehindOf(`${focusingElementSelector} function char:first-child`)
+              expectContexted(`${focusingElementSelector} ${functionArgumentSelector}`)
+              expectCaretIsBehindOf(`${focusingElementSelector} ${functionArgumentSelector} ${charSelector}:first-child`)
             });
 
             it(`When caret enters from the right, it should context the function and move to the last position`, () => {
@@ -1009,8 +1042,8 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
               view.type(`{LeftArrow}`)
 
-              expectContexted(`${focusingElementSelector} function>editable-term-container`)
-              expectCaretIsInFrontOf(`${focusingElementSelector} function char:last-child`)
+              expectContexted(`${focusingElementSelector} ${functionArgumentSelector}`)
+              expectCaretIsInFrontOf(`${focusingElementSelector} ${functionArgumentSelector} ${charSelector}:last-child`)
             });
           });
 
@@ -1021,7 +1054,7 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
               view.type(`{LeftArrow}`)
 
               expectContexted(focusingElementSelector)
-              expectCaretIsBehindOf(`${focusingElementSelector} function`)
+              expectCaretIsBehindOf(`${focusingElementSelector} ${functionSelector}`)
             });
 
             it(`When caret is on the last position, when moving forward, it should move the context to the parent`, () => {
@@ -1030,7 +1063,7 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
               view.type(`{RightArrow}`)
 
               expectContexted(focusingElementSelector)
-              expectCaretIsInFrontOf(`${focusingElementSelector} function`)
+              expectCaretIsInFrontOf(`${focusingElementSelector} ${functionSelector}`)
             });
           });
 
@@ -1039,9 +1072,9 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
         describe(`Function with argument: `, () => {
           beforeEach(() => {
             view.type(`log`)
-            cy.get(`${focusingElementSelector} function>argument`).click()
+            cy.get(`${focusingElementSelector} ${functionBaseSelector}`).click()
             selectView().type(`hello`)
-            cy.get(`${focusingElementSelector} function>editable-term-container`).click()
+            cy.get(`${focusingElementSelector} ${functionArgumentSelector}`).click()
             selectView().type(`hello`)
           })
 
@@ -1052,8 +1085,8 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
               view.type(`{RightArrow}`)
 
-              expectContexted(`${focusingElementSelector} function>argument`)
-              expectCaretIsBehindOf(`${focusingElementSelector} function>argument char:first-child`)
+              expectContexted(`${focusingElementSelector} ${functionBaseSelector}`)
+              expectCaretIsBehindOf(`${focusingElementSelector} ${functionBaseSelector} ${charSelector}:first-child`)
             });
 
             it(`When caret enters from the right, it contexts the function argument and moves to the last position`, () => {
@@ -1062,15 +1095,15 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
               view.type(`{LeftArrow}`)
 
-              expectContexted(`${focusingElementSelector} function>editable-term-container`)
-              expectCaretIsInFrontOf(`${focusingElementSelector} function>editable-term-container char:last-child`)
+              expectContexted(`${focusingElementSelector} ${functionArgumentSelector}`)
+              expectCaretIsInFrontOf(`${focusingElementSelector} ${functionArgumentSelector} ${charSelector}:last-child`)
             });
           });
 
           describe(`On caret exit:`, () => {
             describe(`In the function base:`, () => {
               beforeEach(() => {
-                cy.get(`${focusingElementSelector} function>argument`).click()
+                cy.get(`${focusingElementSelector} ${functionBaseSelector}`).click()
                 selectView()
               })
 
@@ -1080,7 +1113,7 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
                 view.type(`{LeftArrow}`)
 
                 expectContexted(focusingElementSelector)
-                expectCaretIsBehindOf(`${focusingElementSelector} function`)
+                expectCaretIsBehindOf(`${focusingElementSelector} ${functionSelector}`)
               });
 
               it(`Having the caret in the last position, when moving forward, it contexts the function argument`, () => {
@@ -1088,14 +1121,14 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
                 view.type(`{RightArrow}`)
 
-                expectContexted(`${focusingElementSelector} function>editable-term-container`)
-                expectCaretIsBehindOf(`${focusingElementSelector} function>editable-term-container char:first-child`)
+                expectContexted(`${focusingElementSelector} ${functionArgumentSelector}`)
+                expectCaretIsBehindOf(`${focusingElementSelector} ${functionArgumentSelector} ${charSelector}:first-child`)
               });
             });
 
             describe(`In the function argument:`, () => {
               beforeEach(() => {
-                cy.get(`${focusingElementSelector} function>editable-term-container`).click()
+                cy.get(`${focusingElementSelector} ${functionArgumentSelector}`).click()
                 selectView()
               })
 
@@ -1104,8 +1137,8 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
 
                 view.type(`{LeftArrow}`)
 
-                expectContexted(`${focusingElementSelector} function>argument`)
-                expectCaretIsInFrontOf(`${focusingElementSelector} function>argument char:last-child`)
+                expectContexted(`${focusingElementSelector} ${functionBaseSelector}`)
+                expectCaretIsInFrontOf(`${focusingElementSelector} ${functionBaseSelector} ${charSelector}:last-child`)
               });
 
               it(`Having the caret in the last position, when moving forward, it contexts the parent`, () => {
@@ -1114,7 +1147,7 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
                 view.type(`{RightArrow}`)
 
                 expectContexted(focusingElementSelector)
-                expectCaretIsInFrontOf(`${focusingElementSelector} function`)
+                expectCaretIsInFrontOf(`${focusingElementSelector} ${functionSelector}`)
               });
             });
           });
