@@ -77,10 +77,18 @@ export class EditableTermContainerComponent{
   public get noCharData(){
     let positionX=this.positionX
     if(this.centered)
-      positionX= this.termContainer.renderedChars.get(0)?.leftPosition || positionX + this.ref.offsetWidth/2
+      positionX= this.centeredCaretPosition()
 
     return {index:-1,positionX, parent:this}
   }
+
+  private centeredCaretPosition(){
+    const firstCharLeftPosition=this.termContainer.renderedChars.get(0)?.leftPosition
+    if(firstCharLeftPosition!==undefined)
+      return firstCharLeftPosition
+    return this.positionX + this.ref.offsetWidth/2
+  }
+
 
   public get lastCharData(){
     return this.getCharData(this.termContainer.renderedChars.length-1)||this.noCharData
