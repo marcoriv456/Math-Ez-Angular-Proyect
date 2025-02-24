@@ -1,3 +1,4 @@
+import {EditableTermContainerComponent} from "../editable-term-container/editable-term-container.component";
 import {TermContainerComponent} from "./term-container.component";
 import {CharComponent} from "../char/char.component";
 import {FractionComponent} from "../fraction/fraction.component";
@@ -6,16 +7,21 @@ import {ExponentComponent} from "../exponent/exponent.component";
 import {FunctionComponent} from "../function/function.component";
 import {ParenthesisComponent} from "../parenthesis/parenthesis.component";
 import {CommonModule} from "@angular/common";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {CharClickedNotifierService} from "../../services/char-clicked-notifier/char-clicked-notifier.service";
 import {WarningsService} from "../../services/warnings/warnings.service";
-import {VariableHandlerService} from "../../services/variable-handler/variable-handler.service";
 import {ComponentFixture} from "@angular/core/testing";
 import {Term} from "../../models/terms/term.model";
-import {FractionChildComponent} from "../fraction/fraction-child/fraction-child.component";
-import {TermArgumentComponent} from "../term-argument/term-argument.component";
-import {EditableTermContainerComponent} from "../editable-term-container/editable-term-container.component";
 import {InputTermDirective} from "../../directives/input-term/input-term.directive";
+import {ContextHandlerService} from "../../services/context-handler/context-handler.service";
+import {CaretHandlerService} from "../../services/caret-handler/caret-handler.service";
+import {WritingHandlerService} from "../../services/wrting-handler/writing-handler.service";
+import {CaretIndexService} from "../../services/caret-index/caret-index.service";
+import {InputComponent} from "../../input.component";
+import {CaretComponent} from "../caret/caret.component";
+import {InputTermValidationDirective} from "../../directives/input-term-validation/input-term-validation.directive";
+import {TermValidationWarningComponent} from "../term-validation-warning/term-validation-warning.component";
+import {BrowserModule} from "@angular/platform-browser";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 describe('Term container: ', () => {
   let elementRef:HTMLElement
@@ -29,33 +35,42 @@ describe('Term container: ', () => {
 
   beforeEach(()=>{
     cy.mount(TermContainerComponent,{
-      declarations:[
+      declarations: [
+        InputComponent,
         CharComponent,
         FractionComponent,
-        FractionChildComponent,
+        InputTermDirective,
         ExponentComponent,
         RootComponent,
-        TermArgumentComponent,
         FunctionComponent,
-        ParenthesisComponent,
+        TermContainerComponent,
         EditableTermContainerComponent,
-        InputTermDirective
+        ParenthesisComponent,
+        TermValidationWarningComponent,
+        InputTermValidationDirective,
+        CaretComponent
       ],
-      imports:[
+      imports: [
         CommonModule,
+        BrowserModule,
         BrowserAnimationsModule
       ],
-      providers: [
+      providers:[
         CharClickedNotifierService,
         WarningsService,
-        VariableHandlerService
+        ContextHandlerService,
+        CaretHandlerService,
+        WritingHandlerService,
+        CaretIndexService,
+        {provide:EditableTermContainerComponent, useValue:{}}
       ]
     }).then(response=>{
       fixture=response.fixture
       elementRef=fixture.elementRef.nativeElement
       component=response.component
       elementRef.style.height="5rem"
-      fixture.componentRef.setInput("parent",undefined)
+      response.fixture.componentRef.setInput('parent',{} as any)
+      response.fixture.componentRef.setInput('terms',[])
     })
   })
 
