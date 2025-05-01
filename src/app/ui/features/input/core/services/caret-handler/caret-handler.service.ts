@@ -1,10 +1,10 @@
 import {ElementRef, inject, Injectable} from '@angular/core';
 import {Subject} from "rxjs";
-import {InputCharData} from "../../models/input-char-data.model";
+import {InputCharData} from "../../../models/input-char-data.model";
 import {ContextHandlerService} from "../context-handler/context-handler.service";
 import {CharClickedNotifierService} from "../char-clicked-notifier/char-clicked-notifier.service";
 import {CaretIndexService} from "../caret-index/caret-index.service";
-import {CaretVisibilityChecker} from "../../classes/helpers/caret-visibility-checker/caret-visibility-checker.helper";
+import {CaretVisibilityChecker} from "../../../classes/helpers/caret-visibility-checker/caret-visibility-checker.helper";
 
 @Injectable()
 export class CaretHandlerService {

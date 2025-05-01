@@ -1,5 +1,5 @@
 import {TermValidationWarningRenderData} from "../../validation/models/term-validation-warning-render-data.model";
-import {WarningsService} from "../../services/warnings/warnings.service";
+import {WarningsService} from "../../core/services/warnings/warnings.service";
 import {TermValidationWarningComponent} from "./term-validation-warning.component";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {CommonModule} from "@angular/common";

@@ -1,5 +1,5 @@
 import {Component, inject, Input} from '@angular/core';
-import {VariableHandlerService} from "../../services/variable-handler/variable-handler.service";
+import {VariableHandlerService} from "../../core/services/variable-handler/variable-handler.service";
 
 @Component({
   selector: 'char',

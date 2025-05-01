@@ -9,8 +9,8 @@ import {TermContainerComponent} from "../components/term-container/term-containe
 import {ParenthesisComponent} from "../components/parenthesis/parenthesis.component";
 import {TermValidationWarningComponent} from "../components/term-validation-warning/term-validation-warning.component";
 import {CommonModule} from "@angular/common";
-import {CharClickedNotifierService} from "../services/char-clicked-notifier/char-clicked-notifier.service";
-import {WarningsService} from "../services/warnings/warnings.service";
+import {CharClickedNotifierService} from "../core/services/char-clicked-notifier/char-clicked-notifier.service";
+import {WarningsService} from "../core/services/warnings/warnings.service";
 import {
   clickAndType,
   contextParent,
@@ -24,10 +24,10 @@ import {
 } from "./test-functions.util";
 import {InputTermValidationDirective} from "../directives/input-term-validation/input-term-validation.directive";
 import {CaretComponent} from "../components/caret/caret.component";
-import {ContextHandlerService} from "../services/context-handler/context-handler.service";
-import {CaretHandlerService} from "../services/caret-handler/caret-handler.service";
-import {WritingHandlerService} from "../services/wrting-handler/writing-handler.service";
-import {CaretIndexService} from "../services/caret-index/caret-index.service";
+import {ContextHandlerService} from "../core/services/context-handler/context-handler.service";
+import {CaretHandlerService} from "../core/services/caret-handler/caret-handler.service";
+import {WritingHandlerService} from "../core/services/wrting-handler/writing-handler.service";
+import {CaretIndexService} from "../core/services/caret-index/caret-index.service";
 import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {EditableTermContainerComponent} from "../components/editable-term-container/editable-term-container.component";

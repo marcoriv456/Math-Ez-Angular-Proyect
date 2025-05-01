@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {VariableProvider} from "../../models/variable-provider.model";
-import {CharValidator} from "../../validation/validators/char/char.validator";
+import {VariableProvider} from "../../../models/variable-provider.model";
+import {CharValidator} from "../../../validation/validators/char/char.validator";
 
 @Injectable({
   providedIn:'root'

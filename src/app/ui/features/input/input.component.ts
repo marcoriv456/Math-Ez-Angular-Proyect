@@ -1,10 +1,10 @@
 import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, inject, ViewChild,} from '@angular/core';
 import {Term} from "./models/terms/term.model";
-import {VariableHandlerService} from "./services/variable-handler/variable-handler.service";
+import {VariableHandlerService} from "./core/services/variable-handler/variable-handler.service";
 import {EditableTermContainerComponent} from "./components/editable-term-container/editable-term-container.component";
-import {CaretHandlerService} from "./services/caret-handler/caret-handler.service";
-import {WritingHandlerService} from "./services/wrting-handler/writing-handler.service";
-import {ContextHandlerService} from "./services/context-handler/context-handler.service";
+import {CaretHandlerService} from "./core/services/caret-handler/caret-handler.service";
+import {WritingHandlerService} from "./core/services/wrting-handler/writing-handler.service";
+import {ContextHandlerService} from "./core/services/context-handler/context-handler.service";
 import {adviceFadingAnimation} from "./animations/advice-fading.animation";
 
 @Component({

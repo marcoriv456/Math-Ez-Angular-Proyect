@@ -15,7 +15,7 @@ import {InputMathElement} from "../../directives/input-math-element/input-math-e
 import {Subject} from "rxjs";
 import {ContainerLocation} from "../../models/locations/container-location.model";
 import {InputElementLocation} from "../../models/locations/input-element-location.model";
-import {CharClickedNotifierService} from "../../services/char-clicked-notifier/char-clicked-notifier.service";
+import {CharClickedNotifierService} from "../../core/services/char-clicked-notifier/char-clicked-notifier.service";
 
 @Component({
   selector: 'editable-term-container',

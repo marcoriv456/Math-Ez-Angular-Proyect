@@ -1,5 +1,5 @@
 import {Component, ElementRef, inject, OnInit} from '@angular/core';
-import {WarningsService} from "../../services/warnings/warnings.service";
+import {WarningsService} from "../../core/services/warnings/warnings.service";
 import {TermValidationWarningRenderData} from "../../validation/models/term-validation-warning-render-data.model";
 import {TermValidationMessage} from "../../validation/models/term-validation-message.model";
 import {warningAdviceAnimation} from "../../animations/warning-advice.animation";

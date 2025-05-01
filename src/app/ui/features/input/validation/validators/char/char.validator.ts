@@ -1,6 +1,6 @@
 import {TermValidator} from "../../abstracts/validator.abstract";
 import {TermValidationMessage} from "../../models/term-validation-message.model";
-import {VariableHandlerService} from "../../../services/variable-handler/variable-handler.service";
+import {VariableHandlerService} from "../../../core/services/variable-handler/variable-handler.service";
 import {CharComponent} from "../../../components/char/char.component";
 import {Term} from "../../../models/terms/term.model";
 import {CharTerm} from "../../../models/terms/char-term.model";
