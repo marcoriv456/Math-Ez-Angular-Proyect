@@ -3,7 +3,7 @@ import {BlobAnimation} from "../../../core/helpers/blob-animator.helper";
 import {loadSlim} from "@tsparticles/slim";
 import {topLayerConfig, bottomLayerConfig} from "./config/bg-animation.config";
 import {Engine} from "@tsparticles/engine";
-import {FooterObserverService} from "../../../footer/service/footer-observer.service";
+import {FooterObserverService} from "../../../core/services/footer/footer-observer.service";
 
 @Component({
   selector: 'app-home',
