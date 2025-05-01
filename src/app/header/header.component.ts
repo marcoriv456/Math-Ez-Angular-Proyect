@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, ElementRef, inject, OnDestroy} from '@angular/core';
 import {interpolate} from "flubber";
 import {FlubberAnimation} from "./helpers/flubber-animation.helper";
-import {BlobAnimation} from "../home/helpers/blob-animator.helper";
+import {BlobAnimation} from "../core/helpers/blob-animator.helper";
 
 @Component({
   selector: 'app-header',

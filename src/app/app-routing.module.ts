@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {InputComponent} from "./input/input.component";
 import {InputTestingEnvironmentComponent} from "./input/input-testing-environment/input-testing-environment.component";
-import {HomeComponent} from "./home/home.component";
+import {HomeComponent} from "./ui/pages/home/home.component";
 
 const routes: Routes = [
   {
