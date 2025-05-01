@@ -1,4 +1,4 @@
-import {FlubberAnimation} from "../../header/helpers/flubber-animation.helper";
+import {FlubberAnimation} from "./flubber-animation.helper";
 
 export class BlobAnimation {
   private flubberAnimations: FlubberAnimation[] = []

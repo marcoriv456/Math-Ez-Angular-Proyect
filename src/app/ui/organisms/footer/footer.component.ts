@@ -1,8 +1,8 @@
 import {AfterViewInit, Component, ElementRef, inject} from '@angular/core';
-import {FooterObserverService} from "./service/footer-observer.service";
+import {FooterObserverService} from "../../../footer/service/footer-observer.service";
 import {HttpClient, HttpRequest} from "@angular/common/http";
 import {firstValueFrom} from "rxjs";
-import {GithubService} from "./service/github/github.service";
+import {GithubService} from "../../../footer/service/github/github.service";
 
 @Component({
   selector: 'app-footer',
