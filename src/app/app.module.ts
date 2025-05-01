@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './ui/organisms/header/header.component';
-import {InputModule} from "./input/input.module";
+import {InputModule} from "./ui/features/input/input.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { FooterComponent } from './ui/organisms/footer/footer.component';
 import {provideHttpClient} from "@angular/common/http";
