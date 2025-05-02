@@ -1,5 +1,4 @@
 import {LogarithmValidator} from "./logarithm/logarithm.validator";
-import {TermValidator} from "../../abstracts/validator.abstract";
 import {DefaultValidator} from "../default/default.validator";
 
 export const getFunctionValidator = (functionName: string) => {

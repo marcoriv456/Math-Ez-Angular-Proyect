@@ -10,8 +10,6 @@ import {
   OnInit,
   Optional
 } from '@angular/core';
-import {TermValidationData} from "../../validation/models/term-validation-data.model";
-import {TermValidator} from "../../validation/abstracts/validator.abstract";
 import {WarningsService} from "../../core/services/warnings/warnings.service";
 import {Term} from "../../core/models/terms/term.model";
 import {Subject} from "rxjs";
@@ -20,6 +18,8 @@ import {CharComponent} from "../../components/char/char.component";
 import {
   EditableTermContainerComponent
 } from "../../components/editable-term-container/editable-term-container.component";
+import {TermValidator} from "../../core/validation/abstracts/validator.abstract";
+import {TermValidationData} from "../../core/validation/models/term-validation-data.model";
 
 @Directive({
   selector: '[inputTermValidation]'

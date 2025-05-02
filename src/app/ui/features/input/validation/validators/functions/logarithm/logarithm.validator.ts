@@ -1,9 +1,8 @@
-import {TermValidator} from "../../../abstracts/validator.abstract";
-import {TermValidationMessage} from "../../../models/term-validation-message.model";
-import {FunctionComponent} from "../../../../components/function/function.component";
 import {Term} from "../../../../core/models/terms/term.model";
-import {UnexpectedTermTypeError} from "../../../errors/unexpected-term-type.error";
 import {TermUtils} from "../../../../classes/term-utils.util";
+import {TermValidator} from "../../../../core/validation/abstracts/validator.abstract";
+import {UnexpectedTermTypeError} from "../../../../core/validation/errors/unexpected-term-type.error";
+import {TermValidationMessage} from "../../../../core/validation/models/term-validation-message.model";
 
 export class LogarithmValidator extends TermValidator{
 
