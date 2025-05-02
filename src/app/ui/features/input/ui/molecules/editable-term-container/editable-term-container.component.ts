@@ -20,7 +20,7 @@ import {CharClickedNotifierService} from "../../../core/services/char-clicked-no
 @Component({
   selector: 'editable-term-container',
   templateUrl: './editable-term-container.component.html',
-  styleUrls: ['./editable-term-container.component.css','../../../assets/editable-elements-styles.css']
+  styleUrls: ['./editable-term-container.component.css','../../assets/editable-elements-styles.css']
 })
 export class EditableTermContainerComponent{
   @Input() terms!:Term[]

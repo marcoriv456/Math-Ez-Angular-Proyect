@@ -5,7 +5,7 @@ import {EditableTermContainerComponent} from "./ui/molecules/editable-term-conta
 import {CaretHandlerService} from "./core/services/caret-handler/caret-handler.service";
 import {WritingHandlerService} from "./core/services/wrting-handler/writing-handler.service";
 import {ContextHandlerService} from "./core/services/context-handler/context-handler.service";
-import {adviceFadingAnimation} from "./animations/advice-fading.animation";
+import {adviceFadingAnimation} from "./ui/animations/advice-fading.animation";
 
 @Component({
   selector: 'app-input',
