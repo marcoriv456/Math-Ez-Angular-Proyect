@@ -1,26 +1,24 @@
-import {AfterViewInit, Directive, InjectionToken, Input, QueryList, SkipSelf, ViewChildren} from "@angular/core";
+import {AfterViewInit, Directive, Input, QueryList, SkipSelf, ViewChildren} from "@angular/core";
 import {Subject} from "rxjs";
-import {
-  EditableTermContainerComponent
-} from "../../ui/molecules/editable-term-container/editable-term-container.component";
 import {ContainerLocation} from "../models/locations/container-location.model";
+import {EditableTermContainer} from "./editable-term-container.abstract";
 
 @Directive()
 export abstract class InputMathElement<TermType> implements AfterViewInit{
-  @ViewChildren(EditableTermContainerComponent) private editableSections!:QueryList<EditableTermContainerComponent>;
+  @ViewChildren(EditableTermContainer) private editableSections!:QueryList<EditableTermContainer>;
   @Input() public term!:TermType
   @Input() public index!:number
 
   public currentSection=0
   public validationRequester=new Subject<void>()
-  constructor(@SkipSelf() public parent:EditableTermContainerComponent) { }
+  constructor(@SkipSelf() public parent:EditableTermContainer) { }
 
   public get firstSection(){
-    return this.editableSections.get(0) as EditableTermContainerComponent
+    return this.editableSections.get(0) as EditableTermContainer
   }
 
   public get lastSection(){
-    return this.editableSections.get(this.editableSections.length-1) as EditableTermContainerComponent
+    return this.editableSections.get(this.editableSections.length-1) as EditableTermContainer
   }
 
   public sectionAt(index:number){

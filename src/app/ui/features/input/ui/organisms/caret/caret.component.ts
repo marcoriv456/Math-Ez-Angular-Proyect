@@ -1,6 +1,5 @@
 import {Component, ElementRef, inject, OnInit} from '@angular/core';
 import {InputCharData} from "../../../core/models/input-char-data.model";
-import {EditableTermContainerComponent} from "../../molecules/editable-term-container/editable-term-container.component";
 import {CaretHandlerService} from "../../../core/services/caret-handler/caret-handler.service";
 
 @Component({

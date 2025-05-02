@@ -2,9 +2,8 @@ import {Directive, ElementRef, Host, HostListener, inject, Input, Optional, Skip
 import {CharClickedNotifierService} from "../../../core/services/char-clicked-notifier/char-clicked-notifier.service";
 import {InputCharData} from "../../../core/models/input-char-data.model";
 import {InputMathElement} from "../../../core/abstracts/input-math-element.abstract";
-import {
-  EditableTermContainerComponent
-} from "../../molecules/editable-term-container/editable-term-container.component";
+
+import {EditableTermContainer} from "../../../core/abstracts/editable-term-container.abstract";
 
 @Directive({
   selector: '[inputTerm]'
@@ -14,7 +13,7 @@ export class InputTermDirective {
 
   constructor(
     @Host() @Optional() public asMathElement:InputMathElement<any>|null,
-    @SkipSelf() public parent:EditableTermContainerComponent
+    @SkipSelf() public parent:EditableTermContainer
   ) { }
 
   private ref=inject(ElementRef).nativeElement as HTMLElement
