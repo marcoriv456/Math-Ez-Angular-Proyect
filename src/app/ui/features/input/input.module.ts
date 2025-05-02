@@ -19,6 +19,7 @@ import {ContextHandlerService} from "./core/services/context-handler/context-han
 import {CaretHandlerService} from "./core/services/caret-handler/caret-handler.service";
 import {CaretIndexService} from "./core/services/caret-index/caret-index.service";
 import {WritingHandlerService} from "./core/services/wrting-handler/writing-handler.service";
+import {InputEventBusService} from "./core/services/input-event-bus/input-event-bus.service";
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import {WritingHandlerService} from "./core/services/wrting-handler/writing-hand
     ContextHandlerService,
     CaretHandlerService,
     WritingHandlerService,
-    CaretIndexService
+    CaretIndexService,
+    InputEventBusService
   ]
 })
 export class InputModule { }
