@@ -1,7 +1,7 @@
 import {TermValidator} from "../../abstracts/validator.abstract";
 import {TermValidationMessage} from "../../models/term-validation-message.model";
 import {ExponentComponent} from "../../../components/exponent/exponent.component";
-import {Term} from "../../../models/terms/term.model";
+import {Term} from "../../../core/models/terms/term.model";
 import {UnexpectedTermTypeError} from "../../errors/unexpected-term-type.error";
 import {TermUtils} from "../../../classes/term-utils.util";
 

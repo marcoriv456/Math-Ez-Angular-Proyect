@@ -1,6 +1,6 @@
 import {Component, forwardRef} from '@angular/core';
 import {InputMathElement} from "../../directives/input-math-element/input-math-element.abstract";
-import {ParenthesisTerm} from "../../models/terms/parenthesis-term.model";
+import {ParenthesisTerm} from "../../core/models/terms/parenthesis-term.model";
 
 @Component({
   selector: 'parenthesis',

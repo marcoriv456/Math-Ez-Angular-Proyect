@@ -1,7 +1,7 @@
 import {TermUtils} from "../../term-utils.util";
 import {FunctionAdder} from "./function-adder.helper";
 import {expect} from 'chai'
-import {Term} from "../../../models/terms/term.model";
+import {Term} from "../../../core/models/terms/term.model";
 
 
 describe('Function adder: ', () => {

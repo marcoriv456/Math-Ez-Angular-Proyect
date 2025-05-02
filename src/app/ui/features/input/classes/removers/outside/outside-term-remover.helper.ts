@@ -1,5 +1,5 @@
-import {Term} from "../../../models/terms/term.model";
-import {TermRemoverInstructions} from "../../../models/actions/term-remover-instructions.model";
+import {Term} from "../../../core/models/terms/term.model";
+import {TermRemoverInstructions} from "../../../core/models/actions/term-remover-instructions.model";
 
 export class OutsideTermRemover{
   constructor(private terms:Term[], private index:number){}

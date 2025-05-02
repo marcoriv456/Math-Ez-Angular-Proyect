@@ -1,5 +1,5 @@
-import {TermAdder} from "../../models/term-adder.model";
-import {TermAdderInstructions} from "../../models/actions/term-adder-instructions.model";
+import {TermAdder} from "../../core/models/term-adder.model";
+import {TermAdderInstructions} from "../../core/models/actions/term-adder-instructions.model";
 
 export class IndexedRootAdder implements TermAdder {
   constructor(private index: number) {

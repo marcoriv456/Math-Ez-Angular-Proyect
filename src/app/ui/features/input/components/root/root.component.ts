@@ -1,6 +1,6 @@
 import {Component, forwardRef} from '@angular/core';
 import {InputMathElement} from "../../directives/input-math-element/input-math-element.abstract";
-import {RootTerm} from "../../models/terms/root-term.model";
+import {RootTerm} from "../../core/models/terms/root-term.model";
 
 @Component({
   selector: 'root',

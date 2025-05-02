@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, inject, ViewChild, ViewChildren} from '@angular/core';
 import {ExperimentalVariableProviderService} from "./experimental-variable-provider.service";
 import {InputComponent} from "../input.component";
-import {Term} from "../models/terms/term.model";
+import {Term} from "../core/models/terms/term.model";
 import {InputModule} from "../input.module";
 
 @Component({

@@ -10,7 +10,7 @@ import {CommonModule} from "@angular/common";
 import {CharClickedNotifierService} from "../../core/services/char-clicked-notifier/char-clicked-notifier.service";
 import {WarningsService} from "../../core/services/warnings/warnings.service";
 import {ComponentFixture} from "@angular/core/testing";
-import {Term} from "../../models/terms/term.model";
+import {Term} from "../../core/models/terms/term.model";
 import {InputTermDirective} from "../../directives/input-term/input-term.directive";
 import {ContextHandlerService} from "../../core/services/context-handler/context-handler.service";
 import {CaretHandlerService} from "../../core/services/caret-handler/caret-handler.service";

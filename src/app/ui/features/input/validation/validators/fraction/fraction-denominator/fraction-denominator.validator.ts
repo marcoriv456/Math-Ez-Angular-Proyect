@@ -1,6 +1,6 @@
 import {TermValidationMessage} from "../../../models/term-validation-message.model";
 import {TermValidator} from "../../../abstracts/validator.abstract";
-import {Term} from "../../../../models/terms/term.model";
+import {Term} from "../../../../core/models/terms/term.model";
 import {TermUtils} from "../../../../classes/term-utils.util";
 import {UnexpectedTermTypeError} from "../../../errors/unexpected-term-type.error";
 

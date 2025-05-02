@@ -1,7 +1,7 @@
-import {Term} from "../../../models/terms/term.model";
+import {Term} from "../../../core/models/terms/term.model";
 import {SpecialCharFinder} from "../../helpers/special-char-finder/special-char-finder.helper";
-import {TermAdderInstructions} from "../../../models/actions/term-adder-instructions.model";
-import {TermAdder} from "../../../models/term-adder.model";
+import {TermAdderInstructions} from "../../../core/models/actions/term-adder-instructions.model";
+import {TermAdder} from "../../../core/models/term-adder.model";
 
 export class FractionAdder implements TermAdder{
   private readonly origin!:number

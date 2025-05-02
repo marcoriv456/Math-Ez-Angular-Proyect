@@ -3,7 +3,7 @@ import {FractionAdder} from "../../../classes/adders/fraction/fraction-adder.hel
 import {ContextHandlerService} from "../context-handler/context-handler.service";
 import {CaretHandlerService} from "../caret-handler/caret-handler.service";
 import {CaretIndexService} from "../caret-index/caret-index.service";
-import {TermAdder} from "../../../models/term-adder.model";
+import {TermAdder} from "../../models/term-adder.model";
 import {ExponentAdder} from "../../../classes/adders/exponent-adder.helper";
 import {RootAdder} from "../../../classes/adders/root-adder.class";
 import {IndexedRootAdder} from "../../../classes/adders/indexed-root-adder.helper";
@@ -12,7 +12,7 @@ import {RecognizableFunctionsService} from "../recognizable-functions/recognizab
 import {FunctionAdder} from "../../../classes/adders/function/function-adder.helper";
 import {OutsideTermRemover} from "../../../classes/removers/outside/outside-term-remover.helper";
 import {InsideTermRemover} from "../../../classes/removers/inside/inside-term-remover.helper";
-import {TermRemover} from "../../../models/term-remover.model";
+import {TermRemover} from "../../models/term-remover.model";
 import {
   EditableTermContainerComponent
 } from "../../../components/editable-term-container/editable-term-container.component";

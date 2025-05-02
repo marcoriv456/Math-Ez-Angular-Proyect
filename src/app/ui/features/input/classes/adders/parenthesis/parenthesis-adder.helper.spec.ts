@@ -1,5 +1,5 @@
-import {TermAdderInstructions} from "../../../models/actions/term-adder-instructions.model";
-import {Term} from "../../../models/terms/term.model";
+import {TermAdderInstructions} from "../../../core/models/actions/term-adder-instructions.model";
+import {Term} from "../../../core/models/terms/term.model";
 import {TermUtils} from "../../term-utils.util";
 import {ParenthesisAdder} from "./parenthesis-adder.helper";
 import {expect} from 'chai'

@@ -13,7 +13,7 @@ import {
 import {TermValidationData} from "../../validation/models/term-validation-data.model";
 import {TermValidator} from "../../validation/abstracts/validator.abstract";
 import {WarningsService} from "../../core/services/warnings/warnings.service";
-import {Term} from "../../models/terms/term.model";
+import {Term} from "../../core/models/terms/term.model";
 import {Subject} from "rxjs";
 import {InputMathElement} from "../input-math-element/input-math-element.abstract";
 import {CharComponent} from "../../components/char/char.component";

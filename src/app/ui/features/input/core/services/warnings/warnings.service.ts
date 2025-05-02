@@ -1,5 +1,5 @@
 import {EventEmitter, Injectable} from '@angular/core';
-import {InputCharData} from "../../../models/input-char-data.model";
+import {InputCharData} from "../../models/input-char-data.model";
 import {TermValidationWarningRenderData} from "../../../validation/models/term-validation-warning-render-data.model";
 
 @Injectable()

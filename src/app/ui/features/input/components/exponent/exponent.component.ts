@@ -1,6 +1,6 @@
 import {Component, forwardRef} from '@angular/core';
 import {InputMathElement} from "../../directives/input-math-element/input-math-element.abstract";
-import {ExponentTerm} from "../../models/terms/exponent-term";
+import {ExponentTerm} from "../../core/models/terms/exponent-term";
 
 @Component({
   selector: 'exp',

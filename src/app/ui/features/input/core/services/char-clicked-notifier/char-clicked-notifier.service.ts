@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {InputCharData} from "../../../models/input-char-data.model";
+import {InputCharData} from "../../models/input-char-data.model";
 import {Subject} from "rxjs";
 
 @Injectable()

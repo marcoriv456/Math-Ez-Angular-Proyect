@@ -3,7 +3,7 @@ import {Subject} from "rxjs";
 import {
   EditableTermContainerComponent
 } from "../../components/editable-term-container/editable-term-container.component";
-import {ContainerLocation} from "../../models/locations/container-location.model";
+import {ContainerLocation} from "../../core/models/locations/container-location.model";
 
 @Directive()
 export abstract class InputMathElement<TermType> implements AfterViewInit{

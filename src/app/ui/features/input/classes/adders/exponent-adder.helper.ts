@@ -1,6 +1,6 @@
-import {Term} from "../../models/terms/term.model";
-import {TermAdderInstructions} from "../../models/actions/term-adder-instructions.model";
-import {TermAdder} from "../../models/term-adder.model";
+import {Term} from "../../core/models/terms/term.model";
+import {TermAdderInstructions} from "../../core/models/actions/term-adder-instructions.model";
+import {TermAdder} from "../../core/models/term-adder.model";
 
 export class ExponentAdder implements TermAdder{
   private readonly origin:number

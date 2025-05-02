@@ -1,6 +1,6 @@
-import {Term} from "../../../models/terms/term.model";
-import {TermAdder} from "../../../models/term-adder.model";
-import {TermAdderInstructions} from "../../../models/actions/term-adder-instructions.model";
+import {Term} from "../../../core/models/terms/term.model";
+import {TermAdder} from "../../../core/models/term-adder.model";
+import {TermAdderInstructions} from "../../../core/models/actions/term-adder-instructions.model";
 import {TermUtils} from "../../term-utils.util";
 
 export class FunctionAdder implements TermAdder{
