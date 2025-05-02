@@ -1,12 +1,15 @@
-import {TermValidationWarningRenderData} from "../../validation/models/term-validation-warning-render-data.model";
-import {WarningsService} from "../../../core/services/warnings/warnings.service";
 import {TermValidationWarningComponent} from "./term-validation-warning.component";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {CommonModule} from "@angular/common";
 import {ComponentFixture} from "@angular/core/testing";
+import {
+  TermValidationWarningRenderData
+} from "../../../core/validation/models/term-validation-warning-render-data.model";
+import {InputEventBusService} from "../../../core/services/input-event-bus/input-event-bus.service";
+import {WarningShowRequestEvent} from "../../../core/models/events/warnings/warning-show-request.event";
 
 describe('Term validation warning: ', () => {
-  let warningsService: WarningsService;
+  let eventBus: InputEventBusService;
   let fixture:ComponentFixture<TermValidationWarningComponent>
   beforeEach(()=>{
     cy.mount(TermValidationWarningComponent,{
@@ -18,12 +21,12 @@ describe('Term validation warning: ', () => {
         BrowserAnimationsModule
       ],
       providers: [
-        WarningsService,
+        InputEventBusService,
       ],
     })
       .then(c=>{
         fixture=c.fixture
-        warningsService=c.fixture.debugElement.injector.get(WarningsService)
+        eventBus=c.fixture.debugElement.injector.get(InputEventBusService)
       })
   })
 
@@ -36,7 +39,7 @@ describe('Term validation warning: ', () => {
       position:{x:100,y:50}
     }
 
-    warningsService.showWarning.emit(warningData)
+    eventBus.emit(new WarningShowRequestEvent(warningData))
     fixture.detectChanges()
 
     cy.get(".warning-container")
@@ -56,7 +59,7 @@ describe('Term validation warning: ', () => {
       position:{x:100,y:50}
     }
 
-    warningsService.showWarning.emit(warningData)
+    eventBus.emit(new WarningShowRequestEvent(warningData))
     fixture.detectChanges()
 
     cy.wait(500)
@@ -83,7 +86,7 @@ describe('Term validation warning: ', () => {
       position:{x:100,y:100}
     }
 
-    warningsService.showWarning.emit(warningData)
+    eventBus.emit(new WarningShowRequestEvent(warningData))
     fixture.detectChanges()
 
     cy.get(".warning-container span")
@@ -99,7 +102,7 @@ describe('Term validation warning: ', () => {
       position:{x:100,y:100}
     }
 
-    warningsService.showWarning.emit(warningData)
+    eventBus.emit(new WarningShowRequestEvent(warningData))
     fixture.detectChanges()
 
     cy.get(".warning-container span")
@@ -114,7 +117,7 @@ describe('Term validation warning: ', () => {
       position:{x:100,y:100}
     }
 
-    warningsService.showWarning.emit(warningData)
+    eventBus.emit(new WarningShowRequestEvent(warningData))
     fixture.detectChanges()
 
     cy.get(".warning-container span")
@@ -130,7 +133,7 @@ describe('Term validation warning: ', () => {
       position: {x: 100, y: 100}
     }
 
-    warningsService.showWarning.emit(warningData);
+    eventBus.emit(new WarningShowRequestEvent(warningData));
     fixture.detectChanges()
 
     cy.get(".warning-container>span:first-child")
