@@ -1,8 +1,10 @@
 import {Component, ElementRef, inject, OnInit} from '@angular/core';
-import {WarningsService} from "../../../core/services/warnings/warnings.service";
 import {warningAdviceAnimation} from "../../animations/warning-advice.animation";
 import {TermValidationMessage} from "../../../core/validation/models/term-validation-message.model";
 import {TermValidationWarningRenderData} from "../../../core/validation/models/term-validation-warning-render-data.model";
+import {InputEventBusService} from "../../../core/services/input-event-bus/input-event-bus.service";
+import {WarningHideRequestEvent} from "../../../core/models/events/warnings/warning-hide-request.event";
+import {WarningShowRequestEvent} from "../../../core/models/events/warnings/warning-show-request.event";
 
 @Component({
   selector: 'term-validation-warning',
@@ -14,12 +16,12 @@ export class TermValidationWarningComponent implements OnInit{
   protected showingWarning=false
   protected warningMessages:TermValidationMessage[]=[]
   protected warningStyleData={ left:'50%', top:'0' }
-  private warningsService=inject(WarningsService)
   private ref=inject(ElementRef).nativeElement as HTMLElement
+  private eventBus = inject(InputEventBusService);
 
   ngOnInit() {
-    this.warningsService.showWarning.subscribe(this.showWarning.bind(this))
-    this.warningsService.hideWarning.subscribe(this.hideWarning.bind(this))
+    this.eventBus.on(WarningShowRequestEvent).subscribe(event => this.showWarning(event.renderData));
+    this.eventBus.on(WarningHideRequestEvent).subscribe(() => this.hideWarning());
   }
 
   private showWarning({messages,position}:TermValidationWarningRenderData){

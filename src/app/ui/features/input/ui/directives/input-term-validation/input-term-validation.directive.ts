@@ -10,7 +10,6 @@ import {
   OnInit,
   Optional
 } from '@angular/core';
-import {WarningsService} from "../../../core/services/warnings/warnings.service";
 import {Term} from "../../../core/models/terms/term.model";
 import {Subject} from "rxjs";
 import {InputMathElement} from "../../../core/abstracts/input-math-element.abstract";
@@ -20,6 +19,9 @@ import {
 } from "../../molecules/editable-term-container/editable-term-container.component";
 import {TermValidator} from "../../../core/validation/abstracts/validator.abstract";
 import {TermValidationData} from "../../../core/validation/models/term-validation-data.model";
+import {InputEventBusService} from "../../../core/services/input-event-bus/input-event-bus.service";
+import {WarningShowRequestEvent} from "../../../core/models/events/warnings/warning-show-request.event";
+import {WarningHideRequestEvent} from "../../../core/models/events/warnings/warning-hide-request.event";
 
 @Directive({
   selector: '[inputTermValidation]'
@@ -34,7 +36,7 @@ export class InputTermValidationDirective implements OnInit, OnDestroy{
   private isMouseOver=false
 
   private readonly ref=inject(ElementRef).nativeElement as HTMLElement
-  private readonly warningsService=inject(WarningsService)
+  private readonly eventBus = inject(InputEventBusService)
 
   constructor(
     @Host() @Optional() private mathElementHost:InputMathElement<any>|null,
@@ -111,13 +113,14 @@ export class InputTermValidationDirective implements OnInit, OnDestroy{
   }
 
   private emitShowWarning(){
-    this.warningsService.showWarning.emit({
+    this.eventBus.emit(new WarningShowRequestEvent({
       messages:this.validationData.messages||[],
-      position:{x:this.left,y:this.top}})
+      position:{x:this.left,y:this.top}
+    }))
   }
 
   private emitHideWarning(){
-    this.warningsService.hideWarning.emit()
+    this.eventBus.emit(new WarningHideRequestEvent())
   }
 
 }
