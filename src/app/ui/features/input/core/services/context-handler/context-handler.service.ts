@@ -2,11 +2,11 @@ import {inject, Injectable} from '@angular/core';
 import {
   EditableTermContainerComponent
 } from "../../../components/editable-term-container/editable-term-container.component";
-import {InputContextManager} from "../../../classes/helpers/input-context-manager/input-context-manager.helper";
+import {InputContextManager} from "../../helpers/input-context-manager/input-context-manager.helper";
 import {ContextAction} from "../../models/actions/context-action.enum";
 import {InputCharData} from "../../models/input-char-data.model";
 import {CaretIndexService} from "../caret-index/caret-index.service";
-import {SpecialCharFinder} from "../../../classes/helpers/special-char-finder/special-char-finder.helper";
+import {SpecialCharFinder} from "../../helpers/special-char-finder/special-char-finder.helper";
 
 @Injectable()
 export class ContextHandlerService {

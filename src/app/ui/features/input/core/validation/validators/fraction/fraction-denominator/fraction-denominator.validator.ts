@@ -1,5 +1,5 @@
 import {Term} from "../../../../models/terms/term.model";
-import {TermUtils} from "../../../../../classes/term-utils.util";
+import {TermUtils} from "../../../../utils/term-utils.util";
 import {TermValidator} from "../../../abstracts/validator.abstract";
 import {UnexpectedTermTypeError} from "../../../errors/unexpected-term-type.error";
 import {TermValidationMessage} from "../../../models/term-validation-message.model";

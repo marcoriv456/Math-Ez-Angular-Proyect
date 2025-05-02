@@ -1,22 +1,22 @@
 import {inject, Injectable} from '@angular/core';
-import {FractionAdder} from "../../../classes/adders/fraction/fraction-adder.helper";
+import {FractionAdder} from "../../terms/adders/fraction/fraction-adder.helper";
 import {ContextHandlerService} from "../context-handler/context-handler.service";
 import {CaretHandlerService} from "../caret-handler/caret-handler.service";
 import {CaretIndexService} from "../caret-index/caret-index.service";
 import {TermAdder} from "../../models/term-adder.model";
-import {ExponentAdder} from "../../../classes/adders/exponent-adder.helper";
-import {RootAdder} from "../../../classes/adders/root-adder.class";
-import {IndexedRootAdder} from "../../../classes/adders/indexed-root-adder.helper";
-import {ParenthesisAdder} from "../../../classes/adders/parenthesis/parenthesis-adder.helper";
+import {ExponentAdder} from "../../terms/adders/exponent-adder.helper";
+import {RootAdder} from "../../terms/adders/root-adder.class";
+import {IndexedRootAdder} from "../../terms/adders/indexed-root-adder.helper";
+import {ParenthesisAdder} from "../../terms/adders/parenthesis/parenthesis-adder.helper";
 import {RecognizableFunctionsService} from "../recognizable-functions/recognizable-functions.service";
-import {FunctionAdder} from "../../../classes/adders/function/function-adder.helper";
-import {OutsideTermRemover} from "../../../classes/removers/outside/outside-term-remover.helper";
-import {InsideTermRemover} from "../../../classes/removers/inside/inside-term-remover.helper";
+import {FunctionAdder} from "../../terms/adders/function/function-adder.helper";
+import {OutsideTermRemover} from "../../terms/removers/outside/outside-term-remover.helper";
+import {InsideTermRemover} from "../../terms/removers/inside/inside-term-remover.helper";
 import {TermRemover} from "../../models/term-remover.model";
 import {
   EditableTermContainerComponent
 } from "../../../components/editable-term-container/editable-term-container.component";
-import {CtrlRemover} from "../../../classes/removers/ctrl/ctrl-remover.helper";
+import {CtrlRemover} from "../../terms/removers/ctrl/ctrl-remover.helper";
 
 @Injectable()
 export class WritingHandlerService {
