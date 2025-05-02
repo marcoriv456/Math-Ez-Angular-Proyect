@@ -10,7 +10,6 @@ import {ParenthesisComponent} from "../ui/terms/parenthesis/parenthesis.componen
 import {TermValidationWarningComponent} from "../ui/organisms/term-validation-warning/term-validation-warning.component";
 import {CommonModule} from "@angular/common";
 import {CharClickedNotifierService} from "../core/services/char-clicked-notifier/char-clicked-notifier.service";
-import {WarningsService} from "../core/services/warnings/warnings.service";
 import {
   clickAndType,
   contextParent,
@@ -44,6 +43,7 @@ import {
   rootSelector
 } from "./test-selectors.util";
 import Chainable = Cypress.Chainable;
+import {InputEventBusService} from "../core/services/input-event-bus/input-event-bus.service";
 
 export const runEditableElementSuite = (name: string, addingCommand: string, focusingElementSelector: string) => {
   let view: Chainable<JQuery<HTMLElement>>;
@@ -78,7 +78,7 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
         ],
         providers:[
           CharClickedNotifierService,
-          WarningsService,
+          InputEventBusService,
           ContextHandlerService,
           CaretHandlerService,
           WritingHandlerService,

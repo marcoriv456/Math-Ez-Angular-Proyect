@@ -8,7 +8,6 @@ import {FunctionComponent} from "../../terms/function/function.component";
 import {ParenthesisComponent} from "../../terms/parenthesis/parenthesis.component";
 import {CommonModule} from "@angular/common";
 import {CharClickedNotifierService} from "../../../core/services/char-clicked-notifier/char-clicked-notifier.service";
-import {WarningsService} from "../../../core/services/warnings/warnings.service";
 import {ComponentFixture} from "@angular/core/testing";
 import {Term} from "../../../core/models/terms/term.model";
 import {InputTermDirective} from "../../directives/input-term/input-term.directive";
@@ -22,6 +21,7 @@ import {InputTermValidationDirective} from "../../directives/input-term-validati
 import {TermValidationWarningComponent} from "../../organisms/term-validation-warning/term-validation-warning.component";
 import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {InputEventBusService} from "../../../core/services/input-event-bus/input-event-bus.service";
 
 describe('Term container: ', () => {
   let elementRef:HTMLElement
@@ -57,7 +57,7 @@ describe('Term container: ', () => {
       ],
       providers:[
         CharClickedNotifierService,
-        WarningsService,
+        InputEventBusService,
         ContextHandlerService,
         CaretHandlerService,
         WritingHandlerService,

@@ -11,7 +11,6 @@ import {ParenthesisComponent} from "./ui/terms/parenthesis/parenthesis.component
 import {TermValidationWarningComponent} from "./ui/organisms/term-validation-warning/term-validation-warning.component";
 import {CommonModule} from "@angular/common";
 import {CharClickedNotifierService} from "./core/services/char-clicked-notifier/char-clicked-notifier.service";
-import {WarningsService} from "./core/services/warnings/warnings.service";
 import {runEditableElementSuite} from "./tests/run-editable-element-tests-suite.helper";
 import {clickAndType, expectCaretIsBehindOf, expectCaretIsInFrontOf} from "./tests/test-functions.util";
 import {InputTermValidationDirective} from "./ui/directives/input-term-validation/input-term-validation.directive";
@@ -30,6 +29,7 @@ import {
   functionSelector,
   rootIndexSelector, rootRadicandSelector
 } from "./tests/test-selectors.util";
+import {InputEventBusService} from "./core/services/input-event-bus/input-event-bus.service";
 
 describe(`Input component`, () => {
   let view: Chainable<JQuery<HTMLElement>>;
@@ -60,7 +60,7 @@ describe(`Input component`, () => {
       ],
       providers:[
         CharClickedNotifierService,
-        WarningsService,
+        InputEventBusService,
         ContextHandlerService,
         CaretHandlerService,
         WritingHandlerService,

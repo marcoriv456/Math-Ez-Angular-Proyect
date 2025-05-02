@@ -7,7 +7,6 @@ import {CharClickedNotifierService} from "./core/services/char-clicked-notifier/
 import { InputTermDirective } from './ui/directives/input-term/input-term.directive';
 import { ExponentComponent } from './ui/terms/exponent/exponent.component';
 import { RootComponent } from './ui/terms/root/root.component';
-import {WarningsService} from "./core/services/warnings/warnings.service";
 import { FunctionComponent } from './ui/terms/function/function.component';
 import { TermContainerComponent } from './ui/atoms/term-container/term-container.component';
 import { EditableTermContainerComponent } from './ui/molecules/editable-term-container/editable-term-container.component';
@@ -45,7 +44,6 @@ import {InputEventBusService} from "./core/services/input-event-bus/input-event-
   ],
   providers:[
     CharClickedNotifierService,
-    WarningsService,
     ContextHandlerService,
     CaretHandlerService,
     WritingHandlerService,
