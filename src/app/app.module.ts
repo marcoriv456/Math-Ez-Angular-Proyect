@@ -7,7 +7,7 @@ import {InputModule} from "./ui/features/input/input.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { FooterComponent } from './ui/organisms/footer/footer.component';
 import {provideHttpClient} from "@angular/common/http";
-import {HomeModule} from "./ui/pages/home/home.module";
+import {HomeModule} from "./features/home/home.module";
 
 @NgModule({
     declarations: [

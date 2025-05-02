@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {HomeComponent} from "./home.component";
-import {InputModule} from "../../features/input/input.module";
+import {InputModule} from "../../ui/features/input/input.module";
 import {NgxParticlesModule} from "@tsparticles/angular";
 
 
