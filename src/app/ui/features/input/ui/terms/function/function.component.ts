@@ -1,5 +1,5 @@
 import {Component, forwardRef} from '@angular/core';
-import {InputMathElement} from "../../../directives/input-math-element/input-math-element.abstract";
+import {InputMathElement} from "../../../core/abstracts/input-math-element.abstract";
 import {FunctionTerm} from "../../../core/models/terms/function-term.model";
 
 @Component({

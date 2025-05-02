@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import {TermContainerComponent} from "../../atoms/term-container/term-container.component";
 import {Term} from "../../../core/models/terms/term.model";
-import {InputMathElement} from "../../../directives/input-math-element/input-math-element.abstract";
+import {InputMathElement} from "../../../core/abstracts/input-math-element.abstract";
 import {Subject} from "rxjs";
 import {ContainerLocation} from "../../../core/models/locations/container-location.model";
 import {InputElementLocation} from "../../../core/models/locations/input-element-location.model";

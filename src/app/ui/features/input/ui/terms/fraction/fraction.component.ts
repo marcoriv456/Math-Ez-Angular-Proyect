@@ -5,7 +5,7 @@ import {
 import {
   FractionNumeratorValidator
 } from "../../../core/validation/validators/fraction/fraction-numerator/fraction-numerator.validator";
-import {InputMathElement} from "../../../directives/input-math-element/input-math-element.abstract";
+import {InputMathElement} from "../../../core/abstracts/input-math-element.abstract";
 import {FractionTerm} from "../../../core/models/terms/fraction-term.model";
 
 @Component({

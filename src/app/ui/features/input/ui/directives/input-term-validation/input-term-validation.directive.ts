@@ -10,16 +10,16 @@ import {
   OnInit,
   Optional
 } from '@angular/core';
-import {WarningsService} from "../../core/services/warnings/warnings.service";
-import {Term} from "../../core/models/terms/term.model";
+import {WarningsService} from "../../../core/services/warnings/warnings.service";
+import {Term} from "../../../core/models/terms/term.model";
 import {Subject} from "rxjs";
-import {InputMathElement} from "../input-math-element/input-math-element.abstract";
-import {CharComponent} from "../../ui/terms/char/char.component";
+import {InputMathElement} from "../../../core/abstracts/input-math-element.abstract";
+import {CharComponent} from "../../terms/char/char.component";
 import {
   EditableTermContainerComponent
-} from "../../ui/molecules/editable-term-container/editable-term-container.component";
-import {TermValidator} from "../../core/validation/abstracts/validator.abstract";
-import {TermValidationData} from "../../core/validation/models/term-validation-data.model";
+} from "../../molecules/editable-term-container/editable-term-container.component";
+import {TermValidator} from "../../../core/validation/abstracts/validator.abstract";
+import {TermValidationData} from "../../../core/validation/models/term-validation-data.model";
 
 @Directive({
   selector: '[inputTermValidation]'

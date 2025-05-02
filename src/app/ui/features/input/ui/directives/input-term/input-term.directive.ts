@@ -1,10 +1,10 @@
 import {Directive, ElementRef, Host, HostListener, inject, Input, Optional, SkipSelf,} from '@angular/core';
-import {CharClickedNotifierService} from "../../core/services/char-clicked-notifier/char-clicked-notifier.service";
-import {InputCharData} from "../../core/models/input-char-data.model";
-import {InputMathElement} from "../input-math-element/input-math-element.abstract";
+import {CharClickedNotifierService} from "../../../core/services/char-clicked-notifier/char-clicked-notifier.service";
+import {InputCharData} from "../../../core/models/input-char-data.model";
+import {InputMathElement} from "../../../core/abstracts/input-math-element.abstract";
 import {
   EditableTermContainerComponent
-} from "../../ui/molecules/editable-term-container/editable-term-container.component";
+} from "../../molecules/editable-term-container/editable-term-container.component";
 
 @Directive({
   selector: '[inputTerm]'

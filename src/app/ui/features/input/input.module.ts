@@ -4,7 +4,7 @@ import {InputComponent} from "./input.component";
 import { CharComponent } from './ui/terms/char/char.component';
 import { FractionComponent } from './ui/terms/fraction/fraction.component';
 import {CharClickedNotifierService} from "./core/services/char-clicked-notifier/char-clicked-notifier.service";
-import { InputTermDirective } from './directives/input-term/input-term.directive';
+import { InputTermDirective } from './ui/directives/input-term/input-term.directive';
 import { ExponentComponent } from './ui/terms/exponent/exponent.component';
 import { RootComponent } from './ui/terms/root/root.component';
 import {WarningsService} from "./core/services/warnings/warnings.service";
@@ -13,7 +13,7 @@ import { TermContainerComponent } from './ui/atoms/term-container/term-container
 import { EditableTermContainerComponent } from './ui/molecules/editable-term-container/editable-term-container.component';
 import { ParenthesisComponent } from './ui/terms/parenthesis/parenthesis.component';
 import { TermValidationWarningComponent } from './ui/organisms/term-validation-warning/term-validation-warning.component';
-import { InputTermValidationDirective } from './directives/input-term-validation/input-term-validation.directive';
+import { InputTermValidationDirective } from './ui/directives/input-term-validation/input-term-validation.directive';
 import { CaretComponent } from './ui/organisms/caret/caret.component';
 import {ContextHandlerService} from "./core/services/context-handler/context-handler.service";
 import {CaretHandlerService} from "./core/services/caret-handler/caret-handler.service";

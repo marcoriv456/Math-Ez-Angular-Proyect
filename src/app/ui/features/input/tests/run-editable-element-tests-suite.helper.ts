@@ -1,7 +1,7 @@
 import {InputComponent} from "../input.component";
 import {CharComponent} from "../ui/terms/char/char.component";
 import {FractionComponent} from "../ui/terms/fraction/fraction.component";
-import {InputTermDirective} from "../directives/input-term/input-term.directive";
+import {InputTermDirective} from "../ui/directives/input-term/input-term.directive";
 import {ExponentComponent} from "../ui/terms/exponent/exponent.component";
 import {RootComponent} from "../ui/terms/root/root.component";
 import {FunctionComponent} from "../ui/terms/function/function.component";
@@ -22,7 +22,7 @@ import {
   getCaretPosition,
   selectView
 } from "./test-functions.util";
-import {InputTermValidationDirective} from "../directives/input-term-validation/input-term-validation.directive";
+import {InputTermValidationDirective} from "../ui/directives/input-term-validation/input-term-validation.directive";
 import {CaretComponent} from "../ui/organisms/caret/caret.component";
 import {ContextHandlerService} from "../core/services/context-handler/context-handler.service";
 import {CaretHandlerService} from "../core/services/caret-handler/caret-handler.service";

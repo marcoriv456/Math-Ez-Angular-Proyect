@@ -11,14 +11,14 @@ import {CharClickedNotifierService} from "../../../core/services/char-clicked-no
 import {WarningsService} from "../../../core/services/warnings/warnings.service";
 import {ComponentFixture} from "@angular/core/testing";
 import {Term} from "../../../core/models/terms/term.model";
-import {InputTermDirective} from "../../../directives/input-term/input-term.directive";
+import {InputTermDirective} from "../../directives/input-term/input-term.directive";
 import {ContextHandlerService} from "../../../core/services/context-handler/context-handler.service";
 import {CaretHandlerService} from "../../../core/services/caret-handler/caret-handler.service";
 import {WritingHandlerService} from "../../../core/services/wrting-handler/writing-handler.service";
 import {CaretIndexService} from "../../../core/services/caret-index/caret-index.service";
 import {InputComponent} from "../../../input.component";
 import {CaretComponent} from "../../organisms/caret/caret.component";
-import {InputTermValidationDirective} from "../../../directives/input-term-validation/input-term-validation.directive";
+import {InputTermValidationDirective} from "../../directives/input-term-validation/input-term-validation.directive";
 import {TermValidationWarningComponent} from "../../organisms/term-validation-warning/term-validation-warning.component";
 import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
