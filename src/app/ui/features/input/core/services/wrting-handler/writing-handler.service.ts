@@ -15,7 +15,7 @@ import {InsideTermRemover} from "../../terms/removers/inside/inside-term-remover
 import {TermRemover} from "../../models/term-remover.model";
 import {
   EditableTermContainerComponent
-} from "../../../components/editable-term-container/editable-term-container.component";
+} from "../../../ui/molecules/editable-term-container/editable-term-container.component";
 import {CtrlRemover} from "../../terms/removers/ctrl/ctrl-remover.helper";
 
 @Injectable()

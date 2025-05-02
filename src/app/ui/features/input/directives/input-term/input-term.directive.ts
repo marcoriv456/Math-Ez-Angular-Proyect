@@ -4,7 +4,7 @@ import {InputCharData} from "../../core/models/input-char-data.model";
 import {InputMathElement} from "../input-math-element/input-math-element.abstract";
 import {
   EditableTermContainerComponent
-} from "../../components/editable-term-container/editable-term-container.component";
+} from "../../ui/molecules/editable-term-container/editable-term-container.component";
 
 @Directive({
   selector: '[inputTerm]'

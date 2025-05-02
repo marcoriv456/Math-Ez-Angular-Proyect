@@ -1,4 +1,4 @@
-import {ExponentComponent} from "../../../../components/exponent/exponent.component";
+import {ExponentComponent} from "../../../../ui/terms/exponent/exponent.component";
 import {Term} from "../../../models/terms/term.model";
 import {TermUtils} from "../../../utils/term-utils.util";
 import {TermValidator} from "../../abstracts/validator.abstract";

@@ -1,7 +1,7 @@
 import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, inject, ViewChild,} from '@angular/core';
 import {Term} from "./core/models/terms/term.model";
 import {VariableHandlerService} from "./core/services/variable-handler/variable-handler.service";
-import {EditableTermContainerComponent} from "./components/editable-term-container/editable-term-container.component";
+import {EditableTermContainerComponent} from "./ui/molecules/editable-term-container/editable-term-container.component";
 import {CaretHandlerService} from "./core/services/caret-handler/caret-handler.service";
 import {WritingHandlerService} from "./core/services/wrting-handler/writing-handler.service";
 import {ContextHandlerService} from "./core/services/context-handler/context-handler.service";

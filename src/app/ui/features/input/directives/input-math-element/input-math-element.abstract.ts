@@ -2,7 +2,7 @@ import {AfterViewInit, Directive, InjectionToken, Input, QueryList, SkipSelf, Vi
 import {Subject} from "rxjs";
 import {
   EditableTermContainerComponent
-} from "../../components/editable-term-container/editable-term-container.component";
+} from "../../ui/molecules/editable-term-container/editable-term-container.component";
 import {ContainerLocation} from "../../core/models/locations/container-location.model";
 
 @Directive()

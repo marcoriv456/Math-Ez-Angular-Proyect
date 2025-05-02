@@ -1,6 +1,6 @@
 import {
   EditableTermContainerComponent
-} from "../../components/editable-term-container/editable-term-container.component";
+} from "../../ui/molecules/editable-term-container/editable-term-container.component";
 
 export interface InputCharData{
   positionX:number
