@@ -1,5 +1,5 @@
 import {CharValidator} from "./char.validator";
-import {VariableHandlerService} from "../../../core/services/variable-handler/variable-handler.service";
+import {VariableHandlerService} from "../../../services/variable-handler/variable-handler.service";
 import {expect} from "chai"
 import {expectInvalid} from "../test/expect-invalid.util";
 import {expectValid} from "../test/expect-valid.util";

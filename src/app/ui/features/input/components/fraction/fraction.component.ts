@@ -1,10 +1,10 @@
 import {Component, forwardRef} from '@angular/core';
 import {
   FractionDenominatorValidator
-} from "../../validation/validators/fraction/fraction-denominator/fraction-denominator.validator";
+} from "../../core/validation/validators/fraction/fraction-denominator/fraction-denominator.validator";
 import {
   FractionNumeratorValidator
-} from "../../validation/validators/fraction/fraction-numerator/fraction-numerator.validator";
+} from "../../core/validation/validators/fraction/fraction-numerator/fraction-numerator.validator";
 import {InputMathElement} from "../../directives/input-math-element/input-math-element.abstract";
 import {FractionTerm} from "../../core/models/terms/fraction-term.model";
 

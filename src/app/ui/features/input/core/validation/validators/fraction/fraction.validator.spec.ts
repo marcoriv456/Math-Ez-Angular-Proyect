@@ -1,5 +1,5 @@
 import {FractionValidator} from "./fraction.validator";
-import {Term} from "../../../core/models/terms/term.model";
+import {Term} from "../../../models/terms/term.model";
 import {expect} from 'chai'
 import {expectInvalid} from "../test/expect-invalid.util";
 import {expectValid} from "../test/expect-valid.util";

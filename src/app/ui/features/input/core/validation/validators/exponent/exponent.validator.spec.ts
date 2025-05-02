@@ -1,5 +1,5 @@
 import {ExponentValidator} from "./exponent.validator";
-import {Term} from "../../../core/models/terms/term.model";
+import {Term} from "../../../models/terms/term.model";
 import {expect} from "chai";
 import {expectPartiallyInvalid} from "../test/expect-partially-invalid.util";
 import {expectValid} from "../test/expect-valid.util";

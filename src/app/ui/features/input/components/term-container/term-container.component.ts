@@ -1,11 +1,11 @@
 import {Component, Input, QueryList, ViewChildren} from '@angular/core';
 import {Term} from "../../core/models/terms/term.model";
 import {InputTermDirective} from "../../directives/input-term/input-term.directive";
-import {CharValidator} from "../../validation/validators/char/char.validator";
-import {ExponentValidator} from "../../validation/validators/exponent/exponent.validator";
-import {FractionValidator} from "../../validation/validators/fraction/fraction.validator";
-import {getFunctionValidator} from "../../validation/validators/functions/get-function-validator.helper";
-import {RootValidator} from "../../validation/validators/root/root.validator";
+import {CharValidator} from "../../core/validation/validators/char/char.validator";
+import {ExponentValidator} from "../../core/validation/validators/exponent/exponent.validator";
+import {FractionValidator} from "../../core/validation/validators/fraction/fraction.validator";
+import {getFunctionValidator} from "../../core/validation/validators/function/get-function-validator.helper";
+import {RootValidator} from "../../core/validation/validators/root/root.validator";
 import {EditableTermContainerComponent} from "../editable-term-container/editable-term-container.component";
 
 @Component({

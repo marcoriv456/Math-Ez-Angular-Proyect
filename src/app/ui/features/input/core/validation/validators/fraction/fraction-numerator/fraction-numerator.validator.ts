@@ -1,8 +1,8 @@
-import {Term} from "../../../../core/models/terms/term.model";
-import {TermUtils} from "../../../../classes/term-utils.util";
-import {TermValidator} from "../../../../core/validation/abstracts/validator.abstract";
-import {UnexpectedTermTypeError} from "../../../../core/validation/errors/unexpected-term-type.error";
-import {TermValidationMessage} from "../../../../core/validation/models/term-validation-message.model";
+import {Term} from "../../../../models/terms/term.model";
+import {TermUtils} from "../../../../../classes/term-utils.util";
+import {TermValidator} from "../../../abstracts/validator.abstract";
+import {UnexpectedTermTypeError} from "../../../errors/unexpected-term-type.error";
+import {TermValidationMessage} from "../../../models/term-validation-message.model";
 
 export class FractionNumeratorValidator extends TermValidator{
   private readonly numeratorValue:number

@@ -1,7 +1,7 @@
 import {TermValidator} from "../../../abstracts/validator.abstract";
 import {FractionValidator} from "../fraction.validator";
 import {FractionNumeratorValidator} from "./fraction-numerator.validator";
-import {Term} from "../../../../core/models/terms/term.model";
+import {Term} from "../../../../models/terms/term.model";
 import {expectPartiallyInvalid} from "../../test/expect-partially-invalid.util";
 import {expectValid} from "../../test/expect-valid.util";
 

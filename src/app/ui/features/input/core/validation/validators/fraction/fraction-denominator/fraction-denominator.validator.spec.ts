@@ -1,6 +1,6 @@
 import {TermValidator} from "../../../abstracts/validator.abstract";
 import {FractionDenominatorValidator} from "./fraction-denominator.validator";
-import {Term} from "../../../../core/models/terms/term.model";
+import {Term} from "../../../../models/terms/term.model";
 import {expect} from 'chai'
 import {expectPartiallyInvalid} from "../../test/expect-partially-invalid.util";
 import {expectInvalid} from "../../test/expect-invalid.util";

@@ -2,7 +2,7 @@ import {expectValid} from "../../test/expect-valid.util";
 import {expectPartiallyInvalid} from "../../test/expect-partially-invalid.util";
 import {expectInvalid} from "../../test/expect-invalid.util";
 import {LogarithmValidator} from "./logarithm.validator";
-import {TermUtils} from "../../../../classes/term-utils.util";
+import {TermUtils} from "../../../../../classes/term-utils.util";
 
 describe('Logarithm validator: ', () => {
   const getValidator = (base: string, argument: string,) => new LogarithmValidator({
