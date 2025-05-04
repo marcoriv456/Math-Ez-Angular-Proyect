@@ -1,9 +1,9 @@
 import {Directive, ElementRef, Host, HostListener, inject, Input, Optional, SkipSelf,} from '@angular/core';
-import {CharClickedNotifierService} from "../../../core/services/char-clicked-notifier/char-clicked-notifier.service";
 import {InputCharData} from "../../../core/models/input-char-data.model";
 import {InputMathElement} from "../../../core/abstracts/input-math-element.abstract";
-
 import {EditableTermContainer} from "../../../core/abstracts/editable-term-container.abstract";
+import {InputEventBusService} from "../../../core/services/input-event-bus/input-event-bus.service";
+import {CharClickedEvent} from "../../../core/models/events/io/char-clicked.event";
 
 @Directive({
   selector: '[inputTerm]'
@@ -17,7 +17,8 @@ export class InputTermDirective {
   ) { }
 
   private ref=inject(ElementRef).nativeElement as HTMLElement
-  private charClickedNotifier=inject(CharClickedNotifierService)
+  private readonly eventBus = inject(InputEventBusService)
+  // private charClickedNotifier=inject(CharClickedNotifierService)
 
   get data():InputCharData{
     return {
@@ -47,7 +48,7 @@ export class InputTermDirective {
     const clickPosition=event.offsetX
     const dataToSend=this.getClickedCharData(clickPosition)
 
-    this.charClickedNotifier.notifyClick(dataToSend)
+    this.eventBus.emit(new CharClickedEvent(dataToSend))
   }
 
   private getClickedCharData(clickPosition:number){

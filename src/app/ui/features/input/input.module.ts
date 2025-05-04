@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import {InputComponent} from "./input.component";
 import { CharComponent } from './ui/terms/char/char.component';
 import { FractionComponent } from './ui/terms/fraction/fraction.component';
-import {CharClickedNotifierService} from "./core/services/char-clicked-notifier/char-clicked-notifier.service";
 import { InputTermDirective } from './ui/directives/input-term/input-term.directive';
 import { ExponentComponent } from './ui/terms/exponent/exponent.component';
 import { RootComponent } from './ui/terms/root/root.component';
@@ -43,7 +42,6 @@ import {InputEventBusService} from "./core/services/input-event-bus/input-event-
     InputComponent
   ],
   providers:[
-    CharClickedNotifierService,
     ContextHandlerService,
     CaretHandlerService,
     WritingHandlerService,

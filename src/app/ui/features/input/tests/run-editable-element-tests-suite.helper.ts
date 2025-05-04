@@ -9,7 +9,6 @@ import {TermContainerComponent} from "../ui/atoms/term-container/term-container.
 import {ParenthesisComponent} from "../ui/terms/parenthesis/parenthesis.component";
 import {TermValidationWarningComponent} from "../ui/organisms/term-validation-warning/term-validation-warning.component";
 import {CommonModule} from "@angular/common";
-import {CharClickedNotifierService} from "../core/services/char-clicked-notifier/char-clicked-notifier.service";
 import {
   clickAndType,
   contextParent,
@@ -77,7 +76,6 @@ export const runEditableElementSuite = (name: string, addingCommand: string, foc
           BrowserAnimationsModule
         ],
         providers:[
-          CharClickedNotifierService,
           InputEventBusService,
           ContextHandlerService,
           CaretHandlerService,

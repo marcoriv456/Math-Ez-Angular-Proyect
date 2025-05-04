@@ -15,9 +15,10 @@ import {InputMathElement} from "../../../core/abstracts/input-math-element.abstr
 import {Subject} from "rxjs";
 import {ContainerLocation} from "../../../core/models/locations/container-location.model";
 import {InputElementLocation} from "../../../core/models/locations/input-element-location.model";
-import {CharClickedNotifierService} from "../../../core/services/char-clicked-notifier/char-clicked-notifier.service";
 import {EditableTermContainer} from "../../../core/abstracts/editable-term-container.abstract";
 import {InputCharData} from "../../../core/models/input-char-data.model";
+import {InputEventBusService} from "../../../core/services/input-event-bus/input-event-bus.service";
+import {CharClickedEvent} from "../../../core/models/events/io/char-clicked.event";
 
 @Component({
   selector: 'editable-term-container',
@@ -40,7 +41,8 @@ export class EditableTermContainerComponent extends EditableTermContainer{
   private readonly changeEmitter = new Subject<void>()
   private readonly ref=inject(ElementRef).nativeElement as HTMLElement
   private readonly cdr=inject(ChangeDetectorRef)
-  private readonly clickNotifier=inject(CharClickedNotifierService)
+  private readonly eventBus = inject(InputEventBusService)
+  // private readonly clickNotifier=inject(CharClickedNotifierService)
 
   @HostBinding('class.selected') public selected=false
   @HostBinding('class.empty')
@@ -51,7 +53,7 @@ export class EditableTermContainerComponent extends EditableTermContainer{
   @HostListener('click',['$event'])
   private onClick(event:MouseEvent){
     event.stopPropagation()
-    this.clickNotifier.notifyClick(this.lastCharData)
+    this.eventBus.emit(new CharClickedEvent(this.lastCharData))
   }
 
   public addChangesListener(callback:()=>void){

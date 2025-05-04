@@ -2,16 +2,17 @@ import {ElementRef, inject, Injectable} from '@angular/core';
 import {Subject} from "rxjs";
 import {InputCharData} from "../../models/input-char-data.model";
 import {ContextHandlerService} from "../context-handler/context-handler.service";
-import {CharClickedNotifierService} from "../char-clicked-notifier/char-clicked-notifier.service";
 import {CaretIndexService} from "../caret-index/caret-index.service";
 import {CaretVisibilityChecker} from "../../helpers/caret-visibility-checker/caret-visibility-checker.helper";
+import {InputEventBusService} from "../input-event-bus/input-event-bus.service";
+import {CharClickedEvent} from "../../models/events/io/char-clicked.event";
 
 @Injectable()
 export class CaretHandlerService {
   private overlayRef!:ElementRef
 
   constructor() {
-    this.charClickedNotifier.subscribe(charClickedData=>this.move(charClickedData))
+    this.eventBus.on(CharClickedEvent).subscribe(event => this.move(event.charData))
   }
 
   public setInputOverlayRef(overlay:ElementRef){
@@ -24,7 +25,7 @@ export class CaretHandlerService {
 
   private readonly indexService=inject(CaretIndexService)
   private readonly contextHandler=inject(ContextHandlerService)
-  private readonly charClickedNotifier=inject(CharClickedNotifierService)
+  private readonly eventBus = inject(InputEventBusService)
 
   public handleKey(key:string, ctrlKey:boolean){
     if(ctrlKey)

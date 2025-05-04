@@ -7,7 +7,6 @@ import {ExponentComponent} from "../../terms/exponent/exponent.component";
 import {FunctionComponent} from "../../terms/function/function.component";
 import {ParenthesisComponent} from "../../terms/parenthesis/parenthesis.component";
 import {CommonModule} from "@angular/common";
-import {CharClickedNotifierService} from "../../../core/services/char-clicked-notifier/char-clicked-notifier.service";
 import {ComponentFixture} from "@angular/core/testing";
 import {Term} from "../../../core/models/terms/term.model";
 import {InputTermDirective} from "../../directives/input-term/input-term.directive";
@@ -56,7 +55,6 @@ describe('Term container: ', () => {
         BrowserAnimationsModule
       ],
       providers:[
-        CharClickedNotifierService,
         InputEventBusService,
         ContextHandlerService,
         CaretHandlerService,

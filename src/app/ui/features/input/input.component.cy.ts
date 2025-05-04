@@ -10,7 +10,6 @@ import {EditableTermContainerComponent} from "./ui/molecules/editable-term-conta
 import {ParenthesisComponent} from "./ui/terms/parenthesis/parenthesis.component";
 import {TermValidationWarningComponent} from "./ui/organisms/term-validation-warning/term-validation-warning.component";
 import {CommonModule} from "@angular/common";
-import {CharClickedNotifierService} from "./core/services/char-clicked-notifier/char-clicked-notifier.service";
 import {runEditableElementSuite} from "./tests/run-editable-element-tests-suite.helper";
 import {clickAndType, expectCaretIsBehindOf, expectCaretIsInFrontOf} from "./tests/test-functions.util";
 import {InputTermValidationDirective} from "./ui/directives/input-term-validation/input-term-validation.directive";
@@ -59,7 +58,6 @@ describe(`Input component`, () => {
         BrowserAnimationsModule
       ],
       providers:[
-        CharClickedNotifierService,
         InputEventBusService,
         ContextHandlerService,
         CaretHandlerService,
