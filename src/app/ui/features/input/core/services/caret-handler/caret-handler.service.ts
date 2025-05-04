@@ -6,13 +6,15 @@ import {CaretIndexService} from "../caret-index/caret-index.service";
 import {CaretVisibilityChecker} from "../../helpers/caret-visibility-checker/caret-visibility-checker.helper";
 import {InputEventBusService} from "../input-event-bus/input-event-bus.service";
 import {CharClickedEvent} from "../../models/events/io/char-clicked.event";
+import {KeyTypedEvent} from "../../models/events/io/key-typed.event";
 
 @Injectable()
 export class CaretHandlerService {
   private overlayRef!:ElementRef
 
   constructor() {
-    this.eventBus.on(CharClickedEvent).subscribe(event => this.move(event.charData))
+    this.eventBus.on(CharClickedEvent).subscribe(({charData}) => this.move(charData))
+    this.eventBus.on(KeyTypedEvent).subscribe(({key,ctrlKey}) => this.handleKey(key,ctrlKey))
   }
 
   public setInputOverlayRef(overlay:ElementRef){
@@ -28,35 +30,15 @@ export class CaretHandlerService {
   private readonly eventBus = inject(InputEventBusService)
 
   public handleKey(key:string, ctrlKey:boolean){
-    if(ctrlKey)
-      this.handleCtrlKey(key)
-    else
-      this.handleNormalKey(key)
-  }
-
-  private handleNormalKey(key: string) {
     switch (key) {
       case "ArrowLeft":
-        return this.moveBackward();
+        return ctrlKey ? this.moveToPrevIrregular() : this.moveBackward();
       case "ArrowRight":
-        return this.moveForward();
+        return ctrlKey ? this.moveToNextIrregular() : this.moveForward();
       case "Home":
-        return this.moveToFirst();
+        return ctrlKey ? this.moveToFirstInMain() : this.moveToFirst();
       case "End":
-        return this.moveToLast();
-    }
-  }
-
-  private handleCtrlKey(key: string) {
-    switch (key) {
-      case 'ArrowLeft':
-        return this.moveToPrevIrregular();
-      case 'ArrowRight':
-        return this.moveToNextIrregular();
-      case 'Home':
-        return this.moveToFirstInMain();
-      case 'End':
-        return this.moveToLastInMain();
+        return ctrlKey ? this.moveToLastInMain() : this.moveToLast();
     }
   }
 

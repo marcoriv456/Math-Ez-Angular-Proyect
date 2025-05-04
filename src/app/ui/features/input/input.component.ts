@@ -43,10 +43,7 @@ export class InputComponent implements AfterViewInit{
     let {key, ctrlKey, altKey} = event
     if (key !== 'Tab')
       event.preventDefault()
-    if (key.length == 1 || key == 'Backspace')
-      this.eventBus.emit(new KeyTypedEvent(key,ctrlKey,altKey))
-    else
-      this.caretHandler.handleKey(key,ctrlKey)
+    this.eventBus.emit(new KeyTypedEvent(key,ctrlKey,altKey))
   }
 
   @HostListener('click')
