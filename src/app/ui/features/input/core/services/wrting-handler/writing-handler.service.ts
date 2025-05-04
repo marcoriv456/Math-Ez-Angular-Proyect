@@ -17,6 +17,8 @@ import {
   EditableTermContainerComponent
 } from "../../../ui/molecules/editable-term-container/editable-term-container.component";
 import {CtrlRemover} from "../../terms/removers/ctrl/ctrl-remover.helper";
+import {InputEventBusService} from "../input-event-bus/input-event-bus.service";
+import {KeyTypedEvent} from "../../models/events/io/key-typed.event";
 
 @Injectable()
 export class WritingHandlerService {
@@ -24,15 +26,20 @@ export class WritingHandlerService {
   private caretHandler=inject(CaretHandlerService)
   private indexService=inject(CaretIndexService)
   private functionsService=inject(RecognizableFunctionsService)
+  private eventBus = inject(InputEventBusService)
 
-  private get currentElement(){
-    return this.contextHandler.getCurrentElement()
-  }
-  private get caretIndex(){
-    return this.indexService.index
+  constructor() {
+    this.eventBus.on(KeyTypedEvent).subscribe(event=>this.handle(event))
   }
 
-  public handleKey(key:string, ctrlKey:boolean,altKey:boolean){
+  private handle({key,ctrlKey,altKey}:KeyTypedEvent){
+    if(key=='Backspace')
+      this.handleRemove(ctrlKey)
+    else if(key.length == 1)
+      this.handleAppend(key,ctrlKey,altKey)
+  }
+
+  private handleAppend(key:string, ctrlKey:boolean, altKey:boolean){
     if(key=='/')
       this.appendFraction()
     else if(key=='e' && ctrlKey)
@@ -145,5 +152,13 @@ export class WritingHandlerService {
     if(sectionToMoveAt=='outside')
       return this.currentElement.getCharData(renderedElementIndex)
     return this.currentElement.getElement(renderedElementIndex)?.sectionAt(sectionToMoveAt)?.lastCharData
+  }
+
+  private get currentElement(){
+    return this.contextHandler.getCurrentElement()
+  }
+
+  private get caretIndex(){
+    return this.indexService.index
   }
 }
