@@ -1,7 +1,7 @@
 import {
   ChangeDetectorRef,
   Component,
-  ElementRef, forwardRef,
+  ElementRef,
   HostBinding, HostListener,
   inject,
   Input,
@@ -15,34 +15,29 @@ import {InputMathElement} from "../../../core/abstracts/input-math-element.abstr
 import {Subject} from "rxjs";
 import {ContainerLocation} from "../../../core/models/locations/container-location.model";
 import {InputElementLocation} from "../../../core/models/locations/input-element-location.model";
-import {EditableTermContainer} from "../../../core/abstracts/editable-term-container.abstract";
 import {InputCharData} from "../../../core/models/input-char-data.model";
 import {InputEventBusService} from "../../../core/services/input-event-bus/input-event-bus.service";
 import {CharClickedEvent} from "../../../core/models/events/io/char-clicked.event";
 
+
 @Component({
   selector: 'editable-term-container',
   templateUrl: './editable-term-container.component.html',
-  styleUrls: ['./editable-term-container.component.css','../../assets/editable-elements-styles.css'],
-  providers: [{provide:EditableTermContainer, useExisting:forwardRef(()=>EditableTermContainerComponent)}]
-
+  styleUrls: ['./editable-term-container.component.css','../../assets/editable-elements-styles.css']
 })
-export class EditableTermContainerComponent extends EditableTermContainer{
+export class EditableTermContainerComponent{
   @Input() terms!:Term[]
   @Input() index!:number
   @Input() centered!:boolean
 
   @ViewChild(TermContainerComponent) private termContainer!:TermContainerComponent
 
-  constructor(@SkipSelf() @Optional() public readonly mathElement:InputMathElement<any>) {
-    super()
-  }
+  constructor(@SkipSelf() @Optional() public mathElement:InputMathElement<any>) {}
 
   private readonly changeEmitter = new Subject<void>()
   private readonly ref=inject(ElementRef).nativeElement as HTMLElement
   private readonly cdr=inject(ChangeDetectorRef)
   private readonly eventBus = inject(InputEventBusService)
-  // private readonly clickNotifier=inject(CharClickedNotifierService)
 
   @HostBinding('class.selected') public selected=false
   @HostBinding('class.empty')
@@ -98,7 +93,7 @@ export class EditableTermContainerComponent extends EditableTermContainer{
   }
 
 
-  public get lastCharData():InputCharData{
+  public get lastCharData(){
     return this.getCharData(this.termContainer.renderedChars.length-1)||this.noCharData
   }
 

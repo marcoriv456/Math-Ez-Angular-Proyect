@@ -1,7 +1,9 @@
 import {Directive, ElementRef, Host, HostListener, inject, Input, Optional, SkipSelf,} from '@angular/core';
 import {InputCharData} from "../../../core/models/input-char-data.model";
 import {InputMathElement} from "../../../core/abstracts/input-math-element.abstract";
-import {EditableTermContainer} from "../../../core/abstracts/editable-term-container.abstract";
+import {
+  EditableTermContainerComponent
+} from "../../molecules/editable-term-container/editable-term-container.component";
 import {InputEventBusService} from "../../../core/services/input-event-bus/input-event-bus.service";
 import {CharClickedEvent} from "../../../core/models/events/io/char-clicked.event";
 
@@ -13,12 +15,11 @@ export class InputTermDirective {
 
   constructor(
     @Host() @Optional() public asMathElement:InputMathElement<any>|null,
-    @SkipSelf() @Optional() public parent:EditableTermContainer
+    @SkipSelf() @Optional() public parent:EditableTermContainerComponent
   ) { }
 
   private ref=inject(ElementRef).nativeElement as HTMLElement
   private readonly eventBus = inject(InputEventBusService)
-  // private charClickedNotifier=inject(CharClickedNotifierService)
 
   get data():InputCharData{
     return {

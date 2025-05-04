@@ -1,11 +1,11 @@
 import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, inject, ViewChild,} from '@angular/core';
 import {Term} from "./core/models/terms/term.model";
 import {VariableHandlerService} from "./core/services/variable-handler/variable-handler.service";
+import {EditableTermContainerComponent} from "./ui/molecules/editable-term-container/editable-term-container.component";
 import {CaretHandlerService} from "./core/services/caret-handler/caret-handler.service";
 import {WritingHandlerService} from "./core/services/wrting-handler/writing-handler.service";
 import {ContextHandlerService} from "./core/services/context-handler/context-handler.service";
 import {adviceFadingAnimation} from "./ui/animations/advice-fading.animation";
-import {EditableTermContainer} from "./core/abstracts/editable-term-container.abstract";
 
 @Component({
   selector: 'app-input',
@@ -22,7 +22,7 @@ export class InputComponent implements AfterViewInit{
   public readonly variableHandler=inject(VariableHandlerService)
 
   private readonly cdr=inject(ChangeDetectorRef)
-  @ViewChild(EditableTermContainer) private termContainer!: EditableTermContainer;
+  @ViewChild(EditableTermContainerComponent) private termContainer!: EditableTermContainerComponent;
   @ViewChild('overlay') private overlay!:ElementRef
 
   ngAfterViewInit() {

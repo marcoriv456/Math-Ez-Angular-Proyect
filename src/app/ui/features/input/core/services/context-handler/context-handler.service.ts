@@ -1,18 +1,20 @@
 import {inject, Injectable} from '@angular/core';
+import {
+  EditableTermContainerComponent
+} from "../../../ui/molecules/editable-term-container/editable-term-container.component";
 import {InputContextManager} from "../../helpers/input-context-manager/input-context-manager.helper";
 import {ContextAction} from "../../models/actions/context-action.enum";
 import {InputCharData} from "../../models/input-char-data.model";
 import {CaretIndexService} from "../caret-index/caret-index.service";
 import {SpecialCharFinder} from "../../helpers/special-char-finder/special-char-finder.helper";
-import {EditableTermContainer} from "../../abstracts/editable-term-container.abstract";
 
 @Injectable()
 export class ContextHandlerService {
-  private currentElement!:EditableTermContainer
-  private mainElement!:EditableTermContainer
+  private currentElement!:EditableTermContainerComponent
+  private mainElement!:EditableTermContainerComponent
   private caretIndex=inject(CaretIndexService)
 
-  public contextElement(element:EditableTermContainer){
+  public contextElement(element:EditableTermContainerComponent){
     this.currentElement.selected=false
     this.currentElement=element
     this.currentElement.selected=true
@@ -21,7 +23,7 @@ export class ContextHandlerService {
       this.currentElement.mathElement.currentSection=element.index
   }
 
-  public setMainElement(element:EditableTermContainer){
+  public setMainElement(element:EditableTermContainerComponent){
     if(this.mainElement)
       return;
     this.mainElement=element
