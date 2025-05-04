@@ -62,7 +62,6 @@ describe('Term container: ', () => {
         CaretHandlerService,
         WritingHandlerService,
         CaretIndexService,
-        {provide:EditableTermContainerComponent, useValue:{}}
       ]
     }).then(response=>{
       fixture=response.fixture

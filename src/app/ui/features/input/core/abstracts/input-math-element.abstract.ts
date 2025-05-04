@@ -1,4 +1,4 @@
-import {AfterViewInit, Directive, Input, QueryList, SkipSelf, ViewChildren} from "@angular/core";
+import {AfterViewInit, Directive, Input, Optional, QueryList, SkipSelf, ViewChildren} from "@angular/core";
 import {Subject} from "rxjs";
 import {ContainerLocation} from "../models/locations/container-location.model";
 import {EditableTermContainer} from "./editable-term-container.abstract";
@@ -11,7 +11,7 @@ export abstract class InputMathElement<TermType> implements AfterViewInit{
 
   public currentSection=0
   public validationRequester=new Subject<void>()
-  constructor(@SkipSelf() public parent:EditableTermContainer) { }
+  constructor(@SkipSelf() @Optional() public parent:EditableTermContainer) { }
 
   public get firstSection(){
     return this.editableSections.get(0) as EditableTermContainer

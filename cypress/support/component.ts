@@ -36,8 +36,8 @@ declare global {
 Cypress.Commands.add('mount', mount)
 
 const lazyLoadModules = async () => {
-  await import('../../src/app/input/directives/input-math-element/input-math-element.abstract');
-  await import('../../src/app/input/components/editable-term-container/editable-term-container.component');
+  await import('../../src/app/ui/features/input/core/abstracts/input-math-element.abstract');
+  await import('../../src/app/ui/features/input/ui/molecules/editable-term-container/editable-term-container.component');
 }
 
 lazyLoadModules().then(() => {

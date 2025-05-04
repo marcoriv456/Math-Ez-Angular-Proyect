@@ -13,7 +13,7 @@ export class InputTermDirective {
 
   constructor(
     @Host() @Optional() public asMathElement:InputMathElement<any>|null,
-    @SkipSelf() public parent:EditableTermContainer
+    @SkipSelf() @Optional() public parent:EditableTermContainer
   ) { }
 
   private ref=inject(ElementRef).nativeElement as HTMLElement
