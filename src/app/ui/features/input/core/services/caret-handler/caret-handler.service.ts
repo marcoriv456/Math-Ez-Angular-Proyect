@@ -1,5 +1,4 @@
 import {ElementRef, inject, Injectable} from '@angular/core';
-import {Subject} from "rxjs";
 import {InputCharData} from "../../models/input-char-data.model";
 import {ContextHandlerService} from "../context-handler/context-handler.service";
 import {CaretIndexService} from "../caret-index/caret-index.service";
@@ -7,6 +6,7 @@ import {CaretVisibilityChecker} from "../../helpers/caret-visibility-checker/car
 import {InputEventBusService} from "../input-event-bus/input-event-bus.service";
 import {CharClickedEvent} from "../../models/events/io/char-clicked.event";
 import {KeyTypedEvent} from "../../models/events/io/key-typed.event";
+import {CaretMoveRequestEvent} from "../../models/events/caret/caret-move-request.event";
 
 @Injectable()
 export class CaretHandlerService {
@@ -22,8 +22,6 @@ export class CaretHandlerService {
       throw new Error("Overlay is already defined.")
     this.overlayRef=overlay
   }
-
-  private readonly movementEmitter=new Subject<InputCharData>()
 
   private readonly indexService=inject(CaretIndexService)
   private readonly contextHandler=inject(ContextHandlerService)
@@ -81,14 +79,10 @@ export class CaretHandlerService {
   }
 
   public move(data:InputCharData){
-    this.movementEmitter.next(data)
+    this.eventBus.emit(new CaretMoveRequestEvent(data))
     this.contextHandler.contextElement(data.parent)
     this.indexService.index=data.index
     this.makeCaretVisible(data.positionX)
-  }
-
-  public listenMoves(callback:(data:InputCharData)=>void){
-    this.movementEmitter.subscribe(callback)
   }
 
   private makeCaretVisible(positionX:number){
