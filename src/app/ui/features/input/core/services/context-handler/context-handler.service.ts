@@ -11,23 +11,16 @@ import {SpecialCharFinder} from "../../helpers/special-char-finder/special-char-
 @Injectable()
 export class ContextHandlerService {
   private currentElement!:EditableTermContainerComponent
-  private mainElement!:EditableTermContainerComponent
   private caretIndex=inject(CaretIndexService)
 
   public contextElement(element:EditableTermContainerComponent){
-    this.currentElement.selected=false
+    if(this.currentElement)
+      this.currentElement.selected=false
     this.currentElement=element
     this.currentElement.selected=true
 
     if(this.currentElement.mathElement)
       this.currentElement.mathElement.currentSection=element.index
-  }
-
-  public setMainElement(element:EditableTermContainerComponent){
-    if(this.mainElement)
-      return;
-    this.mainElement=element
-    this.currentElement=element
   }
 
   public getCurrentElement(){
@@ -87,11 +80,11 @@ export class ContextHandlerService {
   }
 
   public get mainContainerLastCharData(){
-    return this.mainElement.lastCharData
+    return this.getMainElement().lastCharData
   }
 
   public get mainContainerNoCharData(){
-    return this.mainElement.noCharData
+    return this.getMainElement().noCharData
   }
 
   public get nextIrregularCharDataToMoveAt(){
@@ -104,6 +97,15 @@ export class ContextHandlerService {
 
   private get charFinder(){
     return new SpecialCharFinder(this.caretIndex.index,this.currentElement.terms)
+  }
+
+  private getMainElement() {
+    let element = this.currentElement
+
+    while(element.mathElement)
+      element = element.mathElement.parent
+
+    return element
   }
 
 }

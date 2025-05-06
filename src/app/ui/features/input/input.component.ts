@@ -25,11 +25,9 @@ export class InputComponent implements AfterViewInit{
   private readonly cdr=inject(ChangeDetectorRef)
   private readonly eventBus = inject(InputEventBusService)
 
-  @ViewChild(EditableTermContainerComponent) private termContainer!: EditableTermContainerComponent;
   @ViewChild('overlay') private overlay!:ElementRef
 
   ngAfterViewInit() {
-    this.contextHandler.setMainElement(this.termContainer)
     this.caretHandler.setInputOverlayRef(this.overlay)
   }
 
