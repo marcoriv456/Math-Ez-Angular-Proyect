@@ -10,22 +10,14 @@ import {CaretMoveRequestEvent} from "../../models/events/caret/caret-move-reques
 
 @Injectable()
 export class CaretHandlerService {
-  private overlayRef!:ElementRef
+  private readonly indexService=inject(CaretIndexService)
+  private readonly contextHandler=inject(ContextHandlerService)
+  private readonly eventBus = inject(InputEventBusService)
 
   constructor() {
     this.eventBus.on(CharClickedEvent).subscribe(({charData}) => this.move(charData))
     this.eventBus.on(KeyTypedEvent).subscribe(({key,ctrlKey}) => this.handleKey(key,ctrlKey))
   }
-
-  public setInputOverlayRef(overlay:ElementRef){
-    if(this.overlayRef)
-      throw new Error("Overlay is already defined.")
-    this.overlayRef=overlay
-  }
-
-  private readonly indexService=inject(CaretIndexService)
-  private readonly contextHandler=inject(ContextHandlerService)
-  private readonly eventBus = inject(InputEventBusService)
 
   public handleKey(key:string, ctrlKey:boolean){
     switch (key) {
@@ -82,18 +74,5 @@ export class CaretHandlerService {
     this.eventBus.emit(new CaretMoveRequestEvent(data))
     this.contextHandler.contextElement(data.parent)
     this.indexService.index=data.index
-    this.makeCaretVisible(data.positionX)
-  }
-
-  private makeCaretVisible(positionX:number){
-    const overlay=this.overlayRef.nativeElement as HTMLElement
-    const {clientWidth,scrollLeft}=overlay
-
-    const visibilityChecker=new CaretVisibilityChecker(clientWidth,scrollLeft)
-    const scrollToOptions=visibilityChecker.makeCharVisible(positionX)
-
-    overlay.scrollTo(scrollToOptions)
-    if(visibilityChecker.scrollNeedsAdjustment)
-      setTimeout(()=>overlay.scrollBy({left:3}),100)
   }
 }
