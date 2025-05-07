@@ -27,7 +27,7 @@ export class ContextHandlerService {
     return this.currentElement
   }
 
-  public requestForwardContextData(){
+  public getForwardContextData(){
     const contextManager=this.getContextManager()
 
     const action=contextManager.next()
@@ -35,7 +35,7 @@ export class ContextHandlerService {
     return this.getCharDataFromAction(action)||this.currentElement.lastCharData
   }
 
-  public requestBackwardContextData(){
+  public getBackwardContextData(){
     const contextManager=this.getContextManager()
 
     const action=contextManager.prev()
@@ -72,30 +72,31 @@ export class ContextHandlerService {
     }
   }
 
-  public get lastCharData(){
+  public getLastCharData(){
     return this.currentElement.lastCharData
   }
-  public get firstCharData(){
+
+  public getFirstCharData(){
     return this.currentElement.noCharData
   }
 
-  public get mainContainerLastCharData(){
+  public getMainContainerLastCharData(){
     return this.getMainElement().lastCharData
   }
 
-  public get mainContainerNoCharData(){
+  public getMainContainerNoCharData(){
     return this.getMainElement().noCharData
   }
 
-  public get nextIrregularCharDataToMoveAt(){
-    return this.currentElement.getCharData(this.charFinder.findNextIndexToMoveAt())||this.currentElement.lastCharData
+  public getNextIrregularCharDataToMoveAt(){
+    return this.currentElement.getCharData(this.getCharFinder().findNextIndexToMoveAt())||this.currentElement.lastCharData
   }
 
-  public get prevIrregularCharToMoveAt(){
-    return this.currentElement.getCharData(this.charFinder.findPreviousIndexToMoveAt())||this.currentElement.noCharData
+  public getPrevIrregularCharToMoveAt(){
+    return this.currentElement.getCharData(this.getCharFinder().findPreviousIndexToMoveAt())||this.currentElement.noCharData
   }
 
-  private get charFinder(){
+  private getCharFinder(){
     return new SpecialCharFinder(this.caretIndex.index,this.currentElement.terms)
   }
 

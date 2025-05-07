@@ -1,8 +1,7 @@
-import {ElementRef, inject, Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {InputCharData} from "../../models/input-char-data.model";
 import {ContextHandlerService} from "../context-handler/context-handler.service";
 import {CaretIndexService} from "../caret-index/caret-index.service";
-import {CaretVisibilityChecker} from "../../helpers/caret-visibility-checker/caret-visibility-checker.helper";
 import {InputEventBusService} from "../input-event-bus/input-event-bus.service";
 import {CharClickedEvent} from "../../models/events/io/char-clicked.event";
 import {KeyTypedEvent} from "../../models/events/io/key-typed.event";
@@ -33,41 +32,41 @@ export class CaretHandlerService {
   }
 
   public moveForward(){
-    const forward=this.contextHandler.requestForwardContextData()
+    const forward=this.contextHandler.getForwardContextData()
     this.move(forward)
   }
 
   public moveBackward(){
-    const backward=this.contextHandler.requestBackwardContextData()
+    const backward=this.contextHandler.getBackwardContextData()
     this.move(backward)
   }
 
   public moveToFirst(){
-    const first=this.contextHandler.firstCharData
+    const first=this.contextHandler.getFirstCharData()
     this.move(first)
   }
 
   public moveToLast(){
-    const last=this.contextHandler.lastCharData
+    const last=this.contextHandler.getLastCharData()
     this.move(last)
   }
 
   public moveToFirstInMain(){
-    const firstInMain=this.contextHandler.mainContainerNoCharData
+    const firstInMain=this.contextHandler.getMainContainerNoCharData()
     this.move(firstInMain)
   }
 
   public moveToLastInMain(){
-    const lastInMain=this.contextHandler.mainContainerLastCharData
+    const lastInMain=this.contextHandler.getMainContainerLastCharData()
     this.move(lastInMain)
   }
 
   public moveToNextIrregular(){
-    this.move(this.contextHandler.nextIrregularCharDataToMoveAt)
+    this.move(this.contextHandler.getNextIrregularCharDataToMoveAt())
   }
 
   public moveToPrevIrregular(){
-    this.move(this.contextHandler.prevIrregularCharToMoveAt)
+    this.move(this.contextHandler.getPrevIrregularCharToMoveAt())
   }
 
   public move(data:InputCharData){
