@@ -33,7 +33,11 @@ import {InputEventBusService} from "./core/services/input-event-bus/input-event-
 describe(`Input component`, () => {
   let view: Chainable<JQuery<HTMLElement>>;
   let component: InputComponent
-
+  const getView = () => {
+    view = cy.get("[data-cy-root]")
+    view.click()
+    return view
+  }
 
   beforeEach(() => {
     cy.mount(InputComponent, {
@@ -69,6 +73,7 @@ describe(`Input component`, () => {
         component = response.component
         view = cy.wrap(response.fixture.elementRef.nativeElement)
       })
+    getView();
   })
 
   describe(`Component focusing:`, () => {
