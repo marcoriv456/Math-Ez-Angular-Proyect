@@ -1,5 +1,4 @@
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {CommonModule} from "@angular/common";
 import {ComponentFixture} from "@angular/core/testing";
 import {
   InputEventBusService
@@ -13,24 +12,14 @@ import {
 import {
   WarningShowRequestEvent
 } from "../../../../../../../../../../src/app/ui/features/input/core/models/events/warnings/warning-show-request.event";
+import {InputModule} from "../../../../../../../../../../src/app/ui/features/input/input.module";
 
 
 describe('Term validation warning: ', () => {
   let eventBus: InputEventBusService;
   let fixture:ComponentFixture<TermValidationWarningComponent>
   beforeEach(()=>{
-    cy.mount(TermValidationWarningComponent,{
-      declarations: [
-        TermValidationWarningComponent
-      ],
-      imports: [
-        CommonModule,
-        BrowserAnimationsModule
-      ],
-      providers: [
-        InputEventBusService,
-      ],
-    })
+    cy.mount(TermValidationWarningComponent, {imports: [InputModule, BrowserAnimationsModule]})
       .then(c=>{
         fixture=c.fixture
         eventBus=c.fixture.debugElement.injector.get(InputEventBusService)

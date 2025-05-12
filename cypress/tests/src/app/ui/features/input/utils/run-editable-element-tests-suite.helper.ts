@@ -24,55 +24,12 @@ import {
 } from "./test-selectors.util";
 import Chainable = Cypress.Chainable;
 import {InputComponent} from "../../../../../../../../src/app/ui/features/input/input.component";
-import {CharComponent} from "../../../../../../../../src/app/ui/features/input/ui/terms/char/char.component";
-import {FractionComponent} from "../../../../../../../../src/app/ui/features/input/ui/terms/fraction/fraction.component";
-import {
-  InputTermDirective
-} from "../../../../../../../../src/app/ui/features/input/ui/directives/input-term/input-term.directive";
-import {ExponentComponent} from "../../../../../../../../src/app/ui/features/input/ui/terms/exponent/exponent.component";
-import {RootComponent} from "../../../../../../../../src/app/ui/features/input/ui/terms/root/root.component";
-import {FunctionComponent} from "../../../../../../../../src/app/ui/features/input/ui/terms/function/function.component";
-import {
-  TermContainerComponent
-} from "../../../../../../../../src/app/ui/features/input/ui/atoms/term-container/term-container.component";
-import {
-  EditableTermContainerComponent
-} from "../../../../../../../../src/app/ui/features/input/ui/molecules/editable-term-container/editable-term-container.component";
-import {
-  ParenthesisComponent
-} from "../../../../../../../../src/app/ui/features/input/ui/terms/parenthesis/parenthesis.component";
-import {
-  TermValidationWarningComponent
-} from "../../../../../../../../src/app/ui/features/input/ui/organisms/term-validation-warning/term-validation-warning.component";
-import {
-  InputTermValidationDirective
-} from "../../../../../../../../src/app/ui/features/input/ui/directives/input-term-validation/input-term-validation.directive";
-import {CaretComponent} from "../../../../../../../../src/app/ui/features/input/ui/organisms/caret/caret.component";
-import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {
-  InputEventBusService
-} from "../../../../../../../../src/app/ui/features/input/core/services/input-event-bus/input-event-bus.service";
-import {
-  ContextHandlerService
-} from "../../../../../../../../src/app/ui/features/input/core/services/context-handler/context-handler.service";
-import {
-  CaretHandlerService
-} from "../../../../../../../../src/app/ui/features/input/core/services/caret-handler/caret-handler.service";
-import {
-  WritingHandlerService
-} from "../../../../../../../../src/app/ui/features/input/core/services/wrting-handler/writing-handler.service";
-import {
-  CaretIndexService
-} from "../../../../../../../../src/app/ui/features/input/core/services/caret-index/caret-index.service";
 import {InputModule} from "../../../../../../../../src/app/ui/features/input/input.module";
 
 export const runEditableElementSuite = (name: string, addingCommand: string, focusingElementSelector: string) => {
   let view: Chainable<JQuery<HTMLElement>>;
   let component: InputComponent
-
-
-
 
 
   describe(`Editable element tests in "${name}" editable element:`, () => {

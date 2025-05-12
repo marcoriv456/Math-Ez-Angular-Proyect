@@ -1,34 +1,17 @@
 import {InputComponent} from "../../../../../../../src/app/ui/features/input/input.component";
-import {CharComponent} from "../../../../../../../src/app/ui/features/input/ui/terms/char/char.component";
-import {FractionComponent} from "../../../../../../../src/app/ui/features/input/ui/terms/fraction/fraction.component";
-import {InputTermDirective} from "../../../../../../../src/app/ui/features/input/ui/directives/input-term/input-term.directive";
-import {ExponentComponent} from "../../../../../../../src/app/ui/features/input/ui/terms/exponent/exponent.component";
-import {RootComponent} from "../../../../../../../src/app/ui/features/input/ui/terms/root/root.component";
-import {FunctionComponent} from "../../../../../../../src/app/ui/features/input/ui/terms/function/function.component";
-import {TermContainerComponent} from "../../../../../../../src/app/ui/features/input/ui/atoms/term-container/term-container.component";
-import {EditableTermContainerComponent} from "../../../../../../../src/app/ui/features/input/ui/molecules/editable-term-container/editable-term-container.component";
-import {ParenthesisComponent} from "../../../../../../../src/app/ui/features/input/ui/terms/parenthesis/parenthesis.component";
-import {TermValidationWarningComponent} from "../../../../../../../src/app/ui/features/input/ui/organisms/term-validation-warning/term-validation-warning.component";
-import {CommonModule} from "@angular/common";
 import {runEditableElementSuite} from "./utils/run-editable-element-tests-suite.helper";
 import {clickAndType, expectCaretIsBehindOf, expectCaretIsInFrontOf} from "./utils/test-functions.util";
-import {InputTermValidationDirective} from "../../../../../../../src/app/ui/features/input/ui/directives/input-term-validation/input-term-validation.directive";
-import {CaretComponent} from "../../../../../../../src/app/ui/features/input/ui/organisms/caret/caret.component";
-import {ContextHandlerService} from "../../../../../../../src/app/ui/features/input/core/services/context-handler/context-handler.service";
-import {CaretHandlerService} from "../../../../../../../src/app/ui/features/input/core/services/caret-handler/caret-handler.service";
-import {WritingHandlerService} from "../../../../../../../src/app/ui/features/input/core/services/wrting-handler/writing-handler.service";
-import {CaretIndexService} from "../../../../../../../src/app/ui/features/input/core/services/caret-index/caret-index.service";
-import Chainable = Cypress.Chainable;
 import {
   expSelector,
   fracDenominatorSelector,
   fracNumeratorSelector,
   functionSelector,
-  rootIndexSelector, rootRadicandSelector
+  rootIndexSelector,
+  rootRadicandSelector
 } from "./utils/test-selectors.util";
-import {InputEventBusService} from "../../../../../../../src/app/ui/features/input/core/services/input-event-bus/input-event-bus.service";
-import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {InputModule} from "../../../../../../../src/app/ui/features/input/input.module";
+import Chainable = Cypress.Chainable;
 
 
 describe(`Input component`, () => {
@@ -41,35 +24,7 @@ describe(`Input component`, () => {
   }
 
   beforeEach(() => {
-    cy.mount(InputComponent, {
-      declarations: [
-        InputComponent,
-        CharComponent,
-        FractionComponent,
-        InputTermDirective,
-        ExponentComponent,
-        RootComponent,
-        FunctionComponent,
-        TermContainerComponent,
-        EditableTermContainerComponent,
-        ParenthesisComponent,
-        TermValidationWarningComponent,
-        InputTermValidationDirective,
-        CaretComponent
-      ],
-      imports: [
-        CommonModule,
-        BrowserModule,
-        BrowserAnimationsModule
-      ],
-      providers:[
-        InputEventBusService,
-        ContextHandlerService,
-        CaretHandlerService,
-        WritingHandlerService,
-        CaretIndexService
-      ]
-    })
+    cy.mount(InputComponent, {imports: [InputModule, BrowserAnimationsModule]})
       .then((response) => {
         component = response.component
         view = cy.wrap(response.fixture.elementRef.nativeElement)
