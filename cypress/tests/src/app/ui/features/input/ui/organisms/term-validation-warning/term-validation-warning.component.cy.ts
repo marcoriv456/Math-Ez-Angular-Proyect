@@ -1,12 +1,19 @@
-import {TermValidationWarningComponent} from "./term-validation-warning.component";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {CommonModule} from "@angular/common";
 import {ComponentFixture} from "@angular/core/testing";
 import {
+  InputEventBusService
+} from "../../../../../../../../../../src/app/ui/features/input/core/services/input-event-bus/input-event-bus.service";
+import {
+  TermValidationWarningComponent
+} from "../../../../../../../../../../src/app/ui/features/input/ui/organisms/term-validation-warning/term-validation-warning.component";
+import {
   TermValidationWarningRenderData
-} from "../../../core/validation/models/term-validation-warning-render-data.model";
-import {InputEventBusService} from "../../../core/services/input-event-bus/input-event-bus.service";
-import {WarningShowRequestEvent} from "../../../core/models/events/warnings/warning-show-request.event";
+} from "../../../../../../../../../../src/app/ui/features/input/core/validation/models/term-validation-warning-render-data.model";
+import {
+  WarningShowRequestEvent
+} from "../../../../../../../../../../src/app/ui/features/input/core/models/events/warnings/warning-show-request.event";
+
 
 describe('Term validation warning: ', () => {
   let eventBus: InputEventBusService;

@@ -4,12 +4,10 @@
   ],
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": ".",
     "sourceMap": false,
     "types": [
       "cypress",
-      "@cypress/angular",
-      "node"
+      "@cypress/angular"
     ],
     "moduleResolution": "bundler",
     "outDir": "./dist/out-tsc",
@@ -34,9 +32,9 @@
     ]
   },
   "angularCompilerOptions": {
-    "strictInjectionParameters": false,
-    "strictInputAccessModifiers": false,
-    "strictTemplates": false,
-    "fullTemplateTypeCheck": false,
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
   }
 }

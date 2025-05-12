@@ -1,6 +1,5 @@
-import {runEditableElementSuite} from "../../../tests/run-editable-element-tests-suite.helper";
-import {fracDenominatorSelector, fracNumeratorSelector} from "../../../tests/test-selectors.util";
-
+import {runEditableElementSuite} from '../../../utils/run-editable-element-tests-suite.helper'
+import {fracDenominatorSelector,fracNumeratorSelector} from '../../../utils/test-selectors.util'
 
 describe('Fraction component: ', () => {
   runEditableElementSuite(`Fraction numerator`, `/`, fracNumeratorSelector)
