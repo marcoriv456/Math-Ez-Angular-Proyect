@@ -47,6 +47,7 @@ describe('ContextHandlerService', () => {
   });
 
   describe(`Getting context data: `, () => {
+
     describe(`Forward data: `, () => {
 
       const currentElementMock = {selected: false} as EditableTermContainerComponent
@@ -58,12 +59,13 @@ describe('ContextHandlerService', () => {
       it(`If there is a character next to the caret, it returns the data next to it `, () => {
         const expectedData = {index: 456} as InputCharData
         currentElementMock.getTermLocation = () => ({character: {next: 'char'}, container: {}})
-        currentElementMock.getCharData = () => expectedData
+        currentElementMock.getCharData = jest.fn().mockReturnValue(expectedData)
         caretIndexMock.index = 0
 
         const data = service.getForwardContextData();
 
         expect(data).toEqual(expectedData)
+        expect(currentElementMock.getCharData).toHaveBeenCalledWith(1)
       });
 
       it(`If there isn't any element next to the caret but a container, it returns that container's first character's data `, () => {
@@ -79,12 +81,11 @@ describe('ContextHandlerService', () => {
       it(`If there is no element next to the caret and the actual container is the main one, it returns the last character data`, () => {
         const expectedData = {index: 123} as InputCharData
         currentElementMock.getTermLocation = () => ({character: {}, container: {isThisMain: true}})
-        currentElementMock.getLastCharData = jest.fn().mockReturnValue(expectedData)
+        currentElementMock.getLastCharData = () => expectedData
 
         const data = service.getForwardContextData()
 
         expect(data).toEqual(expectedData)
-        expect(currentElementMock.getLastCharData).toHaveBeenCalled()
       });
 
       it(`If the next element is a Math one, it returns its first element's first character data`, () => {
@@ -114,5 +115,75 @@ describe('ContextHandlerService', () => {
       });
 
     });
+
+    describe(`Backward data: `, () => {
+
+      const currentElementMock = {selected: false} as EditableTermContainerComponent
+
+      beforeEach(() => {
+        service.contextElement(currentElementMock)
+      })
+
+      it(`If there is a character behind the caret, it returns the data behind it `, () => {
+        const expectedData = {index: 456} as InputCharData
+        currentElementMock.getTermLocation = () => ({character: {actual: 'char'}, container: {}})
+        currentElementMock.getCharData = jest.fn().mockReturnValue(expectedData)
+        caretIndexMock.index = 2
+
+        const data = service.getBackwardContextData();
+
+        expect(data).toEqual(expectedData)
+        expect(currentElementMock.getCharData).toHaveBeenCalledWith(1)
+      });
+
+      it(`If there isn't any element behind the caret but a container, it returns that container's last character's data `, () => {
+        const expectedData = {index: 456} as InputCharData
+        currentElementMock.getTermLocation = () => ({character: {}, container: {prevExist: true}})
+        currentElementMock.mathElement = {previousSection: {getLastCharData: () => expectedData} as EditableTermContainerComponent} as InputMathElement<any>
+
+        const data = service.getBackwardContextData()
+
+        expect(data).toEqual(expectedData)
+      });
+
+      it(`If there is no element behind the caret and the actual container is the main one, it returns main container's no character data`, () => {
+        const expectedData = {index: 123} as InputCharData
+        currentElementMock.getTermLocation = () => ({character: {}, container: {isThisMain: true}})
+        currentElementMock.getNoCharData = jest.fn().mockReturnValue(expectedData)
+
+        const data = service.getBackwardContextData()
+
+        expect(data).toEqual(expectedData)
+      });
+
+      it(`If the caret is behind a Math element, it returns its last element's last character data`, () => {
+        const expectedData = {index: 123} as InputCharData
+        currentElementMock.getTermLocation = () => ({character: {actual: 'frac'}, container: {}})
+        currentElementMock.getElement = jest.fn().mockReturnValue({lastSection: {getLastCharData: () => expectedData}})
+        caretIndexMock.index = 1
+
+        const data = service.getBackwardContextData()
+
+        expect(data).toEqual(expectedData)
+        expect(currentElementMock.getElement).toHaveBeenCalledWith(1)
+      });
+
+      it(`If there isn't any character nor container behind the caret, it returns the data behind the current Math element`, () => {
+        const expectedData = {index: 76} as InputCharData
+        currentElementMock.getTermLocation = () => ({character: {}, container: {}})
+        currentElementMock.mathElement = {
+          parent: {getCharData: jest.fn().mockReturnValue(expectedData)},
+          index: 77
+        } as unknown as InputMathElement<any>
+
+        const data = service.getBackwardContextData()
+
+        expect(data).toEqual(expectedData)
+        expect(currentElementMock.mathElement.parent.getCharData).toHaveBeenCalledWith(76)
+      });
+
+    });
+
+
   });
 });
