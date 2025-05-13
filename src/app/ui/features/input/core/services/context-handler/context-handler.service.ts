@@ -60,7 +60,7 @@ export class ContextHandlerService {
       case ContextAction.ContextActualTerm:
         return this.currentElement.getElement(this.caretIndex.index)?.lastSection?.getLastCharData()
       case ContextAction.ContextNextTerm:
-        return this.currentElement.getElement(this.caretIndex.index+1)?.firstSection?.getLastCharData()
+        return this.currentElement.getElement(this.caretIndex.index+1)?.firstSection?.getNoCharData()
       case ContextAction.ContextNextContainer:
         return this.currentElement.mathElement.nextSection?.getNoCharData()
       case ContextAction.ContextPrevContainer:
