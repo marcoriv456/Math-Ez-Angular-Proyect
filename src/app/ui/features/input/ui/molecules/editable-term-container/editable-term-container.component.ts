@@ -48,7 +48,7 @@ export class EditableTermContainerComponent{
   @HostListener('click',['$event'])
   private onClick(event:MouseEvent){
     event.stopPropagation()
-    this.eventBus.emit(new CharClickedEvent(this.lastCharData))
+    this.eventBus.emit(new CharClickedEvent(this.getLastCharData()))
   }
 
   public addChangesListener(callback:()=>void){
@@ -93,7 +93,7 @@ export class EditableTermContainerComponent{
   }
 
 
-  public get lastCharData(){
+  public getLastCharData(){
     return this.getCharData(this.termContainer.renderedChars.length-1)||this.noCharData
   }
 

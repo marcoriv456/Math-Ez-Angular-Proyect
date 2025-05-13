@@ -145,13 +145,13 @@ export class WritingHandlerService {
     this.currentElement.replace(replaceFrom,replaceCount,term)
 
     const moveAt=this.getPlaceToMoveAtAfterAddingATerm(replaceFrom,containerToMoveAt)
-    this.caretHandler.move(moveAt||this.currentElement.lastCharData)
+    this.caretHandler.move(moveAt||this.currentElement.getLastCharData())
   }
 
   private getPlaceToMoveAtAfterAddingATerm(renderedElementIndex:number,sectionToMoveAt:number|'outside'){
     if(sectionToMoveAt=='outside')
       return this.currentElement.getCharData(renderedElementIndex)
-    return this.currentElement.getElement(renderedElementIndex)?.sectionAt(sectionToMoveAt)?.lastCharData
+    return this.currentElement.getElement(renderedElementIndex)?.sectionAt(sectionToMoveAt)?.getLastCharData()
   }
 
   private get currentElement(){
