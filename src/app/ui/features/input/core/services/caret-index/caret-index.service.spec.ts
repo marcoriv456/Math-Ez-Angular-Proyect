@@ -1,12 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
 import { CaretIndexService } from './caret-index.service';
+import {InputModule} from "../../../input.module";
 
 describe('CaretIndexService', () => {
   let service: CaretIndexService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({imports: [InputModule]});
     service = TestBed.inject(CaretIndexService);
   });
 
