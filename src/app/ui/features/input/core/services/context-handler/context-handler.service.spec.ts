@@ -8,6 +8,8 @@ import {
 import {CaretIndexService} from "../caret-index/caret-index.service";
 import {InputCharData} from "../../models/input-char-data.model";
 import {InputMathElement} from "../../abstracts/input-math-element.abstract";
+import {TermUtils} from "../../utils/term-utils.util";
+import {SpecialCharFinder} from "../../helpers/special-char-finder/special-char-finder.helper";
 
 describe('ContextHandlerService', () => {
   let service: ContextHandlerService;
@@ -28,7 +30,7 @@ describe('ContextHandlerService', () => {
     expect(service).toBeTruthy();
   });
 
-  describe(`Contexting elements`, () => {
+  describe(`Contexting elements:`, () => {
     it(`After contexting an element it sets it as selected`, () => {
       const element = {selected: false} as EditableTermContainerComponent
 
@@ -48,13 +50,13 @@ describe('ContextHandlerService', () => {
 
   describe(`Getting context data: `, () => {
 
+    const currentElementMock = {selected: false} as EditableTermContainerComponent
+
+    beforeEach(() => {
+      service.contextElement(currentElementMock)
+    })
+
     describe(`Forward data: `, () => {
-
-      const currentElementMock = {selected: false} as EditableTermContainerComponent
-
-      beforeEach(() => {
-        service.contextElement(currentElementMock)
-      })
 
       it(`If there is a character next to the caret, it returns the data next to it `, () => {
         const expectedData = {index: 456} as InputCharData
@@ -118,12 +120,6 @@ describe('ContextHandlerService', () => {
 
     describe(`Backward data: `, () => {
 
-      const currentElementMock = {selected: false} as EditableTermContainerComponent
-
-      beforeEach(() => {
-        service.contextElement(currentElementMock)
-      })
-
       it(`If there is a character behind the caret, it returns the data behind it `, () => {
         const expectedData = {index: 456} as InputCharData
         currentElementMock.getTermLocation = () => ({character: {actual: 'char'}, container: {}})
@@ -184,6 +180,78 @@ describe('ContextHandlerService', () => {
 
     });
 
+
+  });
+
+  describe(`Getting irregular character data: `, () => {
+
+    let currentElementMock:EditableTermContainerComponent
+
+    beforeEach(() => {
+      currentElementMock = {} as EditableTermContainerComponent
+      service.contextElement(currentElementMock)
+    })
+
+    describe(`Getting next irregular data: `, () => {
+      it(`Returns the current element's next irregular character data`, () => {
+        const terms = TermUtils.parse('hola+mundo')
+        const expectedData = {index: 60}
+        caretIndexMock.index = -1
+        currentElementMock.terms = terms
+        currentElementMock.getCharData = jest.fn().mockReturnValue(expectedData)
+
+        const data = service.getNextIrregularCharDataToMoveAt()
+
+        expect(data).toEqual(expectedData)
+        expect(currentElementMock.getCharData).toHaveBeenCalledWith(3)
+      });
+
+      it(`If there is no next irregular character data it returns the last character's data`, () => {
+        const terms = TermUtils.parse('hola+mundo')
+        const expectedData = {index: 110}
+        caretIndexMock.index = 6
+        currentElementMock.terms = terms
+        currentElementMock.getCharData = jest.fn().mockReturnValue(undefined)
+        currentElementMock.getLastCharData = jest.fn().mockReturnValue(expectedData)
+
+        const data = service.getNextIrregularCharDataToMoveAt()
+
+        expect(data).toEqual(expectedData)
+        expect(currentElementMock.getCharData).toHaveBeenCalledWith(9)
+        expect(currentElementMock.getLastCharData).toHaveBeenCalled()
+      });
+    });
+
+    describe(`Getting previous irregular data: `, () => {
+      it(`Returns the current element's previous irregular char data`, () => {
+        const terms = TermUtils.parse('hola+mundo')
+        const expectedData = {index: 115}
+        caretIndexMock.index = 9
+        currentElementMock.terms = terms
+        currentElementMock.getCharData = jest.fn().mockReturnValue(expectedData)
+
+        const data = service.getPrevIrregularCharToMoveAt()
+
+        expect(data).toEqual(expectedData)
+        expect(currentElementMock.getCharData).toHaveBeenCalledWith(4)
+      });
+
+      it(`If there is no previous irregular character data it returns no character's data`, () => {
+        const terms = TermUtils.parse('hola+mundo')
+        const expectedData = {index: 110}
+        caretIndexMock.index = 2
+        currentElementMock.terms = terms
+        currentElementMock.getCharData = jest.fn().mockReturnValue(undefined)
+        currentElementMock.getNoCharData = jest.fn().mockReturnValue(expectedData)
+
+        const data = service.getPrevIrregularCharToMoveAt()
+
+        expect(data).toEqual(expectedData)
+        expect(currentElementMock.getCharData).toHaveBeenCalledWith(-1)
+        expect(currentElementMock.getNoCharData).toHaveBeenCalled()
+      });
+
+    });
 
   });
 });
