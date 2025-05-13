@@ -77,7 +77,7 @@ export class EditableTermContainerComponent{
     return this.termContainer.renderedChars.get(index)?.data
   }
 
-  public get noCharData(){
+  public getNoCharData(){
     let positionX=this.positionX
     if(this.centered)
       positionX= this.centeredCaretPosition()
@@ -94,7 +94,7 @@ export class EditableTermContainerComponent{
 
 
   public getLastCharData(){
-    return this.getCharData(this.termContainer.renderedChars.length-1)||this.noCharData
+    return this.getCharData(this.termContainer.renderedChars.length-1)||this.getNoCharData()
   }
 
   public get size():number{

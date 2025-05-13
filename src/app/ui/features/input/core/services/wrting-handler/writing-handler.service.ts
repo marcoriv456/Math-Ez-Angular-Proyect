@@ -94,12 +94,12 @@ export class WritingHandlerService {
     const {index,count,remainingTerms,moveTo} = remover.remove()
 
     element.replace(index,count,...remainingTerms||[])
-    this.caretHandler.move(element.getCharData(moveTo)||element.noCharData)
+    this.caretHandler.move(element.getCharData(moveTo)||element.getNoCharData())
   }
 
   private appendChar(char:string){
     this.currentElement.append(this.caretIndex+1,{type:'char',char})
-    this.caretHandler.move(this.currentElement.getCharData(this.caretIndex+1)||this.currentElement.noCharData)
+    this.caretHandler.move(this.currentElement.getCharData(this.caretIndex+1)||this.currentElement.getNoCharData())
     this.lookForMathFunctionReferences()
   }
 

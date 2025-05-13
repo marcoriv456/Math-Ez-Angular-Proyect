@@ -40,7 +40,7 @@ export class ContextHandlerService {
 
     const action=contextManager.prev()
 
-    return this.getCharDataFromAction(action)||this.currentElement.noCharData
+    return this.getCharDataFromAction(action)||this.currentElement.getNoCharData()
   }
 
   private getContextManager(){
@@ -54,7 +54,7 @@ export class ContextHandlerService {
       case ContextAction.MoveToPrevChar:
         return this.currentElement.getCharData(this.caretIndex.index-1)
       case ContextAction.MoveToFirstChar:
-        return this.currentElement.noCharData
+        return this.currentElement.getNoCharData()
       case ContextAction.MoveToLastChar:
         return this.currentElement.getLastCharData()
       case ContextAction.ContextActualTerm:
@@ -62,13 +62,13 @@ export class ContextHandlerService {
       case ContextAction.ContextNextTerm:
         return this.currentElement.getElement(this.caretIndex.index+1)?.firstSection?.getLastCharData()
       case ContextAction.ContextNextContainer:
-        return this.currentElement.mathElement.nextSection?.noCharData
+        return this.currentElement.mathElement.nextSection?.getNoCharData()
       case ContextAction.ContextPrevContainer:
         return this.currentElement.mathElement.previousSection?.getLastCharData()
       case ContextAction.ContextOutByRight:
         return this.currentElement.mathElement.parent.getCharData(this.currentElement.mathElement.index)||this.currentElement.mathElement.parent.getLastCharData()
       case ContextAction.ContextOutByLeft:
-        return this.currentElement.mathElement.parent.getCharData(this.currentElement.mathElement.index-1)||this.currentElement.mathElement.parent.noCharData
+        return this.currentElement.mathElement.parent.getCharData(this.currentElement.mathElement.index-1)||this.currentElement.mathElement.parent.getNoCharData()
     }
   }
 
@@ -77,7 +77,7 @@ export class ContextHandlerService {
   }
 
   public getFirstCharData(){
-    return this.currentElement.noCharData
+    return this.currentElement.getNoCharData()
   }
 
   public getMainContainerLastCharData(){
@@ -85,7 +85,7 @@ export class ContextHandlerService {
   }
 
   public getMainContainerNoCharData(){
-    return this.getMainElement().noCharData
+    return this.getMainElement().getNoCharData()
   }
 
   public getNextIrregularCharDataToMoveAt(){
@@ -93,7 +93,7 @@ export class ContextHandlerService {
   }
 
   public getPrevIrregularCharToMoveAt(){
-    return this.currentElement.getCharData(this.getCharFinder().findPreviousIndexToMoveAt())||this.currentElement.noCharData
+    return this.currentElement.getCharData(this.getCharFinder().findPreviousIndexToMoveAt())||this.currentElement.getNoCharData()
   }
 
   private getCharFinder(){
