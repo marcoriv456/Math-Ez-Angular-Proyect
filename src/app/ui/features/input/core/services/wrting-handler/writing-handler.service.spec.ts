@@ -8,7 +8,6 @@ import {
 import {ContextHandlerService} from "../context-handler/context-handler.service";
 import {InputEventBusService} from "../input-event-bus/input-event-bus.service";
 import {CaretIndexService} from "../caret-index/caret-index.service";
-import {FractionAdder} from "../../terms/adders/fraction/fraction-adder.helper";
 import {TermUtils} from "../../utils/term-utils.util";
 import {KeyTypedEvent} from "../../models/events/io/key-typed.event";
 import {CaretHandlerService} from "../caret-handler/caret-handler.service";
@@ -52,8 +51,8 @@ describe('WritingHandlerService', () => {
     // ------------helpers----------------
 
     const placeCaretAt = (index: number) => caretIndexMock.index = index
-    const setTerms = (terms: string) => currentElementMock.terms = TermUtils.parse(terms)
-    const set = ({index, terms}: { terms: string, index: number }) => {
+    const setTerms = (terms: string | Term[]) => currentElementMock.terms = typeof terms == 'string' ? TermUtils.parse(terms) : terms
+    const set = ({index, terms}: { terms: string | Term[], index: number }) => {
       setTerms(terms)
       placeCaretAt(index)
     }
@@ -85,12 +84,12 @@ describe('WritingHandlerService', () => {
       expect(caretHandlerMock.move).toHaveBeenCalledWith(data)
     }
 
-    const mockCurrentElementData = (data:InputCharData, location: 'first' | 'last' | number) => {
-      mockData(currentElementMock,data,location)
+    const mockCurrentElementData = (data: InputCharData, location: 'first' | 'last' | number) => {
+      mockData(currentElementMock, data, location)
     }
 
     const mockSectionData = (data: InputCharData, location: 'first' | 'last' | number) => {
-      mockData(sectionMock,data,location)
+      mockData(sectionMock, data, location)
     }
 
     const mockData = (element: EditableTermContainerComponent, data: InputCharData, location: 'first' | 'last' | number) => {
@@ -235,8 +234,84 @@ describe('WritingHandlerService', () => {
 
 
     describe(`Appending parenthesis: `, () => {
-      
+      it(`When typing ')', if it finds a matching '(', it adds a parenthesis`, () => {
+        const expectedData = {index: 100} as InputCharData
+        set({terms: "(hello", index: 5})
+        mockCurrentElementData(expectedData, 0)
+
+        type({key: ')', ctrl: false, alt: false})
+
+        expectTerms({
+          type: 'parenthesis',
+          parenthesisChildren: TermUtils.parse('hello')
+        })
+        expectCaretToMoveAfterCharacter({index: 0, data: expectedData})
+      });
+
+      it(`When typing '(', if it finds a matching ')', it adds a parenthesis`, () => {
+        const expectedData = {index: 10} as InputCharData
+        set({terms: "hello)", index: -1})
+        mockSectionData(expectedData, 'last')
+
+        type({key: '(', ctrl: false, alt: false})
+
+        expectTerms({
+          type: 'parenthesis',
+          parenthesisChildren: TermUtils.parse('hello')
+        })
+        expectCaretToBeAt({element: 0, section: 0, character: 'last', data: expectedData})
+      });
     });
 
+    describe(`Appending functions: `, () => {
+      beforeEach(() => {
+        mockCurrentElementData({index: 111} as InputCharData, 2)
+      })
+
+      it(`When typing a recognizable function's name, it appends the function.`, () => {
+        const expectedData = {index: 505} as InputCharData
+        set({terms: "se", index: 1})
+        mockSectionData(expectedData, 'last')
+
+        type({key: 'n', ctrl: false, alt: false})
+
+        expectTerms({type: 'function', functionName: 'sen', functionChildren: []})
+        expectCaretToBeAt({element: 0, section: 0, character: 'last', data: expectedData})
+      });
+
+      it(`When typing a recognizable function's name behind a parenthesis, the function autocompletes itself with those terms.`, () => {
+        const expectedData = {index: 505} as InputCharData
+        set({
+          terms: [...TermUtils.parse('se'), {type: 'parenthesis', parenthesisChildren: TermUtils.parse("hello")}],
+          index: 1
+        })
+        mockCurrentElementData(expectedData, 0)
+
+        type({key: 'n', ctrl: false, alt: false})
+
+        expectTerms({
+          type: 'function',
+          functionName: 'sen',
+          functionChildren: TermUtils.parse("hello")
+        })
+        expectCaretToMoveAfterCharacter({index: 0, data: expectedData})
+      });
+    });
+
+    describe(`Appending characters: `, () => {
+      it(`When typing a character, it appends the character.`, () => {
+        const expectedData = {index: 20} as InputCharData
+        set({terms: "", index: -1})
+        mockCurrentElementData(expectedData, 0)
+
+        type({key: 'a', ctrl: false, alt: false})
+
+        expectTerms({
+          type: 'char',
+          char: 'a'
+        })
+        expectCaretToMoveAfterCharacter({index: 0, data: expectedData})
+      });
+    });
   })
 });
