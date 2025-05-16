@@ -14,6 +14,7 @@ import {CaretHandlerService} from "../caret-handler/caret-handler.service";
 import {InputMathElement} from "../../abstracts/input-math-element.abstract";
 import {InputCharData} from "../../models/input-char-data.model";
 import {Term} from "../../models/terms/term.model";
+import {FractionTerm} from "../../models/terms/fraction-term.model";
 
 describe('WritingHandlerService', () => {
   let service: WritingHandlerService;
@@ -66,12 +67,14 @@ describe('WritingHandlerService', () => {
     placeCaretAt(index)
   }
 
-  const expectCaretToBeAt = ({element, section, character, data}: {
-    element: number,
-    section: number,
-    character: 'first' | 'last' | number,
+  interface CaretPosition {
+    element: number
+    section: number
+    character: 'first' | 'last' | number
     data: InputCharData
-  }) => {
+  }
+
+  const expectCaretToBeAt = ({element, section, character, data}: CaretPosition) => {
     expect(currentElementMock.getElement).toHaveBeenCalledWith(element)
     expect(currentElementMock.getElement(element)?.sectionAt).toHaveBeenCalledWith(section)
 
@@ -234,7 +237,6 @@ describe('WritingHandlerService', () => {
       });
     });
 
-
     describe(`Appending parenthesis: `, () => {
       it(`When typing ')', if it finds a matching '(', it adds a parenthesis`, () => {
         const expectedData = {index: 100} as InputCharData
@@ -315,5 +317,160 @@ describe('WritingHandlerService', () => {
         expectCaretToMoveAfterCharacter({index: 0, data: expectedData})
       });
     });
-  })
+  });
+
+  describe(`Handling removal:`, () => {
+
+    describe(`When theres no MathElement as parent and the caret is at the first position : `, () => {
+      it(`Doesn't perform any simple removal`, () => {
+        set({terms: "hello", index: -1})
+
+        type({key: 'Backspace', ctrl: false, alt: false})
+
+        expectTerms(...TermUtils.parse("hello"))
+      });
+
+      it(`Doesn't perform any 'Ctrl' removal`, () => {
+        set({terms: "hello", index: -1})
+
+        type({key: 'Backspace', ctrl: true, alt: false})
+
+        expectTerms(...TermUtils.parse('hello'))
+      });
+    });
+
+    describe(`'Ctrl' removal: `, () => {
+      it(`Removes all the elements after the previous irregular character`, () => {
+        const expectedData = {index: 100} as InputCharData
+        set({terms: "hello+world", index: 10})
+        mockCurrentElementData(expectedData, 5)
+
+        type({key: 'Backspace', ctrl: true, alt: false})
+
+        expectTerms(...TermUtils.parse('hello+'))
+        expectCaretToMoveAfterCharacter({index: 5, data: expectedData})
+      });
+
+      it(`If the caret is already next to an irregular character, it is the only one getting deleted`, () => {
+        const expectedData = {index: 200} as InputCharData
+        set({terms: "hello+world", index: 5})
+        mockCurrentElementData(expectedData, 4)
+
+        type({key: 'Backspace', ctrl: true, alt: false})
+
+        expectTerms(...TermUtils.parse('helloworld'))
+        expectCaretToMoveAfterCharacter({index: 4, data: expectedData})
+      });
+
+      it(`If it doesn't find an irregular character behind the caret, it just removes all the characters behind it`, () => {
+        const expectedData = {index: 300} as InputCharData
+        set({terms: "hello+world", index: 4})
+        mockCurrentElementData(expectedData, -1)
+
+        type({key: 'Backspace', ctrl: true, alt: false})
+
+        expectTerms(...TermUtils.parse('+world'))
+        expectCaretToMoveAfterCharacter({index: -1, data: expectedData})
+      });
+    });
+
+    describe(`Outside removal: `, () => {
+
+      describe(`On parenthesis: `, () => {
+
+        it(`Removes the parenthesis but leaves it internal characters`, () => {
+          const expectedData = {index: 200} as InputCharData
+          set({terms: [{type: 'parenthesis', parenthesisChildren: TermUtils.parse('hello')}], index: 0})
+          mockCurrentElementData(expectedData, 5)
+
+          type({key: 'Backspace', ctrl: false, alt: false})
+
+          expectTerms(...TermUtils.parse('(hello'))
+          expectCaretToMoveAfterCharacter({index: 5, data: expectedData})
+        });
+      });
+
+      describe(`On characters: `, () => {
+
+        it(`Removes characters: `, () => {
+          const expectedData = {index: 200} as InputCharData
+          set({terms: "helloo", index: 5})
+          mockCurrentElementData(expectedData, 4)
+
+          type({key: 'Backspace', ctrl: false, alt: false})
+
+          expectTerms(...TermUtils.parse('hello'))
+          expectCaretToMoveAfterCharacter({index: 4, data: expectedData})
+        });
+
+      });
+
+
+    });
+
+    describe(`Inside removal: `, () => {
+      let parentMock = {} as EditableTermContainerComponent
+
+      // ------------------ helpers -----------------
+
+      const mockParentData = (data: InputCharData, location: 'first' | 'last' | number) => mockData(parentMock, data, location)
+
+
+      const mockParentTerms = (terms: Term[]) => currentElementMock.mathElement.parent.terms = terms
+
+      const expectCaretToMoveInParent = ({index, data}: { index: 'first' | 'last' | number, data: InputCharData}) => {
+        if (typeof index === 'number')
+          expect(parentMock.getCharData).toHaveBeenCalledWith(index)
+        else {
+          const func = index == 'first' ? parentMock.getNoCharData : parentMock.getLastCharData
+          expect(func).toHaveBeenCalled()
+        }
+        expect(caretHandlerMock.move).toHaveBeenCalledWith(data)
+      }
+      // ------------------ helpers -----------------
+      beforeEach(() => {
+        parentMock.replace = (from, deleteCount = 1, ...terms) => parentMock.terms.splice(from, deleteCount, ...terms)
+        currentElementMock.mathElement = {parent: parentMock, index: 0} as InputMathElement<any>
+      })
+
+      describe(`On common MathElements: `, () => {
+        it(`Removes an element and leaves its inner terms`, () => {
+          const expectedData = {index: 399} as InputCharData
+          const currentElementAsTerm: Term = {type: 'exponent', exponentChildren: TermUtils.parse('hello')}
+          set({index: -1, terms: currentElementAsTerm.exponentChildren})
+          mockParentTerms([currentElementAsTerm])
+          mockParentData(expectedData, -1)
+
+          type({key: 'Backspace', ctrl: false, alt: false})
+
+          expectTerms(...TermUtils.parse('hello'))
+          expectCaretToMoveInParent({index: -1, data: expectedData})
+        });
+      });
+
+      describe(`On fractions: `, () => {
+
+
+        it(`If the caret is in the numerator's first position, it leaves the inner terms of both the numerator and the denominator and places the caret behind them`, () => {
+          const expectedData = {index: 100} as InputCharData
+          const currentElementAsTerm: FractionTerm = {
+            type: 'fraction',
+            numeratorChildren: TermUtils.parse('hello'),
+            denominatorChildren: TermUtils.parse('world')
+          }
+          currentElementMock.index = 0
+          set({index: -1, terms: currentElementAsTerm.numeratorChildren})
+          mockParentTerms([currentElementAsTerm])
+          mockParentData(expectedData, -1)
+
+          type({key: 'Backspace', ctrl: false, alt: false})
+
+          expectTerms(...TermUtils.parse('helloworld'))
+          expectCaretToMoveInParent({index: -1, data: expectedData})
+        });
+      });
+
+
+    });
+  });
 });
