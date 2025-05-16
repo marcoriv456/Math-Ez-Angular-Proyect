@@ -31,94 +31,96 @@ describe('WritingHandlerService', () => {
       imports: [InputModule],
       providers: [
         {provide: ContextHandlerService, useValue: {getCurrentElement: () => currentElementMock}},
-        {provide: CaretIndexService, useValue: caretIndexMock}
-        , {provide: CaretHandlerService, useValue: caretHandlerMock}
+        {provide: CaretIndexService, useValue: caretIndexMock},
+        {provide: CaretHandlerService, useValue: caretHandlerMock}
       ]
     });
 
     service = TestBed.inject(WritingHandlerService);
+
     eventBus = TestBed.inject(InputEventBusService)
+
+    currentElementMock.replace = (from, deleteCount = 1, ...terms) => currentElementMock.terms.splice(from, deleteCount, ...terms)
+    currentElementMock.append = (from, ...terms) => currentElementMock.terms.splice(from, 0, ...terms)
+
+    sectionMock = {} as unknown as EditableTermContainerComponent
+    elementMock = {sectionAt: jest.fn().mockReturnValue(sectionMock)} as unknown as InputMathElement<any>
+    currentElementMock.getElement = jest.fn().mockReturnValue(elementMock)
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
+
+  // ------------helpers----------------
+
+  let sectionMock: EditableTermContainerComponent
+  let elementMock: InputMathElement<any>;
+
+
+  const placeCaretAt = (index: number) => caretIndexMock.index = index
+  const setTerms = (terms: string | Term[]) => currentElementMock.terms = typeof terms == 'string' ? TermUtils.parse(terms) : terms
+  const set = ({index, terms}: { terms: string | Term[], index: number }) => {
+    setTerms(terms)
+    placeCaretAt(index)
+  }
+
+  const expectCaretToBeAt = ({element, section, character, data}: {
+    element: number,
+    section: number,
+    character: 'first' | 'last' | number,
+    data: InputCharData
+  }) => {
+    expect(currentElementMock.getElement).toHaveBeenCalledWith(element)
+    expect(currentElementMock.getElement(element)?.sectionAt).toHaveBeenCalledWith(section)
+
+    const sectionAt = currentElementMock.getElement(element)?.sectionAt(section)
+
+    if (typeof character === 'number') {
+      expect(sectionAt?.getCharData).toHaveBeenCalledWith(character)
+      return;
+    }
+
+    const locationFunc = character == 'first' ? sectionAt?.getNoCharData : sectionAt?.getLastCharData
+    expect(locationFunc).toHaveBeenCalled()
+
+    expect(caretHandlerMock.move).toHaveBeenCalledWith(data)
+  }
+
+  const expectCaretToMoveAfterCharacter = ({index, data}: { index: number, data: InputCharData }) => {
+    expect(currentElementMock.getCharData).toHaveBeenCalledWith(index)
+    expect(caretHandlerMock.move).toHaveBeenCalledWith(data)
+  }
+
+  const mockCurrentElementData = (data: InputCharData, location: 'first' | 'last' | number) => {
+    mockData(currentElementMock, data, location)
+  }
+
+  const mockSectionData = (data: InputCharData, location: 'first' | 'last' | number) => {
+    mockData(sectionMock, data, location)
+  }
+
+  const mockData = (element: EditableTermContainerComponent, data: InputCharData, location: 'first' | 'last' | number) => {
+    if (location === 'first')
+      element.getNoCharData = jest.fn().mockReturnValue(data)
+    else if (location === 'last')
+      element.getLastCharData = jest.fn().mockReturnValue(data)
+    else
+      element.getCharData = jest.fn().mockReturnValue(data)
+  }
+
+  const type = ({key, ctrl, alt}: {
+    key: string,
+    ctrl: boolean,
+    alt: boolean
+  }) => eventBus.emit(new KeyTypedEvent(key, ctrl, alt))
+
+  const expectTerms = (...terms: Term[]) => expect(currentElementMock.terms).toEqual(terms)
+
+  // ------------helpers----------------
+
   describe('Handling append: ', () => {
-    let sectionMock: EditableTermContainerComponent
-    let elementMock: InputMathElement<any>;
-
-    // ------------helpers----------------
-
-    const placeCaretAt = (index: number) => caretIndexMock.index = index
-    const setTerms = (terms: string | Term[]) => currentElementMock.terms = typeof terms == 'string' ? TermUtils.parse(terms) : terms
-    const set = ({index, terms}: { terms: string | Term[], index: number }) => {
-      setTerms(terms)
-      placeCaretAt(index)
-    }
-
-    const expectCaretToBeAt = ({element, section, character, data}: {
-      element: number,
-      section: number,
-      character: 'first' | 'last' | number,
-      data: InputCharData
-    }) => {
-      expect(currentElementMock.getElement).toHaveBeenCalledWith(element)
-      expect(currentElementMock.getElement(element)?.sectionAt).toHaveBeenCalledWith(section)
-
-      const sectionAt = currentElementMock.getElement(element)?.sectionAt(section)
-
-      if (typeof character === 'number') {
-        expect(sectionAt?.getCharData).toHaveBeenCalledWith(character)
-        return;
-      }
-
-      const locationFunc = character == 'first' ? sectionAt?.getNoCharData : sectionAt?.getLastCharData
-      expect(locationFunc).toHaveBeenCalled()
-
-      expect(caretHandlerMock.move).toHaveBeenCalledWith(data)
-    }
-
-    const expectCaretToMoveAfterCharacter = ({index, data}: { index: number, data: InputCharData }) => {
-      expect(currentElementMock.getCharData).toHaveBeenCalledWith(index)
-      expect(caretHandlerMock.move).toHaveBeenCalledWith(data)
-    }
-
-    const mockCurrentElementData = (data: InputCharData, location: 'first' | 'last' | number) => {
-      mockData(currentElementMock, data, location)
-    }
-
-    const mockSectionData = (data: InputCharData, location: 'first' | 'last' | number) => {
-      mockData(sectionMock, data, location)
-    }
-
-    const mockData = (element: EditableTermContainerComponent, data: InputCharData, location: 'first' | 'last' | number) => {
-      if (location === 'first')
-        element.getNoCharData = jest.fn().mockReturnValue(data)
-      else if (location === 'last')
-        element.getLastCharData = jest.fn().mockReturnValue(data)
-      else
-        element.getCharData = jest.fn().mockReturnValue(data)
-    }
-
-    const type = ({key, ctrl, alt}: {
-      key: string,
-      ctrl: boolean,
-      alt: boolean
-    }) => eventBus.emit(new KeyTypedEvent(key, ctrl, alt))
-
-    const expectTerms = (...terms: Term[]) => expect(currentElementMock.terms).toEqual(terms)
-
-    // ------------helpers----------------
-
-
-    beforeEach(() => {
-      currentElementMock.replace = (from, deleteCount = 1, ...terms) => currentElementMock.terms.splice(from, deleteCount, ...terms)
-      currentElementMock.append = (from, ...terms) => currentElementMock.terms.splice(from, 0, ...terms)
-      sectionMock = {} as unknown as EditableTermContainerComponent
-      elementMock = {sectionAt: jest.fn().mockReturnValue(sectionMock)} as unknown as InputMathElement<any>
-      currentElementMock.getElement = jest.fn().mockReturnValue(elementMock)
-    })
 
     describe(`Appending fractions: `, () => {
       it(`Appends a fraction autocompleting itself with the surrounding terms`, () => {
