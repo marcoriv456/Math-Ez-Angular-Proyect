@@ -62,9 +62,9 @@ describe('WritingHandlerService', () => {
 
   const placeCaretAt = (index: number) => caretIndexMock.index = index
   const setTerms = (terms: string | Term[]) => currentElementMock.terms = typeof terms == 'string' ? TermUtils.parse(terms) : terms
-  const set = ({index, terms}: { terms: string | Term[], index: number }) => {
-    setTerms(terms)
-    placeCaretAt(index)
+  const set = ({caretIndex, currentElementTerms}: { currentElementTerms: string | Term[], caretIndex: number }) => {
+    setTerms(currentElementTerms)
+    placeCaretAt(caretIndex)
   }
 
   interface CaretPosition {
@@ -128,7 +128,7 @@ describe('WritingHandlerService', () => {
     describe(`Appending fractions: `, () => {
       it(`Appends a fraction autocompleting itself with the surrounding terms`, () => {
         const expectedData = {index: 9974} as InputCharData
-        set({terms: "helloworld", index: 4})
+        set({currentElementTerms: "helloworld", caretIndex: 4})
         mockSectionData(expectedData, 'last')
 
         type({key: '/', ctrl: false, alt: false})
@@ -143,7 +143,7 @@ describe('WritingHandlerService', () => {
 
       it(`Appends a fraction autocompleting its denominator with the terms behind the caret`, () => {
         const expectedData = {index: 8008} as InputCharData
-        set({terms: "hello", index: 4})
+        set({currentElementTerms: "hello", caretIndex: 4})
         mockSectionData(expectedData, 'last')
 
         type({key: '/', ctrl: false, alt: false})
@@ -158,7 +158,7 @@ describe('WritingHandlerService', () => {
 
       it(`Appends a fraction autocompleting its numerator with the terms after the caret`, () => {
         const expectedData = {index: 999} as InputCharData
-        set({terms: "hello", index: -1})
+        set({currentElementTerms: "hello", caretIndex: -1})
         mockSectionData(expectedData, 'last')
 
         type({key: '/', ctrl: false, alt: false})
@@ -176,7 +176,7 @@ describe('WritingHandlerService', () => {
 
       it(`Appends an exponent`, () => {
         const expectedData = {index: 123} as InputCharData
-        set({terms: "", index: -1})
+        set({currentElementTerms: "", caretIndex: -1})
         mockSectionData(expectedData, 'last')
 
         type({key: 'e', ctrl: true, alt: false})
@@ -193,7 +193,7 @@ describe('WritingHandlerService', () => {
 
       it(`Appends a simple root`, () => {
         const expectedData = {index: 999} as InputCharData
-        set({terms: "", index: -1})
+        set({currentElementTerms: "", caretIndex: -1})
         mockSectionData(expectedData, 'last')
 
         type({key: 'r', ctrl: true, alt: false})
@@ -207,7 +207,7 @@ describe('WritingHandlerService', () => {
 
       it(`Appends an editable index root`, () => {
         const expectedData = {index: 100} as InputCharData
-        set({terms: "", index: -1})
+        set({currentElementTerms: "", caretIndex: -1})
         mockSectionData(expectedData, 'last')
 
         type({key: 'r', ctrl: false, alt: true})
@@ -224,7 +224,7 @@ describe('WritingHandlerService', () => {
     describe(`Appending special characters: `, () => {
       it(`Appends a pi`, () => {
         const expectedData = {index: 100} as InputCharData
-        set({terms: "", index: -1})
+        set({currentElementTerms: "", caretIndex: -1})
         mockCurrentElementData(expectedData, 0)
 
         type({key: 'p', ctrl: true, alt: false})
@@ -240,7 +240,7 @@ describe('WritingHandlerService', () => {
     describe(`Appending parenthesis: `, () => {
       it(`When typing ')', if it finds a matching '(', it adds a parenthesis`, () => {
         const expectedData = {index: 100} as InputCharData
-        set({terms: "(hello", index: 5})
+        set({currentElementTerms: "(hello", caretIndex: 5})
         mockCurrentElementData(expectedData, 0)
 
         type({key: ')', ctrl: false, alt: false})
@@ -254,7 +254,7 @@ describe('WritingHandlerService', () => {
 
       it(`When typing '(', if it finds a matching ')', it adds a parenthesis`, () => {
         const expectedData = {index: 10} as InputCharData
-        set({terms: "hello)", index: -1})
+        set({currentElementTerms: "hello)", caretIndex: -1})
         mockSectionData(expectedData, 'last')
 
         type({key: '(', ctrl: false, alt: false})
@@ -274,7 +274,7 @@ describe('WritingHandlerService', () => {
 
       it(`When typing a recognizable function's name, it appends the function.`, () => {
         const expectedData = {index: 505} as InputCharData
-        set({terms: "se", index: 1})
+        set({currentElementTerms: "se", caretIndex: 1})
         mockSectionData(expectedData, 'last')
 
         type({key: 'n', ctrl: false, alt: false})
@@ -286,8 +286,8 @@ describe('WritingHandlerService', () => {
       it(`When typing a recognizable function's name behind a parenthesis, the function autocompletes itself with those terms.`, () => {
         const expectedData = {index: 505} as InputCharData
         set({
-          terms: [...TermUtils.parse('se'), {type: 'parenthesis', parenthesisChildren: TermUtils.parse("hello")}],
-          index: 1
+          currentElementTerms: [...TermUtils.parse('se'), {type: 'parenthesis', parenthesisChildren: TermUtils.parse("hello")}],
+          caretIndex: 1
         })
         mockCurrentElementData(expectedData, 0)
 
@@ -305,7 +305,7 @@ describe('WritingHandlerService', () => {
     describe(`Appending characters: `, () => {
       it(`When typing a character, it appends the character.`, () => {
         const expectedData = {index: 20} as InputCharData
-        set({terms: "", index: -1})
+        set({currentElementTerms: "", caretIndex: -1})
         mockCurrentElementData(expectedData, 0)
 
         type({key: 'a', ctrl: false, alt: false})
@@ -323,7 +323,7 @@ describe('WritingHandlerService', () => {
 
     describe(`When theres no MathElement as parent and the caret is at the first position : `, () => {
       it(`Doesn't perform any simple removal`, () => {
-        set({terms: "hello", index: -1})
+        set({currentElementTerms: "hello", caretIndex: -1})
 
         type({key: 'Backspace', ctrl: false, alt: false})
 
@@ -331,7 +331,7 @@ describe('WritingHandlerService', () => {
       });
 
       it(`Doesn't perform any 'Ctrl' removal`, () => {
-        set({terms: "hello", index: -1})
+        set({currentElementTerms: "hello", caretIndex: -1})
 
         type({key: 'Backspace', ctrl: true, alt: false})
 
@@ -342,7 +342,7 @@ describe('WritingHandlerService', () => {
     describe(`'Ctrl' removal: `, () => {
       it(`Removes all the elements after the previous irregular character`, () => {
         const expectedData = {index: 100} as InputCharData
-        set({terms: "hello+world", index: 10})
+        set({currentElementTerms: "hello+world", caretIndex: 10})
         mockCurrentElementData(expectedData, 5)
 
         type({key: 'Backspace', ctrl: true, alt: false})
@@ -353,7 +353,7 @@ describe('WritingHandlerService', () => {
 
       it(`If the caret is already next to an irregular character, it is the only one getting deleted`, () => {
         const expectedData = {index: 200} as InputCharData
-        set({terms: "hello+world", index: 5})
+        set({currentElementTerms: "hello+world", caretIndex: 5})
         mockCurrentElementData(expectedData, 4)
 
         type({key: 'Backspace', ctrl: true, alt: false})
@@ -364,7 +364,7 @@ describe('WritingHandlerService', () => {
 
       it(`If it doesn't find an irregular character behind the caret, it just removes all the characters behind it`, () => {
         const expectedData = {index: 300} as InputCharData
-        set({terms: "hello+world", index: 4})
+        set({currentElementTerms: "hello+world", caretIndex: 4})
         mockCurrentElementData(expectedData, -1)
 
         type({key: 'Backspace', ctrl: true, alt: false})
@@ -380,7 +380,7 @@ describe('WritingHandlerService', () => {
 
         it(`Removes the parenthesis but leaves it internal characters`, () => {
           const expectedData = {index: 200} as InputCharData
-          set({terms: [{type: 'parenthesis', parenthesisChildren: TermUtils.parse('hello')}], index: 0})
+          set({currentElementTerms: [{type: 'parenthesis', parenthesisChildren: TermUtils.parse('hello')}], caretIndex: 0})
           mockCurrentElementData(expectedData, 5)
 
           type({key: 'Backspace', ctrl: false, alt: false})
@@ -394,7 +394,7 @@ describe('WritingHandlerService', () => {
 
         it(`Removes characters: `, () => {
           const expectedData = {index: 200} as InputCharData
-          set({terms: "helloo", index: 5})
+          set({currentElementTerms: "helloo", caretIndex: 5})
           mockCurrentElementData(expectedData, 4)
 
           type({key: 'Backspace', ctrl: false, alt: false})
@@ -414,10 +414,7 @@ describe('WritingHandlerService', () => {
       // ------------------ helpers -----------------
 
       const mockParentData = (data: InputCharData, location: 'first' | 'last' | number) => mockData(parentMock, data, location)
-
-
       const mockParentTerms = (terms: Term[]) => currentElementMock.mathElement.parent.terms = terms
-
       const expectCaretToMoveInParent = ({index, data}: { index: 'first' | 'last' | number, data: InputCharData}) => {
         if (typeof index === 'number')
           expect(parentMock.getCharData).toHaveBeenCalledWith(index)
@@ -427,6 +424,10 @@ describe('WritingHandlerService', () => {
         }
         expect(caretHandlerMock.move).toHaveBeenCalledWith(data)
       }
+
+      const expectParentTerms = (...terms: Term[]) => expect(parentMock.terms).toEqual(terms)
+
+
       // ------------------ helpers -----------------
       beforeEach(() => {
         parentMock.replace = (from, deleteCount = 1, ...terms) => parentMock.terms.splice(from, deleteCount, ...terms)
@@ -437,7 +438,7 @@ describe('WritingHandlerService', () => {
         it(`Removes an element and leaves its inner terms`, () => {
           const expectedData = {index: 399} as InputCharData
           const currentElementAsTerm: Term = {type: 'exponent', exponentChildren: TermUtils.parse('hello')}
-          set({index: -1, terms: currentElementAsTerm.exponentChildren})
+          set({caretIndex: -1, currentElementTerms: currentElementAsTerm.exponentChildren})
           mockParentTerms([currentElementAsTerm])
           mockParentData(expectedData, -1)
 
@@ -450,26 +451,42 @@ describe('WritingHandlerService', () => {
 
       describe(`On fractions: `, () => {
 
-
         it(`If the caret is in the numerator's first position, it leaves the inner terms of both the numerator and the denominator and places the caret behind them`, () => {
           const expectedData = {index: 100} as InputCharData
-          const currentElementAsTerm: FractionTerm = {
+          const currentTerm: FractionTerm = {
             type: 'fraction',
             numeratorChildren: TermUtils.parse('hello'),
             denominatorChildren: TermUtils.parse('world')
           }
           currentElementMock.index = 0
-          set({index: -1, terms: currentElementAsTerm.numeratorChildren})
-          mockParentTerms([currentElementAsTerm])
+          set({caretIndex: -1, currentElementTerms: currentTerm.numeratorChildren})
+          mockParentTerms([currentTerm])
           mockParentData(expectedData, -1)
 
           type({key: 'Backspace', ctrl: false, alt: false})
 
-          expectTerms(...TermUtils.parse('helloworld'))
+          expectParentTerms(...TermUtils.parse('helloworld'))
           expectCaretToMoveInParent({index: -1, data: expectedData})
         });
-      });
 
+        it(`If the caret is in the denominator's first position, it leaves the inner terms of both the numerator and denominator and places the caret in the middle of them`, () => {
+          const expectedData = {index: 100} as InputCharData
+          const currentTerm: FractionTerm = {
+            type: 'fraction',
+            numeratorChildren: TermUtils.parse('hello'),
+            denominatorChildren: TermUtils.parse('world')
+          }
+          set({caretIndex: -1, currentElementTerms: currentTerm.denominatorChildren})
+          currentElementMock.index = 1
+          mockParentTerms([currentTerm])
+          mockParentData(expectedData, 4)
+
+          type({key: 'Backspace', ctrl: false, alt: false})
+
+          expectParentTerms(...TermUtils.parse('helloworld'))
+          expectCaretToMoveInParent({index: 4, data: expectedData})
+        });
+      });
 
     });
   });
