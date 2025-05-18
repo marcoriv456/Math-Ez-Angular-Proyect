@@ -15,7 +15,7 @@ export default defineConfig({
       webpackConfig
     },
     specPattern: '**/*.cy.ts',
-    supportFolder:'support',
+    supportFolder:'cypress/support',
     fixturesFolder:'./fixtures',
   },
   viewportWidth:1920,
