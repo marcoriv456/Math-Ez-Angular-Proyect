@@ -2,9 +2,6 @@ import {TestBed} from '@angular/core/testing';
 
 import {WritingHandlerService} from './writing-handler.service';
 import {InputModule} from "../../../input.module";
-import {
-  EditableTermContainerComponent
-} from "../../../ui/molecules/editable-term-container/editable-term-container.component";
 import {ContextHandlerService} from "../context-handler/context-handler.service";
 import {InputEventBusService} from "../input-event-bus/input-event-bus.service";
 import {CaretIndexService} from "../caret-index/caret-index.service";
@@ -15,16 +12,17 @@ import {InputMathElement} from "../../abstracts/input-math-element.abstract";
 import {InputCharData} from "../../models/input-char-data.model";
 import {Term} from "../../models/terms/term.model";
 import {FractionTerm} from "../../models/terms/fraction-term.model";
+import {TermSection} from "../../models/term-section.model";
 
 describe('WritingHandlerService', () => {
   let service: WritingHandlerService;
-  let currentElementMock: EditableTermContainerComponent
+  let currentElementMock: TermSection
   let caretIndexMock: CaretIndexService
   let caretHandlerMock: CaretHandlerService
   let eventBus: InputEventBusService
 
   beforeEach(() => {
-    currentElementMock = {} as EditableTermContainerComponent
+    currentElementMock = {} as TermSection
     caretIndexMock = {index: 0}
     caretHandlerMock = {move: jest.fn()} as unknown as CaretHandlerService
 
@@ -44,7 +42,7 @@ describe('WritingHandlerService', () => {
     currentElementMock.replace = (from, deleteCount = 1, ...terms) => currentElementMock.terms.splice(from, deleteCount, ...terms)
     currentElementMock.append = (from, ...terms) => currentElementMock.terms.splice(from, 0, ...terms)
 
-    sectionMock = {} as unknown as EditableTermContainerComponent
+    sectionMock = {} as unknown as TermSection
     elementMock = {sectionAt: jest.fn().mockReturnValue(sectionMock)} as unknown as InputMathElement<any>
     currentElementMock.getElement = jest.fn().mockReturnValue(elementMock)
   });
@@ -56,7 +54,7 @@ describe('WritingHandlerService', () => {
 
   // ------------helpers----------------
 
-  let sectionMock: EditableTermContainerComponent
+  let sectionMock: TermSection
   let elementMock: InputMathElement<any>;
 
 
@@ -104,7 +102,7 @@ describe('WritingHandlerService', () => {
     mockData(sectionMock, data, location)
   }
 
-  const mockData = (element: EditableTermContainerComponent, data: InputCharData, location: 'first' | 'last' | number) => {
+  const mockData = (element: TermSection, data: InputCharData, location: 'first' | 'last' | number) => {
     if (location === 'first')
       element.getNoCharData = jest.fn().mockReturnValue(data)
     else if (location === 'last')
@@ -409,7 +407,7 @@ describe('WritingHandlerService', () => {
     });
 
     describe(`Inside removal: `, () => {
-      let parentMock = {} as EditableTermContainerComponent
+      let parentMock = {} as TermSection
 
       // ------------------ helpers -----------------
 

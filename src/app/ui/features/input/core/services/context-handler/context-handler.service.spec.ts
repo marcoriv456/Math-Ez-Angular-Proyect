@@ -2,14 +2,12 @@ import {TestBed} from '@angular/core/testing';
 
 import {ContextHandlerService} from './context-handler.service';
 import {InputModule} from "../../../input.module";
-import {
-  EditableTermContainerComponent
-} from "../../../ui/molecules/editable-term-container/editable-term-container.component";
 import {CaretIndexService} from "../caret-index/caret-index.service";
 import {InputCharData} from "../../models/input-char-data.model";
 import {InputMathElement} from "../../abstracts/input-math-element.abstract";
 import {TermUtils} from "../../utils/term-utils.util";
 import {SpecialCharFinder} from "../../helpers/special-char-finder/special-char-finder.helper";
+import {TermSection} from "../../models/term-section.model";
 
 describe('ContextHandlerService', () => {
   let service: ContextHandlerService;
@@ -32,7 +30,7 @@ describe('ContextHandlerService', () => {
 
   describe(`Contexting elements:`, () => {
     it(`After contexting an element it sets it as selected`, () => {
-      const element = {selected: false} as EditableTermContainerComponent
+      const element = {selected: false} as TermSection
 
       service.contextElement(element);
 
@@ -40,7 +38,7 @@ describe('ContextHandlerService', () => {
     });
 
     it(`After contexting an element it stores the element as the current element`, () => {
-      const element = {selected: false} as EditableTermContainerComponent
+      const element = {selected: false} as TermSection
 
       service.contextElement(element)
 
@@ -50,7 +48,7 @@ describe('ContextHandlerService', () => {
 
   describe(`Getting context data: `, () => {
 
-    const currentElementMock = {selected: false} as EditableTermContainerComponent
+    const currentElementMock = {selected: false} as TermSection
 
     beforeEach(() => {
       service.contextElement(currentElementMock)
@@ -73,7 +71,7 @@ describe('ContextHandlerService', () => {
       it(`If there isn't any element next to the caret but a container, it returns that container's first character's data `, () => {
         const expectedData = {index: 456} as InputCharData
         currentElementMock.getTermLocation = () => ({character: {}, container: {nextExist: true}})
-        currentElementMock.mathElement = {nextSection: {getNoCharData: () => expectedData} as EditableTermContainerComponent} as InputMathElement<any>
+        currentElementMock.mathElement = {nextSection: {getNoCharData: () => expectedData} as TermSection} as InputMathElement<any>
 
         const data = service.getForwardContextData()
 
@@ -135,7 +133,7 @@ describe('ContextHandlerService', () => {
       it(`If there isn't any element behind the caret but a container, it returns that container's last character's data `, () => {
         const expectedData = {index: 456} as InputCharData
         currentElementMock.getTermLocation = () => ({character: {}, container: {prevExist: true}})
-        currentElementMock.mathElement = {previousSection: {getLastCharData: () => expectedData} as EditableTermContainerComponent} as InputMathElement<any>
+        currentElementMock.mathElement = {previousSection: {getLastCharData: () => expectedData} as TermSection} as InputMathElement<any>
 
         const data = service.getBackwardContextData()
 
@@ -185,10 +183,10 @@ describe('ContextHandlerService', () => {
 
   describe(`Getting irregular character data: `, () => {
 
-    let currentElementMock:EditableTermContainerComponent
+    let currentElementMock:TermSection
 
     beforeEach(() => {
-      currentElementMock = {} as EditableTermContainerComponent
+      currentElementMock = {} as TermSection
       service.contextElement(currentElementMock)
     })
 

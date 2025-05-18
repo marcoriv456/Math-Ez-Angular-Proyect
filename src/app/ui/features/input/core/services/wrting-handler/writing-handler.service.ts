@@ -13,12 +13,10 @@ import {FunctionAdder} from "../../terms/adders/function/function-adder.helper";
 import {OutsideTermRemover} from "../../terms/removers/outside/outside-term-remover.helper";
 import {InsideTermRemover} from "../../terms/removers/inside/inside-term-remover.helper";
 import {TermRemover} from "../../models/term-remover.model";
-import {
-  EditableTermContainerComponent
-} from "../../../ui/molecules/editable-term-container/editable-term-container.component";
 import {CtrlRemover} from "../../terms/removers/ctrl/ctrl-remover.helper";
 import {InputEventBusService} from "../input-event-bus/input-event-bus.service";
 import {KeyTypedEvent} from "../../models/events/io/key-typed.event";
+import {TermSection} from "../../models/term-section.model";
 
 @Injectable()
 export class WritingHandlerService {
@@ -90,7 +88,7 @@ export class WritingHandlerService {
     this.removeWith(remover,this.currentElement)
   }
 
-  private removeWith(remover:TermRemover, element:EditableTermContainerComponent){
+  private removeWith(remover:TermRemover, element:TermSection){
     const {index,count,remainingTerms,moveTo} = remover.remove()
 
     element.replace(index,count,...remainingTerms||[])

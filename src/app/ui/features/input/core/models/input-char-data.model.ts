@@ -1,9 +1,7 @@
-import {
-  EditableTermContainerComponent
-} from "../../ui/molecules/editable-term-container/editable-term-container.component";
+import {TermSection} from "./term-section.model";
 
 export interface InputCharData{
   positionX:number
   index:number
-  parent:EditableTermContainerComponent
+  parent:TermSection
 }

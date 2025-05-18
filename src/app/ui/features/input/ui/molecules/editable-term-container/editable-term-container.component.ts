@@ -1,7 +1,7 @@
 import {
   ChangeDetectorRef,
   Component,
-  ElementRef,
+  ElementRef, forwardRef,
   HostBinding, HostListener,
   inject,
   Input,
@@ -18,21 +18,25 @@ import {InputElementLocation} from "../../../core/models/locations/input-element
 import {InputCharData} from "../../../core/models/input-char-data.model";
 import {InputEventBusService} from "../../../core/services/input-event-bus/input-event-bus.service";
 import {CharClickedEvent} from "../../../core/models/events/io/char-clicked.event";
+import {TermSection} from "../../../core/models/term-section.model";
 
 
 @Component({
   selector: 'editable-term-container',
   templateUrl: './editable-term-container.component.html',
-  styleUrls: ['./editable-term-container.component.css','../../assets/editable-elements-styles.css']
+  styleUrls: ['./editable-term-container.component.css','../../assets/editable-elements-styles.css'],
+  providers: [{provide: TermSection, useExisting: forwardRef(()=> EditableTermContainerComponent)}]
 })
-export class EditableTermContainerComponent{
+export class EditableTermContainerComponent extends TermSection{
   @Input() terms!:Term[]
   @Input() index!:number
   @Input() centered!:boolean
 
   @ViewChild(TermContainerComponent) private termContainer!:TermContainerComponent
 
-  constructor(@SkipSelf() @Optional() public mathElement:InputMathElement<any>) {}
+  constructor(@SkipSelf() @Optional() public mathElement:InputMathElement<any>) {
+    super()
+  }
 
   private readonly changeEmitter = new Subject<void>()
   private readonly ref=inject(ElementRef).nativeElement as HTMLElement

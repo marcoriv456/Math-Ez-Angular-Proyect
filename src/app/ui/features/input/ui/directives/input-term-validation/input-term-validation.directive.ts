@@ -14,14 +14,12 @@ import {Term} from "../../../core/models/terms/term.model";
 import {Subject} from "rxjs";
 import {InputMathElement} from "../../../core/abstracts/input-math-element.abstract";
 import {CharComponent} from "../../terms/char/char.component";
-import {
-  EditableTermContainerComponent
-} from "../../molecules/editable-term-container/editable-term-container.component";
 import {TermValidator} from "../../../core/validation/abstracts/validator.abstract";
 import {TermValidationData} from "../../../core/validation/models/term-validation-data.model";
 import {InputEventBusService} from "../../../core/services/input-event-bus/input-event-bus.service";
 import {WarningShowRequestEvent} from "../../../core/models/events/warnings/warning-show-request.event";
 import {WarningHideRequestEvent} from "../../../core/models/events/warnings/warning-hide-request.event";
+import {TermSection} from "../../../core/models/term-section.model";
 
 @Directive({
   selector: '[inputTermValidation]'
@@ -40,7 +38,7 @@ export class InputTermValidationDirective implements OnInit, OnDestroy{
 
   constructor(
     @Host() @Optional() private mathElementHost:InputMathElement<any>|null,
-    @Host() @Optional() private containerHost:EditableTermContainerComponent|null,
+    @Host() @Optional() private containerHost:TermSection|null,
     @Host() @Optional() private charHost:CharComponent|null
   ) { }
 
