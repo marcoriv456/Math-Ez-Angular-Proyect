@@ -1,7 +1,6 @@
 import {FractionAdder} from "./fraction-adder.helper";
 import {Term} from "../../../models/terms/term.model";
 import {TermUtils} from "../../../utils/term-utils.util";
-import {expect} from "chai";
 
 describe('Fraction adder: ', () => {
   describe('Not available autocompletion: ', () => {
@@ -12,8 +11,8 @@ describe('Fraction adder: ', () => {
         const instructions=adder.add()
         TermUtils.performAdderInstructions(terms,instructions)
 
-        expect(terms).to.deep.equal([{type: 'fraction', numeratorChildren: [], denominatorChildren: []}])
-        expect(instructions.containerToMoveAt).to.equal(0)
+        expect(terms).toEqual([{type: 'fraction', numeratorChildren: [], denominatorChildren: []}])
+        expect(instructions.containerToMoveAt).toBe(0)
       });
 
       it('Instructs to add an empty fraction if it is surrounded by irregular characters', () => {
@@ -23,8 +22,8 @@ describe('Fraction adder: ', () => {
         const instructions=adder.add()
         TermUtils.performAdderInstructions(terms,instructions)
 
-        expect(terms).to.deep.equal([{type:'char',char:'+'},{type: 'fraction', numeratorChildren: [], denominatorChildren: []},{type:'char',char:'-'}])
-        expect(instructions.containerToMoveAt).to.equal(0)
+        expect(terms).toEqual([{type:'char',char:'+'},{type: 'fraction', numeratorChildren: [], denominatorChildren: []},{type:'char',char:'-'}])
+        expect(instructions.containerToMoveAt).toBe(0)
       });
   });
 
@@ -36,8 +35,8 @@ describe('Fraction adder: ', () => {
       const instructions=adder.add()
       TermUtils.performAdderInstructions(terms,instructions)
 
-      expect(terms).to.deep.equal([{type: 'fraction', numeratorChildren: TermUtils.parse('hello'), denominatorChildren: []}])
-      expect(instructions.containerToMoveAt).to.equal(1)
+      expect(terms).toEqual([{type: 'fraction', numeratorChildren: TermUtils.parse('hello'), denominatorChildren: []}])
+      expect(instructions.containerToMoveAt).toBe(1)
     });
     it('Instructs to add a fraction with the found terms as the numerator content, using the previous irregular character as delimiter', () => {
       const terms=TermUtils.parse('+hello')
@@ -46,8 +45,8 @@ describe('Fraction adder: ', () => {
       const instructions=adder.add()
       TermUtils.performAdderInstructions(terms,instructions)
 
-      expect(terms).to.deep.equal([{type:'char',char:'+'},{type: 'fraction', numeratorChildren: TermUtils.parse('hello'), denominatorChildren: []}])
-      expect(instructions.containerToMoveAt).to.equal(1)
+      expect(terms).toEqual([{type:'char',char:'+'},{type: 'fraction', numeratorChildren: TermUtils.parse('hello'), denominatorChildren: []}])
+      expect(instructions.containerToMoveAt).toBe(1)
     });
   });
 
@@ -59,8 +58,8 @@ describe('Fraction adder: ', () => {
       const instructions=adder.add()
       TermUtils.performAdderInstructions(terms,instructions)
 
-      expect(terms).to.deep.equal([{type: 'fraction', numeratorChildren:[], denominatorChildren:TermUtils.parse('hello')}])
-      expect(instructions.containerToMoveAt).to.equal(0)
+      expect(terms).toEqual([{type: 'fraction', numeratorChildren:[], denominatorChildren:TermUtils.parse('hello')}])
+      expect(instructions.containerToMoveAt).toBe(0)
     });
 
     it('Instructs to add a fraction with the found terms as the denominator content, using the next irregular character as delimiter', () => {
@@ -70,8 +69,8 @@ describe('Fraction adder: ', () => {
       const instructions=adder.add()
       TermUtils.performAdderInstructions(terms,instructions)
 
-      expect(terms).to.deep.equal([{type: 'fraction', numeratorChildren:[], denominatorChildren:TermUtils.parse('hello')},{type:'char',char:'+'}])
-      expect(instructions.containerToMoveAt).to.equal(0)
+      expect(terms).toEqual([{type: 'fraction', numeratorChildren:[], denominatorChildren:TermUtils.parse('hello')},{type:'char',char:'+'}])
+      expect(instructions.containerToMoveAt).toBe(0)
     });
   });
 
@@ -84,8 +83,8 @@ describe('Fraction adder: ', () => {
       const instructions=adder.add()
       TermUtils.performAdderInstructions(terms,instructions)
 
-      expect(terms).to.deep.equal([{type: 'fraction', numeratorChildren:TermUtils.parse('hello'), denominatorChildren:TermUtils.parse('world')}])
-      expect(instructions.containerToMoveAt).to.equal('outside')
+      expect(terms).toEqual([{type: 'fraction', numeratorChildren:TermUtils.parse('hello'), denominatorChildren:TermUtils.parse('world')}])
+      expect(instructions.containerToMoveAt).toBe(1)
     });
 
     it('Instructs to add a fraction with the found terms as the numerator and denominator content, using the next and previous irregular character as delimiter', () => {
@@ -95,8 +94,8 @@ describe('Fraction adder: ', () => {
       const instructions=adder.add()
       TermUtils.performAdderInstructions(terms,instructions)
 
-      expect(terms).to.deep.equal([{type:'char',char:'+'},{type: 'fraction', numeratorChildren:TermUtils.parse('hello'), denominatorChildren:TermUtils.parse('world')},{type:'char',char:'+'}])
-      expect(instructions.containerToMoveAt).to.equal('outside')
+      expect(terms).toEqual([{type:'char',char:'+'},{type: 'fraction', numeratorChildren:TermUtils.parse('hello'), denominatorChildren:TermUtils.parse('world')},{type:'char',char:'+'}])
+      expect(instructions.containerToMoveAt).toBe(1)
     });
   });
 });
