@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, ElementRef, inject, NgZone, OnDestroy, Renderer2, ViewChild} from '@angular/core';
 import {BlobAnimation} from "../../core/helpers/blob-animator.helper";
-import {bottomLayerConfig, topLayerConfig} from "./config/bg-animation.config";
+import {bottomLayerConfig, topLayerConfig} from "./core/config/bg-animation.config";
 import {FooterObserverService} from "../../core/services/footer/footer-observer.service";
 
 @Component({

@@ -1,4 +1,4 @@
-import {IDivEvent, IMove, IParticlesOptions, RecursivePartial, SingleOrMultiple} from "@tsparticles/engine";
+import {IMove, IParticlesOptions, RecursivePartial} from "@tsparticles/engine";
 
 const generalParticleMoveConfig: RecursivePartial<IMove> = {
   enable: true,
