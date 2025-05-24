@@ -1,4 +1,4 @@
-import {AfterViewChecked, AfterViewInit, Component, inject, Input, NgZone} from '@angular/core';
+import {AfterViewInit, Component, inject, Input, NgZone} from '@angular/core';
 import {tsParticles} from "@tsparticles/engine";
 import {IParticlesProps} from "@tsparticles/angular";
 import {loadSlim} from "@tsparticles/slim";
@@ -8,7 +8,7 @@ import {loadSlim} from "@tsparticles/slim";
   templateUrl: './particles.component.html',
   styleUrl: './particles.component.css'
 })
-export class ParticlesComponent implements AfterViewInit, AfterViewChecked {
+export class ParticlesComponent implements AfterViewInit {
   @Input() options!: IParticlesProps;
   @Input() particlesId!: string
 
@@ -19,9 +19,5 @@ export class ParticlesComponent implements AfterViewInit, AfterViewChecked {
       await tsParticles.load({id: this.particlesId, options: this.options})
       await loadSlim(tsParticles)
     })
-  }
-
-  ngAfterViewChecked() {
-    console.log("view checked from particles component")
   }
 }
