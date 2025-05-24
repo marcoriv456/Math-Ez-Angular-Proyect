@@ -9,6 +9,9 @@ import {ParticlesComponent} from './atoms/particles/particles.component';
   ],
   imports: [
     CommonModule
+  ],
+  exports: [
+    ParticlesComponent
   ]
 })
 export class SharedModule {
