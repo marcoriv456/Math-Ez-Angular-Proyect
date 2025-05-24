@@ -473,7 +473,7 @@
   }
 }
 
-ngx-particles{
+app-particles {
   position: relative;
   z-index: -10;
 }

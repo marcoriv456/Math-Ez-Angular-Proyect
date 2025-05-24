@@ -1,8 +1,6 @@
-import {AfterViewInit, Component, ElementRef, inject, OnDestroy, Renderer2, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, inject, NgZone, OnDestroy, Renderer2, ViewChild} from '@angular/core';
 import {BlobAnimation} from "../../core/helpers/blob-animator.helper";
-import {loadSlim} from "@tsparticles/slim";
-import {topLayerConfig, bottomLayerConfig} from "./config/bg-animation.config";
-import {Engine} from "@tsparticles/engine";
+import {bottomLayerConfig, topLayerConfig} from "./config/bg-animation.config";
 import {FooterObserverService} from "../../core/services/footer/footer-observer.service";
 
 @Component({
@@ -16,6 +14,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy{
 
   private renderer=inject(Renderer2)
   private footerObserver=inject(FooterObserverService)
+  private ngZone = inject(NgZone)
 
   private observerCallback= (entries: IntersectionObserverEntry[]) => {
     entries.forEach(entry => {
@@ -35,7 +34,9 @@ export class HomeComponent implements AfterViewInit, OnDestroy{
     this.intersectionObserver.observe(this.topicsSection.nativeElement)
     this.intersectionObserver.observe(this.registerSection.nativeElement)
     this.observeFooter()
-    this.createAnimations()
+    this.ngZone.runOutsideAngular(() => {
+      this.initAnimations()
+    })
   }
 
   private observeFooter(){
@@ -48,18 +49,14 @@ export class HomeComponent implements AfterViewInit, OnDestroy{
   }
 
   ngOnDestroy() {
-    this.blobAnimations.forEach(animation=>animation.stop())
-  }
-
-  private createAnimations(){
-    this.blobAnimations.push(
-      new BlobAnimation('.topics .blobs .blob-2',3,3),
-      new BlobAnimation('.topics .blobs .blob-1',3,3),
-    )
-    this.initAnimations()
+    this.stopAnimations()
   }
 
   private initAnimations(){
+    this.blobAnimations.push(
+      new BlobAnimation('.topics .blobs .blob-2', 3, 3),
+      new BlobAnimation('.topics .blobs .blob-1', 3, 3),
+    )
     this.blobAnimations.forEach(animation=>animation.init({duration:2000,layerDelay:1000}))
   }
 
@@ -67,16 +64,6 @@ export class HomeComponent implements AfterViewInit, OnDestroy{
     this.blobAnimations.forEach(animation=>animation.stop())
   }
 
-  protected async initParticles(engine:Engine){
-    await loadSlim(engine)
-
-  }
-
-  protected onParticlesLoad(){
-    console.log('particles loaded')
-  }
-
   protected readonly topLayerConfig=topLayerConfig
   protected readonly bottomLayerConfig=bottomLayerConfig
-
 }

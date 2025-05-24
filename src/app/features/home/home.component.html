@@ -143,5 +143,5 @@
   </section>
 </main>
 
-<ngx-particles [id]="'tsParticles1'" [options]="topLayerConfig" [particlesInit]="initParticles" (particlesLoaded)="onParticlesLoad()"></ngx-particles>
-<ngx-particles [id]="'tsParticles3'" [options]="bottomLayerConfig" [particlesInit]="initParticles" (particlesLoaded)="onParticlesLoad()"></ngx-particles>
+<app-particles particlesId="particles1" [options]="topLayerConfig"></app-particles>
+<app-particles particlesId="particles2" [options]="bottomLayerConfig"></app-particles>
