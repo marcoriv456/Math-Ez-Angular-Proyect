@@ -3,11 +3,13 @@ import {CommonModule} from '@angular/common';
 import {HomeComponent} from "./home.component";
 import {InputModule} from "../../ui/features/input/input.module";
 import {SharedModule} from "../../ui/shared/shared.module";
+import {IntroductionComponent} from './ui/sections/introduction/introduction.component';
 
 
 @NgModule({
   declarations: [
-    HomeComponent
+    HomeComponent,
+    IntroductionComponent
   ],
   imports: [
     CommonModule,
