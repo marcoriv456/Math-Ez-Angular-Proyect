@@ -42,8 +42,6 @@ section {
   top: 50%;
   left: 50%;
   translate: -50% -50%;
-  opacity: 0;
-  transition: opacity var(--long-trans-duration) var(--trans-easing-out);
 }
 
 home-topic-button{
@@ -56,10 +54,6 @@ home-topic-button{
 
 :host.intersecting home-topic-button{
   transition-timing-function: var(--trans-easing-out);
-}
-
-:host.intersecting .btn-container {
-  opacity: 1;
 }
 
 :host.intersecting .btn-calculus {
@@ -153,11 +147,6 @@ home-topic-button{
 
 .blob-1 .layer path {
   animation-name: left-to-right;
-}
-
-
-.blob .layer > path:not(.step-1) {
-  visibility: hidden;
 }
 
 .blob .layer-1 {
