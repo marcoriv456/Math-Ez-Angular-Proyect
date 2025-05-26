@@ -1,8 +1,7 @@
 import {AfterViewInit, Component, ElementRef, inject} from '@angular/core';
-import {FooterObserverService} from "../../../core/services/footer/footer-observer.service";
-import {HttpClient, HttpRequest} from "@angular/common/http";
-import {firstValueFrom} from "rxjs";
 import {GithubService} from "../../../core/services/github/github.service";
+import {GlobalEventBusService} from "../../../core/services/global-event-bus/global-event-bus.service";
+import {FooterIntersectedEvent} from "../../../core/models/events/footer-intersected.event";
 
 @Component({
   selector: 'app-footer',
@@ -11,14 +10,9 @@ import {GithubService} from "../../../core/services/github/github.service";
 })
 export class FooterComponent implements AfterViewInit{
   private ref=inject(ElementRef).nativeElement as HTMLElement
-  private footerService=inject(FooterObserverService)
-  private observer=new IntersectionObserver((entries)=>{
-    let self=entries[0]
-    if(self.isIntersecting)
-      this.footerService.emit('enter')
-    else
-      this.footerService.emit('exit')
-  },{threshold:0.7})
+  private readonly eventBus = inject(GlobalEventBusService)
+
+  private observer = new IntersectionObserver(entries => this.eventBus.emit(new FooterIntersectedEvent(entries[0].isIntersecting)))
 
   protected gitHubProfileData={img:'',name:'',username:''}
   private gitHubService=inject(GithubService)
