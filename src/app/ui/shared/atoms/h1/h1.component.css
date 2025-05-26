@@ -1,0 +1,10 @@
+h1 {
+  color: var(--col-black);
+  text-align: center;
+
+  font-family: var(--big-subtitle-family), sans-serif;
+  font-size: var(--big-subtitle-size);
+  font-style: var(--big-subtitle-style);
+  font-weight: var(--big-subtitle-weight);
+  line-height: var(--big-subtitle-size);
+}
