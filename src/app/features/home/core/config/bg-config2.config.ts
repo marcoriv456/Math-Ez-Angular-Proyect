@@ -6,14 +6,14 @@ export const bgConfig: RecursivePartial<IOptions> = {
     {
       reduceDuplicates: true,
       pauseOnBlur: true,
-      position: {x: 50, y: 50}, // Puedes ajustar
+      position: {x: 50, y: 50},
       rate: {
         quantity: 1,
         delay: 1,
       },
       life: {
-        count: 0,         // 0 = infinito (dejar así si quieres que siga)
-        duration: 0,      // 0 = permanente
+        count: 0,
+        duration: 0,
         delay: 0,
         wait: false
       },
