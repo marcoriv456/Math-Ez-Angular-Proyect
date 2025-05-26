@@ -12,7 +12,6 @@ export class TopicsComponent implements AfterViewInit {
 
   private readonly observer = new IntersectionObserver(entries => {
     this.isIntersecting = entries[0].isIntersecting
-    console.log(this.isIntersecting)
   }, {threshold: 0.5})
 
   ngAfterViewInit() {
