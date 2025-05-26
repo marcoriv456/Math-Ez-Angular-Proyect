@@ -5,13 +5,15 @@ import {InputModule} from "../../ui/features/input/input.module";
 import {SharedModule} from "../../ui/shared/shared.module";
 import {IntroductionComponent} from './ui/sections/introduction/introduction.component';
 import {TopicsComponent} from './ui/sections/topics/topics.component';
+import { TopicButtonComponent } from './ui/atoms/topic-button/topic-button.component';
 
 
 @NgModule({
   declarations: [
     HomeComponent,
     IntroductionComponent,
-    TopicsComponent
+    TopicsComponent,
+    TopicButtonComponent
   ],
   imports: [
     CommonModule,
