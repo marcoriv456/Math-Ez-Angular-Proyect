@@ -21,9 +21,13 @@
     "@angular/platform-browser": "^18.2.0",
     "@angular/platform-browser-dynamic": "^18.2.0",
     "@angular/router": "^18.2.0",
+    "@tsparticles/engine": "^3.8.1",
+    "@tsparticles/plugin-emitters": "^3.8.1",
+    "@tsparticles/shape-image": "^3.8.1",
     "flubber": "^0.4.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "tsparticles": "^3.8.1",
     "zone.js": "~0.14.10"
   },
   "devDependencies": {
@@ -32,9 +36,6 @@
     "@angular/cli": "^18.2.3",
     "@angular/compiler-cli": "^18.2.0",
     "@cypress/angular": "^3.0.0",
-    "@tsparticles/angular": "^3.0.0",
-    "@tsparticles/engine": "^3.8.0",
-    "@tsparticles/slim": "^3.8.0",
     "@types/chai": "^5.2.1",
     "@types/flubber": "^0.4.0",
     "@types/jest": "^29.5.14",
