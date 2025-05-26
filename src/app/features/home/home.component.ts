@@ -9,7 +9,6 @@ import {FooterObserverService} from "../../core/services/footer/footer-observer.
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements AfterViewInit, OnDestroy{
-  @ViewChild('topicsSection') topicsSection!:ElementRef;
   @ViewChild('registerSection') registerSection!:ElementRef;
 
   private renderer=inject(Renderer2)
@@ -31,11 +30,11 @@ export class HomeComponent implements AfterViewInit, OnDestroy{
   private blobAnimations:BlobAnimation[]=[]
 
   ngAfterViewInit() {
-    this.intersectionObserver.observe(this.topicsSection.nativeElement)
+    // this.intersectionObserver.observe(this.topicsSection.nativeElement)
     this.intersectionObserver.observe(this.registerSection.nativeElement)
     this.observeFooter()
     this.ngZone.runOutsideAngular(() => {
-      this.initAnimations()
+      // this.initAnimations()
     })
   }
 
@@ -52,13 +51,13 @@ export class HomeComponent implements AfterViewInit, OnDestroy{
     this.stopAnimations()
   }
 
-  private initAnimations(){
-    this.blobAnimations.push(
-      new BlobAnimation('.topics .blobs .blob-2', 3, 3),
-      new BlobAnimation('.topics .blobs .blob-1', 3, 3),
-    )
-    this.blobAnimations.forEach(animation=>animation.init({duration:2000,layerDelay:1000}))
-  }
+  // private initAnimations(){
+  //   this.blobAnimations.push(
+  //     new BlobAnimation('.topics .blobs .blob-2', 3, 3),
+  //     new BlobAnimation('.topics .blobs .blob-1', 3, 3),
+  //   )
+  //   this.blobAnimations.forEach(animation=>animation.init({duration:2000,layerDelay:1000}))
+  // }
 
   private stopAnimations(){
     this.blobAnimations.forEach(animation=>animation.stop())
