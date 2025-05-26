@@ -5,7 +5,8 @@ import {InputModule} from "../../ui/features/input/input.module";
 import {SharedModule} from "../../ui/shared/shared.module";
 import {IntroductionComponent} from './ui/sections/introduction/introduction.component';
 import {TopicsComponent} from './ui/sections/topics/topics.component';
-import { TopicButtonComponent } from './ui/atoms/topic-button/topic-button.component';
+import {TopicButtonComponent} from './ui/atoms/topic-button/topic-button.component';
+import {RegisterComponent} from './ui/sections/register/register.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { TopicButtonComponent } from './ui/atoms/topic-button/topic-button.compo
     HomeComponent,
     IntroductionComponent,
     TopicsComponent,
-    TopicButtonComponent
+    TopicButtonComponent,
+    RegisterComponent
   ],
   imports: [
     CommonModule,

@@ -1,6 +1,4 @@
-import {AfterViewInit, Component, ElementRef, inject, NgZone, OnDestroy, Renderer2, ViewChild} from '@angular/core';
-import {BlobAnimation} from "../../core/helpers/blob-animator.helper";
-import {FooterObserverService} from "../../core/services/footer/footer-observer.service";
+import {Component} from '@angular/core';
 import {bgConfig} from "./core/config/bg-config2.config";
 
 @Component({
@@ -8,50 +6,48 @@ import {bgConfig} from "./core/config/bg-config2.config";
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent implements AfterViewInit, OnDestroy{
-  @ViewChild('registerSection') registerSection!:ElementRef;
+export class HomeComponent {
+  // @ViewChild('registerSection') registerSection!:ElementRef;
 
-  private renderer=inject(Renderer2)
-  private footerObserver=inject(FooterObserverService)
-  private ngZone = inject(NgZone)
+  // private renderer=inject(Renderer2)
+  // private footerObserver=inject(FooterObserverService)
+  // private ngZone = inject(NgZone)
 
-  private observerCallback= (entries: IntersectionObserverEntry[]) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting){
-        this.renderer.addClass(entry.target, 'intersecting')
-        this.renderer.addClass(entry.target, 'intersected')
-      }
-      else
-        this.renderer.removeClass(entry.target, 'intersecting');
-    })
-  }
-  private intersectionObserver=new IntersectionObserver(this.observerCallback,{threshold:0.6})
+  // private observerCallback= (entries: IntersectionObserverEntry[]) => {
+  //   entries.forEach(entry => {
+  //     if (entry.isIntersecting){
+  //       this.renderer.addClass(entry.target, 'intersecting')
+  //       this.renderer.addClass(entry.target, 'intersected')
+  //     }
+  //     else
+  //       this.renderer.removeClass(entry.target, 'intersecting');
+  //   })
+  // }
+  // private intersectionObserver=new IntersectionObserver(this.observerCallback,{threshold:0.6})
+  //
+  // private blobAnimations:BlobAnimation[]=[]
 
-  private blobAnimations:BlobAnimation[]=[]
+  // ngAfterViewInit() {
+  // this.intersectionObserver.observe(this.registerSection.nativeElement)
+  // this.observeFooter()
+  // }
 
-  ngAfterViewInit() {
-    this.intersectionObserver.observe(this.registerSection.nativeElement)
-    this.observeFooter()
-    this.ngZone.runOutsideAngular(() => {
-    })
-  }
+  // private observeFooter(){
+  //   this.footerObserver.subscribe((value)=>{
+  //     if(value=='enter')
+  //       this.renderer.addClass(this.registerSection.nativeElement,'footer-intersecting')
+  //     else
+  //       this.renderer.removeClass(this.registerSection.nativeElement,'footer-intersecting')
+  //   })
+  // }
 
-  private observeFooter(){
-    this.footerObserver.subscribe((value)=>{
-      if(value=='enter')
-        this.renderer.addClass(this.registerSection.nativeElement,'footer-intersecting')
-      else
-        this.renderer.removeClass(this.registerSection.nativeElement,'footer-intersecting')
-    })
-  }
+  // ngOnDestroy() {
+  //   this.stopAnimations()
+  // }
 
-  ngOnDestroy() {
-    this.stopAnimations()
-  }
-
-  private stopAnimations(){
-    this.blobAnimations.forEach(animation=>animation.stop())
-  }
+  // private stopAnimations(){
+  //   this.blobAnimations.forEach(animation=>animation.stop())
+  // }
 
   protected readonly bgConfig = bgConfig;
 }

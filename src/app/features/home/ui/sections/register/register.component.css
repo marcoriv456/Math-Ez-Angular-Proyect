@@ -1,0 +1,151 @@
+:host {
+  height: 100vh;
+  display: block;
+  position: relative;
+}
+
+section {
+  height: 100%;
+  position: relative;
+}
+
+.content-container {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  translate: -50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.content-container .text-container {
+  max-width: 35rem;
+}
+
+.content-container .text-container h3 {
+  color: var(--col-black);
+  text-align: center;
+  font-family: var(--big-subtitle-family), sans-serif;
+  font-size: var(--big-subtitle-size);
+  font-style: var(--big-subtitle-style);
+  font-weight: var(--big-subtitle-weight);
+}
+
+.content-container .text-container p {
+  color: var(--col-black);
+  text-align: center;
+  font-family: var(--text-family), sans-serif;
+  font-size: var(--text-size);
+  font-weight: var(--text-weight);
+  line-height: var(--text-line-height);
+}
+
+.content-container .btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.content-container .btn-container button {
+  padding: 1rem 1.5rem;
+  border-radius: 1.5rem;
+  border: none;
+  text-align: center;
+  font-family: var(--small-subtitle-family), sans-serif;
+  font-size: var(--small-subtitle-size);
+  font-style: var(--small-subtitle-style);
+  font-weight: var(--small-subtitle-weight);
+  text-transform: uppercase;
+}
+
+.content-container .btn-container button.create-account {
+  color: var(--col-white);
+  background-color: var(--col-main-l1);
+}
+
+.content-container .btn-container button.log-in {
+  color: var(--col-black);
+  background-color: var(--col-main-l2);
+}
+
+.bottom-blob {
+  position: sticky;
+  top: calc(100vh - 15rem);
+  width: 100%;
+  height: 15rem;
+}
+
+.bottom-blob .layer {
+  translate: 0 100%;
+  transition-duration: var(--long-trans-duration);
+  transition-timing-function: var(--trans-easing-out);
+  transition-property: translate;
+}
+
+.bottom-blob .layer path {
+  animation-name: bottom-to-top;
+  animation-duration: 3s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.bottom-blob .layer-1 path {
+  fill: var(--col-main-d1);
+}
+
+.bottom-blob .layer-2 path {
+  fill: var(--col-main);
+  animation-delay: 0.2s;
+}
+
+.bottom-blob .layer-3 path {
+  fill: var(--col-main-l1);
+  animation-delay: 0.4s;
+}
+
+.bottom-images {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: space-evenly;
+  z-index: -10;
+}
+
+.bottom-images img {
+  max-width: 30vw;
+  max-height: 25vw;
+  translate: 0 100%;
+  transition-duration: var(--long-trans-duration);
+  transition-timing-function: var(--trans-easing-out);
+  transition-property: translate;
+}
+
+:host.intersecting .bottom-blob .layer,
+:host.footer-intersecting .bottom-blob .layer {
+  translate: 0 0;
+}
+
+:host.intersecting .bottom-blob .layer-2 {
+  transition-delay: 0.1s;
+}
+
+:host.intersecting .bottom-blob .layer-3 {
+  transition-delay: 0.2s;
+}
+
+:host.intersecting .bottom-images img {
+  translate: 0 0;
+}
+
+@keyframes bottom-to-top {
+  0%, 100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 10%;
+  }
+}
