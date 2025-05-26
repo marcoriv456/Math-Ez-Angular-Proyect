@@ -1,7 +1,8 @@
 import {AfterViewInit, Component, inject, Input, NgZone} from '@angular/core';
-import {tsParticles} from "@tsparticles/engine";
-import {IParticlesProps} from "@tsparticles/angular";
-import {loadSlim} from "@tsparticles/slim";
+import {loadFull} from "tsparticles";
+import {loadEmittersPlugin} from "@tsparticles/plugin-emitters";
+import {IParticlesOptions, RecursivePartial, tsParticles} from "@tsparticles/engine";
+import {loadImageShape} from "@tsparticles/shape-image";
 
 @Component({
   selector: 'app-particles',
@@ -9,15 +10,17 @@ import {loadSlim} from "@tsparticles/slim";
   styleUrl: './particles.component.css'
 })
 export class ParticlesComponent implements AfterViewInit {
-  @Input() options!: IParticlesProps;
+  @Input() options!: RecursivePartial<IParticlesOptions>;
   @Input() particlesId!: string
 
   private ngZone = inject(NgZone)
 
   ngAfterViewInit() {
     this.ngZone.runOutsideAngular(async () => {
+      await loadEmittersPlugin(tsParticles)
+      await loadImageShape(tsParticles)
+      await loadFull(tsParticles)
       await tsParticles.load({id: this.particlesId, options: this.options})
-      await loadSlim(tsParticles)
-    })
+    }).catch(error => console.error("Error while loading particles: ", error))
   }
 }

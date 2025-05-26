@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, ElementRef, inject, NgZone, OnDestroy, Renderer2, ViewChild} from '@angular/core';
 import {BlobAnimation} from "../../core/helpers/blob-animator.helper";
-import {bottomLayerConfig, topLayerConfig} from "./core/config/bg-animation.config";
 import {FooterObserverService} from "../../core/services/footer/footer-observer.service";
+import {bgConfig} from "./core/config/bg-config2.config";
 
 @Component({
   selector: 'app-home',
@@ -30,11 +30,9 @@ export class HomeComponent implements AfterViewInit, OnDestroy{
   private blobAnimations:BlobAnimation[]=[]
 
   ngAfterViewInit() {
-    // this.intersectionObserver.observe(this.topicsSection.nativeElement)
     this.intersectionObserver.observe(this.registerSection.nativeElement)
     this.observeFooter()
     this.ngZone.runOutsideAngular(() => {
-      // this.initAnimations()
     })
   }
 
@@ -51,18 +49,9 @@ export class HomeComponent implements AfterViewInit, OnDestroy{
     this.stopAnimations()
   }
 
-  // private initAnimations(){
-  //   this.blobAnimations.push(
-  //     new BlobAnimation('.topics .blobs .blob-2', 3, 3),
-  //     new BlobAnimation('.topics .blobs .blob-1', 3, 3),
-  //   )
-  //   this.blobAnimations.forEach(animation=>animation.init({duration:2000,layerDelay:1000}))
-  // }
-
   private stopAnimations(){
     this.blobAnimations.forEach(animation=>animation.stop())
   }
 
-  protected readonly topLayerConfig=topLayerConfig
-  protected readonly bottomLayerConfig=bottomLayerConfig
+  protected readonly bgConfig = bgConfig;
 }
