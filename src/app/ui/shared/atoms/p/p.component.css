@@ -1,0 +1,9 @@
+p {
+  color: var(--col-black);
+  font-size: var(--text-size);
+  text-align: center;
+  font-family: var(--text-family), sans-serif;
+  font-style: var(--text-style);
+  font-weight: var(--text-weight);
+  line-height: var(--text-line-height);
+}
