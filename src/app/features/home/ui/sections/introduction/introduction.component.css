@@ -1,28 +1,28 @@
-.introduction {
+section {
   height: calc(100vh - 20rem);
   display: flex;
   align-items: center;
 }
 
-.introduction > div {
-  flex: 1 0 50%;
+section > div {
+  flex: 0 0 50%;
 }
 
-.introduction .left-container {
+.left-container {
   display: flex;
   justify-content: center;
 }
 
-.introduction .left-container svg {
+.left-container svg {
   width: 75%;
   height: 25%;
 }
 
-.introduction .left-container svg * {
+.left-container svg * {
   fill: var(--col-black);
 }
 
-.introduction .right-container {
+.right-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,40 +32,25 @@ ez-h2, ez-h1, ez-p {
   text-align: center;
 }
 
-.introduction .input-container {
-  width: 70%;
+.input-container {
+  max-width: 70%;
   height: 4rem;
   display: flex;
+  gap: 0.5rem;
 }
 
-.introduction .input-container app-input {
+app-input {
   font-size: 2rem;
   height: 100%;
   background-color: var(--col-white);
+  max-width: 40rem;
 }
 
-.introduction .input-container button {
+ez-button {
   width: 5rem;
   height: 100%;
-  display: grid;
-  place-content: center;
   font-size: 3rem;
-  background-color: var(--col-main-l1);
-  border: none;
-  border-radius: 0.75rem;
-}
-
-.introduction .input-container app-input,
-.introduction .input-container button {
-  flex: 1 1 auto
-}
-
-
-.introduction .input-container app-input,
-.introduction .input-container button {
-  font-family: var(--text-family), sans-serif;
-  font-style: var(--text-style);
-  font-weight: var(--text-weight);
-  line-height: var(--text-line-height);
+  --btn-bg: var(--col-main-l1);
+  --btn-radius: 0.75rem;
 }
 
