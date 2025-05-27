@@ -1,7 +1,7 @@
 p {
   color: var(--col-black);
   font-size: var(--text-size);
-  text-align: center;
+  text-align: inherit;
   font-family: var(--text-family), sans-serif;
   font-style: var(--text-style);
   font-weight: var(--text-weight);

@@ -1,7 +1,6 @@
 h1 {
   color: var(--col-black);
-  text-align: center;
-
+  text-align: inherit;
   font-family: var(--big-subtitle-family), sans-serif;
   font-size: var(--big-subtitle-size);
   font-style: var(--big-subtitle-style);
