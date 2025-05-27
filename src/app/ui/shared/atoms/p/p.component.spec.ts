@@ -1,6 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {PComponent} from './p.component';
+import {SharedModule} from "../../shared.module";
 
 describe('PComponent', () => {
   let component: PComponent;
@@ -8,7 +9,7 @@ describe('PComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PComponent]
+      imports: [SharedModule]
     })
       .compileComponents();
 

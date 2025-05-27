@@ -1,6 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {H1Component} from './h1.component';
+import {SharedModule} from "../../shared.module";
 
 describe('H1Component', () => {
   let component: H1Component;
@@ -8,7 +9,7 @@ describe('H1Component', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [H1Component]
+      imports: [SharedModule]
     })
       .compileComponents();
 
