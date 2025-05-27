@@ -35,26 +35,14 @@ ez-h2, ez-p {
   gap: 2rem;
 }
 
-.content-container .btn-container button {
-  padding: 1rem 1.5rem;
-  border-radius: 1.5rem;
-  border: none;
-  text-align: center;
-  font-family: var(--small-subtitle-family), sans-serif;
-  font-size: var(--small-subtitle-size);
-  font-style: var(--small-subtitle-style);
-  font-weight: var(--small-subtitle-weight);
-  text-transform: uppercase;
+ez-button.create-account {
+  --btn-fg: var(--col-white);
+  --btn-bg: var(--col-main-l1);
 }
 
-.content-container .btn-container button.create-account {
-  color: var(--col-white);
-  background-color: var(--col-main-l1);
-}
-
-.content-container .btn-container button.log-in {
-  color: var(--col-black);
-  background-color: var(--col-main-l2);
+ez-button.log-in {
+  --btn-fg: var(--col-black);
+  --btn-bg: var(--col-main-l2);
 }
 
 .bottom-blob {
