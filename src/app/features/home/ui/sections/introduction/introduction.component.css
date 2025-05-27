@@ -28,32 +28,8 @@
   align-items: center;
 }
 
-.introduction .right-container h1 {
-  color: var(--col-black);
+ez-h2, ez-h1, ez-p {
   text-align: center;
-
-  font-family: var(--big-subtitle-family), sans-serif;
-  font-size: var(--big-subtitle-size);
-  font-style: var(--big-subtitle-style);
-  font-weight: var(--big-subtitle-weight);
-  line-height: var(--big-subtitle-size);
-}
-
-.introduction .right-container p {
-  color: var(--col-black);
-  text-align: center;
-  font-size: var(--text-size);
-}
-
-.introduction .right-container h2 {
-  color: var(--col-black);
-  text-align: center;
-
-  font-family: var(--small-subtitle-family), sans-serif;
-  font-size: var(--small-subtitle-size);
-  font-style: var(--small-subtitle-style);
-  font-weight: var(--small-subtitle-weight);
-  text-transform: uppercase;
 }
 
 .introduction .input-container {
@@ -86,8 +62,7 @@
 
 
 .introduction .input-container app-input,
-.introduction .input-container button,
-.introduction .right-container p {
+.introduction .input-container button {
   font-family: var(--text-family), sans-serif;
   font-style: var(--text-style);
   font-weight: var(--text-weight);

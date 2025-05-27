@@ -24,22 +24,8 @@ section {
   max-width: 35rem;
 }
 
-.content-container .text-container h3 {
-  color: var(--col-black);
+ez-h2, ez-p {
   text-align: center;
-  font-family: var(--big-subtitle-family), sans-serif;
-  font-size: var(--big-subtitle-size);
-  font-style: var(--big-subtitle-style);
-  font-weight: var(--big-subtitle-weight);
-}
-
-.content-container .text-container p {
-  color: var(--col-black);
-  text-align: center;
-  font-family: var(--text-family), sans-serif;
-  font-size: var(--text-size);
-  font-weight: var(--text-weight);
-  line-height: var(--text-line-height);
 }
 
 .content-container .btn-container {
