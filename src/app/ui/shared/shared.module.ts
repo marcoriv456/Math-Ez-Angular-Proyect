@@ -5,6 +5,7 @@ import {H1Component} from './atoms/h1/h1.component';
 import {PComponent} from './atoms/p/p.component';
 import {H2Component} from './atoms/h2/h2.component';
 import {H3Component} from './atoms/h3/h3.component';
+import {ButtonComponent} from './atoms/button/button.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import {H3Component} from './atoms/h3/h3.component';
     H1Component,
     H2Component,
     H3Component,
-    PComponent
+    PComponent,
+    ButtonComponent
   ],
   imports: [
     CommonModule
@@ -23,7 +25,8 @@ import {H3Component} from './atoms/h3/h3.component';
     H1Component,
     H2Component,
     H3Component,
-    PComponent
+    PComponent,
+    ButtonComponent
   ]
 })
 export class SharedModule {
