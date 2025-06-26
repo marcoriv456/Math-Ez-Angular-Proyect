@@ -3,6 +3,10 @@
   --btn-radius: 1.5rem;
   --btn-bg: initial;
   --btn-fg: initial;
+  --btn-direction: row;
+  --btn-icon-filter: none;
+  --btn-display-icon: initial;
+  --btn-display-label: initial;
 }
 
 button {
@@ -13,6 +17,7 @@ button {
   background-color: var(--btn-bg);
   color: var(--btn-fg);
   display: flex;
+  flex-direction: var(--btn-direction);
   align-items: center;
   justify-content: center;
   gap: 1rem;
@@ -23,10 +28,17 @@ button {
   font-style: var(--small-subtitle-style);
   font-weight: var(--small-subtitle-weight);
   text-transform: uppercase;
+  cursor: pointer;
 }
 
 img {
   max-height: calc(var(--small-subtitle-size) * 1.5);
   height: 100%;
   object-fit: contain;
+  display: var(--btn-display-icon);
+  filter: var(--btn-icon-filter);
+}
+
+span {
+  display: var(--btn-display-label);
 }

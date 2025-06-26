@@ -12,12 +12,12 @@ import {HomeModule} from "./features/home/home.module";
 @NgModule({
     declarations: [
         AppComponent,
-        HeaderComponent,
         FooterComponent
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
+        HeaderComponent,
         InputModule,
         BrowserAnimationsModule,
         HomeModule

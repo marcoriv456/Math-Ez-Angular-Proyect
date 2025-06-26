@@ -1,10 +1,15 @@
 import {AfterViewInit, Component, inject, NgZone, OnDestroy} from '@angular/core';
 import {BlobAnimation} from "../../../core/helpers/blob-animator.helper";
+import {SharedModule} from "../../shared/shared.module";
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrl:'./header.component.css'
+  styleUrl: './header.component.css',
+  standalone: true,
+  imports: [
+    SharedModule
+  ]
 })
 export class HeaderComponent implements AfterViewInit,OnDestroy{
   private bgBlobAnimation!:BlobAnimation;

@@ -15,11 +15,9 @@ header{
   justify-content: space-between;
   align-items: start;
   position: relative;
-  /*padding: 1rem 0;*/
 }
 
 .logo-container{
-  /*width: 15rem;*/
   height: 80%;
   flex: 1 0 auto;
 }
@@ -41,25 +39,19 @@ ul{
   flex: 2 0 auto;
 }
 
-ul li{
-  color: var(--col-white);
-  font-family: var(--header-link-family),sans-serif;
-  font-size: var(--header-link-size);
-  font-style: var(--header-link-style);
-  font-weight: var(--header-link-weight);
-  text-transform: uppercase;
+ul li ez-button {
+  --btn-padding: 1rem 1rem;
+  --btn-fg: var(--col-white);
+  --btn-display-icon: none;
 }
 
-ul li.active-link{
-  display: flex;
-  padding: 1rem 1rem;
-  justify-content: center;
-  align-items: center;
-  border-radius: 1rem;
-  background: var(--col-white);
-  color: var(--col-black);
+ul li.active-link ez-button {
+  --btn-bg: var(--col-white);
+  --btn-fg: var(--col-black);
+  --btn-radius: 1.5rem;
+  --btn-display-icon: initial;
+  --btn-icon-filter: invert(1);
 }
-
 
 .bg-container{
   position: absolute;
@@ -96,7 +88,6 @@ ul li.active-link{
   fill: var(--col-main-d3);
   animation-delay: 0.6s;
 }
-
 
 @keyframes top-to-bottom {
   0%,100%{
