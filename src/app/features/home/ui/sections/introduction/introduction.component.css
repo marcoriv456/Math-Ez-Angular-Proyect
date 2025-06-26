@@ -8,7 +8,7 @@ section {
 }
 
 .left-container {
-  min-width: min(35rem, 50vw);
+  min-width: min(35rem, 40vw);
   max-width: 45rem;
   display: flex;
   flex-direction: column;
@@ -36,7 +36,9 @@ ez-h2, ez-h1, ez-p {
 }
 
 .input-container {
-  max-width: 70%;
+  min-width: 0;
+  width: 90%;
+  max-width: 42rem;
   height: 4rem;
   display: flex;
   gap: 0.5rem;
@@ -46,7 +48,7 @@ app-input {
   font-size: 2rem;
   height: 100%;
   background-color: var(--col-white);
-  max-width: 40rem;
+  flex: 1 1 0;
 }
 
 ez-button {
@@ -65,4 +67,24 @@ ez-button {
   app-input {
     font-size: 1.5rem;
   }
+}
+
+@media (max-width: 700px) {
+  section {
+    flex-direction: column;
+    /*gap: 2rem;*/
+    padding: 0 2rem;
+    justify-content: start;
+  }
+
+  .left-container {
+    max-height: 15rem;
+  }
+
+  .right-container {
+    min-width: 100%;
+    max-width: 100%;
+    gap: 1rem;
+  }
+
 }
