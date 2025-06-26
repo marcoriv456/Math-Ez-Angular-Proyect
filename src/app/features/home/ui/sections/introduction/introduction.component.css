@@ -2,30 +2,33 @@ section {
   height: calc(100vh - 20rem);
   display: flex;
   align-items: center;
-}
-
-section > div {
-  flex: 0 0 50%;
-}
-
-.left-container {
-  display: flex;
+  gap: 4rem;
+  padding: 0 4rem;
   justify-content: center;
 }
 
-.left-container svg {
-  width: 75%;
-  height: 25%;
+.left-container {
+  min-width: min(35rem, 50vw);
+  max-width: 45rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1 1 0;
 }
 
-.left-container svg * {
+.logo {
+  width: 100%;
+  height: 100%;
   fill: var(--col-black);
 }
 
 .right-container {
+  max-width: 60rem;
+  min-width: min(35rem, 50vw);
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex: 1 1 0;
 }
 
 ez-h2, ez-h1, ez-p {
@@ -54,3 +57,12 @@ ez-button {
   --btn-radius: 0.75rem;
 }
 
+@media (max-width: 1100px) {
+  .input-container {
+    height: 3.5rem;
+  }
+
+  app-input {
+    font-size: 1.5rem;
+  }
+}
