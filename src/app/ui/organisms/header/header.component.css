@@ -1,9 +1,4 @@
 :host {
-  --header-link-family: "Gilroy";
-  --header-link-size: 24px;
-  --header-link-size-rem: 1.5rem;
-  --header-link-weight: 800;
-  --header-link-style: normal;
   position: relative;
   z-index: 0;
 }
@@ -19,7 +14,7 @@ header {
 
 .logo-container {
   height: 80%;
-  flex: 1 0 auto;
+  flex: 1 1 20rem;
 }
 
 .logo-container svg {
@@ -40,6 +35,7 @@ ul {
 }
 
 ul li ez-button {
+  --btn-radius: 1rem;
   --btn-padding: 1rem 1rem;
   --btn-fg: var(--col-white);
   --btn-display-icon: none;
@@ -109,4 +105,22 @@ ul li.active-link ez-button {
     --btn-display-icon: initial;
   }
 
+}
+
+@media (max-width: 600px) {
+  ul{
+    flex: 3 0 auto;
+  }
+
+  ul li ez-button {
+    width: 4rem;
+    height: 4rem;
+    --btn-padding: 0.7rem;
+    --btn-display-label: none;
+    --btn-display-icon: initial;
+  }
+
+  .logo-container {
+    flex: 1 1 10rem;
+  }
 }
