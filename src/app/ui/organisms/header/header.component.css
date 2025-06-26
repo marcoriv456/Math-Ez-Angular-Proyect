@@ -1,4 +1,4 @@
-:host{
+:host {
   --header-link-family: "Gilroy";
   --header-link-size: 24px;
   --header-link-size-rem: 1.5rem;
@@ -8,7 +8,7 @@
   z-index: 0;
 }
 
-header{
+header {
   display: flex;
   width: 100%;
   height: 12rem;
@@ -17,21 +17,21 @@ header{
   position: relative;
 }
 
-.logo-container{
+.logo-container {
   height: 80%;
   flex: 1 0 auto;
 }
 
-.logo-container svg{
+.logo-container svg {
   width: 100%;
   height: 100%;
 }
 
-.logo-container svg *{
+.logo-container svg * {
   fill: var(--col-white);
 }
 
-ul{
+ul {
   height: 80%;
   display: flex;
   justify-content: space-evenly;
@@ -53,7 +53,7 @@ ul li.active-link ez-button {
   --btn-icon-filter: invert(1);
 }
 
-.bg-container{
+.bg-container {
   position: absolute;
   z-index: -10;
   top: 0;
@@ -66,34 +66,47 @@ ul li.active-link ez-button {
   height: 100%;
 }
 
-.background .layer path:not(.step-1){
+.background .layer path:not(.step-1) {
   visibility: hidden;
 }
-.background .layer path{
+
+.background .layer path {
   animation: top-to-bottom 5s infinite ease-in-out;
 }
 
-.background .layer-1 path{
+.background .layer-1 path {
   fill: var(--col-main);
 }
-.background .layer-2 path{
+
+.background .layer-2 path {
   fill: var(--col-main-d1);
   animation-delay: 0.2s;
 }
-.background .layer-3 path{
+
+.background .layer-3 path {
   fill: var(--col-main-d2);
   animation-delay: 0.4s;
 }
-.background .layer-4 path{
+
+.background .layer-4 path {
   fill: var(--col-main-d3);
   animation-delay: 0.6s;
 }
 
 @keyframes top-to-bottom {
-  0%,100%{
+  0%, 100% {
     translate: 0 0;
   }
-  50%{
+  50% {
     translate: 0 -10%;
   }
+}
+
+@media (max-width: 1000px) {
+
+  ul li ez-button {
+    --btn-display-label: none;
+    --btn-display-icon: initial;
+  }
+
 }
