@@ -15,8 +15,8 @@ export class ParticlesComponent implements AfterViewInit {
 
   private ngZone = inject(NgZone)
 
-  ngAfterViewInit() {
-    this.ngZone.runOutsideAngular(async () => {
+  async ngAfterViewInit() {
+    await this.ngZone.runOutsideAngular(async () => {
       await loadEmittersPlugin(tsParticles)
       await loadImageShape(tsParticles)
       await loadFull(tsParticles)
