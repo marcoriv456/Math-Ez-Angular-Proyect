@@ -77,8 +77,6 @@ footer .contact-container .contact-links{
 }
 footer .contact-container .contact-links span{
   color: var(--col-white);
-  /*text-align: ;*/
-
   font-family: var(--text-family),sans-serif;
   font-size: var(--text-size);
   font-style: var(--text-style);
@@ -123,5 +121,22 @@ footer .contact-container .contact-links span{
   }
   50%{
     translate: 0 10%;
+  }
+}
+
+@media (max-width: 850px) {
+  footer {
+    flex-direction: column;
+    height: fit-content;
+    padding: 5rem 0;
+  }
+
+  footer .logo-container {
+    width: 30rem;
+  }
+
+  footer .contact-container .github-profile img {
+    width: 10rem;
+    height: 10rem;
   }
 }
