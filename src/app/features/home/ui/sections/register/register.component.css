@@ -11,7 +11,6 @@ section {
 
 .content-container {
   position: absolute;
-  max-width: 20rem;
   max-height: 20rem;
   min-width: 100%;
   top: 20%;
@@ -29,6 +28,7 @@ section {
 
 ez-h2, ez-p {
   text-align: center;
+  max-width: 30rem;
 }
 
 .content-container .btn-container {
@@ -139,7 +139,7 @@ ez-button.log-in {
 
 @media (max-width: 800px) {
   .bottom-images img {
-    max-width: 90dvw;
+    max-width: 85dvw;
     position: absolute;
     top: 50%;
     left: 50%;

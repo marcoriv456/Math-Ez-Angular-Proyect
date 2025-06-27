@@ -1,3 +1,7 @@
+:host {
+  display: block;
+}
+
 p {
   color: var(--col-black);
   font-size: var(--text-size);
