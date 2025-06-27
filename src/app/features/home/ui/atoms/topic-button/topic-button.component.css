@@ -22,7 +22,7 @@ button {
   padding: 1.5rem;
   border-radius: 1.5rem;
   background-color: var(--btn-color);
-  transition: background-color var(--long-trans-duration) var(--trans-easing-out);
+  transition: background-color var(--long-trans-duration) var(--trans-easing);
 }
 
 img {
@@ -43,7 +43,7 @@ span {
   text-transform: uppercase;
   transition-property: color;
   transition-duration: var(--long-trans-duration);
-  transition-timing-function: var(--trans-easing-out);
+  transition-timing-function: var(--trans-easing);
 }
 
 @media (max-width: 800px) {

@@ -31,13 +31,13 @@ ez-h3, ez-p {
 home-topic-button{
   transition-property: top, left, transform, opacity;
   transition-duration: var(--long-trans-duration);
-  transition-timing-function: var(--trans-easing-in);
+  transition-timing-function: linear;
   top: 0;
   left: 0;
 }
 
 :host.intersecting home-topic-button{
-  transition-timing-function: var(--trans-easing-out);
+  transition-timing-function: var(--trans-easing);
 }
 
 :host.intersecting .btn-calculus {
@@ -100,13 +100,13 @@ home-topic-button{
 .blob .layer {
   transition-property: transform;
   transition-duration: var(--long-trans-duration);
-  transition-timing-function: var(--trans-easing-in);
+  transition-timing-function: linear;
   transition-delay: var(--trans-delay);
 }
 
 :host.intersecting .blob .layer {
   transform: translate(0, 0);
-  transition-timing-function: var(--trans-easing-out);
+  transition-timing-function: var(--trans-easing);
 }
 
 .blob .layer path {

@@ -71,8 +71,7 @@
   /* TRANSITIONS */
   --small-trans-duration:0.3s;
   --long-trans-duration: 0.7s;
-  --trans-easing-out: cubic-bezier(0,0,0,1);
-  --trans-easing-in: cubic-bezier(0,0,1,1);
+  --trans-easing: cubic-bezier(0, 0, 0, 1);
 }
 
 @media (max-width: 1100px) {
@@ -80,6 +79,5 @@
     --small-subtitle-size: 1.75rem;
     --big-subtitle-size: 2.75rem;
     --text-size: 1.25rem;
-
   }
 }
