@@ -168,3 +168,53 @@ home-topic-button{
     translate: -10%;
   }
 }
+
+@media (max-width: 800px) {
+  :host.intersecting .btn-calculus {
+    --btn-color: var(--col-topic-calculus);
+    left: -11rem;
+    top: -5rem;
+  }
+
+  :host.intersecting .btn-algebra {
+    --btn-color: var(--col-topic-algebra);
+    left: 0;
+    top: 2rem;
+  }
+
+  :host.intersecting .btn-graphics {
+    --btn-color: var(--col-topic-graphics);
+    left: 11rem;
+    top: -5rem;
+  }
+
+  :host.intersecting .btn-logic {
+    --btn-color: var(--col-topic-logic);
+    left: -10rem;
+    top: 5rem;
+  }
+
+  :host.intersecting .btn-measures {
+    --btn-color: var(--col-topic-measures);
+    left: 10rem;
+    top: 5rem;
+  }
+
+  :host.intersecting .btn-statistics {
+    --btn-color: var(--col-topic-statistics);
+    left: 9rem;
+    top: 15rem;
+  }
+
+  :host.intersecting .btn-trigonometry {
+    --btn-color: var(--col-topic-trigonometry);
+    left: -9rem;
+    top: 15rem;
+  }
+
+  .blob {
+    position: fixed;
+    width: 30vw;
+    height: 30vw;
+  }
+}

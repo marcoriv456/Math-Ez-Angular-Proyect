@@ -45,3 +45,16 @@ span {
   transition-duration: var(--long-trans-duration);
   transition-timing-function: var(--trans-easing-out);
 }
+
+@media (max-width: 800px) {
+  button {
+    width: 7rem;
+  }
+
+  .img-container {
+    width: 7rem;
+    height: 7rem;
+    padding: 1rem;
+  }
+
+}
