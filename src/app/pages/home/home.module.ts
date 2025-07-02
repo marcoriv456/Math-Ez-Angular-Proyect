@@ -26,4 +26,5 @@ import {RegisterComponent} from './ui/sections/register/register.component';
     HomeComponent
   ]
 })
-export class HomeModule { }
+export class HomeModule {
+}

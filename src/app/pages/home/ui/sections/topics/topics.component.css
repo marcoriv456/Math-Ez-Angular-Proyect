@@ -28,7 +28,7 @@ ez-h3, ez-p {
   translate: -50% -50%;
 }
 
-home-topic-button{
+home-topic-button {
   transition-property: top, left, transform, opacity;
   transition-duration: var(--long-trans-duration);
   transition-timing-function: linear;
@@ -36,7 +36,7 @@ home-topic-button{
   left: 0;
 }
 
-:host.intersecting home-topic-button{
+:host.intersecting home-topic-button {
   transition-timing-function: var(--trans-easing);
 }
 

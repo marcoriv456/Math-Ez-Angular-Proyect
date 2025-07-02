@@ -9,16 +9,16 @@ const generalParticleMoveConfig: RecursivePartial<IMove> = {
 
 export const topLayerConfig: RecursivePartial<IParticlesOptions> = {
   fpsLimit: 120,
-  interactivity:{
-    events:{
-      onHover:{
-        enable:true,
-        mode:'bubble'
+  interactivity: {
+    events: {
+      onHover: {
+        enable: true,
+        mode: 'bubble'
       }
     },
-    modes:{
-      bubble:{
-        size:40,
+    modes: {
+      bubble: {
+        size: 40,
       }
     }
   },

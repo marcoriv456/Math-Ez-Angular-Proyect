@@ -6,6 +6,6 @@ import {Component, Input} from '@angular/core';
   styleUrl: './topic-button.component.css'
 })
 export class TopicButtonComponent {
-  @Input() icon!:string
-  @Input() label!:string
+  @Input() icon!: string
+  @Input() label!: string
 }
