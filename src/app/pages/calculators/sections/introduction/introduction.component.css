@@ -1,0 +1,17 @@
+section {
+  height: calc(100vh - var(--header-height));
+  position: relative;
+}
+
+.content {
+  display: flex;
+  width: 35rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  translate: -50% -50%;
+  text-align: center;
+}
