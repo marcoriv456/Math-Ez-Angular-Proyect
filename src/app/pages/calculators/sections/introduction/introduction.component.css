@@ -15,3 +15,20 @@ section {
   translate: -50% -50%;
   text-align: center;
 }
+
+img {
+  width: 35rem;
+  height: auto;
+  position: absolute;
+}
+
+.abacus {
+  left: 2rem;
+  top: 2rem;
+}
+
+.calculator {
+  right: 2rem;
+  bottom: 2rem;
+}
+
