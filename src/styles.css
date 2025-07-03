@@ -72,6 +72,9 @@
   --small-trans-duration:0.3s;
   --long-trans-duration: 0.7s;
   --trans-easing: cubic-bezier(0, 0, 0, 1);
+
+  /*HEADER*/
+  --header-height: 12rem;
 }
 
 @media (max-width: 1100px) {
