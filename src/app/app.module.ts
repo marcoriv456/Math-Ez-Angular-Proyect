@@ -8,6 +8,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FooterComponent} from './ui/organisms/footer/footer.component';
 import {provideHttpClient} from "@angular/common/http";
 import {HomeModule} from "./pages/home/home.module";
+import {CalculatorsModule} from "./pages/calculators/calculators.module";
 
 @NgModule({
     declarations: [
@@ -20,7 +21,8 @@ import {HomeModule} from "./pages/home/home.module";
         HeaderComponent,
         InputModule,
         BrowserAnimationsModule,
-        HomeModule
+      HomeModule,
+      CalculatorsModule
     ],
     providers: [
       provideHttpClient()
