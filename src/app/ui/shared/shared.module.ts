@@ -6,6 +6,7 @@ import {PComponent} from './atoms/p/p.component';
 import {H2Component} from './atoms/h2/h2.component';
 import {H3Component} from './atoms/h3/h3.component';
 import {ButtonComponent} from './atoms/button/button.component';
+import {RellaxDirective} from './directives/rellax/rellax.directive';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {ButtonComponent} from './atoms/button/button.component';
     H2Component,
     H3Component,
     PComponent,
-    ButtonComponent
+    ButtonComponent,
+    RellaxDirective
   ],
   imports: [
     CommonModule
@@ -26,7 +28,8 @@ import {ButtonComponent} from './atoms/button/button.component';
     H2Component,
     H3Component,
     PComponent,
-    ButtonComponent
+    ButtonComponent,
+    RellaxDirective
   ]
 })
 export class SharedModule {
