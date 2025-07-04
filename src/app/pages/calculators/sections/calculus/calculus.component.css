@@ -1,0 +1,21 @@
+:host {
+  display: block;
+  margin-top: 20vh;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+calculators-topic-section {
+  --grid-template: auto 1fr/30% 1fr;
+  --paragraph-area: 1/1/1/span 2;
+  --paragraph-translate: 0 2.5rem;
+  --image-area: 1 / 1 /span 2 / 1;
+  --image-translate: 0 10rem;
+  --calculators-area: 2/2;
+  --calculators-translate: 0 8.5rem;
+  --topic-color: none;
+}

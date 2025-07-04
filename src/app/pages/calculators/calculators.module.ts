@@ -5,6 +5,7 @@ import {IntroductionComponent} from './sections/introduction/introduction.compon
 import {SharedModule} from "../../ui/shared/shared.module";
 import {TopicSectionComponent} from './ui/particles/topic-section/topic-section.component';
 import {TopicCardComponent} from './ui/molecules/topic-card/topic-card.component';
+import {CalculusComponent} from './sections/calculus/calculus.component';
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import {TopicCardComponent} from './ui/molecules/topic-card/topic-card.component
     CalculatorsComponent,
     IntroductionComponent,
     TopicSectionComponent,
-    TopicCardComponent
+    TopicCardComponent,
+    CalculusComponent
   ],
   imports: [
     CommonModule,
