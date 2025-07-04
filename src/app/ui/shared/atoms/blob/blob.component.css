@@ -1,0 +1,111 @@
+:host {
+  width: 20rem;
+  height: 20rem;
+  --fill-col-1: var(--col-main);
+  --fill-col-2: var(--col-main-l1);
+  --fill-col-3: var(--col-main-l2);
+}
+
+svg {
+  position: fixed;
+  width: inherit;
+  height: inherit;
+
+  path {
+    transform: translate(-100%, -100%);
+  }
+}
+
+:host.left-top svg {
+  top: 0;
+  left: 0;
+
+  path {
+    transform: translate(-100%, -100%);
+  }
+}
+
+:host.left-bottom svg {
+  bottom: 0;
+  left: 0;
+
+  path {
+    transform: translate(-100%, 100%);
+  }
+}
+
+:host.right-top svg {
+  top: 0;
+  right: 0;
+
+  path {
+    transform: translate(100%, -100%);
+  }
+}
+
+:host.right-bottom svg {
+  bottom: 0;
+  right: 0;
+
+  path {
+    transform: translate(100%, 100%);
+  }
+}
+
+svg path {
+  animation-duration: 3s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  transition-property: transform;
+  transition-duration: var(--long-trans-duration);
+  transition-timing-function: var(--trans-easing);
+  transition-delay: 1s;
+}
+
+:host:is(.visible) svg:has(path) path {
+  transform: translate(0, 0);
+}
+
+:host:is(.left-top, .left-bottom) path {
+  animation-name: left-to-right;
+}
+
+:host:is(.right-top, .right-bottom) path {
+  animation-name: right-to-left;
+}
+
+svg path:nth-child(1) {
+  animation-delay: 1s;
+  transition-delay: 300ms;
+  fill: var(--fill-col-3);
+}
+
+svg path:nth-child(2) {
+  animation-delay: 0.5s;
+  transition-delay: 200ms;
+  fill: var(--fill-col-2);
+}
+
+svg path:nth-child(3) {
+  animation-delay: 0.1s;
+  transition-delay: 100ms;
+  fill: var(--fill-col-1);
+}
+
+@keyframes right-to-left {
+  0%, 100% {
+    translate: 0;
+  }
+  50% {
+    translate: 10%;
+  }
+}
+
+@keyframes left-to-right {
+  0%, 100% {
+    translate: 0;
+  }
+  50% {
+    translate: -10%;
+  }
+}
