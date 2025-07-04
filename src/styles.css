@@ -57,6 +57,14 @@
   --text-style: normal;
   --text-line-height: 160%;
 
+  color: #000;
+
+  /* smaller subtitle */
+  --featured-text-family: Montserrat;
+  --featured-text-size: 1.75rem;
+  --featured-text-style: normal;
+  --featured-text-weight: 600;
+
   --citations-family: "Tinos";
   --citations-size: 24px;
   --citations-size-rem: 1.5rem;

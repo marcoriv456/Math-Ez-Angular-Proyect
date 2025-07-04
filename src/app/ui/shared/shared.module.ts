@@ -8,6 +8,7 @@ import {H3Component} from './atoms/h3/h3.component';
 import {ButtonComponent} from './atoms/button/button.component';
 import {RellaxDirective} from './directives/rellax/rellax.directive';
 import {BlobComponent} from './atoms/blob/blob.component';
+import {H4Component} from './atoms/h4/h4.component';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import {BlobComponent} from './atoms/blob/blob.component';
     H1Component,
     H2Component,
     H3Component,
+    H4Component,
     PComponent,
     ButtonComponent,
     RellaxDirective,
@@ -29,6 +31,7 @@ import {BlobComponent} from './atoms/blob/blob.component';
     H1Component,
     H2Component,
     H3Component,
+    H4Component,
     PComponent,
     ButtonComponent,
     RellaxDirective,
