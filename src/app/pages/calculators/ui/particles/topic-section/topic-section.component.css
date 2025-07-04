@@ -22,14 +22,32 @@ section {
   width: 100%;
   padding: 2.5rem;
   color: var(--col-white);
+  position: relative;
+}
+
+.title:after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
   background-color: var(--topic-color);
+  transform-origin: center;
+  transform: scaleX(0);
+  z-index: -1;
+  transition: transform var(--long-trans-duration);
+}
+
+.title.intersecting:after {
+  transform: scaleX(1);
 }
 
 .content {
   display: grid;
   grid-template: var(--grid-template);
   place-items: center;
-  border: 1px solid red;
   flex: 1 0 auto;
   gap: 5rem;
   padding: 0 5rem;
@@ -37,10 +55,10 @@ section {
 
 .paragraph-container {
   max-width: 42.5rem;
-  border: 1px solid black;
   grid-area: var(--paragraph-area);
   text-align: center;
   translate: var(--paragraph-translate);
+  transition-delay: 300ms;
 }
 
 .image-container {
@@ -48,6 +66,7 @@ section {
   width: 100%;
   align-self: start;
   translate: var(--image-translate);
+  transition-delay: 600ms;
 }
 
 .calculator-panel {
@@ -57,12 +76,26 @@ section {
   gap: 1rem;
   align-self: start;
   translate: var(--calculators-translate);
+  transition-delay: 800ms;
 }
 
 .calculator-panel ez-h3 {
   grid-column: 1/span 2;
   text-align: center;
 }
+
+.paragraph-container, .image-container, .calculator-panel {
+  opacity: 0;
+  transform: translateY(20%);
+  transition-property: transform, opacity;
+  transition-duration: var(--long-trans-duration);
+}
+
+.intersecting:is(.paragraph-container, .image-container, .calculator-panel) {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 
 
 

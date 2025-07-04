@@ -1,4 +1,14 @@
-import {AfterViewInit, Component, ElementRef, HostBinding, inject, Input} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  HostBinding,
+  inject,
+  Input,
+  QueryList,
+  Renderer2,
+  ViewChildren
+} from '@angular/core';
 
 @Component({
   selector: 'calculators-topic-section',
@@ -7,14 +17,19 @@ import {AfterViewInit, Component, ElementRef, HostBinding, inject, Input} from '
 })
 export class TopicSectionComponent implements AfterViewInit {
   @Input() @HostBinding("style.--topic-color") topicColor!: string;
-  @HostBinding('class.intersecting') intersecting = false;
+  @ViewChildren('el') elements!: QueryList<ElementRef<HTMLElement>>;
 
+  private readonly renderer = inject(Renderer2)
 
-  private readonly ref = inject(ElementRef<HTMLElement>)
-
-  private readonly observer = new IntersectionObserver(entries => this.intersecting = entries[0].isIntersecting)
+  private readonly observer = new IntersectionObserver(
+    entries => entries.forEach(e => {
+      if (e.isIntersecting)
+        this.renderer.addClass(e.target, 'intersecting');
+    }),
+    {threshold: 0.2}
+  )
 
   ngAfterViewInit() {
-    this.observer.observe(this.ref.nativeElement);
+    this.elements.forEach(el => this.observer.observe(el.nativeElement))
   }
 }

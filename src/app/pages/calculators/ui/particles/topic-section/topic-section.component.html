@@ -1,16 +1,15 @@
 <section>
-  <div class="title">
+  <div #el class="title">
     <ng-content select="ez-h2"></ng-content>
   </div>
-
   <div class="content">
-    <div class="paragraph-container">
+    <div #el class="paragraph-container">
       <ng-content select="ez-p"></ng-content>
     </div>
-    <div class="image-container">
+    <div #el class="image-container">
       <ng-content select="img"></ng-content>
     </div>
-    <div class="calculator-panel">
+    <div #el class="calculator-panel">
       <ez-h3>Calculadoras</ez-h3>
       <ng-content select="calculators-topic-card"></ng-content>
     </div>
