@@ -1,6 +1,4 @@
-import {ColorSchema} from "../models/color-schema.model";
-
-export const ColorSchemas: { [key: string]: ColorSchema } = {
+export const ColorSchemas = {
   DEFAULT: {
     main: 'hsl(200, 100%, 50%)',
     dark1: 'hsl(203, 100%, 45%)',
