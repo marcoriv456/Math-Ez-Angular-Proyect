@@ -8,7 +8,6 @@
   place-items: center;
   background-color: var(--col-white);
   border-radius: 1rem;
-  --card-color: var(--col-white);
 }
 
 .img-container {
@@ -31,7 +30,7 @@
 
 ez-button {
   grid-area: 1 / 3 / span 2 / 3;
-  --btn-bg: var(--card-color);
+  --btn-bg: var(--topic-color);
   --btn-fg: var(--col-white);
   --btn-padding: 0.5rem 1.2rem;
   --btn-radius: 1rem;

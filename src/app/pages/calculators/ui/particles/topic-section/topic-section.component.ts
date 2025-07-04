@@ -1,5 +1,4 @@
 import {AfterViewInit, Component, ElementRef, HostBinding, inject, Input} from '@angular/core';
-import {ColorSchema} from "../../../../../core/models/color-schema.model";
 
 @Component({
   selector: 'calculators-topic-section',
@@ -7,8 +6,9 @@ import {ColorSchema} from "../../../../../core/models/color-schema.model";
   styleUrl: './topic-section.component.css'
 })
 export class TopicSectionComponent implements AfterViewInit {
-  @Input() colors!: ColorSchema;
+  @Input() @HostBinding("style.--topic-color") topicColor!: string;
   @HostBinding('class.intersecting') intersecting = false;
+
 
   private readonly ref = inject(ElementRef<HTMLElement>)
 

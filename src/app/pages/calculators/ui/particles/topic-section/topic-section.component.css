@@ -1,12 +1,16 @@
 :host {
-  --grid-template: auto 1fr/33% 1fr;
+  --grid-template: auto 1fr/25% 1fr;
   --paragraph-area: 1/1/1/span 2;
-  --image-area: 2/1;
+  --paragraph-translate: 0 2.5rem;
+  --image-area: 1 / 1 /span 2 / 1;
+  --image-translate: 0 10rem;
   --calculators-area: 2/2;
+  --calculators-translate: 0 8.5rem;
+  --topic-color: none;
 }
 
 section {
-  height: 125vh;
+  height: 120vh;
 
   position: relative;
 
@@ -17,8 +21,8 @@ section {
 .title {
   width: 100%;
   padding: 2.5rem;
-  margin: 2.5rem 0;
   color: var(--col-white);
+  background-color: var(--topic-color);
 }
 
 .content {
@@ -27,6 +31,8 @@ section {
   place-items: center;
   border: 1px solid red;
   flex: 1 0 auto;
+  gap: 5rem;
+  padding: 0 5rem;
 }
 
 .paragraph-container {
@@ -34,19 +40,29 @@ section {
   border: 1px solid black;
   grid-area: var(--paragraph-area);
   text-align: center;
+  translate: var(--paragraph-translate);
 }
 
 .image-container {
   grid-area: var(--image-area);
-  max-width: 20rem;
-  max-height: 20rem;
-  border: 1px solid black;
-  display: flex;
-  object-fit: contain;
+  width: 100%;
+  align-self: start;
+  translate: var(--image-translate);
 }
 
 .calculator-panel {
+  display: grid;
+  grid-template: auto 1fr 1fr/1fr 1fr;
   grid-area: var(--calculators-area);
+  gap: 1rem;
+  align-self: start;
+  translate: var(--calculators-translate);
 }
+
+.calculator-panel ez-h3 {
+  grid-column: 1/span 2;
+  text-align: center;
+}
+
 
 

@@ -1,5 +1,5 @@
 <section>
-  <div [style.background-color]="colors.main" class="title">
+  <div class="title">
     <ng-content select="ez-h2"></ng-content>
   </div>
 
@@ -12,6 +12,7 @@
     </div>
     <div class="calculator-panel">
       <ez-h3>Calculadoras</ez-h3>
+      <ng-content select="calculators-topic-card"></ng-content>
     </div>
   </div>
 </section>
