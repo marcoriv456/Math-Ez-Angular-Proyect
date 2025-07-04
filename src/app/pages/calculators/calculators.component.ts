@@ -15,7 +15,10 @@ export class CalculatorsComponent implements AfterViewInit {
   private readonly globalEventBus = inject(GlobalEventBusService)
 
   ngAfterViewInit() {
-    this.blobs.forEach(blob => blob.show())
+    this.blobs.forEach(blob => {
+      blob.changeColors(ColorSchemas.ALTERNATE)
+      blob.show()
+    })
     this.globalEventBus.emit(new ColorSchemaChangeEvent(ColorSchemas.ALTERNATE))
   }
 
