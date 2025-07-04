@@ -42,17 +42,17 @@
 
   /* TYPE */
   --small-subtitle-family: "Gilroy";
-  --small-subtitle-size: 2rem;
+  --small-subtitle-size: 1.75rem;
   --small-subtitle-weight: 800;
   --small-subtitle-style: normal;
 
   --big-subtitle-family: "Tinos";
-  --big-subtitle-size: 3rem;
+  --big-subtitle-size: 2.75rem;
   --big-subtitle-weight: 400;
   --big-subtitle-style: normal;
 
   --text-family: "Montserrat";
-  --text-size: 1.5rem;
+  --text-size: 1.25rem;
   --text-weight: 400;
   --text-style: normal;
   --text-line-height: 160%;
@@ -61,7 +61,7 @@
 
   /* smaller subtitle */
   --featured-text-family: Montserrat;
-  --featured-text-size: 1.75rem;
+  --featured-text-size: 1.5rem;
   --featured-text-style: normal;
   --featured-text-weight: 600;
 
@@ -85,10 +85,3 @@
   --header-height: 12rem;
 }
 
-@media (max-width: 1100px) {
-  :root {
-    --small-subtitle-size: 1.75rem;
-    --big-subtitle-size: 2.75rem;
-    --text-size: 1.25rem;
-  }
-}
