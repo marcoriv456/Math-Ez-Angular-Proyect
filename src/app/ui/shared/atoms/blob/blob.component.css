@@ -1,6 +1,6 @@
 :host {
-  width: 20rem;
-  height: 20rem;
+  width: 15rem;
+  height: 15rem;
   --fill-col-1: var(--col-main);
   --fill-col-2: var(--col-main-l1);
   --fill-col-3: var(--col-main-l2);
@@ -56,7 +56,7 @@ svg path {
   animation-duration: 3s;
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
-  transition-property: transform;
+  transition-property: transform, fill;
   transition-duration: var(--long-trans-duration);
   transition-timing-function: var(--trans-easing);
   transition-delay: 1s;
