@@ -1,6 +1,7 @@
 :host {
   display: block;
   margin-top: 20vh;
+  position: relative;
 }
 
 img {
@@ -18,4 +19,31 @@ calculators-topic-section {
   --calculators-area: 2/2;
   --calculators-translate: 0 8.5rem;
   --topic-color: none;
+}
+
+.bg {
+  position: absolute;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  opacity: 0.4;
+  z-index: -10;
+}
+
+.bg-1 {
+  top: 0;
+  left: 10rem;
+  scale: 0.8;
+}
+
+.bg-2 {
+  top: 0;
+  right: 10rem;
+  scale: 0.7;
+}
+
+.bg-3 {
+  top: 30%;
+  left: 10rem;
+  scale: 0.5;
 }
