@@ -1,0 +1,40 @@
+:host {
+  position: relative;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+calculators-topic-section {
+  --grid-template: 30rem 1fr / 45rem 1fr;
+  --paragraph-area: 1 / 2;
+  --paragraph-translate: 0 0;
+  --image-area: 1 / 1;
+  --image-translate: 0 -5rem;
+  --calculators-area: 2 / 1 / 2 / span 2;
+  --calculators-translate: 0 0;
+}
+
+.bg {
+  position: absolute;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  opacity: 0.4;
+  z-index: -10;
+}
+
+.bg-1 {
+  top: -15rem;
+  left: 35rem;
+  width: 30rem;
+}
+
+.bg-2 {
+  top: -30rem;
+  right: 10rem;
+  width: 40rem;
+}
