@@ -29,22 +29,4 @@ export class CalculatorsComponent implements AfterViewInit {
     this.blobs.forEach(blob => blob.changeColors(schema))
   }
 
-  protected showBlobs() {
-    this.blobs.forEach(blob => blob.show())
-  }
-
-  protected showLeftBlob() {
-    this.hideBlobs()
-    this.blobs.get(0)?.show()
-  }
-
-  protected showRightBlob() {
-    this.hideBlobs()
-    this.blobs.get(1)?.show()
-  }
-
-  protected hideBlobs() {
-    this.blobs.forEach(blob => blob.hide())
-  }
-
 }
