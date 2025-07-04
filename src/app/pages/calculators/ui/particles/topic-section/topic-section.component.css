@@ -49,8 +49,8 @@ section {
   grid-template: var(--grid-template);
   place-items: center;
   flex: 1 0 auto;
-  gap: 5rem;
-  padding: 0 5rem;
+  gap: 3rem;
+  padding: 0 3rem;
 }
 
 .paragraph-container {
