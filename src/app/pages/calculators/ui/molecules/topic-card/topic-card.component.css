@@ -1,0 +1,38 @@
+:host {
+  width: 40rem;
+  height: 12rem;
+  padding: 1rem;
+  gap: 0.5rem;
+  display: grid;
+  grid-template: auto auto / 10.5rem 22rem 4.5rem;
+  place-items: center;
+  background-color: var(--col-white);
+  border-radius: 1rem;
+  --card-color: var(--col-white);
+}
+
+.img-container {
+  grid-area: 1/1/span 2/1;
+  width: 10rem;
+  height: 10rem;
+}
+
+.title-container {
+  grid-area: 1 / 2;
+  width: 100%;
+  height: 2rem;
+}
+
+.description-container {
+  height: 7.5rem;
+  grid-area: 2 / 2;
+  width: 100%;
+}
+
+ez-button {
+  grid-area: 1 / 3 / span 2 / 3;
+  --btn-bg: var(--card-color);
+  --btn-fg: var(--col-white);
+  --btn-padding: 0.5rem 1.2rem;
+  --btn-radius: 1rem;
+}
