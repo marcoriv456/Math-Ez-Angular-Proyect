@@ -1,0 +1,52 @@
+:host {
+  --grid-template: auto 1fr/33% 1fr;
+  --paragraph-area: 1/1/1/span 2;
+  --image-area: 2/1;
+  --calculators-area: 2/2;
+}
+
+section {
+  height: 125vh;
+
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  width: 100%;
+  padding: 2.5rem;
+  margin: 2.5rem 0;
+  color: var(--col-white);
+}
+
+.content {
+  display: grid;
+  grid-template: var(--grid-template);
+  place-items: center;
+  border: 1px solid red;
+  flex: 1 0 auto;
+}
+
+.paragraph-container {
+  max-width: 42.5rem;
+  border: 1px solid black;
+  grid-area: var(--paragraph-area);
+  text-align: center;
+}
+
+.image-container {
+  grid-area: var(--image-area);
+  max-width: 20rem;
+  max-height: 20rem;
+  border: 1px solid black;
+  display: flex;
+  object-fit: contain;
+}
+
+.calculator-panel {
+  grid-area: var(--calculators-area);
+}
+
+
