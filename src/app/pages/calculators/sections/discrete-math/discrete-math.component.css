@@ -9,7 +9,7 @@ img {
 }
 
 calculators-topic-section {
-  --grid-template: 18rem 1fr / 40rem 1fr;
+  --grid-template: 18rem 1fr / 30rem 1fr;
   --paragraph-area: 1 / span 2 / 1 /span 2;
   --paragraph-align: center;
   --paragraph-trans-delay: 200ms;
