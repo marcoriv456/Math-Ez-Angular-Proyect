@@ -1,0 +1,49 @@
+:host {
+  position: relative;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+calculators-topic-section {
+  --grid-template: 35rem 1fr / 1fr 35rem;
+  --paragraph-area: 2 / 2;
+  --paragraph-align: start;
+  --paragraph-trans-delay: 700ms;
+  --image-area: 1 / 2;
+  --image-trans-delay: 400ms;
+  --calculators-area: 1 / 1 / span 2 / 1;
+  --calculators-align: start;
+  --calculators-translate: 0 10.5rem;
+  --calculators-trans-delay: 200ms;
+}
+
+.bg {
+  position: absolute;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  opacity: 0.4;
+  z-index: -10;
+}
+
+.bg-3 {
+  top: -90rem;
+  left: 10rem;
+  width: 20rem;
+}
+
+.bg-2 {
+  top: -40rem;
+  left: 50rem;
+  width: 25rem;
+}
+
+.bg-1 {
+  top: 15rem;
+  left: 5rem;
+  width: 30rem;
+}

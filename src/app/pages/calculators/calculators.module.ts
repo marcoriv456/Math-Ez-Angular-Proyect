@@ -8,6 +8,7 @@ import {TopicCardComponent} from './ui/molecules/topic-card/topic-card.component
 import {CalculusComponent} from './sections/calculus/calculus.component';
 import {AlgebraComponent} from './sections/algebra/algebra.component';
 import {TrigonometryComponent} from './sections/trigonometry/trigonometry.component';
+import {StatisticsComponent} from './sections/statistics/statistics.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import {TrigonometryComponent} from './sections/trigonometry/trigonometry.compon
     TopicCardComponent,
     CalculusComponent,
     AlgebraComponent,
-    TrigonometryComponent
+    TrigonometryComponent,
+    StatisticsComponent
   ],
   imports: [
     CommonModule,
