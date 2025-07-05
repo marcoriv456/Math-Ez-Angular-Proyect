@@ -11,6 +11,7 @@ import {TrigonometryComponent} from './sections/trigonometry/trigonometry.compon
 import {StatisticsComponent} from './sections/statistics/statistics.component';
 import {DiscreteMathComponent} from './sections/discrete-math/discrete-math.component';
 import {GraphicsComponent} from './sections/graphics/graphics.component';
+import {MeasuresComponent} from './sections/measures/measures.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import {GraphicsComponent} from './sections/graphics/graphics.component';
     TrigonometryComponent,
     StatisticsComponent,
     DiscreteMathComponent,
-    GraphicsComponent
+    GraphicsComponent,
+    MeasuresComponent
   ],
   imports: [
     CommonModule,
