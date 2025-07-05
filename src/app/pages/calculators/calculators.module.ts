@@ -10,6 +10,7 @@ import {AlgebraComponent} from './sections/algebra/algebra.component';
 import {TrigonometryComponent} from './sections/trigonometry/trigonometry.component';
 import {StatisticsComponent} from './sections/statistics/statistics.component';
 import {DiscreteMathComponent} from './sections/discrete-math/discrete-math.component';
+import {GraphicsComponent} from './sections/graphics/graphics.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import {DiscreteMathComponent} from './sections/discrete-math/discrete-math.comp
     AlgebraComponent,
     TrigonometryComponent,
     StatisticsComponent,
-    DiscreteMathComponent
+    DiscreteMathComponent,
+    GraphicsComponent
   ],
   imports: [
     CommonModule,
