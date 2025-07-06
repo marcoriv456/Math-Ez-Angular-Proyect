@@ -49,8 +49,8 @@ ez-button.log-in {
 }
 
 .bottom-blob {
-  position: sticky;
-  top: calc(100vh - 17dvh);
+  position: absolute;
+  bottom: 0;
   width: 100%;
   height: 17dvh;
 }
@@ -74,12 +74,12 @@ ez-button.log-in {
 }
 
 .bottom-blob .layer-2 path {
-  fill: var(--col-main);
+  fill: var(--col-main-d2);
   animation-delay: 0.2s;
 }
 
 .bottom-blob .layer-3 path {
-  fill: var(--col-main-l1);
+  fill: var(--col-main-d1);
   animation-delay: 0.4s;
 }
 
