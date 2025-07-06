@@ -9,6 +9,11 @@ import {CalculatorsComponent} from "./pages/calculators/calculators.component";
 const routes: Routes = [
   {
     path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
+  },
+  {
+    path: 'home',
     component: HomeComponent
   },
   {
