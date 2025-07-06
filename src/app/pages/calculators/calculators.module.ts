@@ -12,6 +12,7 @@ import {StatisticsComponent} from './sections/statistics/statistics.component';
 import {DiscreteMathComponent} from './sections/discrete-math/discrete-math.component';
 import {GraphicsComponent} from './sections/graphics/graphics.component';
 import {MeasuresComponent} from './sections/measures/measures.component';
+import {InDevelopmentComponent} from './sections/in-development/in-development.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import {MeasuresComponent} from './sections/measures/measures.component';
     StatisticsComponent,
     DiscreteMathComponent,
     GraphicsComponent,
-    MeasuresComponent
+    MeasuresComponent,
+    InDevelopmentComponent
   ],
   imports: [
     CommonModule,

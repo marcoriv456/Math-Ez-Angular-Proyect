@@ -4,6 +4,7 @@ import {GlobalEventBusService} from "../../core/services/global-event-bus/global
 import {ColorSchemaChangeEvent} from "../../core/models/events/color-schema-change.event";
 import {ColorSchema} from "../../core/models/color-schema.model";
 import {ColorSchemas} from "../../core/config/color-schemas.config";
+import {FooterIntersectedEvent} from "../../core/models/events/footer-intersected.event";
 
 @Component({
   selector: 'app-calculators',
@@ -16,17 +17,30 @@ export class CalculatorsComponent implements AfterViewInit {
   private readonly globalEventBus = inject(GlobalEventBusService)
   private readonly cdr = inject(ChangeDetectorRef)
 
+  private blobsVisible = false;
+
   ngAfterViewInit() {
-    this.blobs.forEach(blob => {
-      blob.changeColors(ColorSchemas.ALTERNATE)
-      blob.show()
-    })
+    this.changeBlobsColors(ColorSchemas.ALTERNATE)
     this.cdr.detectChanges();
+    this.globalEventBus.on(FooterIntersectedEvent).subscribe(() => this.hideBlobs())
     this.globalEventBus.emit(new ColorSchemaChangeEvent(ColorSchemas.ALTERNATE))
   }
 
+
   protected changeBlobsColors(schema: ColorSchema) {
+    if (!this.blobsVisible)
+      this.showBlobs()
     this.blobs.forEach(blob => blob.changeColors(schema))
+  }
+
+  protected hideBlobs() {
+    this.blobsVisible = false
+    this.blobs.forEach(blob => blob.hide());
+  }
+
+  private showBlobs() {
+    this.blobsVisible = true
+    this.blobs.forEach(blob => blob.show());
   }
 
 }
