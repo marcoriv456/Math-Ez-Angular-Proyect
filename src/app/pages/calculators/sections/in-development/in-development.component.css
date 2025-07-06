@@ -51,3 +51,30 @@ ez-button {
   height: 25rem;
   z-index: 10;
 }
+
+.bg {
+  position: absolute;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  opacity: 0.4;
+  z-index: -10;
+}
+
+.bg-1 {
+  width: 30rem;
+  top: -20rem;
+  left: 40rem;
+}
+
+.bg-2 {
+  width: 35rem;
+  top: -100rem;
+  right: 10rem;
+}
+
+.bg-3 {
+  width: 20rem;
+  top: -185rem;
+  left: 10rem;
+}
