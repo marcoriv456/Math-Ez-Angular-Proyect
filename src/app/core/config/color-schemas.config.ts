@@ -1,11 +1,11 @@
 export const ColorSchemas = {
   DEFAULT: {
     main: 'hsl(200, 100%, 50%)',
-    dark1: 'hsl(203, 100%, 45%)',
-    dark2: 'hsl(208, 93%, 41%)',
-    dark3: 'hsl(213, 82%, 37%)',
-    light1: 'hsl(213, 100%, 72%)',
-    light2: 'hsl(220, 83%, 92%)'
+    dark1: 'hsl(205, 100%, 45%)',
+    dark2: 'hsl(210, 95%, 40%)',
+    dark3: 'hsl(215, 80%, 40%)',
+    light1: 'hsl(215, 100%, 70%)',
+    light2: 'hsl(220, 85%, 90%)'
   },
   ALTERNATE: {
     main: 'hsl(195, 100%, 50%)',

@@ -22,12 +22,13 @@
   --col-black: #1d1d1b;
   --col-white: #ffffff;
   --col-background: #f7f7f7;
-  --col-main: #0099ff;
-  --col-main-d1: #007ce3;
-  --col-main-d2: #0860c7;
-  --col-main-d3: #1144aa;
-  --col-main-l1: #73affe;
-  --col-main-l2: #d1defa;
+
+  --col-main: hsl(200, 100%, 50%);
+  --col-main-d1: hsl(205, 100%, 45%);
+  --col-main-d2: hsl(210, 95%, 40%);
+  --col-main-d3: hsl(215, 80%, 40%);
+  --col-main-l1: hsl(215, 100%, 70%);
+  --col-main-l2: hsl(220, 85%, 90%);
 
 
   /* TOPICS-COLORS */
