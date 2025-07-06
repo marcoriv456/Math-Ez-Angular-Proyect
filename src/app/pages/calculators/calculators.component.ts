@@ -22,7 +22,7 @@ export class CalculatorsComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.changeBlobsColors(ColorSchemas.ALTERNATE)
     this.cdr.detectChanges();
-    this.globalEventBus.on(FooterIntersectedEvent).subscribe(() => this.hideBlobs())
+    this.globalEventBus.on(FooterIntersectedEvent).subscribe(event => event.intersected ? this.hideBlobs() : this.showBlobs())
     this.globalEventBus.emit(new ColorSchemaChangeEvent(ColorSchemas.ALTERNATE))
   }
 
