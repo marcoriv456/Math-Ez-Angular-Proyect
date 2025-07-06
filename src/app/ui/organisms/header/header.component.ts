@@ -5,6 +5,7 @@ import {GlobalEventBusService} from "../../../core/services/global-event-bus/glo
 import {ColorSchema} from "../../../core/models/color-schema.model";
 import {ColorSchemas} from "../../../core/config/color-schemas.config";
 import {ColorSchemaChangeEvent} from "../../../core/models/events/color-schema-change.event";
+import {RouterLink, RouterLinkActive} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,9 @@ import {ColorSchemaChangeEvent} from "../../../core/models/events/color-schema-c
   styleUrl: './header.component.css',
   standalone: true,
   imports: [
-    SharedModule
+    SharedModule,
+    RouterLink,
+    RouterLinkActive
   ]
 })
 export class HeaderComponent implements AfterViewInit,OnDestroy{

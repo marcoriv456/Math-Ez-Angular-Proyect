@@ -45,7 +45,7 @@ ul li ez-button {
   --btn-display-icon: none;
 }
 
-ul li.active-link ez-button {
+ul li ez-button.active-link {
   --btn-bg: var(--col-white);
   --btn-fg: var(--col-black);
   --btn-radius: 1.5rem;
