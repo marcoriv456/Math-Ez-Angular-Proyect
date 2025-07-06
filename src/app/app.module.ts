@@ -11,22 +11,23 @@ import {HomeModule} from "./pages/home/home.module";
 import {CalculatorsModule} from "./pages/calculators/calculators.module";
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        FooterComponent
-    ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HeaderComponent,
-        InputModule,
-        BrowserAnimationsModule,
-      HomeModule,
-      CalculatorsModule
-    ],
-    providers: [
-      provideHttpClient()
-    ],
-    bootstrap: [AppComponent]
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HeaderComponent,
+    FooterComponent,
+    InputModule,
+    BrowserAnimationsModule,
+    HomeModule,
+    CalculatorsModule
+  ],
+  providers: [
+    provideHttpClient()
+  ],
+  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
