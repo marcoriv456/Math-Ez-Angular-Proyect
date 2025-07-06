@@ -7,6 +7,7 @@ import {IntroductionComponent} from './ui/sections/introduction/introduction.com
 import {TopicsComponent} from './ui/sections/topics/topics.component';
 import {TopicButtonComponent} from './ui/atoms/topic-button/topic-button.component';
 import {RegisterComponent} from './ui/sections/register/register.component';
+import {RouterLink} from "@angular/router";
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import {RegisterComponent} from './ui/sections/register/register.component';
   imports: [
     CommonModule,
     InputModule,
-    SharedModule
+    SharedModule,
+    RouterLink
   ],
   exports: [
     HomeComponent

@@ -1,3 +1,17 @@
 :host{
   position: relative;
+  height: 100vh;
+}
+
+.router-container {
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+}
+
+.router-container > * {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
 }
