@@ -1,4 +1,4 @@
-import {RellaxDirective} from './rellax.directive';
+import { RellaxDirective } from './rellax.directive';
 
 describe('RellaxDirective', () => {
   it('should create an instance', () => {

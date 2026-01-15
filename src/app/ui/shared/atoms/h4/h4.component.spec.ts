@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {H4Component} from './h4.component';
+import { H4Component } from './h4.component';
 
 describe('H4Component', () => {
   let component: H4Component;
@@ -8,9 +8,8 @@ describe('H4Component', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [H4Component]
-    })
-      .compileComponents();
+      declarations: [H4Component],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(H4Component);
     component = fixture.componentInstance;

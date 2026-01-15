@@ -1,6 +1,6 @@
-import {Term} from "./term.model";
+import { Term } from './term.model';
 
-export interface ExponentTerm{
-  exponentChildren:Term[]
-  type:'exponent'
+export interface ExponentTerm {
+  exponentChildren: Term[];
+  type: 'exponent';
 }

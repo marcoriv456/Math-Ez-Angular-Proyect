@@ -1,7 +1,7 @@
-import {Term} from "./terms/term.model";
-import {InputElementLocation} from "./locations/input-element-location.model";
-import {InputCharData} from "./input-char-data.model";
-import {InputMathElement} from "../abstracts/input-math-element.abstract";
+import { Term } from './terms/term.model';
+import { InputElementLocation } from './locations/input-element-location.model';
+import { InputCharData } from './input-char-data.model';
+import { InputMathElement } from '../abstracts/input-math-element.abstract';
 
 export abstract class TermSection {
   abstract terms: Term[];
@@ -13,7 +13,7 @@ export abstract class TermSection {
   abstract positionX: number;
   abstract clientY: number;
 
-  abstract mathElement:InputMathElement<any>
+  abstract mathElement: InputMathElement<any>;
 
   abstract addChangesListener(callback: () => void): void;
 

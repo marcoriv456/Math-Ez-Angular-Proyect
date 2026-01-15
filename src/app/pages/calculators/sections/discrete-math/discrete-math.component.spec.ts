@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {DiscreteMathComponent} from './discrete-math.component';
+import { DiscreteMathComponent } from './discrete-math.component';
 
 describe('DiscreteMathComponent', () => {
   let component: DiscreteMathComponent;
@@ -8,9 +8,8 @@ describe('DiscreteMathComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [DiscreteMathComponent]
-    })
-      .compileComponents();
+      declarations: [DiscreteMathComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(DiscreteMathComponent);
     component = fixture.componentInstance;

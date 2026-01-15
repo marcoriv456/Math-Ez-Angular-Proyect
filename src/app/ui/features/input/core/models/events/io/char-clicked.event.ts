@@ -1,7 +1,6 @@
-import {MathInputEvent} from "../base/input-event.model";
-import {InputCharData} from "../../input-char-data.model";
+import { MathInputEvent } from '../base/input-event.model';
+import { InputCharData } from '../../input-char-data.model';
 
-export class CharClickedEvent implements MathInputEvent{
-  constructor(public charData: InputCharData) {
-  }
+export class CharClickedEvent implements MathInputEvent {
+  constructor(public charData: InputCharData) {}
 }

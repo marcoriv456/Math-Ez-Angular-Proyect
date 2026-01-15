@@ -1,6 +1,6 @@
-import {Term} from "./term.model";
+import { Term } from './term.model';
 
-export interface ParenthesisTerm{
-  parenthesisChildren:Term[]
-  type:'parenthesis'
+export interface ParenthesisTerm {
+  parenthesisChildren: Term[];
+  type: 'parenthesis';
 }

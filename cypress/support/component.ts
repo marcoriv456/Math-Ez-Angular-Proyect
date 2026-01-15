@@ -14,12 +14,12 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
+import './commands';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
-import { mount } from 'cypress/angular'
+import { mount } from 'cypress/angular';
 
 // Augment the Cypress namespace to include type definitions for
 // your custom command.
@@ -28,17 +28,17 @@ import { mount } from 'cypress/angular'
 declare global {
   namespace Cypress {
     interface Chainable {
-      mount: typeof mount
+      mount: typeof mount;
     }
   }
 }
 
-Cypress.Commands.add('mount', mount)
+Cypress.Commands.add('mount', mount);
 
 const lazyLoadModules = async () => {
   await import('../../src/app/ui/features/input/core/abstracts/input-math-element.abstract');
   await import('../../src/app/ui/features/input/ui/molecules/editable-term-container/editable-term-container.component');
-}
+};
 
 lazyLoadModules().then(() => {
   console.log('Todos los módulos fueron cargados antes de los tests');

@@ -1,46 +1,56 @@
-import {AfterViewInit, ChangeDetectorRef, Component, inject, QueryList, ViewChildren} from '@angular/core';
-import {BlobComponent} from "../../ui/shared/atoms/blob/blob.component";
-import {GlobalEventBusService} from "../../core/services/global-event-bus/global-event-bus.service";
-import {ColorSchemaChangeEvent} from "../../core/models/events/color-schema-change.event";
-import {ColorSchema} from "../../core/models/color-schema.model";
-import {ColorSchemas} from "../../core/config/color-schemas.config";
-import {FooterIntersectedEvent} from "../../core/models/events/footer-intersected.event";
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  inject,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
+import { BlobComponent } from '../../ui/shared/atoms/blob/blob.component';
+import { GlobalEventBusService } from '../../core/services/global-event-bus/global-event-bus.service';
+import { ColorSchemaChangeEvent } from '../../core/models/events/color-schema-change.event';
+import { ColorSchema } from '../../core/models/color-schema.model';
+import { ColorSchemas } from '../../core/config/color-schemas.config';
+import { FooterIntersectedEvent } from '../../core/models/events/footer-intersected.event';
 
 @Component({
   selector: 'app-calculators',
   templateUrl: './calculators.component.html',
-  styleUrl: './calculators.component.css'
+  styleUrl: './calculators.component.css',
 })
 export class CalculatorsComponent implements AfterViewInit {
   @ViewChildren(BlobComponent) blobs!: QueryList<BlobComponent>;
 
-  private readonly globalEventBus = inject(GlobalEventBusService)
-  private readonly cdr = inject(ChangeDetectorRef)
+  private readonly globalEventBus = inject(GlobalEventBusService);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   private blobsVisible = false;
 
   ngAfterViewInit() {
-    this.changeBlobsColors(ColorSchemas.ALTERNATE)
+    this.changeBlobsColors(ColorSchemas.ALTERNATE);
     this.cdr.detectChanges();
-    this.globalEventBus.on(FooterIntersectedEvent).subscribe(event => event.intersected ? this.hideBlobs() : this.showBlobs())
-    this.globalEventBus.emit(new ColorSchemaChangeEvent(ColorSchemas.ALTERNATE))
+    this.globalEventBus
+      .on(FooterIntersectedEvent)
+      .subscribe((event) =>
+        event.intersected ? this.hideBlobs() : this.showBlobs(),
+      );
+    this.globalEventBus.emit(
+      new ColorSchemaChangeEvent(ColorSchemas.ALTERNATE),
+    );
   }
 
-
   protected changeBlobsColors(schema: ColorSchema) {
-    if (!this.blobsVisible)
-      this.showBlobs()
-    this.blobs.forEach(blob => blob.changeColors(schema))
+    if (!this.blobsVisible) this.showBlobs();
+    this.blobs.forEach((blob) => blob.changeColors(schema));
   }
 
   protected hideBlobs() {
-    this.blobsVisible = false
-    this.blobs.forEach(blob => blob.hide());
+    this.blobsVisible = false;
+    this.blobs.forEach((blob) => blob.hide());
   }
 
   private showBlobs() {
-    this.blobsVisible = true
-    this.blobs.forEach(blob => blob.show());
+    this.blobsVisible = true;
+    this.blobs.forEach((blob) => blob.show());
   }
-
 }

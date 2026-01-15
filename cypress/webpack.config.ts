@@ -1,5 +1,5 @@
 import path from 'path';
-import {AngularWebpackPlugin} from '@ngtools/webpack';
+import { AngularWebpackPlugin } from '@ngtools/webpack';
 
 export const webpackConfig = {
   resolve: {
@@ -15,7 +15,7 @@ export const webpackConfig = {
   },
   plugins: [
     new AngularWebpackPlugin({
-      tsconfig: path.resolve(__dirname, './tsconfig.json')
+      tsconfig: path.resolve(__dirname, './tsconfig.json'),
     }),
   ],
 };

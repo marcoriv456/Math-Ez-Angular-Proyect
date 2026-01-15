@@ -1,8 +1,8 @@
-import {Term} from "./term.model";
+import { Term } from './term.model';
 
-export interface FunctionTerm{
-  functionName:string
-  functionChildren:Term[]
-  argumentTerms?:Term[]
-  type:'function'
+export interface FunctionTerm {
+  functionName: string;
+  functionChildren: Term[];
+  argumentTerms?: Term[];
+  type: 'function';
 }

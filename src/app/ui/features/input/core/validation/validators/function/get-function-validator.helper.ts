@@ -1,10 +1,10 @@
-import {LogarithmValidator} from "./logarithm/logarithm.validator";
-import {DefaultValidator} from "../default/default.validator";
+import { LogarithmValidator } from './logarithm/logarithm.validator';
+import { DefaultValidator } from '../default/default.validator';
 
 export const getFunctionValidator = (functionName: string) => {
-  switch (functionName){
+  switch (functionName) {
     case 'log':
-      return LogarithmValidator
+      return LogarithmValidator;
   }
-  return DefaultValidator
-}
+  return DefaultValidator;
+};

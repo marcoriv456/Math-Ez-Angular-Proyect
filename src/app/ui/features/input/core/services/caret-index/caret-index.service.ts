@@ -2,5 +2,5 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class CaretIndexService {
-  public index=-1
+  public index = -1;
 }

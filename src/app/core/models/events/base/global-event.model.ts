@@ -1,2 +1,1 @@
-export interface GlobalEvent {
-}
+export interface GlobalEvent {}

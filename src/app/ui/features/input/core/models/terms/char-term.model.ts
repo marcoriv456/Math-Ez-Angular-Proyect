@@ -1,4 +1,4 @@
-export interface CharTerm{
-  char:string
-  type:'char'
+export interface CharTerm {
+  char: string;
+  type: 'char';
 }

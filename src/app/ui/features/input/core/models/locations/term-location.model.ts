@@ -1,5 +1,5 @@
 export interface TermLocation {
-  prev?:string
-  actual?:string
-  next?:string
+  prev?: string;
+  actual?: string;
+  next?: string;
 }

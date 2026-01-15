@@ -1,110 +1,139 @@
-import {inject, Injectable} from '@angular/core';
-import {InputContextManager} from "../../helpers/input-context-manager/input-context-manager.helper";
-import {ContextAction} from "../../models/actions/context-action.enum";
-import {InputCharData} from "../../models/input-char-data.model";
-import {CaretIndexService} from "../caret-index/caret-index.service";
-import {SpecialCharFinder} from "../../helpers/special-char-finder/special-char-finder.helper";
-import {TermSection} from "../../models/term-section.model";
+import { inject, Injectable } from '@angular/core';
+import { InputContextManager } from '../../helpers/input-context-manager/input-context-manager.helper';
+import { ContextAction } from '../../models/actions/context-action.enum';
+import { InputCharData } from '../../models/input-char-data.model';
+import { CaretIndexService } from '../caret-index/caret-index.service';
+import { SpecialCharFinder } from '../../helpers/special-char-finder/special-char-finder.helper';
+import { TermSection } from '../../models/term-section.model';
 
 @Injectable()
 export class ContextHandlerService {
-  private currentElement!:TermSection
-  private caretIndex=inject(CaretIndexService)
+  private currentElement!: TermSection;
+  private caretIndex = inject(CaretIndexService);
 
-  public contextElement(element:TermSection){
-    if(this.currentElement)
-      this.currentElement.selected=false
-    this.currentElement=element
-    this.currentElement.selected=true
+  public contextElement(element: TermSection) {
+    if (this.currentElement) this.currentElement.selected = false;
+    this.currentElement = element;
+    this.currentElement.selected = true;
 
-    if(this.currentElement.mathElement)
-      this.currentElement.mathElement.currentSection=element.index
+    if (this.currentElement.mathElement)
+      this.currentElement.mathElement.currentSection = element.index;
   }
 
-  public getCurrentElement(){
-    return this.currentElement
+  public getCurrentElement() {
+    return this.currentElement;
   }
 
-  public getForwardContextData(){
-    const contextManager=this.getContextManager()
+  public getForwardContextData() {
+    const contextManager = this.getContextManager();
 
-    const action=contextManager.next()
+    const action = contextManager.next();
 
-    return this.getCharDataFromAction(action)||this.currentElement.getLastCharData()
+    return (
+      this.getCharDataFromAction(action) ||
+      this.currentElement.getLastCharData()
+    );
   }
 
-  public getBackwardContextData(){
-    const contextManager=this.getContextManager()
+  public getBackwardContextData() {
+    const contextManager = this.getContextManager();
 
-    const action=contextManager.prev()
+    const action = contextManager.prev();
 
-    return this.getCharDataFromAction(action)||this.currentElement.getNoCharData()
+    return (
+      this.getCharDataFromAction(action) || this.currentElement.getNoCharData()
+    );
   }
 
-  private getContextManager(){
-    return new InputContextManager(this.currentElement.getTermLocation(this.caretIndex.index))
+  private getContextManager() {
+    return new InputContextManager(
+      this.currentElement.getTermLocation(this.caretIndex.index),
+    );
   }
 
-  private getCharDataFromAction(action:ContextAction):InputCharData|undefined{
-    switch (action){
+  private getCharDataFromAction(
+    action: ContextAction,
+  ): InputCharData | undefined {
+    switch (action) {
       case ContextAction.MoveToNextChar:
-        return this.currentElement.getCharData(this.caretIndex.index+1)
+        return this.currentElement.getCharData(this.caretIndex.index + 1);
       case ContextAction.MoveToPrevChar:
-        return this.currentElement.getCharData(this.caretIndex.index-1)
+        return this.currentElement.getCharData(this.caretIndex.index - 1);
       case ContextAction.MoveToFirstChar:
-        return this.currentElement.getNoCharData()
+        return this.currentElement.getNoCharData();
       case ContextAction.MoveToLastChar:
-        return this.currentElement.getLastCharData()
+        return this.currentElement.getLastCharData();
       case ContextAction.ContextActualTerm:
-        return this.currentElement.getElement(this.caretIndex.index)?.lastSection?.getLastCharData()
+        return this.currentElement
+          .getElement(this.caretIndex.index)
+          ?.lastSection?.getLastCharData();
       case ContextAction.ContextNextTerm:
-        return this.currentElement.getElement(this.caretIndex.index+1)?.firstSection?.getNoCharData()
+        return this.currentElement
+          .getElement(this.caretIndex.index + 1)
+          ?.firstSection?.getNoCharData();
       case ContextAction.ContextNextContainer:
-        return this.currentElement.mathElement.nextSection?.getNoCharData()
+        return this.currentElement.mathElement.nextSection?.getNoCharData();
       case ContextAction.ContextPrevContainer:
-        return this.currentElement.mathElement.previousSection?.getLastCharData()
+        return this.currentElement.mathElement.previousSection?.getLastCharData();
       case ContextAction.ContextOutByRight:
-        return this.currentElement.mathElement.parent.getCharData(this.currentElement.mathElement.index)||this.currentElement.mathElement.parent.getLastCharData()
+        return (
+          this.currentElement.mathElement.parent.getCharData(
+            this.currentElement.mathElement.index,
+          ) || this.currentElement.mathElement.parent.getLastCharData()
+        );
       case ContextAction.ContextOutByLeft:
-        return this.currentElement.mathElement.parent.getCharData(this.currentElement.mathElement.index-1)||this.currentElement.mathElement.parent.getNoCharData()
+        return (
+          this.currentElement.mathElement.parent.getCharData(
+            this.currentElement.mathElement.index - 1,
+          ) || this.currentElement.mathElement.parent.getNoCharData()
+        );
     }
   }
 
-  public getLastCharData(){
-    return this.currentElement.getLastCharData()
+  public getLastCharData() {
+    return this.currentElement.getLastCharData();
   }
 
-  public getFirstCharData(){
-    return this.currentElement.getNoCharData()
+  public getFirstCharData() {
+    return this.currentElement.getNoCharData();
   }
 
-  public getMainContainerLastCharData(){
-    return this.getMainElement().getLastCharData()
+  public getMainContainerLastCharData() {
+    return this.getMainElement().getLastCharData();
   }
 
-  public getMainContainerNoCharData(){
-    return this.getMainElement().getNoCharData()
+  public getMainContainerNoCharData() {
+    return this.getMainElement().getNoCharData();
   }
 
-  public getNextIrregularCharDataToMoveAt(){
-    return this.currentElement.getCharData(this.getCharFinder().findNextIndexToMoveAt())||this.currentElement.getLastCharData()
+  public getNextIrregularCharDataToMoveAt() {
+    return (
+      this.currentElement.getCharData(
+        this.getCharFinder().findNextIndexToMoveAt(),
+      ) || this.currentElement.getLastCharData()
+    );
   }
 
-  public getPrevIrregularCharToMoveAt(){
-    return this.currentElement.getCharData(this.getCharFinder().findPreviousIndexToMoveAt())||this.currentElement.getNoCharData()
+  public getPrevIrregularCharToMoveAt() {
+    return (
+      this.currentElement.getCharData(
+        this.getCharFinder().findPreviousIndexToMoveAt(),
+      ) || this.currentElement.getNoCharData()
+    );
   }
 
-  private getCharFinder(){
-    return new SpecialCharFinder(this.caretIndex.index,this.currentElement.terms)
+  private getCharFinder() {
+    return new SpecialCharFinder(
+      this.caretIndex.index,
+      this.currentElement.terms,
+    );
   }
 
   private getMainElement() {
-    let element = this.currentElement
+    let element = this.currentElement;
 
-    while(element.mathElement)
-      element = element.mathElement.parent
+    while (element.mathElement) element = element.mathElement.parent;
 
-    return element
+    return element;
   }
-
 }

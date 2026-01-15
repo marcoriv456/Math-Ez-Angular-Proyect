@@ -1,60 +1,54 @@
-import {Term} from "../../models/terms/term.model";
+import { Term } from '../../models/terms/term.model';
 
-export class SpecialCharFinder{
-  private readonly irregularCharRegexp=/[^a-zA-Z\d]/
+export class SpecialCharFinder {
+  private readonly irregularCharRegexp = /[^a-zA-Z\d]/;
 
   constructor(
-    private readonly index:number,
-    private readonly terms:Term[]
-  ){}
+    private readonly index: number,
+    private readonly terms: Term[],
+  ) {}
 
-  public findNextIndexToMoveAt(){
-    const result=this.findNext()
+  public findNextIndexToMoveAt() {
+    const result = this.findNext();
 
-    const isIndexBehindAnIrregularCharacter=this.index===result-1
-    const isResultTheLastCharacter =result==this.terms.length-1
+    const isIndexBehindAnIrregularCharacter = this.index === result - 1;
+    const isResultTheLastCharacter = result == this.terms.length - 1;
 
-    if(!isIndexBehindAnIrregularCharacter && !isResultTheLastCharacter){
-      return result-1
+    if (!isIndexBehindAnIrregularCharacter && !isResultTheLastCharacter) {
+      return result - 1;
     }
 
-    return result
+    return result;
   }
 
-  public findPreviousIndexToMoveAt(){
-    let result=this.findPrevious()
+  public findPreviousIndexToMoveAt() {
+    let result = this.findPrevious();
 
-    const isIndexAlreadyInAnIrregularCharacter=this.index===result
+    const isIndexAlreadyInAnIrregularCharacter = this.index === result;
 
-    if(isIndexAlreadyInAnIrregularCharacter)
-       return result-1
+    if (isIndexAlreadyInAnIrregularCharacter) return result - 1;
 
-    return result
+    return result;
   }
 
-
-  public findNext(){
+  public findNext() {
     for (let i = this.index + 1; i < this.terms.length; i++) {
-      const term = this.terms[i]
-      if (term && this.isTermIrregular(term))
-        return i
+      const term = this.terms[i];
+      if (term && this.isTermIrregular(term)) return i;
     }
     return this.terms.length;
   }
 
-  public findPrevious(){
-    for(let i=this.index; i>=0;i--){
-      const term=this.terms[i]
-      if(term && this.isTermIrregular(term))
-        return i
+  public findPrevious() {
+    for (let i = this.index; i >= 0; i--) {
+      const term = this.terms[i];
+      if (term && this.isTermIrregular(term)) return i;
     }
     return -1;
   }
 
-  private isTermIrregular(term:Term){
-    if(term.type!=='char')
-      return true;
-    return this.irregularCharRegexp.test(term.char)
+  private isTermIrregular(term: Term) {
+    if (term.type !== 'char') return true;
+    return this.irregularCharRegexp.test(term.char);
   }
-
 }

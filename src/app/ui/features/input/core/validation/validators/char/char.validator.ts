@@ -1,48 +1,47 @@
-import {VariableHandlerService} from "../../../services/variable-handler/variable-handler.service";
-import {Term} from "../../../models/terms/term.model";
-import {TermValidator} from "../../abstracts/validator.abstract";
-import {TermValidationMessage} from "../../models/term-validation-message.model";
-import {UnexpectedTermTypeError} from "../../errors/unexpected-term-type.error";
+import { VariableHandlerService } from '../../../services/variable-handler/variable-handler.service';
+import { Term } from '../../../models/terms/term.model';
+import { TermValidator } from '../../abstracts/validator.abstract';
+import { TermValidationMessage } from '../../models/term-validation-message.model';
+import { UnexpectedTermTypeError } from '../../errors/unexpected-term-type.error';
 
-export class CharValidator extends TermValidator{
+export class CharValidator extends TermValidator {
+  private static readonly letterRegex = /^[^0-9+\-*=() ]$/;
+  private static variableProvider: VariableHandlerService;
 
-  private static readonly letterRegex=/^[^0-9+\-*=() ]$/
-  private static variableProvider:VariableHandlerService
-
-  public static setVariableProvider(variableProvider:VariableHandlerService){
-    if(!this.variableProvider)
-      this.variableProvider=variableProvider
+  public static setVariableProvider(variableProvider: VariableHandlerService) {
+    if (!this.variableProvider) this.variableProvider = variableProvider;
   }
 
-  private readonly char:string
-  private readonly invalidReferenceMessage:TermValidationMessage
+  private readonly char: string;
+  private readonly invalidReferenceMessage: TermValidationMessage;
 
-  constructor(charTerm:Term) {
-    super()
-    if(charTerm.type!=='char')
-      throw new UnexpectedTermTypeError('char',charTerm.type)
+  constructor(charTerm: Term) {
+    super();
+    if (charTerm.type !== 'char')
+      throw new UnexpectedTermTypeError('char', charTerm.type);
 
-    this.char=charTerm.char
-    this.invalidReferenceMessage={message:`No se reconoce a la variable "${charTerm.char}"`,type:"fully-invalid"}
+    this.char = charTerm.char;
+    this.invalidReferenceMessage = {
+      message: `No se reconoce a la variable "${charTerm.char}"`,
+      type: 'fully-invalid',
+    };
   }
 
   protected override getValidationMessages(): TermValidationMessage[] {
-    let messages=super.getValidationMessages()
-    if(!this.isCharALetter())
-      return messages;
+    let messages = super.getValidationMessages();
+    if (!this.isCharALetter()) return messages;
 
-    if(!this.isVariableReferenceValid())
-      messages.push(this.invalidReferenceMessage)
+    if (!this.isVariableReferenceValid())
+      messages.push(this.invalidReferenceMessage);
 
-    return messages
+    return messages;
   }
 
-  private isVariableReferenceValid(){
-    return CharValidator.variableProvider.variableNames.includes(this.char)
+  private isVariableReferenceValid() {
+    return CharValidator.variableProvider.variableNames.includes(this.char);
   }
 
-  private isCharALetter(){
-    return CharValidator.letterRegex.test(this.char)
+  private isCharALetter() {
+    return CharValidator.letterRegex.test(this.char);
   }
-
 }

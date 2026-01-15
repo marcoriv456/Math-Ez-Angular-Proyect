@@ -1,8 +1,14 @@
-import {CharTerm} from "./char-term.model";
-import {FractionTerm} from "./fraction-term.model";
-import {RootTerm} from "./root-term.model";
-import {ExponentTerm} from "./exponent-term";
-import {FunctionTerm} from "./function-term.model";
-import {ParenthesisTerm} from "./parenthesis-term.model";
+import { CharTerm } from './char-term.model';
+import { FractionTerm } from './fraction-term.model';
+import { RootTerm } from './root-term.model';
+import { ExponentTerm } from './exponent-term';
+import { FunctionTerm } from './function-term.model';
+import { ParenthesisTerm } from './parenthesis-term.model';
 
-export type Term=CharTerm|FractionTerm|RootTerm|ExponentTerm|FunctionTerm|ParenthesisTerm
+export type Term =
+  | CharTerm
+  | FractionTerm
+  | RootTerm
+  | ExponentTerm
+  | FunctionTerm
+  | ParenthesisTerm;

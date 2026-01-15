@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {InputComponent} from "./input.component";
+import { InputComponent } from './input.component';
 import { CharComponent } from './ui/terms/char/char.component';
 import { FractionComponent } from './ui/terms/fraction/fraction.component';
 import { InputTermDirective } from './ui/directives/input-term/input-term.directive';
@@ -13,11 +13,11 @@ import { ParenthesisComponent } from './ui/terms/parenthesis/parenthesis.compone
 import { TermValidationWarningComponent } from './ui/organisms/term-validation-warning/term-validation-warning.component';
 import { InputTermValidationDirective } from './ui/directives/input-term-validation/input-term-validation.directive';
 import { CaretComponent } from './ui/organisms/caret/caret.component';
-import {ContextHandlerService} from "./core/services/context-handler/context-handler.service";
-import {CaretHandlerService} from "./core/services/caret-handler/caret-handler.service";
-import {CaretIndexService} from "./core/services/caret-index/caret-index.service";
-import {WritingHandlerService} from "./core/services/wrting-handler/writing-handler.service";
-import {InputEventBusService} from "./core/services/input-event-bus/input-event-bus.service";
+import { ContextHandlerService } from './core/services/context-handler/context-handler.service';
+import { CaretHandlerService } from './core/services/caret-handler/caret-handler.service';
+import { CaretIndexService } from './core/services/caret-index/caret-index.service';
+import { WritingHandlerService } from './core/services/wrting-handler/writing-handler.service';
+import { InputEventBusService } from './core/services/input-event-bus/input-event-bus.service';
 
 @NgModule({
   declarations: [
@@ -33,20 +33,16 @@ import {InputEventBusService} from "./core/services/input-event-bus/input-event-
     ParenthesisComponent,
     TermValidationWarningComponent,
     InputTermValidationDirective,
-    CaretComponent
+    CaretComponent,
   ],
-  imports: [
-    CommonModule
-  ],
-  exports:[
-    InputComponent
-  ],
-  providers:[
+  imports: [CommonModule],
+  exports: [InputComponent],
+  providers: [
     ContextHandlerService,
     CaretHandlerService,
     WritingHandlerService,
     CaretIndexService,
-    InputEventBusService
-  ]
+    InputEventBusService,
+  ],
 })
-export class InputModule { }
+export class InputModule {}

@@ -1,7 +1,7 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {PComponent} from './p.component';
-import {SharedModule} from "../../shared.module";
+import { PComponent } from './p.component';
+import { SharedModule } from '../../shared.module';
 
 describe('PComponent', () => {
   let component: PComponent;
@@ -9,9 +9,8 @@ describe('PComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SharedModule]
-    })
-      .compileComponents();
+      imports: [SharedModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PComponent);
     component = fixture.componentInstance;

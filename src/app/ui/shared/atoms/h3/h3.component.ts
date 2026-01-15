@@ -1,10 +1,8 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'ez-h3',
   templateUrl: './h3.component.html',
-  styleUrl: './h3.component.css'
+  styleUrl: './h3.component.css',
 })
-export class H3Component {
-
-}
+export class H3Component {}

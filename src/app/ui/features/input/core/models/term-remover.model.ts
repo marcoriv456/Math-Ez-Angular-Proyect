@@ -1,5 +1,5 @@
-import {TermRemoverInstructions} from "./actions/term-remover-instructions.model";
+import { TermRemoverInstructions } from './actions/term-remover-instructions.model';
 
-export interface TermRemover{
-  remove():TermRemoverInstructions
+export interface TermRemover {
+  remove(): TermRemoverInstructions;
 }

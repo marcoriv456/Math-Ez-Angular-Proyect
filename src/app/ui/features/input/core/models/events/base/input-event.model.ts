@@ -1,3 +1,1 @@
-export interface MathInputEvent {
-
-}
+export interface MathInputEvent {}

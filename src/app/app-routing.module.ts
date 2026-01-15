@@ -1,10 +1,8 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {
-  InputTestingEnvironmentComponent
-} from "./ui/features/input/tests/input-testing-environment/input-testing-environment.component";
-import {HomeComponent} from "./pages/home/home.component";
-import {CalculatorsComponent} from "./pages/calculators/calculators.component";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { InputTestingEnvironmentComponent } from './ui/features/input/tests/input-testing-environment/input-testing-environment.component';
+import { HomeComponent } from './pages/home/home.component';
+import { CalculatorsComponent } from './pages/calculators/calculators.component';
 
 const routes: Routes = [
   {
@@ -15,21 +13,21 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    data: {animations: 'home'}
+    data: { animations: 'home' },
   },
   {
     path: 'calculators',
     component: CalculatorsComponent,
-    data: {animation: 'calculators'}
+    data: { animation: 'calculators' },
   },
   {
-    path:'input-testing',
-    component:InputTestingEnvironmentComponent
-  }
+    path: 'input-testing',
+    component: InputTestingEnvironmentComponent,
+  },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {scrollPositionRestoration: "top"})],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'top' })],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
