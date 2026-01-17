@@ -57,12 +57,12 @@ export class EditableTermContainerComponent extends TermSection {
 
   @HostBinding('class.selected') public selected = false;
   @HostBinding('class.empty')
-  private get isEmpty() {
+  protected get isEmpty() {
     return this.terms && this.terms.length == 0;
   }
 
   @HostListener('click', ['$event'])
-  private onClick(event: MouseEvent) {
+  protected onClick(event: MouseEvent) {
     event.stopPropagation();
     this.eventBus.emit(new CharClickedEvent(this.getLastCharData()));
   }
