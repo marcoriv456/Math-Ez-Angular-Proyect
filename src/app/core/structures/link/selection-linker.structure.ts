@@ -1,24 +1,23 @@
+import { Cache } from '../cache/cache.structure';
 import { Link } from './link.i';
 
 export class SelectionLinker<T> {
   private _selected: InternalLinkerNode<T> | null = null;
+  private _arrayCache: Cache<readonly T[]> = new Cache();
 
   add(element: T): SelectionLinker<T> {
     const link = new InternalLinkerNode(element);
-    if (this._selected == null) {
-      this._selected = link;
-    } else {
-      const prev = this._selected.Prev;
+    if (this._selected) {
       const next = this._selected.Next;
-      if (prev) {
-        prev.Next = link;
-        link.Prev = prev;
-      }
+      this._selected.Next = link;
+      link.Prev = this._selected;
       if (next) {
         next.Prev = link;
         link.Next = next;
       }
     }
+    this._selected = link;
+    this._arrayCache.invalidate();
     return this;
   }
 
@@ -32,6 +31,7 @@ export class SelectionLinker<T> {
     if (next) next.Prev = prev;
 
     this._selected = prev || next;
+    this._arrayCache.invalidate();
     return this;
   }
 
@@ -50,8 +50,25 @@ export class SelectionLinker<T> {
     return this;
   }
 
-  getSelection(): Link<T> {
-    return this._selected as Link<T>;
+  getSelection(): Link<T> | null {
+    return this._selected;
+  }
+
+  array(): readonly T[] {
+    if (this._arrayCache.Cache) return this._arrayCache.Cache;
+    if (!this._selected) return [];
+
+    let node: Link<T> | null = this._selected;
+    while (node.Prev) node = node.Prev;
+
+    const result: T[] = [];
+    while (node) {
+      result.push(node.Value);
+      node = node.Next;
+    }
+
+    this._arrayCache.update(result);
+    return result;
   }
 }
 

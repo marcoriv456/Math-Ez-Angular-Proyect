@@ -1,0 +1,16 @@
+:host {
+  font-size: 3rem;
+
+  width: 50rem;
+  height: 5rem;
+  outline: #4c4c4c 1px solid;
+  border-radius: 10px;
+  display: flex;
+  position: relative;
+  cursor: text;
+}
+
+:host:focus-visible,
+:host:focus {
+  outline: 2px solid black;
+}

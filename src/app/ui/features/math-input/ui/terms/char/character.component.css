@@ -6,7 +6,7 @@
   position: relative;
 
   font-size: 1em;
-  animation: new-char 0.5s cubic-bezier(0, 0, 0, 1);
+  animation: new-char 0.2s ease;
   border-radius: 2px;
   transition: background-color 300ms cubic-bezier(0, 0, 0, 1);
 }
