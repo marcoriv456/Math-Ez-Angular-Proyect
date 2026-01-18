@@ -51,7 +51,7 @@ export class InputTermDirective {
   }
 
   @HostListener('click', ['$event'])
-  private onClick(event: MouseEvent) {
+  protected onClick(event: MouseEvent) {
     event.stopPropagation();
     const clickPosition = event.offsetX;
     const dataToSend = this.getClickedCharData(clickPosition);
