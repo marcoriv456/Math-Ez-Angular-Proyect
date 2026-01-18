@@ -55,7 +55,7 @@ export class InputComponent implements AfterViewInit {
   }
 
   @HostListener('click')
-  private onClick() {
+  protected onClick() {
     this.caretHandler.moveToLastInMain();
   }
 
