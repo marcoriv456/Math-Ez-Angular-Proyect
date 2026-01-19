@@ -1,7 +1,7 @@
 @for (term of _termList.array(); track $index) {
   @if (isExpression(term)) {
     @for (char of term.charArray(); track $index) {
-      <math-character [char]="char"></math-character>
+      <math-character [Char]="char" [Index]="$index" MathTermView/>
     }
   }
 }

@@ -7,5 +7,5 @@ import { Component, inject, Input } from '@angular/core';
 })
 export class CharacterComponent {
   @Input({ required: true })
-  public char!: string;
+  public Char!: string;
 }
