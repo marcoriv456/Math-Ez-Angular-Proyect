@@ -7,6 +7,12 @@ export class SelectionLinker<T> {
   private _arrayCache: Cache<readonly T[]> = new Cache();
 
   add(element: T): SelectionLinker<T> {
+    if (this._selected && this._selected.IsPlaceholder) {
+      this._selected.Value = element;
+      this._arrayCache.invalidate();
+      return this;
+    }
+
     const link = new InternalLinkerNode(element);
     if (this._selected) {
       const next = this._selected.Next;
@@ -19,6 +25,7 @@ export class SelectionLinker<T> {
     }
     this._selected = link;
     this._arrayCache.invalidate();
+
     return this;
   }
 
@@ -48,13 +55,17 @@ export class SelectionLinker<T> {
   }
 
   selectPrev(): SelectionLinker<T> {
-    if (this._selected && this._selected.Prev)
-      this._selected = this._selected.Prev;
+    if (!this._selected) return this;
+
+    if (!this._selected.Prev && !this._selected.IsPlaceholder)
+      this.selectEdgePlaceholder();
+    else if (this._selected.Prev) this._selected = this._selected.Prev;
+
     return this;
   }
 
-  selectFirst(): SelectionLinker<T> {
-    this._selected = this.first() as InternalLinkerNode<T>;
+  selectTail(): SelectionLinker<T> {
+    this.selectEdgePlaceholder();
     return this;
   }
 
@@ -64,7 +75,8 @@ export class SelectionLinker<T> {
   }
 
   getSelection(): Link<T> | null {
-    return this._selected;
+    if (!this._selected) return null;
+    return this._selected.IsPlaceholder ? null : this._selected;
   }
 
   array(): readonly T[] {
@@ -75,7 +87,7 @@ export class SelectionLinker<T> {
     const result: T[] = [];
 
     while (node) {
-      result.push(node.Value);
+      if (!node.IsPlaceholder) result.push(node.Value);
       node = node.Next;
     }
 
@@ -83,19 +95,27 @@ export class SelectionLinker<T> {
     return result;
   }
 
-  private last(): Link<T> | null {
-    let node = this.first();
+  private selectEdgePlaceholder() {
+    const placeholder = new InternalLinkerNode<T>(null);
+    const first = this.first();
+    placeholder.Next = first;
+    this._selected = placeholder;
+  }
 
-    while (node) {
-      node = node.Next;
-    }
+  private last(): Link<T> | null {
+    if (!this._selected) return null;
+    let node = this._selected;
+
+    while (node.Next) node = node.Next;
 
     return node;
   }
-  private first(): Link<T> | null {
+  private first(): InternalLinkerNode<T> | null {
     if (!this._selected) return null;
-    let node: Link<T> | null = this._selected;
+    let node: InternalLinkerNode<T> = this._selected;
+
     while (node.Prev) node = node.Prev;
+
     return node;
   }
 }
@@ -103,8 +123,11 @@ export class SelectionLinker<T> {
 class InternalLinkerNode<T> implements Link<T> {
   private _next: InternalLinkerNode<T> | null = null;
   private _prev: InternalLinkerNode<T> | null = null;
+  private _value: T | null = null;
 
-  constructor(private _value: T) {}
+  constructor(value: T | null) {
+    if (value) this._value = value;
+  }
 
   get Next(): InternalLinkerNode<T> | null {
     return this._next;
@@ -113,7 +136,14 @@ class InternalLinkerNode<T> implements Link<T> {
     return this._prev;
   }
   get Value(): T {
+    if (!this._value)
+      throw new Error(
+        `Value not found. ${this.IsPlaceholder ? 'Node is a placeholder.' : ''}`,
+      );
     return this._value;
+  }
+  get IsPlaceholder() {
+    return this._value == null;
   }
 
   set Next(next: InternalLinkerNode<T> | null) {
@@ -122,5 +152,9 @@ class InternalLinkerNode<T> implements Link<T> {
 
   set Prev(prev: InternalLinkerNode<T> | null) {
     this._prev = prev;
+  }
+
+  set Value(value: T) {
+    this._value = value;
   }
 }

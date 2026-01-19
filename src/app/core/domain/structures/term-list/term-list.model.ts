@@ -19,17 +19,31 @@ export class TermList {
   }
 
   public SelectPrev() {
-    const linkerSelection = this._linker.getSelection();
-    const selectionValue = linkerSelection?.Value;
-    if (selectionValue && selectionValue instanceof Expression)
-      selectionValue.SelectPrevCharacter();
+    const selectedExpression = this.selectedExpression;
+    if (selectedExpression) selectedExpression.SelectPrevCharacter();
   }
 
   public SelectNext() {
+    const selectedExpression = this.selectedExpression;
+    if (selectedExpression) selectedExpression.SelectNextCharacter();
+  }
+
+  public SelectLast() {
+    const selectedExpression = this.selectedExpression;
+    if (selectedExpression) selectedExpression.SelectLastCharacter();
+  }
+
+  public SelectTail() {
+    const selectedExpression = this.selectedExpression;
+    if (selectedExpression) selectedExpression.SelectTail();
+  }
+
+  private get selectedExpression() {
     const linkerSelection = this._linker.getSelection();
     const selectionValue = linkerSelection?.Value;
     if (selectionValue && selectionValue instanceof Expression)
-      selectionValue.SelectNextCharacter();
+      return selectionValue;
+    return null;
   }
 
   public remove() {

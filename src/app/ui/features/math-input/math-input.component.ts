@@ -22,6 +22,7 @@ export class MathInputComponent {
 
   @HostListener('click')
   protected OnClick() {
+    this._termList.SelectLast();
     const selectedElement = this._termList.SelectedElement;
     if (!selectedElement) throw new Error('Cannot find selected element!');
     const elementPosition = selectedElement.PositionX;
@@ -39,11 +40,19 @@ export class MathInputComponent {
         break;
       case 'ArrowLeft':
         this._termList.SelectPrev();
-        let prev = this._termList.SelectedElement;
-        if (!prev) throw new Error('No prev element!');
-        positionToMove = prev.PositionX;
+        const prev = this._termList.SelectedElement;
+        positionToMove = prev ? prev.PositionX : 0;
         break;
-      // TODO: add home and end keys behaviour
+      case 'ArrowUp':
+        this._termList.SelectLast();
+        const last = this._termList.SelectedElement;
+        if (!last) throw new Error('No last element!');
+        positionToMove = last.PositionX;
+        break;
+      case 'ArrowDown':
+        this._termList.SelectTail();
+        positionToMove = 0;
+        break;
       default:
         throw new Error('Behaviour for that key not implemented already');
     }

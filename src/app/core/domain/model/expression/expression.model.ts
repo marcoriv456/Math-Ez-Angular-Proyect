@@ -13,6 +13,14 @@ export class Expression extends MathTerm {
     this._chars.selectPrev();
   }
 
+  SelectLastCharacter() {
+    this._chars.selectLast();
+  }
+
+  SelectTail() {
+    this._chars.selectTail();
+  }
+
   public charArray() {
     return this._chars.array();
   }

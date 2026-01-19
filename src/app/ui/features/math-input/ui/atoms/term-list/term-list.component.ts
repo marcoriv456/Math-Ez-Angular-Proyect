@@ -1,6 +1,7 @@
 import {
   ChangeDetectorRef,
   Component,
+  HostListener,
   inject,
   QueryList,
   ViewChildren,
@@ -48,6 +49,17 @@ export class TermListComponent {
   public SelectNext() {
     this._renderedTermLinker.selectNext();
     this._termList.SelectNext();
+  }
+
+  public SelectTail() {
+    this._renderedTermLinker.selectTail();
+    this._termList.SelectTail();
+  }
+
+  public SelectLast() {
+    this._renderedTermLinker.selectLast();
+    this._termList.SelectLast();
+    console.log(this);
   }
 
   protected isExpression(term: MathTerm): term is Expression {
