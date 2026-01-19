@@ -1,3 +1,4 @@
+import { first } from 'rxjs';
 import { Cache } from '../cache/cache.structure';
 import { Link } from './link.i';
 
@@ -41,12 +42,24 @@ export class SelectionLinker<T> {
   }
 
   selectNext(): SelectionLinker<T> {
-    if (this._selected) this._selected = this._selected.Next;
+    if (this._selected && this._selected.Next)
+      this._selected = this._selected.Next;
     return this;
   }
 
   selectPrev(): SelectionLinker<T> {
-    if (this._selected) this._selected = this._selected.Prev;
+    if (this._selected && this._selected.Prev)
+      this._selected = this._selected.Prev;
+    return this;
+  }
+
+  selectFirst(): SelectionLinker<T> {
+    this._selected = this.first() as InternalLinkerNode<T>;
+    return this;
+  }
+
+  selectLast(): SelectionLinker<T> {
+    this._selected = this.last() as InternalLinkerNode<T>;
     return this;
   }
 
@@ -57,11 +70,10 @@ export class SelectionLinker<T> {
   array(): readonly T[] {
     if (this._arrayCache.Cache) return this._arrayCache.Cache;
     if (!this._selected) return [];
-
-    let node: Link<T> | null = this._selected;
-    while (node.Prev) node = node.Prev;
+    let node = this.first();
 
     const result: T[] = [];
+
     while (node) {
       result.push(node.Value);
       node = node.Next;
@@ -69,6 +81,22 @@ export class SelectionLinker<T> {
 
     this._arrayCache.update(result);
     return result;
+  }
+
+  private last(): Link<T> | null {
+    let node = this.first();
+
+    while (node) {
+      node = node.Next;
+    }
+
+    return node;
+  }
+  private first(): Link<T> | null {
+    if (!this._selected) return null;
+    let node: Link<T> | null = this._selected;
+    while (node.Prev) node = node.Prev;
+    return node;
   }
 }
 

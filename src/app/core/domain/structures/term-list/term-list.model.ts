@@ -15,8 +15,21 @@ export class TermList {
     } else {
       actualExpression = linkerSelection.Value;
     }
-
     actualExpression.add(char);
+  }
+
+  public SelectPrev() {
+    const linkerSelection = this._linker.getSelection();
+    const selectionValue = linkerSelection?.Value;
+    if (selectionValue && selectionValue instanceof Expression)
+      selectionValue.SelectPrevCharacter();
+  }
+
+  public SelectNext() {
+    const linkerSelection = this._linker.getSelection();
+    const selectionValue = linkerSelection?.Value;
+    if (selectionValue && selectionValue instanceof Expression)
+      selectionValue.SelectNextCharacter();
   }
 
   public remove() {

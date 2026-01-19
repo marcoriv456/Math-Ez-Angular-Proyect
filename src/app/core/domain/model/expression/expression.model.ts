@@ -6,6 +6,12 @@ export class Expression extends MathTerm {
   add(char: string) {
     this._chars.add(char);
   }
+  SelectNextCharacter() {
+    this._chars.selectNext();
+  }
+  SelectPrevCharacter() {
+    this._chars.selectPrev();
+  }
 
   public charArray() {
     return this._chars.array();

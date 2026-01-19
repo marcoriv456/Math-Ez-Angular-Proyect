@@ -6,7 +6,8 @@
   position: relative;
 
   font-size: 1em;
-  animation: new-char 0.2s ease;
+  /* TODO: add annimations using other mechanism, this is buggy */
+  /* animation: new-char 0.2s ease; */
   border-radius: 2px;
   transition: background-color 300ms cubic-bezier(0, 0, 0, 1);
 }

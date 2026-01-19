@@ -23,8 +23,8 @@ export class TermListComponent {
   private _renderedTermLinker = new SelectionLinker<MathTermViewDirective>();
   private _cdr = inject(ChangeDetectorRef);
 
-  public get SelectedElement() {
-    return this._renderedTermLinker.getSelection();
+  public get SelectedElement(): MathTermViewDirective | null {
+    return this._renderedTermLinker.getSelection()?.Value || null;
   }
 
   public add(char: string) {
@@ -34,10 +34,20 @@ export class TermListComponent {
     const linkerSelection = this.SelectedElement;
 
     const newRenderedTerm = linkerSelection
-      ? this._renderedTermList.get(linkerSelection.Value.Index + 1)
+      ? this._renderedTermList.get(linkerSelection.Index + 1)
       : this._renderedTermList.first;
     if (!newRenderedTerm) return;
     this._renderedTermLinker.add(newRenderedTerm);
+  }
+
+  public SelectPrev() {
+    this._renderedTermLinker.selectPrev();
+    this._termList.SelectPrev();
+  }
+
+  public SelectNext() {
+    this._renderedTermLinker.selectNext();
+    this._termList.SelectNext();
   }
 
   protected isExpression(term: MathTerm): term is Expression {
