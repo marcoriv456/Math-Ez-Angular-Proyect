@@ -5,55 +5,55 @@ import { Expression } from '../../model/expression/expression.model';
 export class TermList {
   private _linker: SelectionLinker<MathTerm> = new SelectionLinker<MathTerm>();
 
-  public addCharacter(char: string) {
-    let actualExpression = this.selectedExpression;
+  public AddCharacter(char: string) {
+    let actualExpression = this._selectedExpression;
     if (!actualExpression) {
       actualExpression = new Expression();
-      this._linker.add(actualExpression);
+      this._linker.Add(actualExpression);
     }
-    actualExpression.add(char);
+    actualExpression.Add(char);
   }
 
   public RemoveCharacter() {
-    let actualExpression = this.selectedExpression;
+    let actualExpression = this._selectedExpression;
     if (actualExpression) actualExpression.Remove();
   }
 
   public SelectPrev() {
-    const selectedExpression = this.selectedExpression;
+    const selectedExpression = this._selectedExpression;
     if (selectedExpression) selectedExpression.SelectPrevCharacter();
   }
 
   public SelectNext() {
-    const selectedExpression = this.selectedExpression;
+    const selectedExpression = this._selectedExpression;
     if (selectedExpression) selectedExpression.SelectNextCharacter();
   }
 
   public SelectLast() {
-    const selectedExpression = this.selectedExpression;
+    const selectedExpression = this._selectedExpression;
     if (selectedExpression) selectedExpression.SelectLastCharacter();
   }
 
   public SelectTail() {
-    const selectedExpression = this.selectedExpression;
+    const selectedExpression = this._selectedExpression;
     if (selectedExpression) selectedExpression.SelectTail();
   }
 
-  public get selectedCharacterIndex(): number | null {
-    if (this.selectedExpression && this.selectedExpression.Selection)
-      return this.selectedExpression.Selection.Index;
+  public get AsArray() {
+    return this._linker.AsArray;
+  }
+
+  public get SelectedCharacterIndex(): number | null {
+    if (this._selectedExpression && this._selectedExpression.Selection)
+      return this._selectedExpression.Selection.Index;
     return null;
   }
 
-  private get selectedExpression() {
-    const linkerSelection = this._linker.getSelection();
+  private get _selectedExpression() {
+    const linkerSelection = this._linker.Selection;
     const selectionValue = linkerSelection?.Value;
     if (selectionValue && selectionValue instanceof Expression)
       return selectionValue;
     return null;
-  }
-
-  public array() {
-    return this._linker.array();
   }
 }

@@ -16,9 +16,9 @@ export class MathInputComponent {
   protected OnKeyDown(event: KeyboardEvent) {
     let { key } = event;
     if (key !== 'Tab') event.preventDefault();
-    if (key.length == 1) this.writeChar(key);
-    else if (key.startsWith('Arrow')) this.onArrowPressed(key);
-    else if (key == 'Backspace') this.removeChar();
+    if (key.length == 1) this.WriteChar(key);
+    else if (key.startsWith('Arrow')) this.OnArrowPressed(key);
+    else if (key == 'Backspace') this.RemoveChar();
   }
 
   @HostListener('click')
@@ -27,10 +27,10 @@ export class MathInputComponent {
     const selectedElement = this._termList.SelectedElement;
     if (!selectedElement) throw new Error('Cannot find selected element!');
     const elementPosition = selectedElement.PositionX;
-    this.moveCaretTo(elementPosition);
+    this.MoveCaretTo(elementPosition);
   }
 
-  private onArrowPressed(key: string) {
+  private OnArrowPressed(key: string) {
     let positionToMove: number;
     switch (key) {
       case 'ArrowRight':
@@ -57,23 +57,23 @@ export class MathInputComponent {
       default:
         throw new Error('Behaviour for that key not implemented already');
     }
-    this.moveCaretTo(positionToMove);
+    this.MoveCaretTo(positionToMove);
   }
 
-  private removeChar() {
+  private RemoveChar() {
     this._termList.Remove();
     const selection = this._termList.SelectedElement;
-    this._caret.moveTo(selection?.PositionX || 0);
+    this._caret.MoveTo(selection?.PositionX || 0);
   }
 
-  private writeChar(char: string) {
-    this._termList.add(char);
+  private WriteChar(char: string) {
+    this._termList.Add(char);
     const selectedElement = this._termList.SelectedElement;
     if (!selectedElement) throw new Error('Cannot find selected element!');
-    this.moveCaretTo(selectedElement.PositionX);
+    this.MoveCaretTo(selectedElement.PositionX);
   }
 
-  private moveCaretTo(x: number) {
-    this._caret.moveTo(x);
+  private MoveCaretTo(x: number) {
+    this._caret.MoveTo(x);
   }
 }

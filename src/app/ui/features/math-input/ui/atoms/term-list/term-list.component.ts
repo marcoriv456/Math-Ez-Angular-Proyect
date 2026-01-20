@@ -22,14 +22,14 @@ export class TermListComponent {
   private _cdr = inject(ChangeDetectorRef);
 
   public get SelectedElement(): MathTermViewDirective | null {
-    const selectedIndex = this._termList.selectedCharacterIndex;
+    const selectedIndex = this._termList.SelectedCharacterIndex;
     if (selectedIndex != null)
       return this._renderedTermList.get(selectedIndex) || null;
     return null;
   }
 
-  public add(char: string) {
-    this._termList.addCharacter(char);
+  public Add(char: string) {
+    this._termList.AddCharacter(char);
     this._cdr.detectChanges();
   }
 
@@ -54,7 +54,7 @@ export class TermListComponent {
     this._termList.SelectLast();
   }
 
-  protected isExpression(term: MathTerm): term is Expression {
+  protected IsExpression(term: MathTerm): term is Expression {
     return term instanceof Expression;
   }
 }

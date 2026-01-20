@@ -7,9 +7,8 @@ import { Component, ElementRef, inject, OnInit } from '@angular/core';
 })
 export class CaretComponent {
   protected style = { left: '0px', top: '0px' };
-  // private ref = inject(ElementRef).nativeElement as HTMLElement;
 
-  public moveTo(x: number) {
+  public MoveTo(x: number) {
     this.style.left = x + 'px';
     // this.style.height = height + 'px';
     // this.style.top = y + 'px';

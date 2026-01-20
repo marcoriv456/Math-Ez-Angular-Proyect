@@ -4,11 +4,11 @@ export class SelectionLinker<T> {
   private _selected: InternalLinkerNode<T> | null = null;
   private _array: InternalLinkerNode<T>[] = [];
 
-  add(element: T): SelectionLinker<T> {
+  Add(element: T): SelectionLinker<T> {
     if (this._selected && this._selected.IsPlaceholder) {
       this._selected.Value = element;
       this._array.splice(0, 0, this._selected);
-      this.syncIndexes();
+      this.SyncIndexes();
       return this;
     }
 
@@ -24,13 +24,13 @@ export class SelectionLinker<T> {
     }
 
     this._array.splice(this._selected ? this._selected.Index + 1 : 0, 0, link);
-    this.syncIndexes();
+    this.SyncIndexes();
     this._selected = link;
 
     return this;
   }
 
-  remove(): SelectionLinker<T> {
+  Remove(): SelectionLinker<T> {
     if (this._selected == null) return this;
 
     const prev = this._selected.Prev;
@@ -40,23 +40,23 @@ export class SelectionLinker<T> {
     if (next) next.Prev = prev;
 
     this._array.splice(this._selected.Index, 1);
-    this.syncIndexes();
+    this.SyncIndexes();
     this._selected = prev || next;
     return this;
   }
 
-  select(element: Link<T>): SelectionLinker<T> {
+  Select(element: Link<T>): SelectionLinker<T> {
     this._selected = element as InternalLinkerNode<T>;
     return this;
   }
 
-  selectNext(): SelectionLinker<T> {
+  SelectNext(): SelectionLinker<T> {
     if (this._selected && this._selected.Next)
       this._selected = this._selected.Next;
     return this;
   }
 
-  selectPrev(): SelectionLinker<T> {
+  SelectPrev(): SelectionLinker<T> {
     if (!this._selected) return this;
 
     if (!this._selected.Prev && !this._selected.IsPlaceholder)
@@ -66,22 +66,22 @@ export class SelectionLinker<T> {
     return this;
   }
 
-  selectTail(): SelectionLinker<T> {
+  SelectTail(): SelectionLinker<T> {
     this.selectEdgePlaceholder();
     return this;
   }
 
-  selectLast(): SelectionLinker<T> {
+  SelectLast(): SelectionLinker<T> {
     this._selected = this.last() as InternalLinkerNode<T>;
     return this;
   }
 
-  getSelection(): Link<T> | null {
+  get Selection(): Link<T> | null {
     if (!this._selected) return null;
     return this._selected.IsPlaceholder ? null : this._selected;
   }
 
-  array(): readonly T[] {
+  get AsArray(): readonly T[] {
     return this._array.map((el) => el.Value);
   }
 
@@ -110,7 +110,7 @@ export class SelectionLinker<T> {
     return node;
   }
 
-  private syncIndexes() {
+  private SyncIndexes() {
     this._array.forEach((el, i) => (el.Index = i));
   }
 }

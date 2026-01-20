@@ -3,32 +3,32 @@ import { MathTerm } from '../../abstract/math-term.abstract';
 
 export class Expression extends MathTerm {
   private _chars: SelectionLinker<string> = new SelectionLinker();
-  add(char: string) {
-    this._chars.add(char);
+  Add(char: string) {
+    this._chars.Add(char);
   }
   Remove() {
-    this._chars.remove();
+    this._chars.Remove();
   }
   SelectNextCharacter() {
-    this._chars.selectNext();
+    this._chars.SelectNext();
   }
   SelectPrevCharacter() {
-    this._chars.selectPrev();
+    this._chars.SelectPrev();
   }
 
   SelectLastCharacter() {
-    this._chars.selectLast();
+    this._chars.SelectLast();
   }
 
   SelectTail() {
-    this._chars.selectTail();
+    this._chars.SelectTail();
   }
 
   public get Selection() {
-    return this._chars.getSelection();
+    return this._chars.Selection;
   }
 
-  public charArray() {
-    return this._chars.array();
+  public get CharArray() {
+    return this._chars.AsArray;
   }
 }
