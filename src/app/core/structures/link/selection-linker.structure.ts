@@ -1,15 +1,14 @@
-import { first } from 'rxjs';
-import { Cache } from '../cache/cache.structure';
 import { Link } from './link.i';
 
 export class SelectionLinker<T> {
   private _selected: InternalLinkerNode<T> | null = null;
-  private _arrayCache: Cache<readonly T[]> = new Cache();
+  private _array: InternalLinkerNode<T>[] = [];
 
   add(element: T): SelectionLinker<T> {
     if (this._selected && this._selected.IsPlaceholder) {
       this._selected.Value = element;
-      this._arrayCache.invalidate();
+      this._array.splice(0, 0, this._selected);
+      this.syncIndexes();
       return this;
     }
 
@@ -23,8 +22,10 @@ export class SelectionLinker<T> {
         link.Next = next;
       }
     }
+
+    this._array.splice(this._selected ? this._selected.Index + 1 : 0, 0, link);
+    this.syncIndexes();
     this._selected = link;
-    this._arrayCache.invalidate();
 
     return this;
   }
@@ -38,8 +39,9 @@ export class SelectionLinker<T> {
     if (prev) prev.Next = next;
     if (next) next.Prev = prev;
 
+    this._array.splice(this._selected.Index, 1);
+    this.syncIndexes();
     this._selected = prev || next;
-    this._arrayCache.invalidate();
     return this;
   }
 
@@ -80,19 +82,7 @@ export class SelectionLinker<T> {
   }
 
   array(): readonly T[] {
-    if (this._arrayCache.Cache) return this._arrayCache.Cache;
-    if (!this._selected) return [];
-    let node = this.first();
-
-    const result: T[] = [];
-
-    while (node) {
-      if (!node.IsPlaceholder) result.push(node.Value);
-      node = node.Next;
-    }
-
-    this._arrayCache.update(result);
-    return result;
+    return this._array.map((el) => el.Value);
   }
 
   private selectEdgePlaceholder() {
@@ -110,6 +100,7 @@ export class SelectionLinker<T> {
 
     return node;
   }
+
   private first(): InternalLinkerNode<T> | null {
     if (!this._selected) return null;
     let node: InternalLinkerNode<T> = this._selected;
@@ -118,12 +109,17 @@ export class SelectionLinker<T> {
 
     return node;
   }
+
+  private syncIndexes() {
+    this._array.forEach((el, i) => (el.Index = i));
+  }
 }
 
 class InternalLinkerNode<T> implements Link<T> {
   private _next: InternalLinkerNode<T> | null = null;
   private _prev: InternalLinkerNode<T> | null = null;
   private _value: T | null = null;
+  private _index: number | null = null;
 
   constructor(value: T | null) {
     if (value) this._value = value;
@@ -135,13 +131,23 @@ class InternalLinkerNode<T> implements Link<T> {
   get Prev(): InternalLinkerNode<T> | null {
     return this._prev;
   }
+
   get Value(): T {
     if (!this._value)
       throw new Error(
-        `Value not found. ${this.IsPlaceholder ? 'Node is a placeholder.' : ''}`,
+        `Value not found.${this.IsPlaceholder ? ' Node is a placeholder.' : ''}`,
       );
     return this._value;
   }
+
+  get Index(): number {
+    if (this._index == null)
+      throw new Error(
+        `Index not found.${this.IsPlaceholder ? ' Node is a placeholder.' : ''}`,
+      );
+    return this._index;
+  }
+
   get IsPlaceholder() {
     return this._value == null;
   }
@@ -156,5 +162,9 @@ class InternalLinkerNode<T> implements Link<T> {
 
   set Value(value: T) {
     this._value = value;
+  }
+
+  set Index(index: number) {
+    this._index = index;
   }
 }

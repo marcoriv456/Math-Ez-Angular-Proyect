@@ -18,6 +18,7 @@ export class MathInputComponent {
     if (key !== 'Tab') event.preventDefault();
     if (key.length == 1) this.writeChar(key);
     else if (key.startsWith('Arrow')) this.onArrowPressed(key);
+    else if (key == 'Backspace') this.removeChar();
   }
 
   @HostListener('click')
@@ -57,6 +58,12 @@ export class MathInputComponent {
         throw new Error('Behaviour for that key not implemented already');
     }
     this.moveCaretTo(positionToMove);
+  }
+
+  private removeChar() {
+    this._termList.Remove();
+    const selection = this._termList.SelectedElement;
+    this._caret.moveTo(selection?.PositionX || 0);
   }
 
   private writeChar(char: string) {

@@ -6,6 +6,9 @@ export class Expression extends MathTerm {
   add(char: string) {
     this._chars.add(char);
   }
+  Remove() {
+    this._chars.remove();
+  }
   SelectNextCharacter() {
     this._chars.selectNext();
   }
@@ -19,6 +22,10 @@ export class Expression extends MathTerm {
 
   SelectTail() {
     this._chars.selectTail();
+  }
+
+  public get Selection() {
+    return this._chars.getSelection();
   }
 
   public charArray() {
