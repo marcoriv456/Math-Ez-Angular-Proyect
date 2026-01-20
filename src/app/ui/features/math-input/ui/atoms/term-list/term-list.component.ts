@@ -2,7 +2,9 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
+  EventEmitter,
   inject,
+  Output,
   QueryList,
   ViewChildren,
 } from '@angular/core';
@@ -11,6 +13,9 @@ import { MathTerm } from '../../../../../../core/domain/abstract/math-term.abstr
 import { Expression } from '../../../../../../core/domain/model/expression/expression.model';
 import { MathTermViewDirective } from '../../directives/math-term-view/math-term-view.directive';
 import { DomPositionCalculator } from '../../../core/helpers/dom-position-calculator.helper';
+import { Character } from '../../../../../../core/domain/model/expression/expression-character.model';
+import { Link } from '../../../../../../core/structures/link/link.i';
+import { LinkStringifier } from '../../../core/utils/link-stringifier.util';
 
 @Component({
   selector: 'math-input-term-list',
@@ -18,6 +23,7 @@ import { DomPositionCalculator } from '../../../core/helpers/dom-position-calcul
   styleUrl: './term-list.component.css',
 })
 export class TermListComponent {
+  @Output() Click = new EventEmitter<number>();
   @ViewChildren(MathTermViewDirective)
   protected readonly _renderedTermList!: QueryList<MathTermViewDirective>;
   protected readonly _termList = new TermList();
@@ -33,7 +39,7 @@ export class TermListComponent {
 
   public get CaretPosition() {
     const selected = this.SelectedElement;
-    return selected ? selected.PositionX : this._positionX;
+    return selected ? selected.RightBorderPosition : this._positionX;
   }
 
   public GoForward(): number {
@@ -70,6 +76,34 @@ export class TermListComponent {
 
   protected IsExpression(term: MathTerm): term is Expression {
     return term instanceof Expression;
+  }
+
+  protected OnCharacterClick(
+    modelChar: Character,
+    viewChar: MathTermViewDirective,
+    clickSide: 'left' | 'right',
+  ) {
+    let selected: Link<Character> | null;
+    let caretPosition: number;
+    if (clickSide == 'left') {
+      selected = modelChar.Link.Prev;
+      caretPosition = viewChar.LeftBorderPosition;
+    } else {
+      selected = modelChar.Link;
+      caretPosition = viewChar.RightBorderPosition;
+    }
+    // TODO: write tests tomorrow
+    if (selected) this._termList.SelectCharacter(selected.Value);
+    else this._termList.SelectTail();
+    if (this._termList.SelectedCharacter)
+      console.log(
+        LinkStringifier.ToString<Character>(
+          this._termList.SelectedCharacter.Link,
+          (el) => el?.Character || null,
+        ),
+      );
+
+    this.Click.emit(caretPosition);
   }
 
   private get _positionX() {

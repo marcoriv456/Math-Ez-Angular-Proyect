@@ -4,12 +4,12 @@ export class SelectionLinker<T> {
   private _selected: InternalLinkerNode<T> | null = null;
   private _array: InternalLinkerNode<T>[] = [];
 
-  Add(element: T): SelectionLinker<T> {
+  Add(element: T): Link<T> {
     if (this._selected && this._selected.IsPlaceholder) {
       this._selected.Value = element;
       this._array.splice(0, 0, this._selected);
       this.SyncIndexes();
-      return this;
+      return this._selected;
     }
 
     const link = new InternalLinkerNode(element);
@@ -27,12 +27,11 @@ export class SelectionLinker<T> {
     this.SyncIndexes();
     this._selected = link;
 
-    return this;
+    return this._selected;
   }
 
-  Remove(): SelectionLinker<T> {
-    if (this._selected == null) return this;
-
+  Remove(): Link<T> | null {
+    if (this._selected == null || this._selected.IsPlaceholder) return null;
     const prev = this._selected.Prev;
     const next = this._selected.Next;
 
@@ -41,11 +40,15 @@ export class SelectionLinker<T> {
 
     this._array.splice(this._selected.Index, 1);
     this.SyncIndexes();
+
+    const removed = this._selected;
     this._selected = prev || next;
-    return this;
+
+    return removed;
   }
 
   Select(element: Link<T>): SelectionLinker<T> {
+    console.log(element);
     this._selected = element as InternalLinkerNode<T>;
     return this;
   }
@@ -134,17 +137,13 @@ class InternalLinkerNode<T> implements Link<T> {
 
   get Value(): T {
     if (!this._value)
-      throw new Error(
-        `Value not found.${this.IsPlaceholder ? ' Node is a placeholder.' : ''}`,
-      );
+      throw new Error(`Value not found. Node is a placeholder.`);
     return this._value;
   }
 
   get Index(): number {
     if (this._index == null)
-      throw new Error(
-        `Index not found.${this.IsPlaceholder ? ' Node is a placeholder.' : ''}`,
-      );
+      throw new Error(`Index not found. Node is a placeholder.`);
     return this._index;
   }
 

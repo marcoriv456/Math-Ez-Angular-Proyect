@@ -1,5 +1,7 @@
+import { Link } from '../../../structures/link/link.i';
 import { SelectionLinker } from '../../../structures/link/selection-linker.structure';
 import { MathTerm } from '../../abstract/math-term.abstract';
+import { Character } from '../../model/expression/expression-character.model';
 import { Expression } from '../../model/expression/expression.model';
 
 export class TermList {
@@ -9,7 +11,8 @@ export class TermList {
     let actualExpression = this._selectedExpression;
     if (!actualExpression) {
       actualExpression = new Expression();
-      this._linker.Add(actualExpression);
+      const expressionLink = this._linker.Add(actualExpression);
+      actualExpression.Link = expressionLink as Link<Expression>;
     }
     actualExpression.Add(char);
   }
@@ -17,6 +20,12 @@ export class TermList {
   public RemoveCharacter() {
     let actualExpression = this._selectedExpression;
     if (actualExpression) actualExpression.Remove();
+  }
+
+  public SelectCharacter(char: Character) {
+    const selectedExpression = char.ParentExpression;
+    this._linker.Select(selectedExpression.Link);
+    selectedExpression.Select(char.Link);
   }
 
   public SelectPrev() {
@@ -47,6 +56,10 @@ export class TermList {
     if (this._selectedExpression && this._selectedExpression.Selection)
       return this._selectedExpression.Selection.Index;
     return null;
+  }
+
+  public get SelectedCharacter(): Character | null {
+    return this._selectedExpression?.Selection?.Value || null;
   }
 
   private get _selectedExpression() {
