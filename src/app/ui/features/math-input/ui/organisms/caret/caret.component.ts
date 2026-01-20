@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'math-input-caret',
@@ -6,11 +6,9 @@ import { Component, ElementRef, inject, OnInit } from '@angular/core';
   styleUrl: './caret.component.css',
 })
 export class CaretComponent {
-  protected style = { left: '0px', top: '0px' };
+  protected Style = { left: '0px', top: '0px' };
 
   public MoveTo(x: number) {
-    this.style.left = x + 'px';
-    // this.style.height = height + 'px';
-    // this.style.top = y + 'px';
+    this.Style.left = x + 'px';
   }
 }
