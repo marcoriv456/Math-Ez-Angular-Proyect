@@ -10,6 +10,7 @@ import { TermList } from '../../../../../../core/domain/structures/term-list/ter
 import { MathTerm } from '../../../../../../core/domain/abstract/math-term.abstract';
 import { Expression } from '../../../../../../core/domain/model/expression/expression.model';
 import { MathTermViewDirective } from '../../directives/math-term-view/math-term-view.directive';
+import { DomPositionCalculator } from '../../../core/helpers/dom-position-calculator.helper';
 
 @Component({
   selector: 'math-input-term-list',
@@ -72,12 +73,9 @@ export class TermListComponent {
   }
 
   private get _positionX() {
-    let parent: HTMLElement | null = this._ref.nativeElement.parentElement;
-    let leftPosition = this._ref.nativeElement.offsetLeft;
-    while (parent && parent.tagName != 'APP-MATH-INPUT') {
-      leftPosition += parent.offsetLeft || 0;
-      parent = parent.parentElement;
-    }
-    return leftPosition;
+    return DomPositionCalculator.PositionX(
+      this._ref.nativeElement,
+      'APP-MATH-INPUT',
+    );
   }
 }

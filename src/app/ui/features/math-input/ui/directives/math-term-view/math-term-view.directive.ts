@@ -1,4 +1,5 @@
 import { Directive, ElementRef, inject, Input } from '@angular/core';
+import { DomPositionCalculator } from '../../../core/helpers/dom-position-calculator.helper';
 
 @Directive({
   selector: '[MathTermView]',
@@ -6,13 +7,13 @@ import { Directive, ElementRef, inject, Input } from '@angular/core';
 export class MathTermViewDirective {
   @Input({ required: true }) public Index!: number;
   private readonly _ref: ElementRef<HTMLElement> = inject(ElementRef);
+
   get PositionX() {
-    let parent: HTMLElement | null = this._ref.nativeElement.parentElement;
-    let leftPosition = this._ref.nativeElement.offsetLeft;
-    while (parent && parent.tagName != 'APP-MATH-INPUT') {
-      leftPosition += parent.offsetLeft || 0;
-      parent = parent.parentElement;
-    }
-    return leftPosition + this._ref.nativeElement.offsetWidth;
+    const leftPosition = DomPositionCalculator.PositionX(
+      this._ref.nativeElement,
+      'APP-MATH-INPUT',
+    );
+    const width = this._ref.nativeElement.offsetWidth;
+    return leftPosition + width;
   }
 }
