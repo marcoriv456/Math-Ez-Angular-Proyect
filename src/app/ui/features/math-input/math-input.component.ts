@@ -23,54 +23,38 @@ export class MathInputComponent {
 
   @HostListener('click')
   protected OnClick() {
-    this._termList.SelectLast();
-    const selectedElement = this._termList.SelectedElement;
-    if (!selectedElement) throw new Error('Cannot find selected element!');
-    const elementPosition = selectedElement.PositionX;
-    this.MoveCaretTo(elementPosition);
+    const lastPosition = this._termList.GoEnd();
+    this.MoveCaretTo(lastPosition);
   }
 
   private OnArrowPressed(key: string) {
-    let positionToMove: number;
+    const newPosition = this.GoToArrowDirection(key);
+    this.MoveCaretTo(newPosition);
+  }
+
+  private GoToArrowDirection(key: string) {
     switch (key) {
       case 'ArrowRight':
-        this._termList.SelectNext();
-        const next = this._termList.SelectedElement;
-        if (!next) throw new Error('No next element!');
-        positionToMove = next.PositionX;
-        break;
+        return this._termList.GoForward();
       case 'ArrowLeft':
-        this._termList.SelectPrev();
-        const prev = this._termList.SelectedElement;
-        positionToMove = prev ? prev.PositionX : 0;
-        break;
+        return this._termList.GoBackward();
       case 'ArrowUp':
-        this._termList.SelectLast();
-        const last = this._termList.SelectedElement;
-        if (!last) throw new Error('No last element!');
-        positionToMove = last.PositionX;
-        break;
+        return this._termList.GoEnd();
       case 'ArrowDown':
-        this._termList.SelectTail();
-        positionToMove = 0;
-        break;
+        return this._termList.GoStart();
       default:
         throw new Error('Behaviour for that key not implemented already');
     }
-    this.MoveCaretTo(positionToMove);
   }
 
   private RemoveChar() {
-    this._termList.Remove();
-    const selection = this._termList.SelectedElement;
-    this._caret.MoveTo(selection?.PositionX || 0);
+    const remainingPosition = this._termList.Remove();
+    this.MoveCaretTo(remainingPosition);
   }
 
   private WriteChar(char: string) {
-    this._termList.Add(char);
-    const selectedElement = this._termList.SelectedElement;
-    if (!selectedElement) throw new Error('Cannot find selected element!');
-    this.MoveCaretTo(selectedElement.PositionX);
+    const charPosition = this._termList.Add(char);
+    this.MoveCaretTo(charPosition);
   }
 
   private MoveCaretTo(x: number) {
