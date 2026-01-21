@@ -1,12 +1,4 @@
-import {
-  Directive,
-  ElementRef,
-  EventEmitter,
-  HostListener,
-  inject,
-  Input,
-  Output,
-} from '@angular/core';
+import { Directive, ElementRef, inject, Input } from '@angular/core';
 import { DomPositionCalculator } from '../../../core/helpers/dom-position-calculator.helper';
 
 @Directive({

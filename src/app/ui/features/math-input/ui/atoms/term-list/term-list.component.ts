@@ -8,14 +8,13 @@ import {
   QueryList,
   ViewChildren,
 } from '@angular/core';
-import { TermList } from '../../../../../../core/domain/structures/term-list/term-list.model';
 import { MathTerm } from '../../../../../../core/domain/abstract/math-term.abstract';
-import { Expression } from '../../../../../../core/domain/model/expression/expression.model';
-import { MathTermViewDirective } from '../../directives/math-term-view/math-term-view.directive';
-import { DomPositionCalculator } from '../../../core/helpers/dom-position-calculator.helper';
 import { Character } from '../../../../../../core/domain/model/expression/expression-character.model';
+import { Expression } from '../../../../../../core/domain/model/expression/expression.model';
+import { TermList } from '../../../../../../core/domain/structures/term-list/term-list.model';
 import { Link } from '../../../../../../core/structures/link/link.i';
-import { LinkStringifier } from '../../../core/utils/link-stringifier.util';
+import { DomPositionCalculator } from '../../../core/helpers/dom-position-calculator.helper';
+import { MathTermViewDirective } from '../../directives/math-term-view/math-term-view.directive';
 
 @Component({
   selector: 'math-input-term-list',
@@ -24,10 +23,13 @@ import { LinkStringifier } from '../../../core/utils/link-stringifier.util';
 })
 export class TermListComponent {
   @Output() Click = new EventEmitter<number>();
+
   @ViewChildren(MathTermViewDirective)
   protected readonly _renderedTermList!: QueryList<MathTermViewDirective>;
+
   protected readonly _termList = new TermList();
-  private readonly _cdr = inject(ChangeDetectorRef);
+
+private readonly _cdr = inject(ChangeDetectorRef);
   private readonly _ref = inject(ElementRef<HTMLElement>);
 
   public get SelectedElement(): MathTermViewDirective | null {
@@ -78,30 +80,24 @@ export class TermListComponent {
     return term instanceof Expression;
   }
 
+  // TODO: write tests tomorrow
+  // TODO: optimize this function
+
   protected OnCharacterClick(
     modelChar: Character,
     viewChar: MathTermViewDirective,
     clickSide: 'left' | 'right',
   ) {
-    let selected: Link<Character> | null;
-    let caretPosition: number;
+    let selected: Link<Character> | null = modelChar.Link;
+    let caretPosition: number = viewChar.RightBorderPosition;
+
     if (clickSide == 'left') {
       selected = modelChar.Link.Prev;
       caretPosition = viewChar.LeftBorderPosition;
-    } else {
-      selected = modelChar.Link;
-      caretPosition = viewChar.RightBorderPosition;
     }
-    // TODO: write tests tomorrow
+
     if (selected) this._termList.SelectCharacter(selected.Value);
     else this._termList.SelectTail();
-    if (this._termList.SelectedCharacter)
-      console.log(
-        LinkStringifier.ToString<Character>(
-          this._termList.SelectedCharacter.Link,
-          (el) => el?.Character || null,
-        ),
-      );
 
     this.Click.emit(caretPosition);
   }
