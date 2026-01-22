@@ -1,0 +1,8 @@
+RunOptions = {
+  test_file = function(ctx)
+    ctx.run({ cmd = "npm test " .. ctx.file, cwd = ctx.root })
+  end,
+  serve = function(ctx)
+    ctx.run({ cmd = "ng serve", run_background = true })
+  end,
+}
