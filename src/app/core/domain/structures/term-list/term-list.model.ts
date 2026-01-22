@@ -45,7 +45,7 @@ export class TermList {
 
   public SelectTail() {
     const selectedExpression = this._selectedExpression;
-    if (selectedExpression) selectedExpression.SelectTail();
+    if (selectedExpression) selectedExpression.SelectTailCharacter();
   }
 
   public get AsArray() {

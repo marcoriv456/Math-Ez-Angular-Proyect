@@ -45,7 +45,7 @@ export class Expression extends MathTerm {
     this._chars.SelectLast();
   }
 
-  SelectTail() {
+  SelectTailCharacter() {
     this._chars.SelectTail();
   }
 
