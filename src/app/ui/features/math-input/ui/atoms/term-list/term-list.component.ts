@@ -29,7 +29,7 @@ export class TermListComponent {
 
   protected readonly _termList = new TermList();
 
-private readonly _cdr = inject(ChangeDetectorRef);
+  private readonly _cdr = inject(ChangeDetectorRef);
   private readonly _ref = inject(ElementRef<HTMLElement>);
 
   public get SelectedElement(): MathTermViewDirective | null {
