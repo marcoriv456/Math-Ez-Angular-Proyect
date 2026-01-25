@@ -1,5 +1,6 @@
 import { Component, HostListener, ViewChild } from '@angular/core';
 import { RootExpression } from '../../../core/domain/model/expression/root-expression.model';
+import { ExpressionInputIntepreter } from './core/helpers/expression-input-interpreter.helper';
 import { TermListComponent } from './ui/atoms/term-list/term-list.component';
 import { CaretComponent } from './ui/organisms/caret/caret.component';
 
@@ -56,7 +57,8 @@ export class MathInputComponent {
   }
 
   private WriteChar(char: string) {
-    const charPosition = this._termList.Add(char);
+    const node = ExpressionInputIntepreter.interpret(char);
+    const charPosition = this._termList.Add(node);
     this.MoveCaretTo(charPosition);
   }
 

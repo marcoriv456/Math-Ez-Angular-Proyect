@@ -12,6 +12,7 @@ import {
 import { ExpressionNode } from '../../../../../../core/domain/abstract/expression-node.interface';
 import { Character } from '../../../../../../core/domain/model/character/character.model';
 import { Expression } from '../../../../../../core/domain/model/expression/expression.model';
+import { Fraction } from '../../../../../../core/domain/model/fraction/fraction.model';
 import { Link } from '../../../../../../core/structures/link/link.i';
 import { DomPositionCalculator } from '../../../core/helpers/dom-position-calculator.helper';
 import { MathInputNodeView } from '../../abstracts/math-input-node-view.abstract';
@@ -64,8 +65,8 @@ export class TermListComponent {
     return this.CaretPosition;
   }
 
-  public Add(char: string) {
-    this.Expression.AddCharacter(char);
+  public Add(node: ExpressionNode) {
+    this.Expression.Add(node);
     this._cdr.detectChanges();
     return this.CaretPosition;
   }
@@ -78,6 +79,10 @@ export class TermListComponent {
 
   protected IsCharacter(node: ExpressionNode): node is Character {
     return node instanceof Character;
+  }
+
+  protected IsFraction(node: ExpressionNode): node is Fraction {
+    return node instanceof Fraction;
   }
 
   protected OnCharacterClick(

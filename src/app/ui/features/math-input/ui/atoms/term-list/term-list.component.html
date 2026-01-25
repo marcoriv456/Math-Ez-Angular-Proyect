@@ -2,11 +2,7 @@
   @if(IsCharacter(term)) {
     <math-character [Character]="term"></math-character>
   }
-  <!-- @if (IsExpression(term)) { -->
-  <!--   @for (char of term.Characters; track $index) { -->
-  <!--     <math-character #_charRef [Character]="char" (CharacterClick)="OnCharacterClick(_charRef.Character, _mathTermRef, $event.side)" -->
-  <!--         MathTermView #_mathTermRef="MathTermViewRef" [Index]="$index" -->
-  <!--     /> -->
-  <!--   } -->
-  <!-- } -->
+  @if(IsFraction(term)){
+    <math-fraction [Fraction]="term"/>
+  }
 }

@@ -9,6 +9,22 @@ export abstract class CompositeExpressionNode implements ExpressionNode {
     return this._link;
   }
 
+  set Link(link: Link<CompositeExpressionNode>) {
+    if (this._link) throw new Error('Link already set');
+    this._link = link;
+  }
+
+  get Parent() {
+    if (!this._parent) throw new Error('Parent not set already.');
+    return this._parent;
+  }
+
+  set Parent(parent: Expression) {
+    if (this._parent) throw new Error('Parent already set');
+    this._parent = parent;
+  }
+
+  private _parent: Expression | null = null;
   private _link: Link<CompositeExpressionNode> | null = null;
   private _expressionLinker = new SelectionLinker<Expression>();
 
@@ -17,8 +33,6 @@ export abstract class CompositeExpressionNode implements ExpressionNode {
       return this._expressionLinker.Selection.Value;
     throw new Error('Not selected expression.');
   }
-
-  constructor(readonly Parent: Expression) {}
 
   abstract Add(node: ExpressionNode): void;
   abstract Remove(): void;

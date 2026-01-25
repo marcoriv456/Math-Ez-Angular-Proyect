@@ -4,7 +4,6 @@ import { SelectionLinker } from '../../../structures/link/selection-linker.struc
 import { Parentable } from '../../../structures/parentable/parentable.interface';
 import { CompositeExpressionNode } from '../../abstract/composite-expression-node.interface';
 import { ExpressionNode } from '../../abstract/expression-node.interface';
-import { Character } from '../character/character.model';
 
 export abstract class Expression
   implements Linkable<Expression>, Parentable<CompositeExpressionNode>
@@ -41,18 +40,13 @@ export abstract class Expression
     return this._linker.Selection;
   }
 
-  AddCharacter(char: string) {
-    const character = new Character(char, this);
-    const link = this._linker.Add(character);
-    character.Link = link as Link<Character>;
-  }
-
   Add(element: ExpressionNode) {
-    const activeNode = this.ActiveNode;
-    if (activeNode instanceof CompositeExpressionNode) {
-      activeNode.Add(element);
+    if (this._focusedNode instanceof CompositeExpressionNode) {
+      this._focusedNode.Add(element);
     } else {
-      this._linker.Add(element);
+      const elementLink = this._linker.Add(element);
+      element.Link = elementLink;
+      element.Parent = this;
     }
   }
 
