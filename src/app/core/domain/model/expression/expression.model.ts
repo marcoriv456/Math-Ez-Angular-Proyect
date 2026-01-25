@@ -14,41 +14,41 @@ export abstract class Expression
   protected _linker = new SelectionLinker<ExpressionNode>();
   abstract readonly Parent: CompositeExpressionNode;
 
-  public get Link(): Link<Expression> {
+  get Link(): Link<Expression> {
     if (!this._link) throw new Error('Link not set already.');
     return this._link;
   }
 
-  public set Link(link: Link<Expression>) {
+  set Link(link: Link<Expression>) {
     if (this._link) throw new Error('Link already set');
     this._link = link;
   }
 
-  public get AsArray() {
+  get AsArray() {
     return this._linker.AsArray;
   }
 
-  public get ActiveNodeIndex(): number | null {
-    if (this._activeNodeLink) return this._activeNodeLink.Index;
-    return null;
+  get ActiveNode(): ExpressionNode | null {
+    return this._activeNodeLink?.Value || null;
   }
 
-  private get _activeNode(): ExpressionNode | null {
-    return this._activeNodeLink?.Value || null;
+  get ActiveNodeIndex(): number | null {
+    if (this._activeNodeLink) return this._activeNodeLink.Index;
+    return null;
   }
 
   private get _activeNodeLink() {
     return this._linker.Selection;
   }
 
-  public AddCharacter(char: string) {
+  AddCharacter(char: string) {
     const character = new Character(char, this);
     const link = this._linker.Add(character);
     character.Link = link as Link<Character>;
   }
 
-  public Add(element: ExpressionNode) {
-    const activeNode = this._activeNode;
+  Add(element: ExpressionNode) {
+    const activeNode = this.ActiveNode;
     if (activeNode instanceof CompositeExpressionNode) {
       activeNode.Add(element);
     } else {
@@ -56,26 +56,26 @@ export abstract class Expression
     }
   }
 
-  public RemoveCharacter() {
-    const activeNode = this._activeNode;
+  RemoveCharacter() {
+    const activeNode = this.ActiveNode;
     if (activeNode instanceof CompositeExpressionNode) activeNode.Remove();
     else this._linker.Remove();
   }
 
-  public Select(node: Link<ExpressionNode>) {
+  Select(node: Link<ExpressionNode>) {
     this._linker.Select(node);
     this.Parent.Select(this.Link);
   }
 
-  public Focus(node: CompositeExpressionNode) {
+  Focus(node: CompositeExpressionNode) {
     this._focusedNode = node;
   }
 
-  public UnFocus() {
+  UnFocus() {
     this._focusedNode = null;
   }
 
-  public SelectPrev() {
+  SelectPrev() {
     if (this._focusedNode) {
       this._focusedNode.MoveBackward();
     } else {
@@ -83,7 +83,7 @@ export abstract class Expression
     }
   }
   //
-  public SelectNext() {
+  SelectNext() {
     if (this._focusedNode) {
       this._focusedNode.MoveForward();
     } else {
@@ -91,7 +91,7 @@ export abstract class Expression
     }
   }
   //
-  public SelectLast() {
+  SelectLast() {
     if (this._focusedNode) {
       this._focusedNode.MoveHead();
     } else {
@@ -99,25 +99,11 @@ export abstract class Expression
     }
   }
 
-  public SelectTail() {
+  SelectTail() {
     if (this._focusedNode) {
       this._focusedNode.MoveTail();
     } else {
       this._linker.SelectTail();
     }
   }
-
-  //
-  // public get SelectedCharacter(): Character | null {
-  //   return this._selectedExpression?.Selection?.Value || null;
-  // }
-  //
-
-  // private get _selectedExpression() {
-  //   const linkerSelection = this._linker.Selection;
-  //   const selectionValue = linkerSelection?.Value;
-  //   if (selectionValue && selectionValue instanceof Expression)
-  //     return selectionValue;
-  //   return null;
-  // }
 }
