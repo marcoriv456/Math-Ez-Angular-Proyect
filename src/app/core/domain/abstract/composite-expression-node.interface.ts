@@ -1,5 +1,5 @@
+import { ClosedLinker } from '../../structures/link/closed-linker.structure';
 import { Link } from '../../structures/link/link.i';
-import { SelectionLinker } from '../../structures/link/selection-linker.structure';
 import { Expression } from '../model/expression/expression.model';
 import { ExpressionNode } from './expression-node.interface';
 
@@ -24,14 +24,24 @@ export abstract class CompositeExpressionNode implements ExpressionNode {
     this._parent = parent;
   }
 
+  get ActiveNodeIndex() {
+    return this._focusedExpression.ActiveNodeIndex;
+  }
+
+  get FocusedExpressionIndex(): number | null {
+    const focusedExpression = this._expressionLinker.Selection;
+    if (focusedExpression) return focusedExpression.Index;
+    return null;
+  }
+
   private _parent: Expression | null = null;
   private _link: Link<CompositeExpressionNode> | null = null;
-  private _expressionLinker = new SelectionLinker<Expression>();
+  protected abstract _expressionLinker: ClosedLinker<Expression>;
 
-  private get _selectedExpression() {
-    if (this._expressionLinker.Selection)
-      return this._expressionLinker.Selection.Value;
-    throw new Error('Not selected expression.');
+  protected get _focusedExpression(): Expression {
+    if (!this._expressionLinker.Selection)
+      throw new Error('Not selected expression.');
+    return this._expressionLinker.Selection.Value;
   }
 
   abstract Add(node: ExpressionNode): void;
@@ -43,18 +53,18 @@ export abstract class CompositeExpressionNode implements ExpressionNode {
   }
 
   MoveForward() {
-    this._selectedExpression.SelectNext();
+    this._focusedExpression.SelectNext();
   }
 
   MoveBackward() {
-    this._selectedExpression.SelectPrev();
+    this._focusedExpression.SelectPrev();
   }
 
   MoveTail() {
-    this._selectedExpression.SelectTail();
+    this._focusedExpression.SelectTail();
   }
 
   MoveHead() {
-    this._selectedExpression.SelectLast();
+    this._focusedExpression.SelectLast();
   }
 }

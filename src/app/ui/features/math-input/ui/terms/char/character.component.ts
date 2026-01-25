@@ -7,7 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import { Character } from '../../../../../../core/domain/model/character/character.model';
-import { MathInputNodeView } from '../../abstracts/math-input-node-view.abstract';
+import { ExpressionNodeView } from '../../abstracts/expression-node-view.abstract';
 
 @Component({
   selector: 'math-character',
@@ -15,12 +15,12 @@ import { MathInputNodeView } from '../../abstracts/math-input-node-view.abstract
   styleUrl: './character.component.css',
   providers: [
     {
-      provide: MathInputNodeView,
+      provide: ExpressionNodeView,
       useExisting: forwardRef(() => CharacterComponent),
     },
   ],
 })
-export class CharacterComponent extends MathInputNodeView {
+export class CharacterComponent extends ExpressionNodeView {
   @Input({ required: true })
   public Character!: Character;
 

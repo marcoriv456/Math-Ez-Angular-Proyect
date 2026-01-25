@@ -1,6 +1,7 @@
 import { Component, forwardRef, Input } from '@angular/core';
 import { Fraction } from '../../../../../../core/domain/model/fraction/fraction.model';
-import { MathInputNodeView } from '../../abstracts/math-input-node-view.abstract';
+import { CompositeExpressionNodeView } from '../../abstracts/composite-expression-node-view.abstract';
+import { ExpressionNodeView } from '../../abstracts/expression-node-view.abstract';
 
 @Component({
   selector: 'math-fraction',
@@ -8,11 +9,14 @@ import { MathInputNodeView } from '../../abstracts/math-input-node-view.abstract
   styleUrl: './fraction.component.css',
   providers: [
     {
-      provide: MathInputNodeView,
+      provide: ExpressionNodeView,
       useExisting: forwardRef(() => FractionComponent),
     },
   ],
 })
-export class FractionComponent extends MathInputNodeView {
+export class FractionComponent extends CompositeExpressionNodeView {
   @Input({ required: true }) Fraction!: Fraction;
+  get Node() {
+    return this.Fraction;
+  }
 }

@@ -9,7 +9,7 @@ export abstract class Expression
   implements Linkable<Expression>, Parentable<CompositeExpressionNode>
 {
   private _link: Link<Expression> | null = null;
-  private _focusedNode: CompositeExpressionNode | null = null;
+  private _focusedNodeLink: Link<CompositeExpressionNode> | null = null;
   protected _linker = new SelectionLinker<ExpressionNode>();
   abstract readonly Parent: CompositeExpressionNode;
 
@@ -32,8 +32,17 @@ export abstract class Expression
   }
 
   get ActiveNodeIndex(): number | null {
+    if (this._focusedNode) return this._focusedNode.ActiveNodeIndex;
     if (this._activeNodeLink) return this._activeNodeLink.Index;
     return null;
+  }
+  get FocusedNodeIndex(): number | null {
+    if (this._focusedNodeLink) return this._focusedNodeLink.Index;
+    return null;
+  }
+
+  private get _focusedNode(): CompositeExpressionNode | null {
+    return this._focusedNodeLink?.Value || null;
   }
 
   private get _activeNodeLink() {
@@ -41,19 +50,23 @@ export abstract class Expression
   }
 
   Add(element: ExpressionNode) {
-    if (this._focusedNode instanceof CompositeExpressionNode) {
+    if (this._focusedNode) {
       this._focusedNode.Add(element);
     } else {
       const elementLink = this._linker.Add(element);
       element.Link = elementLink;
       element.Parent = this;
+      if (element instanceof CompositeExpressionNode)
+        this._focusedNodeLink = elementLink as Link<CompositeExpressionNode>;
     }
   }
 
-  RemoveCharacter() {
-    const activeNode = this.ActiveNode;
-    if (activeNode instanceof CompositeExpressionNode) activeNode.Remove();
-    else this._linker.Remove();
+  Remove() {
+    if (this._focusedNode) {
+      this._focusedNode.Remove();
+    } else {
+      this._linker.Remove();
+    }
   }
 
   Select(node: Link<ExpressionNode>) {
@@ -62,11 +75,11 @@ export abstract class Expression
   }
 
   Focus(node: CompositeExpressionNode) {
-    this._focusedNode = node;
+    this._focusedNodeLink = node.Link;
   }
 
   UnFocus() {
-    this._focusedNode = null;
+    this._focusedNodeLink = null;
   }
 
   SelectPrev() {

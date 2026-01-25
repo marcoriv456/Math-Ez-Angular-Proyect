@@ -15,7 +15,8 @@ import { Expression } from '../../../../../../core/domain/model/expression/expre
 import { Fraction } from '../../../../../../core/domain/model/fraction/fraction.model';
 import { Link } from '../../../../../../core/structures/link/link.i';
 import { DomPositionCalculator } from '../../../core/helpers/dom-position-calculator.helper';
-import { MathInputNodeView } from '../../abstracts/math-input-node-view.abstract';
+import { CompositeExpressionNodeView } from '../../abstracts/composite-expression-node-view.abstract';
+import { ExpressionNodeView } from '../../abstracts/expression-node-view.abstract';
 import { MathTermViewDirective } from '../../directives/math-term-view/math-term-view.directive';
 
 @Component({
@@ -27,21 +28,30 @@ export class TermListComponent {
   @Input({ required: true }) Expression!: Expression;
 
   @Output() Click = new EventEmitter<number>();
-  @ViewChildren(MathInputNodeView)
-  protected readonly _renderedTermList!: QueryList<MathInputNodeView>;
+  @ViewChildren(ExpressionNodeView)
+  protected readonly _renderedTermList!: QueryList<ExpressionNodeView>;
 
   private readonly _ref = inject(ElementRef<HTMLElement>);
   private readonly _cdr = inject(ChangeDetectorRef);
 
-  public get SelectedElement(): MathInputNodeView | null {
+  private get _activeNode(): ExpressionNodeView | null {
     const activeNodeIndex = this.Expression.ActiveNodeIndex;
     if (activeNodeIndex != null)
       return this._renderedTermList.get(activeNodeIndex) || null;
     return null;
   }
 
+  private get _focusedNode(): CompositeExpressionNodeView | null {
+    const focusedNodeIndex = this.Expression.FocusedNodeIndex;
+    if (focusedNodeIndex == null) return null;
+    const focusedNode = this._renderedTermList.get(focusedNodeIndex);
+    if (!focusedNode) return null;
+    return focusedNode as CompositeExpressionNodeView;
+  }
+
   public get CaretPosition() {
-    const selected = this.SelectedElement;
+    if (this._focusedNode) return this._focusedNode.CaretPosition;
+    const selected = this._activeNode;
     return selected ? selected.RightBorderPosition : this._positionX;
   }
 
@@ -72,7 +82,7 @@ export class TermListComponent {
   }
 
   public Remove() {
-    this.Expression.RemoveCharacter();
+    this.Expression.Remove();
     this._cdr.detectChanges();
     return this.CaretPosition;
   }

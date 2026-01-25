@@ -56,19 +56,19 @@ export class SelectionLinker<T> {
     return removed;
   }
 
-  Select(element: Link<T>): SelectionLinker<T> {
+  Select(element: Link<T>) {
     console.log(element);
     this._selected = element as InternalLinkerNode<T>;
     return this;
   }
 
-  SelectNext(): SelectionLinker<T> {
+  SelectNext() {
     if (this._selected && this._selected.Next)
       this._selected = this._selected.Next;
     return this;
   }
 
-  SelectPrev(): SelectionLinker<T> {
+  SelectPrev() {
     if (!this._selected) return this;
 
     if (!this._selected.Prev && !this._selected.IsPlaceholder)
@@ -78,14 +78,12 @@ export class SelectionLinker<T> {
     return this;
   }
 
-  SelectTail(): SelectionLinker<T> {
+  SelectTail(): void {
     this.selectEdgePlaceholder();
-    return this;
   }
 
-  SelectLast(): SelectionLinker<T> {
+  SelectLast(): void {
     this._selected = this.last() as InternalLinkerNode<T>;
-    return this;
   }
 
   get Selection(): Link<T> | null {
@@ -113,7 +111,7 @@ export class SelectionLinker<T> {
     return node;
   }
 
-  private first(): InternalLinkerNode<T> | null {
+  protected first(): InternalLinkerNode<T> | null {
     if (!this._selected) return null;
     let node: InternalLinkerNode<T> = this._selected;
 

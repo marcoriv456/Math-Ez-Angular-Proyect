@@ -2,7 +2,7 @@ import { Directive, ElementRef, inject } from '@angular/core';
 import { DomPositionCalculator } from '../../core/helpers/dom-position-calculator.helper';
 
 @Directive()
-export abstract class MathInputNodeView {
+export abstract class ExpressionNodeView {
   protected readonly _ref: ElementRef<HTMLElement> = inject(ElementRef);
 
   get LeftBorderPosition() {
