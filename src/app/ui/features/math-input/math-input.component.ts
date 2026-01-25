@@ -1,4 +1,5 @@
 import { Component, HostListener, ViewChild } from '@angular/core';
+import { RootExpression } from '../../../core/domain/model/expression/root-expression.model';
 import { TermListComponent } from './ui/atoms/term-list/term-list.component';
 import { CaretComponent } from './ui/organisms/caret/caret.component';
 
@@ -11,6 +12,8 @@ import { CaretComponent } from './ui/organisms/caret/caret.component';
 export class MathInputComponent {
   @ViewChild(TermListComponent) _termList!: TermListComponent;
   @ViewChild(CaretComponent) _caret!: CaretComponent;
+
+  protected readonly _root = new RootExpression();
 
   @HostListener('keydown', ['$event'])
   protected OnKeyDown(event: KeyboardEvent) {

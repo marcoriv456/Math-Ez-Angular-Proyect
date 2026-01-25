@@ -1,27 +1,32 @@
 import {
   Component,
-  ElementRef,
   EventEmitter,
+  forwardRef,
   HostListener,
-  inject,
   Input,
   Output,
 } from '@angular/core';
-import { Character } from '../../../../../../core/domain/model/expression/expression-character.model';
+import { Character } from '../../../../../../core/domain/model/character/character.model';
+import { MathInputNodeView } from '../../abstracts/math-input-node-view.abstract';
 
 @Component({
   selector: 'math-character',
   templateUrl: './character.component.html',
   styleUrl: './character.component.css',
+  providers: [
+    {
+      provide: MathInputNodeView,
+      useExisting: forwardRef(() => CharacterComponent),
+    },
+  ],
 })
-export class CharacterComponent {
+export class CharacterComponent extends MathInputNodeView {
   @Input({ required: true })
   public Character!: Character;
 
   @Output()
   public CharacterClick = new EventEmitter<{ side: 'left' | 'right' }>();
 
-  private readonly _ref = inject(ElementRef<HTMLElement>);
   @HostListener('click', ['$event'])
   protected OnClick(event: MouseEvent) {
     event.stopPropagation();

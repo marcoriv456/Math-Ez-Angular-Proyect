@@ -1,151 +1,152 @@
 import { Expression } from '../../model/expression/expression.model';
 describe('TermList', () => {
-  let expression: Expression;
-  const addAll = (exp: Expression, chars: string[] | string) => {
+  let termList: Expression;
+  const addAll = (termList: Expression, chars: string[] | string) => {
     chars = typeof chars == 'string' ? chars.split('') : chars;
-    chars.forEach((char) => exp.Add(char));
+    chars.forEach((char) => termList.AddCharacter(char));
   };
 
-  const extractCharacters = (exp: Expression) =>
-    exp.Characters.map((c) => c.Character);
+  const extractCharacters = (termList: Expression) =>
+    (termList.AsArray[0] as Expression).Characters.map((c) => c.Character);
+
   beforeEach(() => {
-    expression = new Expression();
+    termList = new Expression();
   });
 
   it('Is created', () => {
-    expect(expression).toBeTruthy();
+    expect(termList).toBeTruthy();
   });
 
   describe('Basic character edition', () => {
     it('Adds a character', () => {
       const character = 'h';
 
-      expression.Add(character);
+      termList.AddCharacter(character);
 
-      const characters = extractCharacters(expression);
+      const characters = extractCharacters(termList);
       expect(characters).toEqual([character]);
     });
 
     it('Removes a character', () => {
       const character = 'h';
-      expression.Add(character);
+      termList.AddCharacter(character);
 
-      expression.Remove();
+      termList.RemoveCharacter();
 
-      const characters = extractCharacters(expression);
+      const characters = extractCharacters(termList);
       expect(characters).toEqual([]);
     });
 
     it('Adds mutiple characters', () => {
       const phrase = 'hello world';
 
-      addAll(expression, phrase);
+      addAll(termList, phrase);
 
-      const characters = extractCharacters(expression);
+      const characters = extractCharacters(termList);
       expect(characters).toEqual(phrase.split(''));
     });
 
     it('Removes multiple characters', () => {
       const phrase = 'hello world';
-      addAll(expression, phrase);
+      addAll(termList, phrase);
 
       for (let i = 0; i < 6; i++) {
-        expression.Remove();
+        termList.RemoveCharacter();
       }
 
-      const characters = extractCharacters(expression);
+      const characters = extractCharacters(termList);
       expect(characters).toEqual('hello'.split(''));
     });
   });
 
   describe('Character selection', () => {
     beforeEach(() => {
-      addAll(expression, 'hello world');
+      addAll(termList, 'hello world');
     });
 
     it('Selects the beggining.', () => {
-      expression.SelectTailCharacter();
+      termList.SelectTail();
 
-      expect(expression.Selection).toBe(null);
+      expect(termList.SelectedCharacter).toBe(null);
     });
 
     it('Selects the end.', () => {
-      expression.SelectLastCharacter();
+      termList.SelectLast();
 
-      expect(expression.Selection?.Value.Character).toBe('d');
+      expect(termList.SelectedCharacter?.Character).toBe('d');
     });
 
     it('Selects the next character', () => {
-      expression.SelectTailCharacter();
+      termList.SelectTail();
 
-      expression.SelectNextCharacter();
+      termList.SelectNext();
 
-      expect(expression.Selection?.Value.Character).toBe('h');
+      expect(termList.SelectedCharacter?.Character).toBe('h');
     });
 
     it('Selects the previous character', () => {
-      expression.SelectLastCharacter();
+      termList.SelectLast();
 
-      expression.SelectPrevCharacter();
+      termList.SelectPrev();
 
-      expect(expression.Selection?.Value.Character).toBe('l');
+      expect(termList.SelectedCharacter?.Character).toBe('l');
     });
 
     it('Selects the next character one after another', () => {
-      expression.SelectTailCharacter();
+      termList.SelectTail();
 
       for (let i = 0; i < 5; i++) {
-        expression.SelectNextCharacter();
+        termList.SelectNext();
       }
 
-      expect(expression.Selection?.Value.Character).toBe('o');
+      expect(termList.SelectedCharacter?.Character).toBe('o');
     });
 
     it('Selects the previous character one below another', () => {
-      expression.SelectLastCharacter();
+      termList.SelectLast();
 
       for (let i = 0; i < 4; i++) {
-        expression.SelectPrevCharacter(); // w <- o <- r <- l <- d
+        termList.SelectPrev(); // w <- o <- r <- l <- d
       }
 
-      expect(expression.Selection?.Value.Character).toBe('w');
+      expect(termList.SelectedCharacter?.Character).toBe('w');
     });
 
     it('Moves around', () => {
-      expression.SelectTailCharacter();
+      termList.SelectTail();
 
       for (let i = 0; i < 8; i++) {
-        expression.SelectNextCharacter(); //{tail} -> h -> e -> l -> l -> o -> \s -> w -> o
+        termList.SelectNext(); //{tail} -> h -> e -> l -> l -> o -> \s -> w -> o
       }
       for (let i = 0; i < 3; i++) {
-        expression.SelectPrevCharacter(); // o <- \s <- w <- o
+        termList.SelectPrev(); // o <- \s <- w <- o
       }
 
-      expect(expression.Selection?.Value.Character).toBe('o');
+      expect(termList.SelectedCharacter?.Character).toBe('o');
     });
   });
 
   describe('Selective character edition ', () => {
     beforeEach(() => {
-      addAll(expression, 'hello world');
+      addAll(termList, 'hello world');
     });
     it('Adds characters after the selected character', () => {
-      expression.SelectTailCharacter();
+      termList.SelectTail();
 
-      addAll(expression, 'hey ');
+      addAll(termList, 'hey ');
 
-      const characters = extractCharacters(expression);
+      const characters = extractCharacters(termList);
       expect(characters).toEqual('hey hello world'.split(''));
     });
 
     it('Removes character before the selected character', () => {
-      expression.SelectLastCharacter();
+      termList.SelectLast();
 
       for (let i = 0; i < 6; i++) {
-        expression.Remove();
+        termList.RemoveCharacter();
       }
 
-      const characters = extractCharacters(expression);
+      const characters = extractCharacters(termList);
       expect(characters).toEqual('hello'.split(''));
     });
   });

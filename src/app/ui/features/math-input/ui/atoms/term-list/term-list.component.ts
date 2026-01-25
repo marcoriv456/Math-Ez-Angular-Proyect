@@ -4,16 +4,17 @@ import {
   ElementRef,
   EventEmitter,
   inject,
+  Input,
   Output,
   QueryList,
   ViewChildren,
 } from '@angular/core';
-import { MathTerm } from '../../../../../../core/domain/abstract/math-term.abstract';
-import { Character } from '../../../../../../core/domain/model/expression/expression-character.model';
+import { ExpressionNode } from '../../../../../../core/domain/abstract/expression-node.interface';
+import { Character } from '../../../../../../core/domain/model/character/character.model';
 import { Expression } from '../../../../../../core/domain/model/expression/expression.model';
-import { TermList } from '../../../../../../core/domain/structures/term-list/term-list.model';
 import { Link } from '../../../../../../core/structures/link/link.i';
 import { DomPositionCalculator } from '../../../core/helpers/dom-position-calculator.helper';
+import { MathInputNodeView } from '../../abstracts/math-input-node-view.abstract';
 import { MathTermViewDirective } from '../../directives/math-term-view/math-term-view.directive';
 
 @Component({
@@ -22,20 +23,19 @@ import { MathTermViewDirective } from '../../directives/math-term-view/math-term
   styleUrl: './term-list.component.css',
 })
 export class TermListComponent {
+  @Input({ required: true }) Expression!: Expression;
+
   @Output() Click = new EventEmitter<number>();
+  @ViewChildren(MathInputNodeView)
+  protected readonly _renderedTermList!: QueryList<MathInputNodeView>;
 
-  @ViewChildren(MathTermViewDirective)
-  protected readonly _renderedTermList!: QueryList<MathTermViewDirective>;
-
-  protected readonly _termList = new TermList();
-
-  private readonly _cdr = inject(ChangeDetectorRef);
   private readonly _ref = inject(ElementRef<HTMLElement>);
+  private readonly _cdr = inject(ChangeDetectorRef);
 
-  public get SelectedElement(): MathTermViewDirective | null {
-    const selectedIndex = this._termList.SelectedCharacterIndex;
-    if (selectedIndex != null)
-      return this._renderedTermList.get(selectedIndex) || null;
+  public get SelectedElement(): MathInputNodeView | null {
+    const activeNodeIndex = this.Expression.ActiveNodeIndex;
+    if (activeNodeIndex != null)
+      return this._renderedTermList.get(activeNodeIndex) || null;
     return null;
   }
 
@@ -45,43 +45,40 @@ export class TermListComponent {
   }
 
   public GoForward(): number {
-    this._termList.SelectNext();
+    this.Expression.SelectNext();
     return this.CaretPosition;
   }
 
   public GoBackward() {
-    this._termList.SelectPrev();
+    this.Expression.SelectPrev();
     return this.CaretPosition;
   }
 
   public GoStart() {
-    this._termList.SelectTail();
+    this.Expression.SelectTail();
     return this.CaretPosition;
   }
 
   public GoEnd() {
-    this._termList.SelectLast();
+    this.Expression.SelectLast();
     return this.CaretPosition;
   }
 
   public Add(char: string) {
-    this._termList.AddCharacter(char);
+    this.Expression.AddCharacter(char);
     this._cdr.detectChanges();
     return this.CaretPosition;
   }
 
   public Remove() {
-    this._termList.RemoveCharacter();
+    this.Expression.RemoveCharacter();
     this._cdr.detectChanges();
     return this.CaretPosition;
   }
 
-  protected IsExpression(term: MathTerm): term is Expression {
-    return term instanceof Expression;
+  protected IsCharacter(node: ExpressionNode): node is Character {
+    return node instanceof Character;
   }
-
-  // TODO: write tests tomorrow
-  // TODO: optimize this function
 
   protected OnCharacterClick(
     modelChar: Character,
@@ -96,8 +93,8 @@ export class TermListComponent {
       caretPosition = viewChar.LeftBorderPosition;
     }
 
-    if (selected) this._termList.SelectCharacter(selected.Value);
-    else this._termList.SelectTail();
+    if (selected) this.Expression.Select(selected);
+    else this.Expression.SelectTail();
 
     this.Click.emit(caretPosition);
   }

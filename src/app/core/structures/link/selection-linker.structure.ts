@@ -4,6 +4,15 @@ export class SelectionLinker<T> {
   private _selected: InternalLinkerNode<T> | null = null;
   private _array: InternalLinkerNode<T>[] = [];
 
+  public get IsAtLast(): boolean {
+    return !this._selected?.Next;
+  }
+
+  public get IsAtTail(): boolean {
+    if (!this._selected) return true;
+    return this._selected.IsPlaceholder;
+  }
+
   Add(element: T): Link<T> {
     if (this._selected && this._selected.IsPlaceholder) {
       this._selected.Value = element;
