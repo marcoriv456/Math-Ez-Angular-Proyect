@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TermListComponent } from './term-list.component';
+import { ExpressionComponent } from './expression.component';
 
-describe('TermListComponent', () => {
-  let component: TermListComponent;
-  let fixture: ComponentFixture<TermListComponent>;
+describe('ExpressionComponent', () => {
+  let component: ExpressionComponent;
+  let fixture: ComponentFixture<ExpressionComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TermListComponent]
+      declarations: [ExpressionComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TermListComponent);
+    fixture = TestBed.createComponent(ExpressionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

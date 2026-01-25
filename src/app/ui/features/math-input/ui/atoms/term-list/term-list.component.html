@@ -1,8 +1,0 @@
-@for (term of Expression.AsArray; track $index) {
-  @if(IsCharacter(term)) {
-    <math-character [Character]="term"></math-character>
-  }
-  @if(IsFraction(term)){
-    <math-fraction [Fraction]="term"/>
-  }
-}

@@ -20,7 +20,7 @@
   transition: background-color var(--highlighting-transition-duration)
     var(--highlighting-transition-easing);
 }
-math-input-term-list {
+math-expression {
   display: flex;
   justify-content: center;
   align-items: center;

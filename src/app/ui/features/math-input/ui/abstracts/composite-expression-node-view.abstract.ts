@@ -1,12 +1,11 @@
 import { Directive, QueryList, ViewChildren } from '@angular/core';
 import { CompositeExpressionNode } from '../../../../../core/domain/abstract/composite-expression-node.interface';
-import { TermListComponent } from '../atoms/term-list/term-list.component';
-import { ExpressionNodeView } from './expression-node-view.abstract';;
-
+import { ExpressionComponent } from '../atoms/expression/expression.component';
+import { ExpressionNodeView } from './expression-node-view.abstract';
 @Directive()
 export abstract class CompositeExpressionNodeView extends ExpressionNodeView {
-  @ViewChildren(TermListComponent)
-  protected _expressionViews!: QueryList<TermListComponent>;
+  @ViewChildren(ExpressionComponent)
+  protected _expressionViews!: QueryList<ExpressionComponent>;
 
   abstract Node: CompositeExpressionNode;
 
@@ -17,7 +16,7 @@ export abstract class CompositeExpressionNodeView extends ExpressionNodeView {
     return renderedExpression.CaretPosition;
   }
 
-  private get _focusedExpressionView(): TermListComponent | null {
+  private get _focusedExpressionView(): ExpressionComponent | null {
     if (this.Node.FocusedExpressionIndex == null)
       throw new Error('Could not retrieve focused expression index.');
     return this._expressionViews.get(this.Node.FocusedExpressionIndex) || null;

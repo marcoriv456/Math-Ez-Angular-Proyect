@@ -1,7 +1,7 @@
 import { Component, HostListener, ViewChild } from '@angular/core';
 import { RootExpression } from '../../../core/domain/model/expression/root-expression.model';
 import { ExpressionInputIntepreter } from './core/helpers/expression-input-interpreter.helper';
-import { TermListComponent } from './ui/atoms/term-list/term-list.component';
+import { ExpressionComponent } from './ui/atoms/expression/expression.component';
 import { CaretComponent } from './ui/organisms/caret/caret.component';
 
 @Component({
@@ -11,7 +11,7 @@ import { CaretComponent } from './ui/organisms/caret/caret.component';
   host: { '[attr.tabindex]': '0' },
 })
 export class MathInputComponent {
-  @ViewChild(TermListComponent) _termList!: TermListComponent;
+  @ViewChild(ExpressionComponent) _termList!: ExpressionComponent;
   @ViewChild(CaretComponent) _caret!: CaretComponent;
 
   protected readonly _root = new RootExpression();

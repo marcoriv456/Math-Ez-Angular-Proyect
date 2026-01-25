@@ -1,4 +1,4 @@
 <div class="main-overlay" id="overlay">
-  <math-input-term-list (Click)="caret.MoveTo($event)" [Expression]="_root" />
+  <math-expression (Click)="caret.MoveTo($event)" [Expression]="_root" />
   <math-input-caret #caret />
 </div>

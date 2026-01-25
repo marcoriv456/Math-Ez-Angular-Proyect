@@ -13,18 +13,16 @@ import { ExpressionNode } from '../../../../../../core/domain/abstract/expressio
 import { Character } from '../../../../../../core/domain/model/character/character.model';
 import { Expression } from '../../../../../../core/domain/model/expression/expression.model';
 import { Fraction } from '../../../../../../core/domain/model/fraction/fraction.model';
-import { Link } from '../../../../../../core/structures/link/link.i';
 import { DomPositionCalculator } from '../../../core/helpers/dom-position-calculator.helper';
 import { CompositeExpressionNodeView } from '../../abstracts/composite-expression-node-view.abstract';
 import { ExpressionNodeView } from '../../abstracts/expression-node-view.abstract';
-import { MathTermViewDirective } from '../../directives/math-term-view/math-term-view.directive';
 
 @Component({
-  selector: 'math-input-term-list',
-  templateUrl: './term-list.component.html',
-  styleUrl: './term-list.component.css',
+  selector: 'math-expression',
+  templateUrl: './expression.component.html',
+  styleUrl: './expression.component.css',
 })
-export class TermListComponent {
+export class ExpressionComponent {
   @Input({ required: true }) Expression!: Expression;
 
   @Output() Click = new EventEmitter<number>();
@@ -93,25 +91,6 @@ export class TermListComponent {
 
   protected IsFraction(node: ExpressionNode): node is Fraction {
     return node instanceof Fraction;
-  }
-
-  protected OnCharacterClick(
-    modelChar: Character,
-    viewChar: MathTermViewDirective,
-    clickSide: 'left' | 'right',
-  ) {
-    let selected: Link<Character> | null = modelChar.Link;
-    let caretPosition: number = viewChar.RightBorderPosition;
-
-    if (clickSide == 'left') {
-      selected = modelChar.Link.Prev;
-      caretPosition = viewChar.LeftBorderPosition;
-    }
-
-    if (selected) this.Expression.Select(selected);
-    else this.Expression.SelectTail();
-
-    this.Click.emit(caretPosition);
   }
 
   private get _positionX() {

@@ -1,0 +1,8 @@
+@for (node of Expression.AsArray; track $index) {
+  @if (IsCharacter(node)) {
+    <math-character [Character]="node" />
+  }
+  @if (IsFraction(node)) {
+    <math-fraction [Fraction]="node" />
+  }
+}
