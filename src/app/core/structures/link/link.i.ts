@@ -1,6 +1,6 @@
-import { Indexable } from '../index/indexable.structure';
+import { Indexed } from '../index/indexable.structure';
 
-export interface Link<T> extends Indexable<T> {
+export interface Link<T> extends Indexed<T> {
   readonly Next: Link<T> | null;
   readonly Prev: Link<T> | null;
   readonly Index: number;

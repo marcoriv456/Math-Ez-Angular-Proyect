@@ -33,14 +33,14 @@ export class ExpressionComponent {
   private readonly _cdr = inject(ChangeDetectorRef);
 
   private get _activeNode(): ExpressionNodeView | null {
-    const activeNodeIndex = this.Expression.ActiveNodeIndex;
+    const activeNodeIndex = this.Expression.ActiveNode?.Index;
     if (activeNodeIndex != null)
       return this._renderedTermList.get(activeNodeIndex) || null;
     return null;
   }
 
   private get _focusedNode(): CompositeExpressionNodeView | null {
-    const focusedNodeIndex = this.Expression.FocusedNodeIndex;
+    const focusedNodeIndex = this.Expression.FocusedNode?.Index;
     if (focusedNodeIndex == null) return null;
     const focusedNode = this._renderedTermList.get(focusedNodeIndex);
     if (!focusedNode) return null;

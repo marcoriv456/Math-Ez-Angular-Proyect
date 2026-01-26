@@ -1,4 +1,4 @@
-export interface Indexable<T> {
+export interface Indexed<T> {
   Index: number;
   Value: T;
 }

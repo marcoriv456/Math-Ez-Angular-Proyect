@@ -5,7 +5,7 @@ describe('TermList', () => {
   let expression: Expression;
   const addAll = (expression: Expression, chars: string[] | string) => {
     chars = typeof chars == 'string' ? chars.split('') : chars;
-    chars.forEach((char) => expression.AddCharacter(char));
+    chars.forEach((char) => expression.Add(new Character(char)));
   };
 
   const extractCharacters = (expression: Expression) =>
@@ -26,7 +26,7 @@ describe('TermList', () => {
     it('Adds a character', () => {
       const character = 'h';
 
-      expression.AddCharacter(character);
+      expression.Add(new Character(character));
 
       const characters = extractCharacters(expression);
       expect(characters).toEqual([character]);
@@ -34,9 +34,9 @@ describe('TermList', () => {
 
     it('Removes a character', () => {
       const character = 'h';
-      expression.AddCharacter(character);
+      expression.Add(new Character(character));
 
-      expression.RemoveCharacter();
+      expression.Remove();
 
       const characters = extractCharacters(expression);
       expect(characters).toEqual([]);
@@ -56,7 +56,7 @@ describe('TermList', () => {
       addAll(expression, phrase);
 
       for (let i = 0; i < 6; i++) {
-        expression.RemoveCharacter();
+        expression.Remove();
       }
 
       const characters = extractCharacters(expression);
@@ -148,7 +148,7 @@ describe('TermList', () => {
       expression.SelectLast();
 
       for (let i = 0; i < 6; i++) {
-        expression.RemoveCharacter();
+        expression.Remove();
       }
 
       const characters = extractCharacters(expression);

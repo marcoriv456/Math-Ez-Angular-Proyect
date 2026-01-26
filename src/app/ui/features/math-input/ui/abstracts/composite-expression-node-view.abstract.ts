@@ -17,8 +17,8 @@ export abstract class CompositeExpressionNodeView extends ExpressionNodeView {
   }
 
   private get _focusedExpressionView(): ExpressionComponent | null {
-    if (this.Node.FocusedExpressionIndex == null)
+    if (this.Node.FocusedNode.Index == null)
       throw new Error('Could not retrieve focused expression index.');
-    return this._expressionViews.get(this.Node.FocusedExpressionIndex) || null;
+    return this._expressionViews.get(this.Node.FocusedNode.Index) || null;
   }
 }
