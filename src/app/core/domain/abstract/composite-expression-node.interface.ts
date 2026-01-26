@@ -9,9 +9,9 @@ import { ExpressionNode } from './expression-node.interface';
 export abstract class CompositeExpressionNode
   implements
   ExpressionNode,
+  ExpressionNode,
   EditingCursor<ExpressionNode>,
   FocusedAt<Expression> {
-  // Linkable
   get Link() {
     if (!this._link) throw new Error('Not linked already.');
     return this._link;
@@ -59,6 +59,7 @@ export abstract class CompositeExpressionNode
   Focus(node: Expression): void {
     this._expressionLinker.Select(node.Link);
     this.Parent.Focus(this);
+    console.log('Composite focused!');
   }
 
   Select(e: ExpressionNode): void {
@@ -69,15 +70,31 @@ export abstract class CompositeExpressionNode
   }
 
   SelectNext() {
-    this.FocusedNode.Value.SelectNext();
+    if (this.FocusedNode.Value.HasNext) {
+      this.FocusedNode.Value.SelectNext();
+    } else if (this._hasNextExpression) {
+      this._expressionLinker.SelectNext();
+      this.FocusedNode.Value.SelectTail();
+    } else {
+      this.Parent.UnFocus();
+      // this.Parent.SelectNext();
+    }
   }
 
-  get HasNext() {
+  get HasNext(): boolean {
     return this.FocusedNode.Value.HasNext;
   }
 
   SelectPrev() {
-    this.FocusedNode.Value.SelectPrev();
+    if (this.FocusedNode.Value.HasPrev) {
+      this.FocusedNode.Value.SelectPrev();
+    } else if (this._hasPrevExpression) {
+      this._expressionLinker.SelectPrev();
+      this.FocusedNode.Value.SelectLast();
+    } else {
+      this.Parent.UnFocus();
+      // this.Parent.SelectPrev();
+    }
   }
 
   get HasPrev() {
@@ -90,5 +107,21 @@ export abstract class CompositeExpressionNode
 
   SelectLast() {
     this.FocusedNode.Value.SelectLast();
+  }
+
+  SelectLastExpression() {
+    this._expressionLinker.SelectLast();
+  }
+
+  SelectFirstExpression() {
+    this._expressionLinker.SelectFirst();
+  }
+
+  private get _hasNextExpression() {
+    return this._expressionLinker.HasNext;
+  }
+
+  private get _hasPrevExpression() {
+    return this._expressionLinker.HasPrev;
   }
 }

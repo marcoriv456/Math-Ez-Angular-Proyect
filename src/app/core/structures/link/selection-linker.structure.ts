@@ -51,13 +51,13 @@ export class SelectionLinker<T> {
     this.SyncIndexes();
 
     const removed = this._selected;
-    this._selected = prev || next;
+    this._selected = prev;
+    if (!this._selected) this.selectEdgePlaceholder();
 
     return removed;
   }
 
   Select(element: Link<T>) {
-    console.log(element);
     this._selected = element as InternalLinkerNode<T>;
     return this;
   }
@@ -68,6 +68,10 @@ export class SelectionLinker<T> {
     return this;
   }
 
+  get HasNext() {
+    return !!this._selected?.Next;
+  }
+
   SelectPrev() {
     if (!this._selected) return this;
 
@@ -76,6 +80,10 @@ export class SelectionLinker<T> {
     else if (this._selected.Prev) this._selected = this._selected.Prev;
 
     return this;
+  }
+
+  get HasPrev() {
+    return !this._selected || this._selected.IsPlaceholder;
   }
 
   SelectTail(): void {

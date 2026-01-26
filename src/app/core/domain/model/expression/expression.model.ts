@@ -11,6 +11,8 @@ import { ExpressionNode } from '../../abstract/expression-node.interface';
 export abstract class Expression
   implements
   Linkable<Expression>,
+  Linkable<Expression>,
+  Linkable<Expression>,
   Parentable<CompositeExpressionNode>,
   EditingCursor<ExpressionNode>,
   FocusedAt<CompositeExpressionNode> {
@@ -50,12 +52,14 @@ export abstract class Expression
 
   //FocusedAt
   Focus(node: CompositeExpressionNode) {
+    console.log('focused');
     this._focusedNode = node.Link;
     this.Parent.Focus(this);
   }
 
   UnFocus() {
     this._focusedNode = null;
+    console.log('unfocused');
   }
 
   // EditingCursor
@@ -66,8 +70,9 @@ export abstract class Expression
       const elementLink = this._linker.Add(element);
       element.Link = elementLink;
       element.Parent = this;
-      if (element instanceof CompositeExpressionNode)
-        this._focusedNode = elementLink as Link<CompositeExpressionNode>;
+      if (element instanceof CompositeExpressionNode) {
+        this.Focus(element);
+      }
     }
   }
 
@@ -89,11 +94,17 @@ export abstract class Expression
       this._focusedNode.Value.SelectNext();
     } else {
       this._linker.SelectNext();
+      if (this.ActiveNode?.Value instanceof CompositeExpressionNode) {
+        this.Focus(this.ActiveNode.Value);
+        this.FocusedNode?.Value.SelectFirstExpression();
+        this.FocusedNode?.Value.SelectTail();
+      }
     }
   }
 
-  get HasNext() {
-    return false;
+  get HasNext(): boolean {
+    if (this._focusedNode) return this._focusedNode.Value.HasNext;
+    return this._linker.HasNext;
   }
 
   SelectPrev() {
@@ -101,11 +112,17 @@ export abstract class Expression
       this._focusedNode.Value.SelectPrev();
     } else {
       this._linker.SelectPrev();
+      if (this.ActiveNode?.Value instanceof CompositeExpressionNode) {
+        this.Focus(this.ActiveNode.Value);
+        this.FocusedNode?.Value.SelectLastExpression();
+        this.FocusedNode?.Value.SelectLast();
+      }
     }
   }
 
-  get HasPrev() {
-    return false;
+  get HasPrev(): boolean {
+    if (this._focusedNode) return this._focusedNode.Value.HasPrev;
+    return this._linker.HasPrev;
   }
   SelectLast() {
     if (this._focusedNode) {
