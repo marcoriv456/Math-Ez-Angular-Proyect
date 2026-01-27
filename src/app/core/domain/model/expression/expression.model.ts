@@ -52,14 +52,12 @@ export abstract class Expression
 
   //FocusedAt
   Focus(node: CompositeExpressionNode) {
-    console.log('focused');
     this._focusedNode = node.Link;
     this.Parent.Focus(this);
   }
 
   UnFocus() {
     this._focusedNode = null;
-    console.log('unfocused');
   }
 
   // EditingCursor
@@ -111,16 +109,21 @@ export abstract class Expression
     if (this._focusedNode) {
       this._focusedNode.Value.SelectPrev();
     } else {
-      this._linker.SelectPrev();
       if (this.ActiveNode?.Value instanceof CompositeExpressionNode) {
         this.Focus(this.ActiveNode.Value);
         this.FocusedNode?.Value.SelectLastExpression();
         this.FocusedNode?.Value.SelectLast();
       }
+      this._linker.SelectPrev();
     }
   }
 
   get HasPrev(): boolean {
+    console.log(
+      'in has prev: ',
+      this.FocusedNode?.Value.HasPrev,
+      this._linker.HasPrev,
+    );
     if (this._focusedNode) return this._focusedNode.Value.HasPrev;
     return this._linker.HasPrev;
   }

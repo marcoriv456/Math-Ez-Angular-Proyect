@@ -20,6 +20,10 @@ export class ClosedLinker<T> extends SelectionLinker<T> {
     throw new Error("A closed linker doesn't have placeholders (No tail).");
   }
 
+  override get HasPrev(): boolean {
+    return !!this._selected?.Prev;
+  }
+
   SelectFirst() {
     const first = this.first();
     if (!first) throw new Error('No first element found.');

@@ -1,7 +1,7 @@
 import { Link } from './link.i';
 
 export class SelectionLinker<T> {
-  private _selected: InternalLinkerNode<T> | null = null;
+  protected _selected: InternalLinkerNode<T> | null = null;
   private _array: InternalLinkerNode<T>[] = [];
 
   public get IsAtLast(): boolean {
@@ -82,8 +82,8 @@ export class SelectionLinker<T> {
     return this;
   }
 
-  get HasPrev() {
-    return !this._selected || this._selected.IsPlaceholder;
+  get HasPrev(): boolean {
+    return !!this._selected && !this._selected.IsPlaceholder;
   }
 
   SelectTail(): void {

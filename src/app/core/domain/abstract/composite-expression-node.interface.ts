@@ -59,7 +59,6 @@ export abstract class CompositeExpressionNode
   Focus(node: Expression): void {
     this._expressionLinker.Select(node.Link);
     this.Parent.Focus(this);
-    console.log('Composite focused!');
   }
 
   Select(e: ExpressionNode): void {
@@ -77,7 +76,6 @@ export abstract class CompositeExpressionNode
       this.FocusedNode.Value.SelectTail();
     } else {
       this.Parent.UnFocus();
-      // this.Parent.SelectNext();
     }
   }
 
@@ -93,7 +91,6 @@ export abstract class CompositeExpressionNode
       this.FocusedNode.Value.SelectLast();
     } else {
       this.Parent.UnFocus();
-      // this.Parent.SelectPrev();
     }
   }
 
