@@ -2,12 +2,13 @@ import { Link } from './link.i';
 import { SelectionLinker } from './selection-linker.structure';
 
 export class ClosedLinker<T> extends SelectionLinker<T> {
-  constructor(elements: T[]) {
+  constructor(elements: T[], onAdd?: (el: T, link: Link<T>) => void) {
     super();
     if (elements.length == 0)
       throw new Error('A closed linker must at least have two elements.');
     for (const el of elements) {
-      super.Add(el);
+      const link = super.Add(el);
+      if (onAdd) onAdd(el, link);
     }
   }
   override Add(): Link<T> {

@@ -11,10 +11,10 @@ export class Fraction extends CompositeExpressionNode {
     super();
     this.Numerator = new ChildExpression(this);
     this.Denominator = new ChildExpression(this);
-    this._expressionLinker = new ClosedLinker([
-      this.Numerator,
-      this.Denominator,
-    ]);
+    this._expressionLinker = new ClosedLinker(
+      [this.Numerator, this.Denominator],
+      (e, link) => (e.Link = link),
+    );
     this._expressionLinker.SelectFirst();
   }
 }
