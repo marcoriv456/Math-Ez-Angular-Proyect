@@ -1,5 +1,6 @@
 import { Directive, QueryList, ViewChildren } from '@angular/core';
 import { CompositeExpressionNode } from '../../../../../core/domain/abstract/composite-expression-node.interface';
+import { CaretLayout } from '../../core/structures/caret-layout.type';
 import { ExpressionComponent } from '../atoms/expression/expression.component';
 import { ExpressionNodeView } from './expression-node-view.abstract';
 @Directive()
@@ -9,11 +10,11 @@ export abstract class CompositeExpressionNodeView extends ExpressionNodeView {
 
   abstract Node: CompositeExpressionNode;
 
-  get CaretPosition(): number {
+  override get CaretLayout(): CaretLayout {
     const renderedExpression = this._focusedExpressionView;
     if (!renderedExpression)
       throw new Error('Could not retrieve caret position for focused element.');
-    return renderedExpression.CaretPosition;
+    return renderedExpression.CaretLayout;
   }
 
   private get _focusedExpressionView(): ExpressionComponent | null {

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CaretLayout } from '../../../core/structures/caret-layout.type';
 
 @Component({
   selector: 'math-input-caret',
@@ -6,9 +7,13 @@ import { Component } from '@angular/core';
   styleUrl: './caret.component.css',
 })
 export class CaretComponent {
-  protected Style = { left: '0px', top: '0px' };
+  protected Layout = { left: '0px', top: '0px', height: '100%' };
 
-  public MoveTo(x: number) {
-    this.Style.left = x + 'px';
+  public MoveTo(layout: CaretLayout) {
+    this.Layout = {
+      left: layout.X + 'px',
+      top: layout.Y + 'px',
+      height: layout.Height + 'px',
+    };
   }
 }

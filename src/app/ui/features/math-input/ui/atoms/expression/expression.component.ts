@@ -14,6 +14,7 @@ import { Character } from '../../../../../../core/domain/model/character/charact
 import { Expression } from '../../../../../../core/domain/model/expression/expression.model';
 import { Fraction } from '../../../../../../core/domain/model/fraction/fraction.model';
 import { DomPositionCalculator } from '../../../core/helpers/dom-position-calculator.helper';
+import { CaretLayout } from '../../../core/structures/caret-layout.type';
 import { CompositeExpressionNodeView } from '../../abstracts/composite-expression-node-view.abstract';
 import { ExpressionNodeView } from '../../abstracts/expression-node-view.abstract';
 
@@ -47,42 +48,42 @@ export class ExpressionComponent {
     return focusedNode as CompositeExpressionNodeView;
   }
 
-  public get CaretPosition() {
-    if (this._focusedNode) return this._focusedNode.CaretPosition;
+  public get CaretLayout(): CaretLayout {
+    if (this._focusedNode) return this._focusedNode.CaretLayout;
     const selected = this._activeNode;
-    return selected ? selected.RightBorderPosition : this._positionX;
+    return selected ? selected.CaretLayout : this._defaultCaretLayout;
   }
 
-  public GoForward(): number {
+  public GoForward(): CaretLayout {
     this.Expression.SelectNext();
-    return this.CaretPosition;
+    return this.CaretLayout;
   }
 
-  public GoBackward() {
+  public GoBackward(): CaretLayout {
     this.Expression.SelectPrev();
-    return this.CaretPosition;
+    return this.CaretLayout;
   }
 
-  public GoStart() {
+  public GoStart(): CaretLayout {
     this.Expression.SelectTail();
-    return this.CaretPosition;
+    return this.CaretLayout;
   }
 
-  public GoEnd() {
+  public GoEnd(): CaretLayout {
     this.Expression.SelectLast();
-    return this.CaretPosition;
+    return this.CaretLayout;
   }
 
-  public Add(node: ExpressionNode) {
+  public Add(node: ExpressionNode): CaretLayout {
     this.Expression.Add(node);
     this._cdr.detectChanges();
-    return this.CaretPosition;
+    return this.CaretLayout;
   }
 
-  public Remove() {
+  public Remove(): CaretLayout {
     this.Expression.Remove();
     this._cdr.detectChanges();
-    return this.CaretPosition;
+    return this.CaretLayout;
   }
 
   protected IsCharacter(node: ExpressionNode): node is Character {
@@ -93,10 +94,14 @@ export class ExpressionComponent {
     return node instanceof Fraction;
   }
 
-  private get _positionX() {
-    return DomPositionCalculator.PositionX(
-      this._ref.nativeElement,
-      'APP-MATH-INPUT',
-    );
+  private get _defaultCaretLayout() {
+    return {
+      X: DomPositionCalculator.PositionX(
+        this._ref.nativeElement,
+        'APP-MATH-INPUT',
+      ),
+      Y: this._ref.nativeElement.offsetTop,
+      Height: this._ref.nativeElement.offsetHeight,
+    };
   }
 }

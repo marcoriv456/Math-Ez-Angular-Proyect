@@ -8,4 +8,13 @@ export class DomPositionCalculator {
     }
     return positionX;
   }
+  public static PositionY(child: HTMLElement, expectedParentTag: string) {
+    let parent: HTMLElement | null = child.parentElement;
+    let positionY = child.offsetTop;
+    while (parent && parent.tagName != expectedParentTag) {
+      positionY += parent.offsetTop;
+      parent = parent.parentElement;
+    }
+    return positionY;
+  }
 }

@@ -4,10 +4,11 @@ import {
   ElementRef,
   HostListener,
   inject,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { RootExpression } from '../../../core/domain/model/expression/root-expression.model';
 import { ExpressionInputIntepreter } from './core/helpers/expression-input-interpreter.helper';
+import { CaretLayout } from './core/structures/caret-layout.type';
 import { ExpressionComponent } from './ui/atoms/expression/expression.component';
 import { CaretComponent } from './ui/organisms/caret/caret.component';
 
@@ -76,7 +77,7 @@ export class MathInputComponent implements AfterViewInit {
     this.MoveCaretTo(charPosition);
   }
 
-  private MoveCaretTo(x: number) {
-    this._caret.MoveTo(x);
+  private MoveCaretTo(layout: CaretLayout) {
+    this._caret.MoveTo(layout);
   }
 }
