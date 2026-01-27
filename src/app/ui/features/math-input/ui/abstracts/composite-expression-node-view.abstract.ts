@@ -10,7 +10,7 @@ export abstract class CompositeExpressionNodeView extends ExpressionNodeView {
 
   abstract Node: CompositeExpressionNode;
 
-  override get CaretLayout(): CaretLayout {
+  get CompositeCaretLayout(): CaretLayout {
     const renderedExpression = this._focusedExpressionView;
     if (!renderedExpression)
       throw new Error('Could not retrieve caret position for focused element.');

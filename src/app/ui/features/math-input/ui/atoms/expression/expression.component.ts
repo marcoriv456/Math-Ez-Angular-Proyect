@@ -35,21 +35,28 @@ export class ExpressionComponent {
 
   private get _activeNode(): ExpressionNodeView | null {
     const activeNodeIndex = this.Expression.ActiveNode?.Index;
-    if (activeNodeIndex != null)
-      return this._renderedTermList.get(activeNodeIndex) || null;
-    return null;
+    if (activeNodeIndex == null) return null;
+    const activeNode = this._renderedTermList.get(activeNodeIndex);
+    if (!activeNode) return null;
+    return activeNode;
   }
 
   private get _focusedNode(): CompositeExpressionNodeView | null {
     const focusedNodeIndex = this.Expression.FocusedNode?.Index;
-    if (focusedNodeIndex == null) return null;
+    if (focusedNodeIndex == null) {
+      return null;
+    }
     const focusedNode = this._renderedTermList.get(focusedNodeIndex);
-    if (!focusedNode) return null;
+    if (!focusedNode) {
+      return null;
+    }
     return focusedNode as CompositeExpressionNodeView;
   }
 
   public get CaretLayout(): CaretLayout {
-    if (this._focusedNode) return this._focusedNode.CaretLayout;
+    if (this._focusedNode) {
+      return this._focusedNode.CompositeCaretLayout;
+    }
     const selected = this._activeNode;
     return selected ? selected.CaretLayout : this._defaultCaretLayout;
   }
