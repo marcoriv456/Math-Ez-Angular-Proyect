@@ -46,6 +46,10 @@ export abstract class Expression
     return this._linker.Selection;
   }
 
+  private get _activeNode(): Link<ExpressionNode> | null {
+    return this._linker.Selection;
+  }
+
   get AsArray() {
     return this._linker.AsArray;
   }
@@ -53,11 +57,13 @@ export abstract class Expression
   //FocusedAt
   Focus(node: CompositeExpressionNode) {
     this._focusedNode = node.Link;
-    this.Parent.Focus(this);
+    this.Select(node);
+    console.log('on focus: selected:', this._activeNode?.Value);
   }
 
   UnFocus() {
     this._focusedNode = null;
+    console.log('on unfocus: selected: ', this._activeNode?.Value);
   }
 
   // EditingCursor
@@ -89,10 +95,14 @@ export abstract class Expression
 
   SelectNext() {
     if (this._focusedNode) {
+      console.log('focused node existed');
       this._focusedNode.Value.SelectNext();
-    } else {
+    } else if (this._linker.HasNext) {
+      console.log('had next: selection:', this._linker.Selection?.Value);
       this._linker.SelectNext();
+      console.log('after had next: selection:', this._linker.Selection?.Value);
       if (this.ActiveNode?.Value instanceof CompositeExpressionNode) {
+        console.log('was  composite');
         this.Focus(this.ActiveNode.Value);
         this.FocusedNode?.Value.SelectFirstExpression();
         this.FocusedNode?.Value.SelectTail();
@@ -108,7 +118,7 @@ export abstract class Expression
   SelectPrev() {
     if (this._focusedNode) {
       this._focusedNode.Value.SelectPrev();
-    } else {
+    } else if (this._linker.HasPrev) {
       if (this.ActiveNode?.Value instanceof CompositeExpressionNode) {
         this.Focus(this.ActiveNode.Value);
         this.FocusedNode?.Value.SelectLastExpression();
@@ -119,11 +129,6 @@ export abstract class Expression
   }
 
   get HasPrev(): boolean {
-    console.log(
-      'in has prev: ',
-      this.FocusedNode?.Value.HasPrev,
-      this._linker.HasPrev,
-    );
     if (this._focusedNode) return this._focusedNode.Value.HasPrev;
     return this._linker.HasPrev;
   }
@@ -141,5 +146,6 @@ export abstract class Expression
     } else {
       this._linker.SelectTail();
     }
+    console.log('///SELECT TAIL CALLED');
   }
 }

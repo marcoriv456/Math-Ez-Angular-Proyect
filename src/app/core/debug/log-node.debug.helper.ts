@@ -6,7 +6,7 @@ import { Link } from '../structures/link/link.i';
 import { SelectionLinker } from '../structures/link/selection-linker.structure';
 
 const config = {
-  log: true,
+  log: false,
 };
 
 export function Log(linker: SelectionLinker<ExpressionNode>) {

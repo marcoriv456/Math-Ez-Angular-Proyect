@@ -1,4 +1,3 @@
-import { Log } from '../../../debug/log-node.debug.helper';
 import { CompositeExpressionNode } from '../../abstract/composite-expression-node.interface';
 import { ExpressionNode } from '../../abstract/expression-node.interface';
 import { Expression } from './expression.model';
@@ -13,27 +12,8 @@ export class RootExpression extends Expression {
   }
 
   override Focus(node: CompositeExpressionNode) {
-    console.log('node focused: ', node);
-    Log(this._linker);
     this._focusedNode = node.Link;
-  }
-
-  override SelectPrev(): void {
-    super.SelectPrev();
-  }
-
-  override SelectNext(): void {
-    super.SelectNext();
-    // Log(this._linker);
-  }
-
-  override Add(element: ExpressionNode): void {
-    super.Add(element);
-    // Log(this._linker);
-  }
-
-  override Remove(): void {
-    super.Remove();
-    // Log(this._linker);
+    this.Select(node);
+    console.log('on focus: selected:', this._linker.Selection?.Value);
   }
 }

@@ -63,6 +63,12 @@ export class SelectionLinker<T> {
   }
 
   SelectNext() {
+    console.log('this._selected: ', this._selected);
+    console.log('this._selected.Next: ', this._selected?.Next);
+    console.log(
+      'this._selected && _selected.Next',
+      !!this._selected && !!this._selected.Next,
+    );
     if (this._selected && this._selected.Next)
       this._selected = this._selected.Next;
     return this;
@@ -104,10 +110,14 @@ export class SelectionLinker<T> {
   }
 
   private selectEdgePlaceholder() {
-    const placeholder = new InternalLinkerNode<T>(null);
     const first = this.first();
+    if (first && first.IsPlaceholder) {
+      this.Select(first);
+      return;
+    }
+    const placeholder = new InternalLinkerNode<T>(null);
     placeholder.Next = first;
-    this._selected = placeholder;
+    this.Select(placeholder);
   }
 
   private last(): Link<T> | null {

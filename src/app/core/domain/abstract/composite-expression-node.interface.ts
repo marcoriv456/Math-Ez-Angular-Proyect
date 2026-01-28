@@ -70,11 +70,14 @@ export abstract class CompositeExpressionNode
 
   SelectNext() {
     if (this.FocusedNode.Value.HasNext) {
+      console.log('1st');
       this.FocusedNode.Value.SelectNext();
     } else if (this._hasNextExpression) {
+      console.log('2nd');
       this._expressionLinker.SelectNext();
       this.FocusedNode.Value.SelectTail();
     } else {
+      console.log('3rd');
       this.Parent.UnFocus();
     }
   }
@@ -91,6 +94,7 @@ export abstract class CompositeExpressionNode
       this.FocusedNode.Value.SelectLast();
     } else {
       this.Parent.UnFocus();
+      // this.Parent.SelectPrev();
     }
   }
 
