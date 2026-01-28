@@ -70,19 +70,25 @@ export abstract class CompositeExpressionNode
 
   SelectNext() {
     if (this.FocusedNode.Value.HasNext) {
-      // console.log('1st');
+      console.log('1st');
       this.FocusedNode.Value.SelectNext();
     } else if (this._hasNextExpression) {
-      // console.log('2nd');
+      console.log('2nd');
       this._expressionLinker.SelectNext();
       this.FocusedNode.Value.SelectTail();
     } else {
+      console.log('else');
       this.Parent.Blur().andKeepSelection();
     }
   }
 
   get HasNext(): boolean {
-    return this.FocusedNode.Value.HasNext;
+    return (
+      this.FocusedNode.Value.HasNext ||
+      this._expressionLinker.HasNext ||
+      this.Parent.HasNextNodes ||
+      this.Parent.HasFocused
+    );
   }
 
   SelectPrev() {
@@ -97,7 +103,12 @@ export abstract class CompositeExpressionNode
   }
 
   get HasPrev() {
-    return this.FocusedNode.Value.HasPrev;
+    return (
+      this.FocusedNode.Value.HasPrev ||
+      this._expressionLinker.HasPrev ||
+      this.Parent.HasPrevNodes ||
+      this.Parent.HasFocused
+    );
   }
 
   SelectTail() {

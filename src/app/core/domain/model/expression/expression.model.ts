@@ -123,11 +123,6 @@ export abstract class Expression
     }
   }
 
-  get HasNext(): boolean {
-    if (this._focusedNode) return this._focusedNode.Value.HasNext;
-    return this._linker.HasNext;
-  }
-
   SelectPrev() {
     if (this._focusedNode) {
       this._focusedNode.Value.SelectPrev();
@@ -144,10 +139,6 @@ export abstract class Expression
     }
   }
 
-  get HasPrev(): boolean {
-    if (this._focusedNode) return this._focusedNode.Value.HasPrev;
-    return this._linker.HasPrev;
-  }
   SelectLast() {
     if (this._focusedNode) {
       this._focusedNode.Value.SelectLast();
@@ -163,5 +154,23 @@ export abstract class Expression
       this._linker.SelectTail();
     }
     // console.log('///SELECT TAIL CALLED');
+  }
+
+  get HasNext(): boolean {
+    if (this._focusedNode) return this._focusedNode.Value.HasNext;
+    return this._linker.HasNext;
+  }
+  get HasPrev(): boolean {
+    if (this._focusedNode) return this._focusedNode.Value.HasPrev;
+    return this._linker.HasPrev;
+  }
+  get HasNextNodes(): boolean {
+    return this._linker.HasNext;
+  }
+  get HasPrevNodes(): boolean {
+    return this._linker.HasPrev;
+  }
+  get HasFocused() {
+    return !!this._focusedNode;
   }
 }
