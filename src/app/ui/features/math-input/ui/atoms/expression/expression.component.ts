@@ -107,7 +107,10 @@ export class ExpressionComponent {
         this._ref.nativeElement,
         'APP-MATH-INPUT',
       ),
-      Y: this._ref.nativeElement.offsetTop,
+      Y: DomPositionCalculator.PositionY(
+        this._ref.nativeElement,
+        'APP-MATH-INPUT',
+      ),
       Height: this._ref.nativeElement.offsetHeight,
     };
   }
