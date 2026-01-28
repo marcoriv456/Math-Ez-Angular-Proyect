@@ -26,7 +26,7 @@ import { ExpressionNodeView } from '../../abstracts/expression-node-view.abstrac
 export class ExpressionComponent {
   @Input({ required: true }) Expression!: Expression;
 
-  @Output() Click = new EventEmitter<number>();
+  @Output() Click = new EventEmitter<CaretLayout>();
   @ViewChildren(ExpressionNodeView)
   protected readonly _renderedTermList!: QueryList<ExpressionNodeView>;
 

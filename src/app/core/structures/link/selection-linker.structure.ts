@@ -63,12 +63,12 @@ export class SelectionLinker<T> {
   }
 
   SelectNext() {
-    console.log('this._selected: ', this._selected);
-    console.log('this._selected.Next: ', this._selected?.Next);
-    console.log(
-      'this._selected && _selected.Next',
-      !!this._selected && !!this._selected.Next,
-    );
+    // console.log('this._selected: ', this._selected);
+    // console.log('this._selected.Next: ', this._selected?.Next);
+    // console.log(
+    // 'this._selected && _selected.Next',
+    // !!this._selected && !!this._selected.Next,
+    // );
     if (this._selected && this._selected.Next)
       this._selected = this._selected.Next;
     return this;

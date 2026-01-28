@@ -58,12 +58,23 @@ export abstract class Expression
   Focus(node: CompositeExpressionNode) {
     this._focusedNode = node.Link;
     this.Select(node);
-    console.log('on focus: selected:', this._activeNode?.Value);
+    // console.log('selected: ', this._linker.Selected )
+    // console.log('on focus: selected:', this._activeNode?.Value);
   }
 
   UnFocus() {
     this._focusedNode = null;
     console.log('on unfocus: selected: ', this._activeNode?.Value);
+  }
+
+  Blur() {
+    const focused = this._focusedNode;
+    if (!focused) throw new Error('Can blur if there is no focused element!');
+    this.UnFocus();
+    return {
+      andSelectPrev: () => this._linker.SelectPrev(),
+      andKeepSelection: () => this._linker.Select(focused.Value.Link),
+    };
   }
 
   // EditingCursor
@@ -95,18 +106,20 @@ export abstract class Expression
 
   SelectNext() {
     if (this._focusedNode) {
-      console.log('focused node existed');
+      // console.log('focused node existed');
       this._focusedNode.Value.SelectNext();
     } else if (this._linker.HasNext) {
-      console.log('had next: selection:', this._linker.Selection?.Value);
+      // console.log('had next: selection:', this._linker.Selection?.Value);
+      // console.log('after had next: selection:', this._linker.Selection?.Value);
       this._linker.SelectNext();
-      console.log('after had next: selection:', this._linker.Selection?.Value);
       if (this.ActiveNode?.Value instanceof CompositeExpressionNode) {
-        console.log('was  composite');
+        // console.log('was  composite');
         this.Focus(this.ActiveNode.Value);
         this.FocusedNode?.Value.SelectFirstExpression();
         this.FocusedNode?.Value.SelectTail();
       }
+      if ((this._linker.Selection?.Value as any)['Character'] == '$')
+        console.log('CATCH!');
     }
   }
 
@@ -123,8 +136,11 @@ export abstract class Expression
         this.Focus(this.ActiveNode.Value);
         this.FocusedNode?.Value.SelectLastExpression();
         this.FocusedNode?.Value.SelectLast();
+      } else {
+        this._linker.SelectPrev();
       }
-      this._linker.SelectPrev();
+      // if ((this._linker.Selection?.Value as any)['Character'] == '$')
+      // console.log('CATCH!');
     }
   }
 
@@ -146,6 +162,6 @@ export abstract class Expression
     } else {
       this._linker.SelectTail();
     }
-    console.log('///SELECT TAIL CALLED');
+    // console.log('///SELECT TAIL CALLED');
   }
 }
