@@ -9,7 +9,6 @@ import { ExpressionNode } from './expression-node.interface';
 export abstract class CompositeExpressionNode
   implements
   ExpressionNode,
-  ExpressionNode,
   EditingCursor<ExpressionNode>,
   FocusedAt<Expression> {
   get Link() {
@@ -48,8 +47,6 @@ export abstract class CompositeExpressionNode
   Remove(): void {
     this.FocusedNode.Value.Remove();
   }
-
-  // EditingCursor
 
   get ActiveNode(): Indexed<ExpressionNode> | null {
     return this.FocusedNode.Value.ActiveNode;

@@ -14,6 +14,5 @@ export class RootExpression extends Expression {
   override Focus(node: CompositeExpressionNode) {
     this._focusedNode = node.Link;
     this.Select(node);
-    console.log('on focus: selected:', this._linker.Selection?.Value);
   }
 }

@@ -1,19 +1,29 @@
+import { EditingCursor } from '../../../structures/cursor/editing-cursor.interface';
+import { CompositeExpressionNode } from '../../abstract/composite-expression-node.interface';
+import { ExpressionNode } from '../../abstract/expression-node.interface';
 import { Expression } from '../../model/expression/expression.model';
 import { Character } from '../character/character.model';
+import { Fraction } from '../fraction/fraction.model';
 import { RootExpression } from './root-expression.model';
 describe('TermList', () => {
   let expression: Expression;
-  const addAll = (expression: Expression, chars: string[] | string) => {
+  const addAll = (
+    cursor: EditingCursor<ExpressionNode>,
+    chars: string[] | string,
+  ) => {
     chars = typeof chars == 'string' ? chars.split('') : chars;
-    chars.forEach((char) => expression.Add(new Character(char)));
+    chars.forEach((char) => cursor.Add(new Character(char)));
   };
 
   const extractCharacters = (expression: Expression) =>
     expression.AsArray.map((n) => (n instanceof Character ? n.Character : '%'));
-  const extractActive = (expression: Expression) =>
-    expression.ActiveNode instanceof Character
-      ? expression.ActiveNode.Character
-      : '%';
+  const extractActive = (expression: Expression) => {
+    if (expression.ActiveNode?.Value instanceof Character)
+      return expression.ActiveNode.Value.Character;
+    else if (expression.ActiveNode?.Value instanceof CompositeExpressionNode)
+      return extractActive(expression.ActiveNode.Value.FocusedNode.Value);
+    return null;
+  };
   beforeEach(() => {
     expression = new RootExpression();
   });
@@ -153,6 +163,71 @@ describe('TermList', () => {
 
       const characters = extractCharacters(expression);
       expect(characters).toEqual('hello'.split(''));
+    });
+  });
+
+  describe('Nested element edition ', () => {
+    let fraction: Fraction;
+
+    beforeEach(() => {
+      expression = new RootExpression();
+      fraction = new Fraction();
+    });
+
+    it('Adds an special element and focuses it', () => {
+      expression.Add(fraction);
+
+      expect(expression.AsArray).toEqual([fraction]);
+      expect(expression.HasFocused).toBe(true);
+      expect(expression.FocusedNode).toEqual(fraction.Link);
+    });
+
+    it('Removes an special unfocused element', () => {
+      expression.Add(fraction);
+      expression.Blur().andKeepSelection();
+
+      expression.Remove();
+
+      expect(expression.AsArray).toEqual([]);
+      expect(expression.FocusedNode).toBeNull();
+    });
+  });
+
+  describe('Nested element selection', () => {
+    let fraction: Fraction;
+    describe('at 1st level nesting', () => {
+      beforeEach(() => {
+        expression = new RootExpression();
+        fraction = new Fraction();
+        addAll(fraction, '123');
+        fraction.SelectLastExpression();
+        addAll(fraction, '456');
+        expression.Add(fraction);
+        expression.Blur().andKeepSelection();
+        expression.SelectTail();
+      });
+
+      it('When the next element is focusable, focuses it and moves to the first character of its first expression', () => {
+        expression.SelectNext();
+
+        expect(expression.HasFocused).toBe(true);
+        expect(expression.FocusedNode?.Value).toEqual(fraction);
+        expect(expression.ActiveNode?.Value).toEqual(fraction);
+        expect(fraction.FocusedNode.Value).toEqual(fraction.Numerator);
+        expect(extractActive(expression)).toBeNull();
+      });
+
+      it('When the previous element is focusable, focuses it and moves to its first character', () => {
+        expression.SelectLast();
+
+        expression.SelectPrev();
+
+        expect(expression.HasFocused).toBe(true);
+        expect(expression.FocusedNode?.Value).toEqual(fraction);
+        expect(expression.ActiveNode?.Value).toEqual(fraction);
+        expect(fraction.FocusedNode.Value).toEqual(fraction.Denominator);
+        expect(extractActive(expression)).toBe('6');
+      });
     });
   });
 });
