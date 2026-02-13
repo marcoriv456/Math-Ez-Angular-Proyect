@@ -8,11 +8,12 @@ export class RootExpression extends Expression {
   }
 
   override Select(node: ExpressionNode): void {
+    this.UnFocus();
     this._linker.Select(node.Link);
   }
 
   override Focus(node: CompositeExpressionNode) {
-    this._focusedNode = node.Link;
     this.Select(node);
+    this._focusedNode = node.Link;
   }
 }

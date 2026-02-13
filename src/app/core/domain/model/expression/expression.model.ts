@@ -44,25 +44,19 @@ export abstract class Expression
     return this._linker.Selection;
   }
 
-  private get _activeNode(): Link<ExpressionNode> | null {
-    return this._linker.Selection;
-  }
-
   get AsArray() {
     return this._linker.AsArray;
   }
 
   //FocusedAt
   Focus(node: CompositeExpressionNode) {
-    this._focusedNode = node.Link;
     this.Select(node);
-    // console.log('selected: ', this._linker.Selected )
-    // console.log('on focus: selected:', this._activeNode?.Value);
+    this._focusedNode = node.Link;
+    this.Parent.Focus(this);
   }
 
   UnFocus() {
     this._focusedNode = null;
-    console.log('on unfocus: selected: ', this._activeNode?.Value);
   }
 
   Blur() {
@@ -98,26 +92,21 @@ export abstract class Expression
   }
 
   Select(node: ExpressionNode) {
+    this.UnFocus();
     this._linker.Select(node.Link);
     this.Parent.Focus(this);
   }
 
   SelectNext() {
     if (this._focusedNode) {
-      // console.log('focused node existed');
       this._focusedNode.Value.SelectNext();
     } else if (this._linker.HasNext) {
-      // console.log('had next: selection:', this._linker.Selection?.Value);
-      // console.log('after had next: selection:', this._linker.Selection?.Value);
       this._linker.SelectNext();
       if (this.ActiveNode?.Value instanceof CompositeExpressionNode) {
-        // console.log('was  composite');
         this.Focus(this.ActiveNode.Value);
         this.FocusedNode?.Value.SelectFirstExpression();
         this.FocusedNode?.Value.SelectTail();
       }
-      // if ((this._linker.Selection?.Value as any)['Character'] == '$')
-      //   console.log('CATCH!');
     }
   }
 
@@ -132,8 +121,6 @@ export abstract class Expression
       } else {
         this._linker.SelectPrev();
       }
-      // if ((this._linker.Selection?.Value as any)['Character'] == '$')
-      // console.log('CATCH!');
     }
   }
 
@@ -151,23 +138,26 @@ export abstract class Expression
     } else {
       this._linker.SelectTail();
     }
-    // console.log('///SELECT TAIL CALLED');
   }
 
   get HasNext(): boolean {
     if (this._focusedNode) return this._focusedNode.Value.HasNext;
     return this._linker.HasNext;
   }
+
   get HasPrev(): boolean {
     if (this._focusedNode) return this._focusedNode.Value.HasPrev;
     return this._linker.HasPrev;
   }
+
   get HasNextNodes(): boolean {
     return this._linker.HasNext;
   }
+
   get HasPrevNodes(): boolean {
     return this._linker.HasPrev;
   }
+
   get HasFocused() {
     return !!this._focusedNode;
   }

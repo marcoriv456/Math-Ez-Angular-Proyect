@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { MathInputEventBusService } from './core/services/math-input-event-bus/math-input-event-bus.service';
 import { MathInputComponent } from './math-input.component';
 import { MathInputTestPageComponent } from './test/math-input-test-page/math-input-test-page.component';
 import { ExpressionComponent } from './ui/atoms/expression/expression.component';
@@ -20,5 +21,6 @@ import { FractionComponent } from './ui/terms/fraction/fraction.component';
   ],
   imports: [CommonModule],
   exports: [MathInputComponent],
+  providers: [MathInputEventBusService],
 })
-export class MathInputModule {}
+export class MathInputModule { }

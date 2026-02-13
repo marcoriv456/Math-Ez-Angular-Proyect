@@ -2,18 +2,19 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
-  EventEmitter,
+  HostListener,
   inject,
   Input,
-  Output,
   QueryList,
-  ViewChildren,
+  ViewChildren
 } from '@angular/core';
 import { ExpressionNode } from '../../../../../../core/domain/abstract/expression-node.interface';
 import { Character } from '../../../../../../core/domain/model/character/character.model';
 import { Expression } from '../../../../../../core/domain/model/expression/expression.model';
 import { Fraction } from '../../../../../../core/domain/model/fraction/fraction.model';
+import { CharacterClickEvent } from '../../../core/events/character-click.event';
 import { DomPositionCalculator } from '../../../core/helpers/dom-position-calculator.helper';
+import { MathInputEventBusService } from '../../../core/services/math-input-event-bus/math-input-event-bus.service';
 import { CaretLayout } from '../../../core/structures/caret-layout.type';
 import { CompositeExpressionNodeView } from '../../abstracts/composite-expression-node-view.abstract';
 import { ExpressionNodeView } from '../../abstracts/expression-node-view.abstract';
@@ -26,12 +27,12 @@ import { ExpressionNodeView } from '../../abstracts/expression-node-view.abstrac
 export class ExpressionComponent {
   @Input({ required: true }) Expression!: Expression;
 
-  @Output() Click = new EventEmitter<CaretLayout>();
   @ViewChildren(ExpressionNodeView)
   protected readonly _renderedTermList!: QueryList<ExpressionNodeView>;
 
   private readonly _ref = inject(ElementRef<HTMLElement>);
   private readonly _cdr = inject(ChangeDetectorRef);
+  private readonly _eventBus = inject(MathInputEventBusService);
 
   private get _activeNode(): ExpressionNodeView | null {
     const activeNodeIndex = this.Expression.ActiveNode?.Index;
@@ -39,18 +40,6 @@ export class ExpressionComponent {
     const activeNode = this._renderedTermList.get(activeNodeIndex);
     if (!activeNode) return null;
     return activeNode;
-  }
-
-  private get _focusedNode(): CompositeExpressionNodeView | null {
-    const focusedNodeIndex = this.Expression.FocusedNode?.Index;
-    if (focusedNodeIndex == null) {
-      return null;
-    }
-    const focusedNode = this._renderedTermList.get(focusedNodeIndex);
-    if (!focusedNode) {
-      return null;
-    }
-    return focusedNode as CompositeExpressionNodeView;
   }
 
   public get CaretLayout(): CaretLayout {
@@ -61,6 +50,36 @@ export class ExpressionComponent {
     return selected ? selected.CaretLayout : this._defaultCaretLayout;
   }
 
+  private get _focusedNode(): CompositeExpressionNodeView | null {
+    // console.log(
+    //   'getting rendered focused node, model: ',
+    //   this.Expression.FocusedNode,
+    // );
+    const focusedNode = this.Expression.FocusedNode;
+    // console.log('focused node index: ', focusedNode);
+    if (focusedNode == undefined) {
+      return null;
+    }
+    const renderedFocusedNode = this._renderedTermList.get(focusedNode.Index);
+    if (!renderedFocusedNode) {
+      return null;
+    }
+    return renderedFocusedNode as CompositeExpressionNodeView;
+  }
+
+  @HostListener('click', ['$event'])
+  protected OnClick(event: MouseEvent) {
+    event.stopPropagation();
+    const clickPosition = event.offsetX;
+    let side: 'left' | 'right' =
+      this._ref.nativeElement.offsetWidth / 2 > clickPosition
+        ? 'left'
+        : 'right';
+    if (side == 'left') this.Expression.SelectTail();
+    else this.Expression.SelectLast();
+    this._cdr.detectChanges();
+    this._eventBus.emit(new CharacterClickEvent());
+  }
   public GoForward(): CaretLayout {
     this.Expression.SelectNext();
     return this.CaretLayout;
@@ -91,6 +110,13 @@ export class ExpressionComponent {
     this.Expression.Remove();
     this._cdr.detectChanges();
     return this.CaretLayout;
+  }
+
+  protected SelectOnSide(char: Character, side: 'left' | 'right') {
+    this.Expression.Select(char);
+    if (side == 'left') this.Expression.SelectPrev();
+    this._cdr.detectChanges();
+    this._eventBus.emit(new CharacterClickEvent());
   }
 
   protected IsCharacter(node: ExpressionNode): node is Character {

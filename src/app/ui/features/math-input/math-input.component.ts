@@ -7,7 +7,9 @@ import {
   ViewChild,
 } from '@angular/core';
 import { RootExpression } from '../../../core/domain/model/expression/root-expression.model';
+import { CharacterClickEvent } from './core/events/character-click.event';
 import { ExpressionInputIntepreter } from './core/helpers/expression-input-interpreter.helper';
+import { MathInputEventBusService } from './core/services/math-input-event-bus/math-input-event-bus.service';
 import { CaretLayout } from './core/structures/caret-layout.type';
 import { ExpressionComponent } from './ui/atoms/expression/expression.component';
 import { CaretComponent } from './ui/organisms/caret/caret.component';
@@ -19,16 +21,21 @@ import { CaretComponent } from './ui/organisms/caret/caret.component';
   host: { '[attr.tabindex]': '0' },
 })
 export class MathInputComponent implements AfterViewInit {
-  @ViewChild(ExpressionComponent) _termList!: ExpressionComponent;
+  @ViewChild(ExpressionComponent) _expresssionView!: ExpressionComponent;
   @ViewChild(CaretComponent) _caret!: CaretComponent;
   private readonly ref: ElementRef<HTMLElement> = inject(
     ElementRef<HTMLElement>,
   );
 
+  private readonly _eventBus = inject(MathInputEventBusService);
+
   protected readonly _root = new RootExpression();
 
   ngAfterViewInit(): void {
     this.ref.nativeElement.focus();
+    this._eventBus
+      .on(CharacterClickEvent)
+      .subscribe(() => this.MoveCaretTo(this._expresssionView.CaretLayout));
   }
 
   @HostListener('keydown', ['$event'])
@@ -42,7 +49,7 @@ export class MathInputComponent implements AfterViewInit {
 
   @HostListener('click')
   protected OnClick() {
-    const lastPosition = this._termList.GoEnd();
+    const lastPosition = this._expresssionView.GoEnd();
     this.MoveCaretTo(lastPosition);
   }
 
@@ -54,26 +61,26 @@ export class MathInputComponent implements AfterViewInit {
   private GoToArrowDirection(key: string) {
     switch (key) {
       case 'ArrowRight':
-        return this._termList.GoForward();
+        return this._expresssionView.GoForward();
       case 'ArrowLeft':
-        return this._termList.GoBackward();
+        return this._expresssionView.GoBackward();
       case 'ArrowUp':
-        return this._termList.GoEnd();
+        return this._expresssionView.GoEnd();
       case 'ArrowDown':
-        return this._termList.GoStart();
+        return this._expresssionView.GoStart();
       default:
         throw new Error('Behaviour for that key not implemented already');
     }
   }
 
   private RemoveChar() {
-    const remainingPosition = this._termList.Remove();
+    const remainingPosition = this._expresssionView.Remove();
     this.MoveCaretTo(remainingPosition);
   }
 
   private WriteChar(char: string) {
     const node = ExpressionInputIntepreter.interpret(char);
-    const charPosition = this._termList.Add(node);
+    const charPosition = this._expresssionView.Add(node);
     this.MoveCaretTo(charPosition);
   }
 

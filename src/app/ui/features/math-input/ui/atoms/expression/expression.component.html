@@ -1,6 +1,7 @@
 @for (node of Expression.AsArray; track $index) {
   @if (IsCharacter(node)) {
-    <math-character [Character]="node" />
+    <math-character [Character]="node" (CharacterClick)="SelectOnSide(node, $event.side)"/>
+
   }
   @if (IsFraction(node)) {
     <math-fraction [Fraction]="node" />
