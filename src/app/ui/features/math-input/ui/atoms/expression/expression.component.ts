@@ -6,7 +6,7 @@ import {
   inject,
   Input,
   QueryList,
-  ViewChildren
+  ViewChildren,
 } from '@angular/core';
 import { ExpressionNode } from '../../../../../../core/domain/abstract/expression-node.interface';
 import { Character } from '../../../../../../core/domain/model/character/character.model';
@@ -51,12 +51,7 @@ export class ExpressionComponent {
   }
 
   private get _focusedNode(): CompositeExpressionNodeView | null {
-    // console.log(
-    //   'getting rendered focused node, model: ',
-    //   this.Expression.FocusedNode,
-    // );
     const focusedNode = this.Expression.FocusedNode;
-    // console.log('focused node index: ', focusedNode);
     if (focusedNode == undefined) {
       return null;
     }
@@ -69,6 +64,7 @@ export class ExpressionComponent {
 
   @HostListener('click', ['$event'])
   protected OnClick(event: MouseEvent) {
+    console.log('hola');
     event.stopPropagation();
     const clickPosition = event.offsetX;
     let side: 'left' | 'right' =

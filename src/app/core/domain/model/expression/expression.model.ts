@@ -52,7 +52,7 @@ export abstract class Expression
   Focus(node: CompositeExpressionNode) {
     this.Select(node);
     this._focusedNode = node.Link;
-    this.Parent.Focus(this);
+    this.RequestFocus();
   }
 
   UnFocus() {
@@ -94,7 +94,7 @@ export abstract class Expression
   Select(node: ExpressionNode) {
     this.UnFocus();
     this._linker.Select(node.Link);
-    this.Parent.Focus(this);
+    this.RequestFocus();
   }
 
   SelectNext() {
@@ -125,6 +125,7 @@ export abstract class Expression
   }
 
   SelectLast() {
+    this.RequestFocus();
     if (this._focusedNode) {
       this._focusedNode.Value.SelectLast();
     } else {
@@ -133,11 +134,16 @@ export abstract class Expression
   }
 
   SelectTail() {
+    this.RequestFocus();
     if (this._focusedNode) {
       this._focusedNode.Value.SelectTail();
     } else {
       this._linker.SelectTail();
     }
+  }
+
+  protected RequestFocus() {
+    this.Parent.Focus(this);
   }
 
   get HasNext(): boolean {
