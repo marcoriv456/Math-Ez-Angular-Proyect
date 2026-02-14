@@ -1,5 +1,4 @@
 import {
-  ChangeDetectorRef,
   Component,
   ElementRef,
   HostListener,
@@ -31,7 +30,6 @@ export class ExpressionComponent {
   protected readonly _renderedTermList!: QueryList<ExpressionNodeView>;
 
   private readonly _ref = inject(ElementRef<HTMLElement>);
-  private readonly _cdr = inject(ChangeDetectorRef);
   private readonly _eventBus = inject(MathInputEventBusService);
 
   private get _activeNode(): ExpressionNodeView | null {
@@ -64,7 +62,6 @@ export class ExpressionComponent {
 
   @HostListener('click', ['$event'])
   protected OnClick(event: MouseEvent) {
-    console.log('hola');
     event.stopPropagation();
     const clickPosition = event.offsetX;
     let side: 'left' | 'right' =
@@ -73,45 +70,35 @@ export class ExpressionComponent {
         : 'right';
     if (side == 'left') this.Expression.SelectTail();
     else this.Expression.SelectLast();
-    this._cdr.detectChanges();
     this._eventBus.emit(new CharacterClickEvent());
   }
-  public GoForward(): CaretLayout {
+  public GoForward() {
     this.Expression.SelectNext();
-    return this.CaretLayout;
   }
 
-  public GoBackward(): CaretLayout {
+  public GoBackward() {
     this.Expression.SelectPrev();
-    return this.CaretLayout;
   }
 
-  public GoStart(): CaretLayout {
+  public GoStart() {
     this.Expression.SelectTail();
-    return this.CaretLayout;
   }
 
-  public GoEnd(): CaretLayout {
+  public GoEnd() {
     this.Expression.SelectLast();
-    return this.CaretLayout;
   }
 
-  public Add(node: ExpressionNode): CaretLayout {
+  public Add(node: ExpressionNode) {
     this.Expression.Add(node);
-    this._cdr.detectChanges();
-    return this.CaretLayout;
   }
 
-  public Remove(): CaretLayout {
+  public Remove() {
     this.Expression.Remove();
-    this._cdr.detectChanges();
-    return this.CaretLayout;
   }
 
   protected SelectOnSide(char: Character, side: 'left' | 'right') {
     this.Expression.Select(char);
     if (side == 'left') this.Expression.SelectPrev();
-    this._cdr.detectChanges();
     this._eventBus.emit(new CharacterClickEvent());
   }
 

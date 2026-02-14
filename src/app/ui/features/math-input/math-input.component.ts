@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   HostListener,
@@ -10,7 +11,6 @@ import { RootExpression } from '../../../core/domain/model/expression/root-expre
 import { CharacterClickEvent } from './core/events/character-click.event';
 import { ExpressionInputIntepreter } from './core/helpers/expression-input-interpreter.helper';
 import { MathInputEventBusService } from './core/services/math-input-event-bus/math-input-event-bus.service';
-import { CaretLayout } from './core/structures/caret-layout.type';
 import { ExpressionComponent } from './ui/atoms/expression/expression.component';
 import { CaretComponent } from './ui/organisms/caret/caret.component';
 
@@ -28,14 +28,13 @@ export class MathInputComponent implements AfterViewInit {
   );
 
   private readonly _eventBus = inject(MathInputEventBusService);
+  private readonly _cdr = inject(ChangeDetectorRef);
 
   protected readonly _root = new RootExpression();
 
   ngAfterViewInit(): void {
     this.ref.nativeElement.focus();
-    this._eventBus
-      .on(CharacterClickEvent)
-      .subscribe(() => this.MoveCaretTo(this._expresssionView.CaretLayout));
+    this._eventBus.on(CharacterClickEvent).subscribe(() => this.UpdateCaret());
   }
 
   @HostListener('keydown', ['$event'])
@@ -45,17 +44,17 @@ export class MathInputComponent implements AfterViewInit {
     if (key.length == 1) this.WriteChar(key);
     else if (key.startsWith('Arrow')) this.OnArrowPressed(key);
     else if (key == 'Backspace') this.RemoveChar();
+    this.UpdateCaret();
   }
 
   @HostListener('click')
   protected OnClick() {
-    const lastPosition = this._expresssionView.GoEnd();
-    this.MoveCaretTo(lastPosition);
+    this._expresssionView.GoEnd();
+    this.UpdateCaret();
   }
 
   private OnArrowPressed(key: string) {
-    const newPosition = this.GoToArrowDirection(key);
-    this.MoveCaretTo(newPosition);
+    this.GoToArrowDirection(key);
   }
 
   private GoToArrowDirection(key: string) {
@@ -74,17 +73,16 @@ export class MathInputComponent implements AfterViewInit {
   }
 
   private RemoveChar() {
-    const remainingPosition = this._expresssionView.Remove();
-    this.MoveCaretTo(remainingPosition);
+    this._expresssionView.Remove();
   }
 
   private WriteChar(char: string) {
     const node = ExpressionInputIntepreter.interpret(char);
-    const charPosition = this._expresssionView.Add(node);
-    this.MoveCaretTo(charPosition);
+    this._expresssionView.Add(node);
   }
 
-  private MoveCaretTo(layout: CaretLayout) {
-    this._caret.MoveTo(layout);
+  private UpdateCaret() {
+    this._cdr.detectChanges();
+    this._caret.MoveTo(this._expresssionView.CaretLayout);
   }
 }
