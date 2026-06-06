@@ -1,9 +1,5 @@
-import {
-  Directive,
-  QueryList,
-  ViewChildren
-} from '@angular/core';
-import { CompositeExpressionNode } from '../../../../../core/domain/abstract/composite-expression-node.interface';
+import { Directive, QueryList, ViewChildren } from '@angular/core';
+import { CompositeExpressionNode } from '../../../../../core/domain/abstract/composite-expression-node/composite-expression-node.interface';
 import { CaretLayout } from '../../core/structures/caret-layout.type';
 import { ExpressionComponent } from '../atoms/expression/expression.component';
 import { ExpressionNodeView } from './expression-node-view.abstract';
@@ -11,7 +7,6 @@ import { ExpressionNodeView } from './expression-node-view.abstract';
 export abstract class CompositeExpressionNodeView extends ExpressionNodeView {
   @ViewChildren(ExpressionComponent)
   protected _expressionViews!: QueryList<ExpressionComponent>;
-
 
   abstract Node: CompositeExpressionNode;
   get CompositeCaretLayout(): CaretLayout {

@@ -1,5 +1,5 @@
 import { Log } from '../../../debug/log-node.debug.helper';
-import { CompositeExpressionNode } from '../../abstract/composite-expression-node.interface';
+import { CompositeExpressionNode } from '../../abstract/composite-expression-node/composite-expression-node.interface';
 import { ExpressionNode } from '../../abstract/expression-node.interface';
 import { Expression } from './expression.model';
 

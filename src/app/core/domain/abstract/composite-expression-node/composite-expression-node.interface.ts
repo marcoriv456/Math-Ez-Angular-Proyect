@@ -1,10 +1,10 @@
-import { EditingCursor } from '../../structures/cursor/editing-cursor.interface';
-import { FocusedAt } from '../../structures/focus/focused-at.interface';
-import { Indexed } from '../../structures/index/indexable.structure';
-import { ClosedLinker } from '../../structures/link/closed-linker.structure';
-import { Link } from '../../structures/link/link.i';
-import { Expression } from '../model/expression/expression.model';
-import { ExpressionNode } from './expression-node.interface';
+import { EditingCursor } from '../../../structures/cursor/editing-cursor.interface';
+import { FocusedAt } from '../../../structures/focus/focused-at.interface';
+import { Indexed } from '../../../structures/index/indexable.structure';
+import { ClosedLinker } from '../../../structures/link/closed-linker.structure';
+import { Link } from '../../../structures/link/link.i';
+import { Expression } from '../../model/expression/expression.model';
+import { ExpressionNode } from '.././expression-node.interface';
 
 export abstract class CompositeExpressionNode
   implements

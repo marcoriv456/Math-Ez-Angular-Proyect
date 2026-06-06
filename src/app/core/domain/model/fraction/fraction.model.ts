@@ -1,5 +1,5 @@
 import { ClosedLinker } from '../../../structures/link/closed-linker.structure';
-import { CompositeExpressionNode } from '../../abstract/composite-expression-node.interface';
+import { CompositeExpressionNode } from '../../abstract/composite-expression-node/composite-expression-node.interface';
 import { ChildExpression } from '../expression/child-expression.model';
 import { Expression } from '../expression/expression.model';
 

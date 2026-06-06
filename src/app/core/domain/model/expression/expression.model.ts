@@ -5,7 +5,7 @@ import { Link } from '../../../structures/link/link.i';
 import { Linkable } from '../../../structures/link/linkable.interface';
 import { SelectionLinker } from '../../../structures/link/selection-linker.structure';
 import { Parentable } from '../../../structures/parentable/parentable.interface';
-import { CompositeExpressionNode } from '../../abstract/composite-expression-node.interface';
+import { CompositeExpressionNode } from '../../abstract/composite-expression-node/composite-expression-node.interface';
 import { ExpressionNode } from '../../abstract/expression-node.interface';
 
 export abstract class Expression
